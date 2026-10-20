@@ -1,6 +1,6 @@
 # E5: Edge stage of the stroke selection (people)
 
-**Issue:** #458, step E5. **Plan:** [AI Segmentation Mask master plan, section 8.16](../background/model_re_evaluation.md).
+**Issue:** [AlcedoStudio#458](https://github.com/zidage/AlcedoStudio/issues/458), step E5. **Plan:** [AI Segmentation Mask master plan, section 8.16](../background/model_re_evaluation.md).
 **Date:** 2026-10-20. **Branch:** `feature/ai-segmentation-sm1-quality-review`.
 **Status:** measurements done. The user review of the sheets and the decision are open.
 
@@ -353,6 +353,6 @@ The user decides the edge stage and the interaction set (decision D2, step E6).
 
 - `scripts/ai_models/sam2/`: new `edge_targets.json`, `refine_stroke_edges.py`, `probe_edges.py`;
   `README.md`. No change to product code.
-- `docs/roadmap/alcedo_studio/edit/ai_mask_candidate/`: this report and the index.
-- `docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md`: E5 result in section
+- [`docs/roadmap/alcedo_studio/edit/ai_mask_candidate/`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_mask_candidate/): this report and the index.
+- [`docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md): E5 result in section
   8.16.4.

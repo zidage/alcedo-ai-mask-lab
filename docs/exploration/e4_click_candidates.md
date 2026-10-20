@@ -1,6 +1,6 @@
 # E4: Click selection with candidates and hover highlight
 
-**Issue:** #458, step E4. **Plan:** [AI Segmentation Mask master plan, section 8.16](../background/model_re_evaluation.md).
+**Issue:** [AlcedoStudio#458](https://github.com/zidage/AlcedoStudio/issues/458), step E4. **Plan:** [AI Segmentation Mask master plan, section 8.16](../background/model_re_evaluation.md).
 **Date:** 2026-10-19. **Branch:** `feature/ai-segmentation-sm1-quality-review`.
 **Status:** measurements done. User assessment (2026-10-20): a selection that follows the pointer
 movement (the hover highlight of sections 3 and 9) is probably not a good interaction. Step E3 now
@@ -116,7 +116,7 @@ Two settings were measured:
 | Intended selection | `scripts/ai_models/sam2/click_targets.json`: per prompt, the intent (whole object or the part that the prompt names) and the reference. Object: the E1 PyTorch box mask of base plus. Part: the best E1 PyTorch multimask candidate of base plus at that point, which the E1 review found correct. `2088064441` person has no reference (the box holds the person, the board, and the bag); it is checked on the images only. |
 | Models | SAM 2.1 tiny and base plus (E1 checkpoints and code, `facebookresearch/sam2` at `2b90b9f5`). |
 | Graphs | `point_encoder.onnx` and `point_decoder.onnx`: byte-identical to E1 (same SHA-256). `candidate_decoder.onnx`: new, see section 5. |
-| Scripts | [`scripts/ai_models/sam2/`](../../scripts/ai_models/sam2/README.md) and `rust/puerh_mind/examples/segmentation_runtime_report.rs` (`candidates` mode) |
+| Scripts | [`scripts/ai_models/sam2/`](../../scripts/ai_models/sam2/README.md) and [`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs) (`candidates` mode) |
 | Evidence | `build/tmp/explore/e4/` on the Windows machine (not committed): `input_4096/`, `onnx_*/`, `compare/`, `upstream/`, `runtime/`, `masks/`, `overlays/`, `probe/`, `profiles/` |
 
 ### 4.2 Machine
@@ -422,9 +422,9 @@ The user decides the model and the interaction set (decision D2, step E6).
   `export_onnx.py` (`candidate_decoder.onnx`, `--graphs`, `--candidate-batch`,
   `--candidate-float16`), new `compare_candidate_outputs.py`, `make_input_set.py`,
   `click_targets.json`, `probe_candidates.py`, `make_candidate_sheets.py`, `README.md`.
-- `rust/puerh_mind/examples/segmentation_runtime_report.rs`: new `candidates` mode (candidate
+- [`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs): new `candidates` mode (candidate
   generation, levels under the pointer, live point decoder, hover stability, overlays). No change
   to product code.
-- `docs/roadmap/alcedo_studio/edit/ai_mask_candidate/`: this report and the index.
-- `docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md`: E4 result in section
+- [`docs/roadmap/alcedo_studio/edit/ai_mask_candidate/`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_mask_candidate/): this report and the index.
+- [`docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md): E4 result in section
   8.16.4.

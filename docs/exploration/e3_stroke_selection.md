@@ -1,6 +1,6 @@
 # E3: Stroke selection
 
-**Issue:** #458, step E3. **Plan:** [AI Segmentation Mask master plan, section 8.16](../background/model_re_evaluation.md).
+**Issue:** [AlcedoStudio#458](https://github.com/zidage/AlcedoStudio/issues/458), step E3. **Plan:** [AI Segmentation Mask master plan, section 8.16](../background/model_re_evaluation.md).
 **Date:** 2026-10-20. **Branch:** `feature/ai-segmentation-sm1-quality-review`.
 **Status:** measurements done. The user review of the sheets and the decision are open.
 
@@ -103,7 +103,7 @@ stroke with a modifier key gives negative points. Step E3 answers:
 | Photos and prompts | The E4 input set (`build/tmp/explore/e4/input_4096/`): 14 photos scaled to the 4096 px application input, the 26 single-point prompts of plan section 8.15. |
 | Intended selection | `scripts/ai_models/sam2/click_targets.json` (E4): 11 object and 14 part prompts with an E1 reference mask. `2088064441` person has no reference and is not measured. |
 | Models | SAM 2.1 tiny and base plus, the E1 graphs (`point_encoder.onnx`, `point_decoder.onnx`; the copies in `build/tmp/explore/e4/onnx_float32_batch16/`, float32). |
-| Scripts | `rust/puerh_mind/examples/segmentation_runtime_report.rs` (`strokes` mode) and [`scripts/ai_models/sam2/`](../../scripts/ai_models/sam2/README.md): `compare_stroke_outputs.py`, `probe_strokes.py`, `make_stroke_sheets.py` |
+| Scripts | [`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs) (`strokes` mode) and [`scripts/ai_models/sam2/`](../../scripts/ai_models/sam2/README.md): `compare_stroke_outputs.py`, `probe_strokes.py`, `make_stroke_sheets.py` |
 | Evidence | `build/tmp/explore/e3/` on the Windows machine (not committed): `runtime/`, `masks/`, `compare/`, `probe/`, `profiles/` |
 
 ### 4.2 Machine
@@ -455,7 +455,7 @@ The user decides the interaction set and the model (decision D2, step E6).
 
 ## 11. Changed files
 
-- `rust/puerh_mind/examples/segmentation_runtime_report.rs`: new `strokes` mode (stroke placement
+- [`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs): new `strokes` mode (stroke placement
   with an exact distance transform, sweeps of point count, spacing, length, and direction,
   corrective click and stroke sequences with three combinations, decoder time per point count in
   new and existing sessions, operator profiles, `--pad-points` with `--pad-mode`,
@@ -463,6 +463,6 @@ The user decides the interaction set and the model (decision D2, step E6).
   to product code.
 - `scripts/ai_models/sam2/`: new `compare_stroke_outputs.py`, `probe_strokes.py`,
   `make_stroke_sheets.py`; `README.md`.
-- `docs/roadmap/alcedo_studio/edit/ai_mask_candidate/`: this report and the index.
-- `docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md`: E3 result in section
+- [`docs/roadmap/alcedo_studio/edit/ai_mask_candidate/`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_mask_candidate/): this report and the index.
+- [`docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md): E3 result in section
   8.16.4.

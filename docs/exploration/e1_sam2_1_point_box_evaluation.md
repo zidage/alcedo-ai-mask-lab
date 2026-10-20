@@ -1,6 +1,6 @@
 # E1: SAM 2.1 point and box prompts
 
-**Issue:** #458, step E1. **Plan:** [AI Segmentation Mask master plan, section 8.16](../background/model_re_evaluation.md).
+**Issue:** [AlcedoStudio#458](https://github.com/zidage/AlcedoStudio/issues/458), step E1. **Plan:** [AI Segmentation Mask master plan, section 8.16](../background/model_re_evaluation.md).
 **Date:** 2026-10-19. **Branch:** `feature/ai-segmentation-sm1-quality-review`.
 **Status:** measurements done. The user review of the visual results and the decision are open.
 
@@ -57,7 +57,7 @@ resized to 72 x 72, decoder logits near 0). Step E1 answers two questions:
 | Baseline | EfficientSAM3 EfficientViT-M (`efficient_sam3_efficientvit_m_geo_ft.pt`), the SM1 ONNX graphs, measured again in the same session. |
 | Code | `facebookresearch/sam2` at `2b90b9f5ceec907a1c18123530e92e794ad901a4` |
 | Checkpoints | `sam2.1_hiera_{tiny,small,base_plus,large}.pt` (release 2024-09-28) |
-| Scripts | [`scripts/ai_models/sam2/`](../../scripts/ai_models/sam2/README.md) and `rust/puerh_mind/examples/segmentation_runtime_report.rs` |
+| Scripts | [`scripts/ai_models/sam2/`](../../scripts/ai_models/sam2/README.md) and [`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs) |
 | Evidence | `build/tmp/explore/e1/` on the Windows machine (not committed): `onnx/`, `compare/`, `probe/`, `runtime/`, `profiles/`, `overlays/`, `sheets/` |
 
 ### 3.2 Machine
@@ -343,7 +343,7 @@ One photo (`DSC_1535`), 10 encoder and 30 decoder runs, production session setti
 | Optional `cc_torch` connected components (not used by the graphs) | `LICENSE_cctorch` (BSD-3-Clause) | not shipped |
 
 A published model directory needs the Apache-2.0 text. The Meta SAM License is not necessary for
-SAM 2.1, which removes the license item of #454.
+SAM 2.1, which removes the license item of [AlcedoStudio#454](https://github.com/zidage/AlcedoStudio/issues/454).
 
 ## 8. Recommendation per size
 
@@ -373,8 +373,8 @@ SAM 2.1, which removes the license item of #454.
 - `scripts/ai_models/sam2/`: `sam2_graphs.py`, `export_onnx.py`, `compare_onnx_outputs.py`,
   `probe_masks.py`, `run_with_gpu_memory.ps1`, `make_comparison_sheets.py`, `requirements.txt`,
   `README.md`.
-- `rust/puerh_mind/examples/segmentation_runtime_report.rs`: the input size, the mask size, and the
+- [`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs): the input size, the mask size, and the
   normalization come from `model_input` in `export_report.json` (default: the EfficientSAM3
   values). No change to product code.
-- `docs/roadmap/alcedo_studio/edit/ai_mask_candidate/`: this report, the index, and a
+- [`docs/roadmap/alcedo_studio/edit/ai_mask_candidate/`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_mask_candidate/): this report, the index, and a
   `.gitignore` for `images/` (the images stay local; see the note at the top).

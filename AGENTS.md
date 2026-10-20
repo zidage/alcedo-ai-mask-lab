@@ -26,7 +26,7 @@ the object edges.
 
 The production integration (ONNX Runtime in the `alcedo_mind` sidecar, the C++ client, the editor
 UI) is done in the Alcedo Studio repository. The runtime measurement program
-`rust/puerh_mind/examples/segmentation_runtime_report.rs` is also there.
+[`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs) is also there.
 
 ## Execution and product rules
 

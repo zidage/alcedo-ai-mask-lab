@@ -2,7 +2,7 @@
 
 These scripts export the BiRefNet dichotomous segmentation and matting models to ONNX, check the
 export against PyTorch, and make the evidence of the one-click Subject evaluation. The Rust program
-`rust/puerh_mind/examples/segmentation_runtime_report.rs` (`matte` mode) measures the graphs with
+[`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs) (`matte` mode) measures the graphs with
 the session settings of the `alcedo_mind` sidecar. The report is
 [E2: BiRefNet one-click Subject and matting](../../../docs/exploration/e2_birefnet_subject_matting.md);
 the plan is [AI Segmentation Mask master plan, section 8.16](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md).

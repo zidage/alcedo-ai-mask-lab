@@ -12,6 +12,19 @@ The evidence is in the step reports under [`docs/exploration/`](docs/exploration
 The next step is the proof of concept "locate people and sky from the SAM 2.1 image features"
 (section 5).
 
+## Main project
+
+| Item | Link |
+| --- | --- |
+| Repository | [zidage/AlcedoStudio](https://github.com/zidage/AlcedoStudio) |
+| Re-evaluation issue | [AlcedoStudio#458](https://github.com/zidage/AlcedoStudio/issues/458) |
+| Master plan | [AI Segmentation Mask master plan](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md) (decisions D1 to D11 in section 1.2) |
+| Branch of the research | [`feature/ai-segmentation-sm1-quality-review`](https://github.com/zidage/AlcedoStudio/tree/feature/ai-segmentation-sm1-quality-review) |
+| Runtime measurement program | [`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs) |
+
+The production integration (sidecar inference, C++ client, editor UI) is done in Alcedo Studio.
+This repository decides the models and the interaction, and proves them in Python.
+
 ## 1. Background
 
 The first plan used EfficientSAM3 for point, box, and text prompts. Its quality review failed: the
@@ -155,9 +168,9 @@ Risks:
 | [`scripts/ai_models/efficientsam3/`](scripts/ai_models/efficientsam3/README.md) | EfficientSAM3 export and comparison (SM1) |
 
 The scripts came from Alcedo Studio commit `d1e0d8c7` (branch
-`feature/ai-segmentation-sm1-quality-review`). Issue numbers in the reports (for example #458)
+`feature/ai-segmentation-sm1-quality-review`). Issue numbers in the reports (for example [AlcedoStudio#458](https://github.com/zidage/AlcedoStudio/issues/458))
 refer to the Alcedo Studio repository. The runtime measurements use
-`rust/puerh_mind/examples/segmentation_runtime_report.rs` in Alcedo Studio.
+[`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs) in Alcedo Studio.
 
 Rules for contributors and agents: [AGENTS.md](AGENTS.md), [CONTRIBUTING.md](CONTRIBUTING.md).
 

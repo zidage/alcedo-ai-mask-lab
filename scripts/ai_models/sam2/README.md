@@ -2,7 +2,7 @@
 
 These scripts export the SAM 2.1 point and box path to ONNX, check the export against PyTorch, and
 make the evidence of the model re-evaluation. The Rust program
-`rust/puerh_mind/examples/segmentation_runtime_report.rs` measures the graphs with the session
+[`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs) measures the graphs with the session
 settings of the `alcedo_mind` sidecar. The reports are
 [E1: SAM 2.1 point and box prompts](../../../docs/exploration/e1_sam2_1_point_box_evaluation.md),
 [E3: stroke selection](../../../docs/exploration/e3_stroke_selection.md),

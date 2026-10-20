@@ -3,7 +3,7 @@
 Source: section 8.15 of the [AI Segmentation Mask master plan](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md) in Alcedo Studio, commit `d1e0d8c7` on `feature/ai-segmentation-sm1-quality-review`, copied on 2026-10-20. Section numbers in the text (for example "section 8.6") refer to that plan. The step reports E1 to E5 are in [`../exploration/`](../exploration/README.md).
 
 **Phase / date / status:** SM1, 2026-10-19. Export and runtime proof of concept done. The user
-review (#449) and the user decisions (#454) are open. Issue: #448.
+review (#449) and the user decisions (#454) are open. Issue: [AlcedoStudio#448](https://github.com/zidage/AlcedoStudio/issues/448).
 
 **Source revision and branch:** `3c378d9c` on `feature/ai-segmentation-sm1-runtime-poc`.
 
@@ -34,9 +34,9 @@ checkpoints contain SAM3 components.
 - `scripts/ai_models/efficientsam3/`: `esam3_graphs.py` (shared graph wrappers, not in the
   section 8.3 list), `inspect_checkpoint.py`, `export_onnx.py`, `compare_onnx_outputs.py`,
   `refine_edges_prototype.py`, `requirements.txt`, `README.md`.
-- `rust/puerh_mind/src/service/ort_runtime.rs`: items are `pub`; new `session_builder` returns the
+- [`rust/puerh_mind/src/service/ort_runtime.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/src/service/ort_runtime.rs): items are `pub`; new `session_builder` returns the
   production builder and `load_session` commits it. No behavior change.
-- `rust/puerh_mind/examples/segmentation_runtime_report.rs`: `runtime` and `ping` modes.
+- [`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs): `runtime` and `ping` modes.
 
 **Implemented behavior:** four ONNX graphs (`point_encoder`, `point_decoder`, `text_encoder`,
 `detector_grounding`; tensor layout in the README), opset 17. The decoder returns the four mask
@@ -182,9 +182,9 @@ p95 0.32, maximum 0.60 ms; new channel per call p50 0.52, p95 13.4, maximum 26.6
 | EfficientViT `text_encoder.onnx` | 169,171,248 | `24325d3cf107ef585ba6d29d74e643355962bf2caf5d0e9c67ca7032318137a9` |
 | EfficientViT `detector_grounding.onnx` | 201,571,788 | `d37a94b23eb5dbf7f8fd6daf47a833a8590b949e0e8ea06ad1d69910c14ab582` |
 | SAM License (`sam3/LICENSE`) | 7,353 | `4dea99bfaa016e21bc860d73f344236bd1e5c4977d1a9a8fd32f822b500ae1be` |
-| Apache-2.0 text | missing upstream | #454 |
+| Apache-2.0 text | missing upstream | [AlcedoStudio#454](https://github.com/zidage/AlcedoStudio/issues/454) |
 
-**Recommendations and user decisions:** recommendations are in #454. No user decision yet.
+**Recommendations and user decisions:** recommendations are in [AlcedoStudio#454](https://github.com/zidage/AlcedoStudio/issues/454). No user decision yet.
 
 **Evidence path:** `build/tmp/sm1/` on the Windows machine: `inspect/`, `onnx/`, `compare*/`,
 `runtime/`, `profiles*/`, `overlays/`, `refine/`, `variant_contact_sheet.png`, and `quality/`

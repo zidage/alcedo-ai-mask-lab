@@ -1,7 +1,7 @@
 # EfficientSAM3 export and measurement tools (AI Segmentation Mask, phase SM1)
 
 These scripts export EfficientSAM3 to ONNX and check the export. The Rust program
-`rust/puerh_mind/examples/segmentation_runtime_report.rs` then measures the graphs with the
+[`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs) then measures the graphs with the
 session settings of the `alcedo_mind` sidecar. The plan is
 [AI Segmentation Mask master plan, section 8](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md).
 

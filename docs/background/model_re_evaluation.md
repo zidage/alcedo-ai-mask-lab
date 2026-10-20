@@ -3,8 +3,8 @@
 Source: section 8.16 of the [AI Segmentation Mask master plan](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md) in Alcedo Studio, commit `d1e0d8c7` on `feature/ai-segmentation-sm1-quality-review`, copied on 2026-10-20. Section numbers in the text (for example "section 8.6") refer to that plan. The step reports E1 to E5 are in [`../exploration/`](../exploration/README.md).
 
 **Date and status:** 2026-10-19. The user stopped the EfficientSAM3 follow-up work after the quality
-review. Closed as not planned: #449, #450, #452, #453, #454. #451 stays open because it also affects
-the CLIP encoders. The exploration of section 8.16.4 is tracked in #458. The user excluded the
+review. Closed as not planned: [AlcedoStudio#449](https://github.com/zidage/AlcedoStudio/issues/449), [AlcedoStudio#450](https://github.com/zidage/AlcedoStudio/issues/450), [AlcedoStudio#452](https://github.com/zidage/AlcedoStudio/issues/452), [AlcedoStudio#453](https://github.com/zidage/AlcedoStudio/issues/453), [AlcedoStudio#454](https://github.com/zidage/AlcedoStudio/issues/454). [AlcedoStudio#451](https://github.com/zidage/AlcedoStudio/issues/451) stays open because it also affects
+the CLIP encoders. The exploration of section 8.16.4 is tracked in [AlcedoStudio#458](https://github.com/zidage/AlcedoStudio/issues/458). The user excluded the
 SAM3 teacher image encoder from the exploration; SAM 2.1 and the task mask models are tested.
 
 ## 8.16.1 Cause of the grid holes

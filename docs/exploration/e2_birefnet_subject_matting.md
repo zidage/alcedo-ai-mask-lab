@@ -1,6 +1,6 @@
 # E2: BiRefNet one-click Subject and matting
 
-**Issue:** #458, step E2. **Plan:** [AI Segmentation Mask master plan, section 8.16](../background/model_re_evaluation.md).
+**Issue:** [AlcedoStudio#458](https://github.com/zidage/AlcedoStudio/issues/458), step E2. **Plan:** [AI Segmentation Mask master plan, section 8.16](../background/model_re_evaluation.md).
 **Date:** 2026-10-19. **Branch:** `feature/ai-segmentation-sm1-quality-review`.
 **Status:** measurements stopped by the user on 2026-10-19. User assessment: the latency is not
 usable for the product. The float16 measurement of lite matting, matting, HR, and HR matting was
@@ -76,7 +76,7 @@ the memory, the file size, and the photos with more than one subject.
 | Not tested | `BiRefNet_lite-2K` (2560 x 1440 input, landscape only), `BiRefNet_dynamic`, `BiRefNet-portrait`, and the DIS, HRSOD, and COD benchmark variants. |
 | Reference | The SAM 2.1 base plus box masks of step E1 (`build/tmp/explore/e1/compare/base_plus/reference_masks/`). |
 | Code | Hugging Face `birefnet.py` of each variant (the BiRefNet repository code with the backbone of the variant); `ZhengPeng7/BiRefNet` at `97e4f35d74043427b0e9ba935ca10991853a36bc` for the license and the ONNX tutorial. |
-| Scripts | [`scripts/ai_models/birefnet/`](../../scripts/ai_models/birefnet/README.md) and `rust/puerh_mind/examples/segmentation_runtime_report.rs` (`matte` mode) |
+| Scripts | [`scripts/ai_models/birefnet/`](../../scripts/ai_models/birefnet/README.md) and [`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs) (`matte` mode) |
 | Evidence | `build/tmp/explore/e2/` on the Windows machine (not committed): `onnx/`, `onnx_gathernd/`, `onnx_fp16/`, `compare/`, `probe/`, `runtime/`, `runtime_gathernd/`, `profiles/`, `overlays/` |
 
 ### 3.2 Machine
@@ -395,9 +395,9 @@ User assessment (2026-10-19): the measured speed is not usable for the product. 
 - `scripts/ai_models/birefnet/`: `birefnet_graphs.py`, `export_onnx.py`,
   `compare_onnx_outputs.py`, `probe_mattes.py`, `make_matte_sheets.py`, `convert_fp16.py`,
   `requirements.txt`, `README.md`.
-- `rust/puerh_mind/examples/segmentation_runtime_report.rs`: new `matte` mode (one graph from
+- [`rust/puerh_mind/examples/segmentation_runtime_report.rs`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/rust/puerh_mind/examples/segmentation_runtime_report.rs): new `matte` mode (one graph from
   pixels to alpha, soft overlays and alpha images, comparison with the PyTorch alpha). No change to
   product code.
-- `docs/roadmap/alcedo_studio/edit/ai_mask_candidate/`: this report and the index.
-- `docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md`: E2 result in section
+- [`docs/roadmap/alcedo_studio/edit/ai_mask_candidate/`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_mask_candidate/): this report and the index.
+- [`docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md`](https://github.com/zidage/AlcedoStudio/blob/feature/ai-segmentation-sm1-quality-review/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask_master_plan.md): E2 result in section
   8.16.4.

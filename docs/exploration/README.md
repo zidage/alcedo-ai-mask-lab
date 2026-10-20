@@ -17,3 +17,4 @@ command that makes them from the local evidence.
 | E4 | [Click selection with candidates and hover highlight](e4_click_candidates.md) | Measured 2026-10-19; user review open |
 | E5 | [Edge stage of the stroke selection (people)](e5_edge_stage.md) (SAM 2.1 tiny; guided-filter upsampling against the SM1 projection matte, on the photo, rectangle, and tile passes) | Measured 2026-10-20; user review open |
 | E6 | Report per tool and recommendation | Not started |
+| P0 | [Locate people and sky from SAM 2.1 tiny image features (no training)](p0_sam_feature_localization.md) ([#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1)) | Measured 2026-10-20; sky usable on `image_embed`, people not usable without training; user decision on step 1 and O4 open |

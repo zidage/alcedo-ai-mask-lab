@@ -1,0 +1,96 @@
+{
+  "description": "Presence of people and sky per photo of the quality set, the reference masks that give the labeled cells, and the regions of unreferenced instances. Read by make_label_grids.py.",
+  "coordinate_space": "normalized image coordinates [0, 1]: [x0, y0, x1, y1], x right, y down",
+  "status_values": {
+    "referenced": "the class is in the photo and a reference mask gives its cells",
+    "present_unreferenced": "the class is in the photo, but no reference mask exists; ignore_boxes cover it",
+    "uncertain": "it is not clear from the photo whether the class is in it; ignore_boxes cover the candidate area",
+    "absent": "the class is not in the photo"
+  },
+  "reference_rules": {
+    "single_mask": "<stem>__<prompt>__single0.png: the single-mask output of the E1 prompt (SAM 2.1 base plus, PyTorch); for a box prompt, the mask that the E1 overlay shows",
+    "best_multimask": "<stem>__<prompt>__multi<i>.png with the highest predicted IoU (score_torch) in the E1 compare.json: the mask that the E1 overlay shows for one point",
+    "exclude": "pixels of this reference are removed from the class reference"
+  },
+  "classification_method": "By eye from the full photo (2026-10-20). The ignore boxes are generous: an ignored cell is only excluded from the prototypes and from the area under the ROC curve.",
+  "photos": {
+    "DSC_1535": {
+      "person": {"status": "referenced", "reference": [{"prompt": "person", "rule": "single_mask"}],
+                 "ignore_boxes": [[0.08, 0.05, 0.30, 0.42], [0.50, 0.08, 1.0, 0.32]],
+                 "note": "pedestrians in the background street, left and upper right"},
+      "sky": {"status": "absent", "note": "buildings fill the top of the frame"}
+    },
+    "DSC00326": {
+      "person": {"status": "referenced", "reference": [{"prompt": "person", "rule": "single_mask"}]},
+      "sky": {"status": "present_unreferenced", "ignore_boxes": [[0.52, 0.0, 0.70, 0.18]],
+              "note": "a small bright sky gap between the cliffs at the top"}
+    },
+    "DSC00674": {
+      "person": {"status": "referenced", "reference": [{"prompt": "person", "rule": "single_mask"}]},
+      "sky": {"status": "uncertain", "ignore_boxes": [[0.0, 0.0, 1.0, 1.0]],
+              "note": "close-up portrait in front of a blurred sunset color gradient; not clear whether it is sky or a backdrop"}
+    },
+    "DSC00936": {
+      "person": {"status": "referenced", "reference": [{"prompt": "person", "rule": "single_mask"}]},
+      "sky": {"status": "absent", "note": "the bright area is waterfall mist, not sky"}
+    },
+    "P1024439": {
+      "person": {"status": "referenced", "reference": [{"prompt": "bassist", "rule": "single_mask"}],
+                 "ignore_boxes": [[0.0, 0.0, 0.38, 0.78], [0.60, 0.76, 0.67, 0.88]],
+                 "note": "a guitarist cut by the left frame edge (arm and legs), a small person behind the stage at the bottom"},
+      "sky": {"status": "present_unreferenced", "ignore_boxes": [[0.30, 0.0, 1.0, 0.45]],
+              "note": "bright sky behind the trees and the high-rise buildings"}
+    },
+    "DSC00527": {
+      "person": {"status": "referenced", "reference": [{"prompt": "kneeling_woman_box", "rule": "single_mask"}],
+                 "ignore_boxes": [[0.0, 0.60, 1.0, 0.87]],
+                 "note": "many people in the park; only the kneeling woman has a reference"},
+      "sky": {"status": "referenced", "reference": [{"prompt": "sky", "rule": "best_multimask"}]}
+    },
+    "2088064441": {
+      "person": {"status": "referenced",
+                 "reference": [{"prompt": "boarder", "rule": "single_mask"},
+                               {"prompt": "board", "rule": "single_mask", "exclude": true}],
+                 "ignore_boxes": [[0.47, 0.58, 0.53, 0.68]],
+                 "note": "the box mask includes the board and a bag; the board mask of the board point (single-mask output) is removed. The reflection of the person in the water is ignored"},
+      "sky": {"status": "present_unreferenced", "ignore_boxes": [[0.0, 0.0, 1.0, 0.30]],
+              "note": "hazy sky above the bridge and the buildings"}
+    },
+    "DSC_1456": {
+      "person": {"status": "present_unreferenced", "ignore_boxes": [[0.0, 0.37, 1.0, 0.57]],
+                 "note": "pedestrians and cyclists along the street, a driver in the car"},
+      "sky": {"status": "present_unreferenced", "ignore_boxes": [[0.0, 0.0, 0.30, 0.12]],
+              "note": "a small overcast sky area at the top left"}
+    },
+    "DSC00562": {
+      "person": {"status": "present_unreferenced", "ignore_boxes": [[0.60, 0.56, 1.0, 0.66]],
+                 "note": "a few very small people in the park at the right"},
+      "sky": {"status": "present_unreferenced", "ignore_boxes": [[0.0, 0.0, 1.0, 0.50]],
+              "note": "overcast sky behind the high-rise buildings"}
+    },
+    "DSC00602": {
+      "person": {"status": "present_unreferenced",
+                 "ignore_boxes": [[0.62, 0.42, 0.86, 0.60], [0.20, 0.55, 0.36, 0.72], [0.96, 0.58, 1.0, 0.72]],
+                 "note": "passengers behind the tram windows, a person cut by the right frame edge"},
+      "sky": {"status": "present_unreferenced", "ignore_boxes": [[0.0, 0.0, 0.82, 0.58]],
+              "note": "clear sky at the top left and between the buildings"}
+    },
+    "5761824892": {
+      "person": {"status": "absent"},
+      "sky": {"status": "present_unreferenced", "ignore_boxes": [[0.60, 0.0, 1.0, 0.50]],
+              "note": "small bright sky gaps through the foliage at the top right"}
+    },
+    "DSC_1188": {
+      "person": {"status": "absent"},
+      "sky": {"status": "absent", "note": "bright bokeh of a forest canopy; no sky is identifiable"}
+    },
+    "DSC00728": {
+      "person": {"status": "absent", "note": "the balloon basket is too small to show people"},
+      "sky": {"status": "referenced", "reference": [{"prompt": "sky", "rule": "best_multimask"}]}
+    },
+    "Nikon-D800e-raw-00007": {
+      "person": {"status": "absent"},
+      "sky": {"status": "referenced", "reference": [{"prompt": "sky", "rule": "best_multimask"}]}
+    }
+  }
+}

@@ -14,6 +14,10 @@ docs/exploration/images/
 *.nef
 *.cr3
 
+# Binary arrays of the prototype results (label grids, score maps). Only the text results are
+# committed; the script READMEs state the commands that make the arrays again.
+results/**/*.npz
+
 # Model weights and exported graphs.
 *.onnx
 *.onnx.data

@@ -23,6 +23,13 @@ the object edges.
 - `docs/exploration/` holds the step reports (E1 to E5, and the next steps).
 - `scripts/ai_models/` holds the export and measurement scripts of each model family.
 - New prototypes go under `scripts/poc/<name>/`.
+- `results/<step>/` holds the measurement results of a prototype (JSON, tables, small arrays).
+  Images that show the quality photos stay local (`*.jpg` and `*.png` are in `.gitignore`).
+- `build/tmp/` (not committed) holds all local evidence of the AI mask work, also the evidence
+  that came from the Alcedo Studio checkout: `build/tmp/explore/` (E1 to E5, P0, weights,
+  sources, the `venv` and `venv_birefnet` Python environments) and `build/tmp/sm1/` (SM1, its
+  `venv`). The `.exe` launchers in the moved environments still have the old path; run
+  `venv/Scripts/python -m pip`, not `pip.exe`.
 
 The production integration (ONNX Runtime in the `alcedo_mind` sidecar, the C++ client, the editor
 UI) is done in the Alcedo Studio repository. The runtime measurement program

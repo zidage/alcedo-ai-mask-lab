@@ -101,10 +101,12 @@ done
 ```powershell
 # DirectML measurement with GPU memory (PowerShell, Windows). Repeat for each variant. Add
 # '--reference-alpha', "$e\compare\lite\reference_alpha" for RustPipelineMatteMatchesPytorchReference.
-Set-Location D:\Projects\pu-erh_lab
+# Run from this repository (the evidence is under build\tmp\); the Rust program is in the
+# Alcedo Studio checkout.
+Set-Location D:\Projects\alcedo-ai-mask-lab; $alcedo = "D:\Projects\pu-erh_lab"
 $e = "build\tmp\explore\e2"; $q = "build\tmp\sm1\quality"
 .\scripts\ai_models\sam2\run_with_gpu_memory.ps1 `
-  -Exe rust\puerh_mind\target\release\examples\segmentation_runtime_report.exe `
+  -Exe "$alcedo\rust\puerh_mind\target\release\examples\segmentation_runtime_report.exe" `
   -Arguments @('matte', '--onnx-dir', "$e\onnx\lite", '--device', 'directml',
                '--photos', "$q\photos", '--prompts', "$q\prompts.json",
                '--overlay-dir', "$e\overlays\lite", '--overlay-max-edge', '2048',

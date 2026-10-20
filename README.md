@@ -191,6 +191,7 @@ Risks:
 | [`scripts/ai_models/birefnet/`](scripts/ai_models/birefnet/README.md) | BiRefNet export, float16 conversion, matte probes |
 | [`scripts/ai_models/efficientsam3/`](scripts/ai_models/efficientsam3/README.md) | EfficientSAM3 export and comparison (SM1) |
 | [`scripts/poc/sam_feature_localization/`](scripts/poc/sam_feature_localization/README.md) | P0: people and sky from SAM 2.1 tiny features |
+| [`scripts/poc/people_sky_head/`](scripts/poc/people_sky_head/README.md) | Step 1: people and sky head on SAM 2.1 tiny `image_embed`, trained on Colab |
 | [`results/`](results/README.md) | Measurement results of the prototypes (sheets with photos stay local) |
 | `build/tmp/` (not committed) | Local evidence, weights, ONNX files, photos, and the Python environments of all steps |
 

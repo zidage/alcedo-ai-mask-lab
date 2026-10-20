@@ -1,0 +1,6500 @@
+{
+  "step": "issue #1, steps 4 and 5",
+  "sources": {
+    "image_embed": {
+      "title": "image_embed (256 ch, stride 16)",
+      "channels": 256,
+      "prototype_cells": {
+        "2088064441": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32624
+        },
+        "5761824892": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32136
+        },
+        "DSC00326": {
+          "person": 3706,
+          "sky": 3896,
+          "other": 31580
+        },
+        "DSC00527": {
+          "person": 3758,
+          "sky": 2318,
+          "other": 34183
+        },
+        "DSC00562": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 33624
+        },
+        "DSC00602": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 33509
+        },
+        "DSC00674": {
+          "person": 1117,
+          "sky": 3896,
+          "other": 35400
+        },
+        "DSC00728": {
+          "person": 3783,
+          "sky": 2545,
+          "other": 32775
+        },
+        "DSC00936": {
+          "person": 3712,
+          "sky": 3896,
+          "other": 31417
+        },
+        "DSC_1188": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 31304
+        },
+        "DSC_1456": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32360
+        },
+        "DSC_1535": {
+          "person": 2966,
+          "sky": 3896,
+          "other": 33008
+        },
+        "Nikon-D800e-raw-00007": {
+          "person": 3783,
+          "sky": 2929,
+          "other": 32380
+        },
+        "P1024439": {
+          "person": 3656,
+          "sky": 3896,
+          "other": 33900
+        }
+      },
+      "scoring_ms_median": 2.3571999990963377,
+      "person": {
+        "photos": {
+          "2088064441": {
+            "status": "referenced",
+            "max_score": 0.128658099124848,
+            "third_score": 0.11554726759925193,
+            "top_cells": [
+              [
+                34,
+                32
+              ],
+              [
+                37,
+                31
+              ],
+              [
+                62,
+                24
+              ],
+              [
+                11,
+                4
+              ],
+              [
+                11,
+                5
+              ],
+              [
+                61,
+                27
+              ],
+              [
+                58,
+                23
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                59,
+                25
+              ],
+              [
+                10,
+                2
+              ]
+            ],
+            "top3_in_ignore_boxes": 1,
+            "positive_cells": 0,
+            "negative_cells": 4056,
+            "auc": null,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.6666666666666666,
+            "precision_at_10_label": 0.0,
+            "precision_at_10_center": 0.2,
+            "acceptance_rule": "center",
+            "acceptance_precision_at_3": 0.6666666666666666
+          },
+          "5761824892": {
+            "status": "absent",
+            "max_score": 0.24302568715324813,
+            "third_score": 0.21233977008667482,
+            "top_cells": [
+              [
+                30,
+                12
+              ],
+              [
+                30,
+                13
+              ],
+              [
+                1,
+                35
+              ],
+              [
+                23,
+                37
+              ],
+              [
+                30,
+                11
+              ],
+              [
+                3,
+                38
+              ],
+              [
+                23,
+                35
+              ],
+              [
+                7,
+                60
+              ],
+              [
+                3,
+                37
+              ],
+              [
+                38,
+                9
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC00326": {
+            "status": "referenced",
+            "max_score": 0.2713421231023269,
+            "third_score": 0.26233899981912384,
+            "top_cells": [
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                31
+              ],
+              [
+                42,
+                33
+              ],
+              [
+                43,
+                32
+              ],
+              [
+                41,
+                33
+              ],
+              [
+                43,
+                31
+              ],
+              [
+                41,
+                34
+              ],
+              [
+                41,
+                32
+              ],
+              [
+                40,
+                33
+              ],
+              [
+                44,
+                30
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 77,
+            "negative_cells": 3964,
+            "auc": 0.9991547302344477,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00527": {
+            "status": "referenced",
+            "max_score": 0.3049708787990948,
+            "third_score": 0.24640839230806258,
+            "top_cells": [
+              [
+                49,
+                32
+              ],
+              [
+                48,
+                32
+              ],
+              [
+                50,
+                31
+              ],
+              [
+                47,
+                32
+              ],
+              [
+                56,
+                31
+              ],
+              [
+                51,
+                32
+              ],
+              [
+                50,
+                32
+              ],
+              [
+                52,
+                32
+              ],
+              [
+                53,
+                32
+              ],
+              [
+                56,
+                33
+              ]
+            ],
+            "top3_in_ignore_boxes": 3,
+            "positive_cells": 25,
+            "negative_cells": 2927,
+            "auc": 0.9985650837034507,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00562": {
+            "status": "present_unreferenced",
+            "max_score": 0.21188491734851053,
+            "third_score": 0.1645742855455185,
+            "top_cells": [
+              [
+                26,
+                24
+              ],
+              [
+                21,
+                12
+              ],
+              [
+                24,
+                13
+              ],
+              [
+                20,
+                11
+              ],
+              [
+                30,
+                3
+              ],
+              [
+                28,
+                2
+              ],
+              [
+                36,
+                4
+              ],
+              [
+                36,
+                6
+              ],
+              [
+                22,
+                12
+              ],
+              [
+                36,
+                8
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00602": {
+            "status": "present_unreferenced",
+            "max_score": 0.22876381302099197,
+            "third_score": 0.22243273518092047,
+            "top_cells": [
+              [
+                50,
+                35
+              ],
+              [
+                50,
+                36
+              ],
+              [
+                41,
+                47
+              ],
+              [
+                50,
+                34
+              ],
+              [
+                50,
+                33
+              ],
+              [
+                41,
+                53
+              ],
+              [
+                48,
+                30
+              ],
+              [
+                39,
+                48
+              ],
+              [
+                15,
+                62
+              ],
+              [
+                49,
+                32
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC00674": {
+            "status": "referenced",
+            "max_score": 0.2431108634273613,
+            "third_score": 0.2372447094307607,
+            "top_cells": [
+              [
+                27,
+                52
+              ],
+              [
+                36,
+                19
+              ],
+              [
+                26,
+                17
+              ],
+              [
+                24,
+                16
+              ],
+              [
+                27,
+                17
+              ],
+              [
+                25,
+                17
+              ],
+              [
+                33,
+                19
+              ],
+              [
+                33,
+                21
+              ],
+              [
+                24,
+                18
+              ],
+              [
+                27,
+                19
+              ]
+            ],
+            "top3_in_ignore_boxes": 3,
+            "positive_cells": 2666,
+            "negative_cells": 1255,
+            "auc": 0.9984712313536551,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00728": {
+            "status": "absent",
+            "max_score": 0.1643670796368686,
+            "third_score": 0.11973550090802915,
+            "top_cells": [
+              [
+                15,
+                27
+              ],
+              [
+                18,
+                27
+              ],
+              [
+                17,
+                27
+              ],
+              [
+                16,
+                27
+              ],
+              [
+                1,
+                11
+              ],
+              [
+                5,
+                12
+              ],
+              [
+                4,
+                10
+              ],
+              [
+                1,
+                10
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                4,
+                12
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC00936": {
+            "status": "referenced",
+            "max_score": 0.25590155897888023,
+            "third_score": 0.24507952098681762,
+            "top_cells": [
+              [
+                46,
+                34
+              ],
+              [
+                46,
+                36
+              ],
+              [
+                49,
+                36
+              ],
+              [
+                47,
+                39
+              ],
+              [
+                46,
+                39
+              ],
+              [
+                48,
+                37
+              ],
+              [
+                46,
+                37
+              ],
+              [
+                48,
+                36
+              ],
+              [
+                49,
+                40
+              ],
+              [
+                49,
+                37
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 71,
+            "negative_cells": 3983,
+            "auc": 0.9999115961144724,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC_1188": {
+            "status": "absent",
+            "max_score": 0.292543470025161,
+            "third_score": 0.2730169189397036,
+            "top_cells": [
+              [
+                22,
+                24
+              ],
+              [
+                17,
+                39
+              ],
+              [
+                23,
+                24
+              ],
+              [
+                18,
+                40
+              ],
+              [
+                17,
+                35
+              ],
+              [
+                32,
+                28
+              ],
+              [
+                16,
+                36
+              ],
+              [
+                18,
+                35
+              ],
+              [
+                15,
+                36
+              ],
+              [
+                17,
+                34
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1456": {
+            "status": "present_unreferenced",
+            "max_score": 0.21264191436825358,
+            "third_score": 0.1871314824014474,
+            "top_cells": [
+              [
+                30,
+                59
+              ],
+              [
+                27,
+                52
+              ],
+              [
+                29,
+                50
+              ],
+              [
+                29,
+                59
+              ],
+              [
+                27,
+                49
+              ],
+              [
+                28,
+                60
+              ],
+              [
+                27,
+                58
+              ],
+              [
+                18,
+                56
+              ],
+              [
+                28,
+                52
+              ],
+              [
+                29,
+                60
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC_1535": {
+            "status": "referenced",
+            "max_score": 0.3593455131698655,
+            "third_score": 0.34112100007596446,
+            "top_cells": [
+              [
+                11,
+                30
+              ],
+              [
+                11,
+                31
+              ],
+              [
+                9,
+                32
+              ],
+              [
+                8,
+                31
+              ],
+              [
+                10,
+                33
+              ],
+              [
+                9,
+                31
+              ],
+              [
+                6,
+                34
+              ],
+              [
+                10,
+                30
+              ],
+              [
+                4,
+                29
+              ],
+              [
+                10,
+                31
+              ]
+            ],
+            "top3_in_ignore_boxes": 2,
+            "positive_cells": 817,
+            "negative_cells": 2392,
+            "auc": 0.9999739032188077,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "Nikon-D800e-raw-00007": {
+            "status": "absent",
+            "max_score": 0.07845708536473817,
+            "third_score": 0.06809262076975414,
+            "top_cells": [
+              [
+                31,
+                24
+              ],
+              [
+                30,
+                25
+              ],
+              [
+                32,
+                22
+              ],
+              [
+                59,
+                42
+              ],
+              [
+                57,
+                52
+              ],
+              [
+                58,
+                52
+              ],
+              [
+                60,
+                42
+              ],
+              [
+                62,
+                50
+              ],
+              [
+                56,
+                43
+              ],
+              [
+                55,
+                43
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "P1024439": {
+            "status": "referenced",
+            "max_score": 0.3316138389615216,
+            "third_score": 0.32721304211401475,
+            "top_cells": [
+              [
+                3,
+                6
+              ],
+              [
+                2,
+                4
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                4,
+                8
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                4,
+                9
+              ],
+              [
+                1,
+                6
+              ]
+            ],
+            "top3_in_ignore_boxes": 3,
+            "positive_cells": 127,
+            "negative_cells": 2573,
+            "auc": 0.994038638679687,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.0,
+            "precision_at_10_label": 0.0,
+            "precision_at_10_center": 0.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.0
+          }
+        },
+        "separation": {
+          "lowest_present_third_score": 0.11554726759925193,
+          "lowest_present_photo": "2088064441",
+          "highest_absent_max_score": 0.292543470025161,
+          "highest_absent_photo": "DSC_1188",
+          "margin": -0.17699620242590908,
+          "threshold": null,
+          "present_photos": 7,
+          "absent_photos": 4,
+          "unreferenced_or_uncertain": {
+            "DSC00562": {
+              "status": "present_unreferenced",
+              "third_score": 0.1645742855455185,
+              "found_at_threshold": false
+            },
+            "DSC00602": {
+              "status": "present_unreferenced",
+              "third_score": 0.22243273518092047,
+              "found_at_threshold": true
+            },
+            "DSC_1456": {
+              "status": "present_unreferenced",
+              "third_score": 0.1871314824014474,
+              "found_at_threshold": false
+            }
+          }
+        },
+        "auc_median": 0.9988599069689492,
+        "auc_minimum": 0.994038638679687,
+        "acceptance": {
+          "peak_photos": 7,
+          "peak_passed_photos": 5,
+          "peak_failed": [
+            "2088064441",
+            "P1024439"
+          ],
+          "separation_passed": false,
+          "usable": false
+        }
+      },
+      "sky": {
+        "photos": {
+          "2088064441": {
+            "status": "present_unreferenced",
+            "max_score": 0.2728866999114643,
+            "third_score": 0.2644693050575412,
+            "top_cells": [
+              [
+                9,
+                58
+              ],
+              [
+                10,
+                58
+              ],
+              [
+                10,
+                60
+              ],
+              [
+                9,
+                60
+              ],
+              [
+                8,
+                58
+              ],
+              [
+                11,
+                58
+              ],
+              [
+                9,
+                59
+              ],
+              [
+                11,
+                60
+              ],
+              [
+                8,
+                60
+              ],
+              [
+                6,
+                58
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "5761824892": {
+            "status": "present_unreferenced",
+            "max_score": 0.13872141348726327,
+            "third_score": 0.12571619062084316,
+            "top_cells": [
+              [
+                9,
+                53
+              ],
+              [
+                1,
+                56
+              ],
+              [
+                19,
+                59
+              ],
+              [
+                31,
+                53
+              ],
+              [
+                32,
+                55
+              ],
+              [
+                2,
+                56
+              ],
+              [
+                14,
+                48
+              ],
+              [
+                32,
+                56
+              ],
+              [
+                31,
+                54
+              ],
+              [
+                18,
+                48
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00326": {
+            "status": "present_unreferenced",
+            "max_score": 0.2768394725665827,
+            "third_score": 0.2748597347227476,
+            "top_cells": [
+              [
+                5,
+                38
+              ],
+              [
+                6,
+                38
+              ],
+              [
+                2,
+                39
+              ],
+              [
+                6,
+                37
+              ],
+              [
+                5,
+                39
+              ],
+              [
+                2,
+                38
+              ],
+              [
+                5,
+                37
+              ],
+              [
+                7,
+                38
+              ],
+              [
+                7,
+                37
+              ],
+              [
+                3,
+                38
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00527": {
+            "status": "referenced",
+            "max_score": 0.285607121170699,
+            "third_score": 0.278650203993439,
+            "top_cells": [
+              [
+                25,
+                52
+              ],
+              [
+                29,
+                44
+              ],
+              [
+                21,
+                56
+              ],
+              [
+                21,
+                55
+              ],
+              [
+                29,
+                45
+              ],
+              [
+                22,
+                55
+              ],
+              [
+                23,
+                54
+              ],
+              [
+                19,
+                58
+              ],
+              [
+                25,
+                53
+              ],
+              [
+                22,
+                18
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 1578,
+            "negative_cells": 2386,
+            "auc": 0.9999973440336904,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00562": {
+            "status": "present_unreferenced",
+            "max_score": 0.27585022069357723,
+            "third_score": 0.2725864421336909,
+            "top_cells": [
+              [
+                12,
+                41
+              ],
+              [
+                13,
+                41
+              ],
+              [
+                9,
+                16
+              ],
+              [
+                6,
+                42
+              ],
+              [
+                11,
+                39
+              ],
+              [
+                8,
+                16
+              ],
+              [
+                10,
+                36
+              ],
+              [
+                10,
+                39
+              ],
+              [
+                12,
+                40
+              ],
+              [
+                10,
+                38
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00602": {
+            "status": "present_unreferenced",
+            "max_score": 0.2652147101735354,
+            "third_score": 0.2581345569563216,
+            "top_cells": [
+              [
+                21,
+                6
+              ],
+              [
+                7,
+                43
+              ],
+              [
+                8,
+                43
+              ],
+              [
+                18,
+                20
+              ],
+              [
+                20,
+                6
+              ],
+              [
+                17,
+                22
+              ],
+              [
+                21,
+                7
+              ],
+              [
+                7,
+                44
+              ],
+              [
+                18,
+                21
+              ],
+              [
+                9,
+                42
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00674": {
+            "status": "uncertain",
+            "max_score": 0.1896926396196974,
+            "third_score": 0.18590953518367603,
+            "top_cells": [
+              [
+                12,
+                12
+              ],
+              [
+                12,
+                11
+              ],
+              [
+                11,
+                12
+              ],
+              [
+                10,
+                13
+              ],
+              [
+                11,
+                13
+              ],
+              [
+                12,
+                10
+              ],
+              [
+                10,
+                11
+              ],
+              [
+                12,
+                9
+              ],
+              [
+                9,
+                13
+              ],
+              [
+                11,
+                10
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00728": {
+            "status": "referenced",
+            "max_score": 0.2638179361295845,
+            "third_score": 0.25629693990063374,
+            "top_cells": [
+              [
+                33,
+                59
+              ],
+              [
+                33,
+                58
+              ],
+              [
+                19,
+                56
+              ],
+              [
+                10,
+                61
+              ],
+              [
+                33,
+                62
+              ],
+              [
+                34,
+                56
+              ],
+              [
+                33,
+                57
+              ],
+              [
+                32,
+                56
+              ],
+              [
+                19,
+                58
+              ],
+              [
+                19,
+                57
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 1351,
+            "negative_cells": 2625,
+            "auc": 1.0,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00936": {
+            "status": "absent",
+            "max_score": 0.230328202612187,
+            "third_score": 0.22635631102259401,
+            "top_cells": [
+              [
+                42,
+                20
+              ],
+              [
+                43,
+                20
+              ],
+              [
+                42,
+                22
+              ],
+              [
+                42,
+                26
+              ],
+              [
+                42,
+                27
+              ],
+              [
+                44,
+                17
+              ],
+              [
+                42,
+                19
+              ],
+              [
+                43,
+                17
+              ],
+              [
+                42,
+                25
+              ],
+              [
+                43,
+                22
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1188": {
+            "status": "absent",
+            "max_score": 0.14372105084993725,
+            "third_score": 0.13607068181053372,
+            "top_cells": [
+              [
+                18,
+                26
+              ],
+              [
+                36,
+                54
+              ],
+              [
+                22,
+                48
+              ],
+              [
+                38,
+                4
+              ],
+              [
+                57,
+                56
+              ],
+              [
+                19,
+                26
+              ],
+              [
+                36,
+                53
+              ],
+              [
+                38,
+                5
+              ],
+              [
+                57,
+                57
+              ],
+              [
+                59,
+                58
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1456": {
+            "status": "present_unreferenced",
+            "max_score": 0.3123328812131445,
+            "third_score": 0.3103849685314661,
+            "top_cells": [
+              [
+                5,
+                8
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                5,
+                7
+              ],
+              [
+                5,
+                10
+              ],
+              [
+                5,
+                9
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                4,
+                8
+              ],
+              [
+                5,
+                11
+              ],
+              [
+                4,
+                7
+              ],
+              [
+                4,
+                10
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC_1535": {
+            "status": "absent",
+            "max_score": 0.12416098610772042,
+            "third_score": 0.0866608251010636,
+            "top_cells": [
+              [
+                4,
+                2
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                4,
+                46
+              ],
+              [
+                11,
+                3
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                3,
+                46
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                6,
+                17
+              ],
+              [
+                5,
+                6
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "Nikon-D800e-raw-00007": {
+            "status": "referenced",
+            "max_score": 0.28001672730278615,
+            "third_score": 0.2777837760845314,
+            "top_cells": [
+              [
+                11,
+                54
+              ],
+              [
+                10,
+                54
+              ],
+              [
+                10,
+                52
+              ],
+              [
+                9,
+                52
+              ],
+              [
+                9,
+                48
+              ],
+              [
+                9,
+                54
+              ],
+              [
+                12,
+                53
+              ],
+              [
+                9,
+                50
+              ],
+              [
+                11,
+                55
+              ],
+              [
+                11,
+                52
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 967,
+            "negative_cells": 3020,
+            "auc": 0.9999955484635351,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "P1024439": {
+            "status": "present_unreferenced",
+            "max_score": 0.2985629736266735,
+            "third_score": 0.2974915384760581,
+            "top_cells": [
+              [
+                14,
+                49
+              ],
+              [
+                11,
+                50
+              ],
+              [
+                14,
+                48
+              ],
+              [
+                15,
+                49
+              ],
+              [
+                15,
+                48
+              ],
+              [
+                10,
+                50
+              ],
+              [
+                9,
+                50
+              ],
+              [
+                16,
+                48
+              ],
+              [
+                14,
+                47
+              ],
+              [
+                18,
+                48
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          }
+        },
+        "separation": {
+          "lowest_present_third_score": 0.25629693990063374,
+          "lowest_present_photo": "DSC00728",
+          "highest_absent_max_score": 0.230328202612187,
+          "highest_absent_photo": "DSC00936",
+          "margin": 0.02596873728844673,
+          "threshold": 0.24331257125641037,
+          "present_photos": 3,
+          "absent_photos": 3,
+          "unreferenced_or_uncertain": {
+            "2088064441": {
+              "status": "present_unreferenced",
+              "third_score": 0.2644693050575412,
+              "found_at_threshold": true
+            },
+            "5761824892": {
+              "status": "present_unreferenced",
+              "third_score": 0.12571619062084316,
+              "found_at_threshold": false
+            },
+            "DSC00326": {
+              "status": "present_unreferenced",
+              "third_score": 0.2748597347227476,
+              "found_at_threshold": true
+            },
+            "DSC00562": {
+              "status": "present_unreferenced",
+              "third_score": 0.2725864421336909,
+              "found_at_threshold": true
+            },
+            "DSC00602": {
+              "status": "present_unreferenced",
+              "third_score": 0.2581345569563216,
+              "found_at_threshold": true
+            },
+            "DSC00674": {
+              "status": "uncertain",
+              "third_score": 0.18590953518367603,
+              "found_at_threshold": false
+            },
+            "DSC_1456": {
+              "status": "present_unreferenced",
+              "third_score": 0.3103849685314661,
+              "found_at_threshold": true
+            },
+            "P1024439": {
+              "status": "present_unreferenced",
+              "third_score": 0.2974915384760581,
+              "found_at_threshold": true
+            }
+          }
+        },
+        "auc_median": 0.9999973440336904,
+        "auc_minimum": 0.9999955484635351,
+        "acceptance": {
+          "peak_photos": 3,
+          "peak_passed_photos": 3,
+          "peak_failed": [],
+          "separation_passed": true,
+          "usable": true
+        }
+      }
+    },
+    "high_res_feats_1": {
+      "title": "high_res_feats_1 pooled 2 x 2 (64 ch, stride 8)",
+      "channels": 64,
+      "prototype_cells": {
+        "2088064441": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32624
+        },
+        "5761824892": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32136
+        },
+        "DSC00326": {
+          "person": 3706,
+          "sky": 3896,
+          "other": 31580
+        },
+        "DSC00527": {
+          "person": 3758,
+          "sky": 2318,
+          "other": 34183
+        },
+        "DSC00562": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 33624
+        },
+        "DSC00602": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 33509
+        },
+        "DSC00674": {
+          "person": 1117,
+          "sky": 3896,
+          "other": 35400
+        },
+        "DSC00728": {
+          "person": 3783,
+          "sky": 2545,
+          "other": 32775
+        },
+        "DSC00936": {
+          "person": 3712,
+          "sky": 3896,
+          "other": 31417
+        },
+        "DSC_1188": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 31304
+        },
+        "DSC_1456": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32360
+        },
+        "DSC_1535": {
+          "person": 2966,
+          "sky": 3896,
+          "other": 33008
+        },
+        "Nikon-D800e-raw-00007": {
+          "person": 3783,
+          "sky": 2929,
+          "other": 32380
+        },
+        "P1024439": {
+          "person": 3656,
+          "sky": 3896,
+          "other": 33900
+        }
+      },
+      "scoring_ms_median": 0.34595000033732504,
+      "person": {
+        "photos": {
+          "2088064441": {
+            "status": "referenced",
+            "max_score": 0.09661074868468156,
+            "third_score": 0.09020206277252252,
+            "top_cells": [
+              [
+                28,
+                25
+              ],
+              [
+                19,
+                29
+              ],
+              [
+                14,
+                60
+              ],
+              [
+                34,
+                12
+              ],
+              [
+                14,
+                54
+              ],
+              [
+                18,
+                17
+              ],
+              [
+                35,
+                10
+              ],
+              [
+                34,
+                14
+              ],
+              [
+                28,
+                12
+              ],
+              [
+                14,
+                56
+              ]
+            ],
+            "top3_in_ignore_boxes": 2,
+            "positive_cells": 0,
+            "negative_cells": 4056,
+            "auc": null,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.0,
+            "precision_at_10_label": 0.0,
+            "precision_at_10_center": 0.0,
+            "acceptance_rule": "center",
+            "acceptance_precision_at_3": 0.0
+          },
+          "5761824892": {
+            "status": "absent",
+            "max_score": 0.09492994400086174,
+            "third_score": 0.06428844441150011,
+            "top_cells": [
+              [
+                23,
+                34
+              ],
+              [
+                23,
+                37
+              ],
+              [
+                19,
+                41
+              ],
+              [
+                22,
+                41
+              ],
+              [
+                19,
+                38
+              ],
+              [
+                23,
+                51
+              ],
+              [
+                44,
+                46
+              ],
+              [
+                24,
+                32
+              ],
+              [
+                20,
+                36
+              ],
+              [
+                0,
+                34
+              ]
+            ],
+            "top3_in_ignore_boxes": 1
+          },
+          "DSC00326": {
+            "status": "referenced",
+            "max_score": 0.07733479335342164,
+            "third_score": 0.049267978102925714,
+            "top_cells": [
+              [
+                45,
+                36
+              ],
+              [
+                44,
+                29
+              ],
+              [
+                56,
+                34
+              ],
+              [
+                48,
+                11
+              ],
+              [
+                0,
+                40
+              ],
+              [
+                21,
+                32
+              ],
+              [
+                0,
+                39
+              ],
+              [
+                44,
+                23
+              ],
+              [
+                1,
+                40
+              ],
+              [
+                48,
+                32
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 77,
+            "negative_cells": 3964,
+            "auc": 0.7681077751713473,
+            "precision_at_3_label": 0.6666666666666666,
+            "precision_at_3_center": 0.6666666666666666,
+            "precision_at_10_label": 0.3,
+            "precision_at_10_center": 0.3,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.6666666666666666
+          },
+          "DSC00527": {
+            "status": "referenced",
+            "max_score": 0.10031096831397646,
+            "third_score": 0.0928985766090984,
+            "top_cells": [
+              [
+                50,
+                44
+              ],
+              [
+                60,
+                43
+              ],
+              [
+                50,
+                11
+              ],
+              [
+                52,
+                45
+              ],
+              [
+                49,
+                11
+              ],
+              [
+                49,
+                16
+              ],
+              [
+                49,
+                30
+              ],
+              [
+                58,
+                15
+              ],
+              [
+                53,
+                7
+              ],
+              [
+                62,
+                32
+              ]
+            ],
+            "top3_in_ignore_boxes": 2,
+            "positive_cells": 25,
+            "negative_cells": 2927,
+            "auc": 0.3125384352579433,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.0,
+            "precision_at_10_label": 0.0,
+            "precision_at_10_center": 0.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.0
+          },
+          "DSC00562": {
+            "status": "present_unreferenced",
+            "max_score": 0.06445554262158582,
+            "third_score": 0.05325220615402726,
+            "top_cells": [
+              [
+                23,
+                16
+              ],
+              [
+                21,
+                46
+              ],
+              [
+                18,
+                8
+              ],
+              [
+                18,
+                15
+              ],
+              [
+                2,
+                40
+              ],
+              [
+                6,
+                10
+              ],
+              [
+                2,
+                9
+              ],
+              [
+                2,
+                4
+              ],
+              [
+                2,
+                22
+              ],
+              [
+                1,
+                40
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00602": {
+            "status": "present_unreferenced",
+            "max_score": 0.09040449880107126,
+            "third_score": 0.08646418843606063,
+            "top_cells": [
+              [
+                38,
+                44
+              ],
+              [
+                38,
+                40
+              ],
+              [
+                11,
+                51
+              ],
+              [
+                19,
+                56
+              ],
+              [
+                5,
+                59
+              ],
+              [
+                9,
+                53
+              ],
+              [
+                38,
+                42
+              ],
+              [
+                10,
+                52
+              ],
+              [
+                10,
+                51
+              ],
+              [
+                16,
+                46
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00674": {
+            "status": "referenced",
+            "max_score": 0.11543517460186503,
+            "third_score": 0.11378442846371356,
+            "top_cells": [
+              [
+                15,
+                45
+              ],
+              [
+                39,
+                40
+              ],
+              [
+                41,
+                45
+              ],
+              [
+                23,
+                36
+              ],
+              [
+                39,
+                20
+              ],
+              [
+                17,
+                52
+              ],
+              [
+                33,
+                40
+              ],
+              [
+                34,
+                46
+              ],
+              [
+                27,
+                34
+              ],
+              [
+                29,
+                50
+              ]
+            ],
+            "top3_in_ignore_boxes": 3,
+            "positive_cells": 2666,
+            "negative_cells": 1255,
+            "auc": 0.3695743657029795,
+            "precision_at_3_label": 0.6666666666666666,
+            "precision_at_3_center": 0.6666666666666666,
+            "precision_at_10_label": 0.8,
+            "precision_at_10_center": 0.8,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.6666666666666666
+          },
+          "DSC00728": {
+            "status": "absent",
+            "max_score": 0.11015162303104675,
+            "third_score": 0.10786117906215675,
+            "top_cells": [
+              [
+                3,
+                16
+              ],
+              [
+                20,
+                10
+              ],
+              [
+                6,
+                16
+              ],
+              [
+                12,
+                6
+              ],
+              [
+                7,
+                18
+              ],
+              [
+                5,
+                16
+              ],
+              [
+                16,
+                10
+              ],
+              [
+                4,
+                14
+              ],
+              [
+                7,
+                12
+              ],
+              [
+                14,
+                5
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC00936": {
+            "status": "referenced",
+            "max_score": 0.09327402634852222,
+            "third_score": 0.08217253409362335,
+            "top_cells": [
+              [
+                47,
+                41
+              ],
+              [
+                46,
+                1
+              ],
+              [
+                45,
+                1
+              ],
+              [
+                40,
+                63
+              ],
+              [
+                25,
+                59
+              ],
+              [
+                40,
+                1
+              ],
+              [
+                44,
+                1
+              ],
+              [
+                43,
+                41
+              ],
+              [
+                33,
+                1
+              ],
+              [
+                49,
+                49
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 71,
+            "negative_cells": 3983,
+            "auc": 0.062388390094521434,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.0,
+            "precision_at_10_label": 0.0,
+            "precision_at_10_center": 0.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.0
+          },
+          "DSC_1188": {
+            "status": "absent",
+            "max_score": 0.0798121323375951,
+            "third_score": 0.07449424650994585,
+            "top_cells": [
+              [
+                37,
+                27
+              ],
+              [
+                38,
+                24
+              ],
+              [
+                16,
+                24
+              ],
+              [
+                17,
+                24
+              ],
+              [
+                39,
+                25
+              ],
+              [
+                15,
+                24
+              ],
+              [
+                11,
+                4
+              ],
+              [
+                5,
+                22
+              ],
+              [
+                34,
+                63
+              ],
+              [
+                39,
+                23
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1456": {
+            "status": "present_unreferenced",
+            "max_score": 0.093266476137157,
+            "third_score": 0.07739987522797098,
+            "top_cells": [
+              [
+                38,
+                18
+              ],
+              [
+                38,
+                19
+              ],
+              [
+                43,
+                28
+              ],
+              [
+                2,
+                58
+              ],
+              [
+                38,
+                33
+              ],
+              [
+                43,
+                35
+              ],
+              [
+                43,
+                23
+              ],
+              [
+                35,
+                26
+              ],
+              [
+                43,
+                20
+              ],
+              [
+                7,
+                52
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1535": {
+            "status": "referenced",
+            "max_score": 0.1222144329148771,
+            "third_score": 0.11599477686661697,
+            "top_cells": [
+              [
+                14,
+                35
+              ],
+              [
+                14,
+                34
+              ],
+              [
+                16,
+                35
+              ],
+              [
+                16,
+                36
+              ],
+              [
+                18,
+                34
+              ],
+              [
+                16,
+                28
+              ],
+              [
+                15,
+                35
+              ],
+              [
+                21,
+                27
+              ],
+              [
+                17,
+                34
+              ],
+              [
+                19,
+                34
+              ]
+            ],
+            "top3_in_ignore_boxes": 3,
+            "positive_cells": 817,
+            "negative_cells": 2392,
+            "auc": 0.7806412030309109,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "Nikon-D800e-raw-00007": {
+            "status": "absent",
+            "max_score": 0.07841427128095213,
+            "third_score": 0.07429054138223201,
+            "top_cells": [
+              [
+                18,
+                34
+              ],
+              [
+                16,
+                51
+              ],
+              [
+                18,
+                33
+              ],
+              [
+                17,
+                32
+              ],
+              [
+                17,
+                36
+              ],
+              [
+                17,
+                34
+              ],
+              [
+                18,
+                38
+              ],
+              [
+                19,
+                11
+              ],
+              [
+                21,
+                15
+              ],
+              [
+                16,
+                52
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "P1024439": {
+            "status": "referenced",
+            "max_score": 0.09934343048587957,
+            "third_score": 0.09828780450060315,
+            "top_cells": [
+              [
+                53,
+                2
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                0,
+                4
+              ],
+              [
+                0,
+                2
+              ],
+              [
+                2,
+                4
+              ],
+              [
+                49,
+                45
+              ],
+              [
+                58,
+                54
+              ],
+              [
+                59,
+                8
+              ],
+              [
+                1,
+                1
+              ]
+            ],
+            "top3_in_ignore_boxes": 2,
+            "positive_cells": 127,
+            "negative_cells": 2573,
+            "auc": 0.6625312527733489,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.0,
+            "precision_at_10_label": 0.1,
+            "precision_at_10_center": 0.1,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.0
+          }
+        },
+        "separation": {
+          "lowest_present_third_score": 0.049267978102925714,
+          "lowest_present_photo": "DSC00326",
+          "highest_absent_max_score": 0.11015162303104675,
+          "highest_absent_photo": "DSC00728",
+          "margin": -0.06088364492812104,
+          "threshold": null,
+          "present_photos": 7,
+          "absent_photos": 4,
+          "unreferenced_or_uncertain": {
+            "DSC00562": {
+              "status": "present_unreferenced",
+              "third_score": 0.05325220615402726,
+              "found_at_threshold": false
+            },
+            "DSC00602": {
+              "status": "present_unreferenced",
+              "third_score": 0.08646418843606063,
+              "found_at_threshold": true
+            },
+            "DSC_1456": {
+              "status": "present_unreferenced",
+              "third_score": 0.07739987522797098,
+              "found_at_threshold": false
+            }
+          }
+        },
+        "auc_median": 0.5160528092381642,
+        "auc_minimum": 0.062388390094521434,
+        "acceptance": {
+          "peak_photos": 7,
+          "peak_passed_photos": 1,
+          "peak_failed": [
+            "2088064441",
+            "DSC00326",
+            "DSC00527",
+            "DSC00674",
+            "DSC00936",
+            "P1024439"
+          ],
+          "separation_passed": false,
+          "usable": false
+        }
+      },
+      "sky": {
+        "photos": {
+          "2088064441": {
+            "status": "present_unreferenced",
+            "max_score": 0.1585926994057868,
+            "third_score": 0.15262054832729866,
+            "top_cells": [
+              [
+                11,
+                57
+              ],
+              [
+                37,
+                37
+              ],
+              [
+                11,
+                40
+              ],
+              [
+                38,
+                37
+              ],
+              [
+                10,
+                57
+              ],
+              [
+                10,
+                40
+              ],
+              [
+                29,
+                42
+              ],
+              [
+                12,
+                48
+              ],
+              [
+                38,
+                63
+              ],
+              [
+                28,
+                37
+              ]
+            ],
+            "top3_in_ignore_boxes": 2
+          },
+          "5761824892": {
+            "status": "present_unreferenced",
+            "max_score": 0.13489715069582753,
+            "third_score": 0.10333115204212695,
+            "top_cells": [
+              [
+                37,
+                10
+              ],
+              [
+                20,
+                38
+              ],
+              [
+                36,
+                19
+              ],
+              [
+                20,
+                39
+              ],
+              [
+                20,
+                41
+              ],
+              [
+                22,
+                29
+              ],
+              [
+                40,
+                26
+              ],
+              [
+                21,
+                34
+              ],
+              [
+                31,
+                21
+              ],
+              [
+                40,
+                28
+              ]
+            ],
+            "top3_in_ignore_boxes": 1
+          },
+          "DSC00326": {
+            "status": "present_unreferenced",
+            "max_score": 0.08838574054418835,
+            "third_score": 0.08465550839718705,
+            "top_cells": [
+              [
+                46,
+                21
+              ],
+              [
+                1,
+                39
+              ],
+              [
+                44,
+                23
+              ],
+              [
+                1,
+                38
+              ],
+              [
+                1,
+                40
+              ],
+              [
+                23,
+                33
+              ],
+              [
+                6,
+                39
+              ],
+              [
+                50,
+                31
+              ],
+              [
+                38,
+                59
+              ],
+              [
+                44,
+                57
+              ]
+            ],
+            "top3_in_ignore_boxes": 1
+          },
+          "DSC00527": {
+            "status": "referenced",
+            "max_score": 0.12288870306599375,
+            "third_score": 0.1221501194144945,
+            "top_cells": [
+              [
+                44,
+                48
+              ],
+              [
+                1,
+                9
+              ],
+              [
+                0,
+                5
+              ],
+              [
+                0,
+                6
+              ],
+              [
+                3,
+                11
+              ],
+              [
+                0,
+                9
+              ],
+              [
+                0,
+                3
+              ],
+              [
+                0,
+                1
+              ],
+              [
+                13,
+                7
+              ],
+              [
+                2,
+                9
+              ]
+            ],
+            "top3_in_ignore_boxes": 1,
+            "positive_cells": 1578,
+            "negative_cells": 2386,
+            "auc": 0.8903168249091394,
+            "precision_at_3_label": 0.3333333333333333,
+            "precision_at_3_center": 0.6666666666666666,
+            "precision_at_10_label": 0.4,
+            "precision_at_10_center": 0.9,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.3333333333333333
+          },
+          "DSC00562": {
+            "status": "present_unreferenced",
+            "max_score": 0.15429562319409307,
+            "third_score": 0.14758497895376332,
+            "top_cells": [
+              [
+                16,
+                16
+              ],
+              [
+                20,
+                15
+              ],
+              [
+                17,
+                16
+              ],
+              [
+                18,
+                15
+              ],
+              [
+                19,
+                16
+              ],
+              [
+                20,
+                46
+              ],
+              [
+                16,
+                13
+              ],
+              [
+                18,
+                16
+              ],
+              [
+                19,
+                15
+              ],
+              [
+                21,
+                46
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00602": {
+            "status": "present_unreferenced",
+            "max_score": 0.15983427309289144,
+            "third_score": 0.1527318686997189,
+            "top_cells": [
+              [
+                3,
+                43
+              ],
+              [
+                19,
+                23
+              ],
+              [
+                10,
+                9
+              ],
+              [
+                11,
+                9
+              ],
+              [
+                48,
+                26
+              ],
+              [
+                15,
+                38
+              ],
+              [
+                14,
+                8
+              ],
+              [
+                15,
+                8
+              ],
+              [
+                4,
+                9
+              ],
+              [
+                15,
+                23
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00674": {
+            "status": "uncertain",
+            "max_score": 0.11173260245545624,
+            "third_score": 0.10586383911569985,
+            "top_cells": [
+              [
+                13,
+                63
+              ],
+              [
+                1,
+                63
+              ],
+              [
+                3,
+                25
+              ],
+              [
+                9,
+                11
+              ],
+              [
+                6,
+                23
+              ],
+              [
+                11,
+                9
+              ],
+              [
+                11,
+                11
+              ],
+              [
+                3,
+                63
+              ],
+              [
+                11,
+                7
+              ],
+              [
+                4,
+                60
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00728": {
+            "status": "referenced",
+            "max_score": 0.14546138189308255,
+            "third_score": 0.1364548250845019,
+            "top_cells": [
+              [
+                22,
+                22
+              ],
+              [
+                20,
+                29
+              ],
+              [
+                3,
+                57
+              ],
+              [
+                36,
+                62
+              ],
+              [
+                21,
+                22
+              ],
+              [
+                36,
+                56
+              ],
+              [
+                38,
+                60
+              ],
+              [
+                7,
+                21
+              ],
+              [
+                38,
+                49
+              ],
+              [
+                38,
+                48
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 1351,
+            "negative_cells": 2625,
+            "auc": 0.8714351979133622,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 0.5,
+            "precision_at_10_center": 0.5,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00936": {
+            "status": "absent",
+            "max_score": 0.16124545009359048,
+            "third_score": 0.15117313569332302,
+            "top_cells": [
+              [
+                47,
+                41
+              ],
+              [
+                51,
+                63
+              ],
+              [
+                52,
+                13
+              ],
+              [
+                43,
+                58
+              ],
+              [
+                9,
+                13
+              ],
+              [
+                23,
+                20
+              ],
+              [
+                40,
+                63
+              ],
+              [
+                42,
+                35
+              ],
+              [
+                43,
+                41
+              ],
+              [
+                37,
+                63
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1188": {
+            "status": "absent",
+            "max_score": 0.10556575611477981,
+            "third_score": 0.08295401761520138,
+            "top_cells": [
+              [
+                36,
+                16
+              ],
+              [
+                58,
+                55
+              ],
+              [
+                43,
+                16
+              ],
+              [
+                38,
+                27
+              ],
+              [
+                5,
+                22
+              ],
+              [
+                43,
+                46
+              ],
+              [
+                13,
+                24
+              ],
+              [
+                51,
+                45
+              ],
+              [
+                11,
+                24
+              ],
+              [
+                17,
+                24
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1456": {
+            "status": "present_unreferenced",
+            "max_score": 0.14219378334103816,
+            "third_score": 0.14092204100949046,
+            "top_cells": [
+              [
+                36,
+                41
+              ],
+              [
+                1,
+                14
+              ],
+              [
+                31,
+                12
+              ],
+              [
+                34,
+                56
+              ],
+              [
+                36,
+                42
+              ],
+              [
+                31,
+                13
+              ],
+              [
+                31,
+                3
+              ],
+              [
+                21,
+                57
+              ],
+              [
+                36,
+                38
+              ],
+              [
+                29,
+                1
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC_1535": {
+            "status": "absent",
+            "max_score": 0.1638709904632526,
+            "third_score": 0.1495665487039215,
+            "top_cells": [
+              [
+                19,
+                7
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                21,
+                18
+              ],
+              [
+                14,
+                28
+              ],
+              [
+                22,
+                18
+              ],
+              [
+                18,
+                15
+              ],
+              [
+                17,
+                29
+              ],
+              [
+                20,
+                5
+              ],
+              [
+                22,
+                3
+              ],
+              [
+                17,
+                17
+              ]
+            ],
+            "top3_in_ignore_boxes": 2
+          },
+          "Nikon-D800e-raw-00007": {
+            "status": "referenced",
+            "max_score": 0.12012809332492269,
+            "third_score": 0.11774145131344083,
+            "top_cells": [
+              [
+                11,
+                57
+              ],
+              [
+                9,
+                49
+              ],
+              [
+                7,
+                51
+              ],
+              [
+                9,
+                55
+              ],
+              [
+                6,
+                3
+              ],
+              [
+                9,
+                25
+              ],
+              [
+                14,
+                54
+              ],
+              [
+                3,
+                63
+              ],
+              [
+                9,
+                63
+              ],
+              [
+                3,
+                57
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 967,
+            "negative_cells": 3020,
+            "auc": 0.940958244587959,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "P1024439": {
+            "status": "present_unreferenced",
+            "max_score": 0.17084160752990885,
+            "third_score": 0.14725774535225455,
+            "top_cells": [
+              [
+                11,
+                47
+              ],
+              [
+                29,
+                54
+              ],
+              [
+                10,
+                46
+              ],
+              [
+                1,
+                19
+              ],
+              [
+                3,
+                19
+              ],
+              [
+                4,
+                26
+              ],
+              [
+                2,
+                19
+              ],
+              [
+                5,
+                24
+              ],
+              [
+                30,
+                40
+              ],
+              [
+                3,
+                24
+              ]
+            ],
+            "top3_in_ignore_boxes": 2
+          }
+        },
+        "separation": {
+          "lowest_present_third_score": 0.11774145131344083,
+          "lowest_present_photo": "Nikon-D800e-raw-00007",
+          "highest_absent_max_score": 0.1638709904632526,
+          "highest_absent_photo": "DSC_1535",
+          "margin": -0.04612953914981177,
+          "threshold": null,
+          "present_photos": 3,
+          "absent_photos": 3,
+          "unreferenced_or_uncertain": {
+            "2088064441": {
+              "status": "present_unreferenced",
+              "third_score": 0.15262054832729866,
+              "found_at_threshold": true
+            },
+            "5761824892": {
+              "status": "present_unreferenced",
+              "third_score": 0.10333115204212695,
+              "found_at_threshold": false
+            },
+            "DSC00326": {
+              "status": "present_unreferenced",
+              "third_score": 0.08465550839718705,
+              "found_at_threshold": false
+            },
+            "DSC00562": {
+              "status": "present_unreferenced",
+              "third_score": 0.14758497895376332,
+              "found_at_threshold": true
+            },
+            "DSC00602": {
+              "status": "present_unreferenced",
+              "third_score": 0.1527318686997189,
+              "found_at_threshold": true
+            },
+            "DSC00674": {
+              "status": "uncertain",
+              "third_score": 0.10586383911569985,
+              "found_at_threshold": false
+            },
+            "DSC_1456": {
+              "status": "present_unreferenced",
+              "third_score": 0.14092204100949046,
+              "found_at_threshold": true
+            },
+            "P1024439": {
+              "status": "present_unreferenced",
+              "third_score": 0.14725774535225455,
+              "found_at_threshold": true
+            }
+          }
+        },
+        "auc_median": 0.8903168249091394,
+        "auc_minimum": 0.8714351979133622,
+        "acceptance": {
+          "peak_photos": 3,
+          "peak_passed_photos": 2,
+          "peak_failed": [
+            "DSC00527"
+          ],
+          "separation_passed": false,
+          "usable": false
+        }
+      }
+    },
+    "high_res_feats_0": {
+      "title": "high_res_feats_0 pooled 4 x 4 (32 ch, stride 4)",
+      "channels": 32,
+      "prototype_cells": {
+        "2088064441": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32624
+        },
+        "5761824892": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32136
+        },
+        "DSC00326": {
+          "person": 3706,
+          "sky": 3896,
+          "other": 31580
+        },
+        "DSC00527": {
+          "person": 3758,
+          "sky": 2318,
+          "other": 34183
+        },
+        "DSC00562": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 33624
+        },
+        "DSC00602": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 33509
+        },
+        "DSC00674": {
+          "person": 1117,
+          "sky": 3896,
+          "other": 35400
+        },
+        "DSC00728": {
+          "person": 3783,
+          "sky": 2545,
+          "other": 32775
+        },
+        "DSC00936": {
+          "person": 3712,
+          "sky": 3896,
+          "other": 31417
+        },
+        "DSC_1188": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 31304
+        },
+        "DSC_1456": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32360
+        },
+        "DSC_1535": {
+          "person": 2966,
+          "sky": 3896,
+          "other": 33008
+        },
+        "Nikon-D800e-raw-00007": {
+          "person": 3783,
+          "sky": 2929,
+          "other": 32380
+        },
+        "P1024439": {
+          "person": 3656,
+          "sky": 3896,
+          "other": 33900
+        }
+      },
+      "scoring_ms_median": 0.2622499960125424,
+      "person": {
+        "photos": {
+          "2088064441": {
+            "status": "referenced",
+            "max_score": 0.1948942133640048,
+            "third_score": 0.18478027664099894,
+            "top_cells": [
+              [
+                16,
+                13
+              ],
+              [
+                24,
+                22
+              ],
+              [
+                17,
+                26
+              ],
+              [
+                30,
+                24
+              ],
+              [
+                27,
+                24
+              ],
+              [
+                27,
+                28
+              ],
+              [
+                27,
+                26
+              ],
+              [
+                24,
+                23
+              ],
+              [
+                18,
+                17
+              ],
+              [
+                28,
+                26
+              ]
+            ],
+            "top3_in_ignore_boxes": 2,
+            "positive_cells": 0,
+            "negative_cells": 4056,
+            "auc": null,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.0,
+            "precision_at_10_label": 0.0,
+            "precision_at_10_center": 0.0,
+            "acceptance_rule": "center",
+            "acceptance_precision_at_3": 0.0
+          },
+          "5761824892": {
+            "status": "absent",
+            "max_score": 0.2699891827120035,
+            "third_score": 0.2254265349759309,
+            "top_cells": [
+              [
+                3,
+                14
+              ],
+              [
+                9,
+                10
+              ],
+              [
+                23,
+                37
+              ],
+              [
+                22,
+                6
+              ],
+              [
+                9,
+                9
+              ],
+              [
+                23,
+                35
+              ],
+              [
+                23,
+                36
+              ],
+              [
+                5,
+                8
+              ],
+              [
+                25,
+                4
+              ],
+              [
+                26,
+                33
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC00326": {
+            "status": "referenced",
+            "max_score": 0.11770209735770842,
+            "third_score": 0.11041062406158941,
+            "top_cells": [
+              [
+                50,
+                31
+              ],
+              [
+                50,
+                34
+              ],
+              [
+                51,
+                31
+              ],
+              [
+                2,
+                60
+              ],
+              [
+                36,
+                4
+              ],
+              [
+                3,
+                58
+              ],
+              [
+                35,
+                2
+              ],
+              [
+                13,
+                58
+              ],
+              [
+                7,
+                46
+              ],
+              [
+                16,
+                60
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 77,
+            "negative_cells": 3964,
+            "auc": 0.546938681903364,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 0.3,
+            "precision_at_10_center": 0.3,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00527": {
+            "status": "referenced",
+            "max_score": 0.2805872841451321,
+            "third_score": 0.23680207514564763,
+            "top_cells": [
+              [
+                56,
+                31
+              ],
+              [
+                53,
+                32
+              ],
+              [
+                52,
+                32
+              ],
+              [
+                55,
+                33
+              ],
+              [
+                53,
+                5
+              ],
+              [
+                51,
+                32
+              ],
+              [
+                56,
+                33
+              ],
+              [
+                53,
+                6
+              ],
+              [
+                62,
+                14
+              ],
+              [
+                58,
+                0
+              ]
+            ],
+            "top3_in_ignore_boxes": 2,
+            "positive_cells": 25,
+            "negative_cells": 2927,
+            "auc": 0.8622070379227879,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 0.6,
+            "precision_at_10_center": 0.6,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00562": {
+            "status": "present_unreferenced",
+            "max_score": 0.1313953716970605,
+            "third_score": 0.07227341423114575,
+            "top_cells": [
+              [
+                26,
+                24
+              ],
+              [
+                25,
+                24
+              ],
+              [
+                26,
+                23
+              ],
+              [
+                59,
+                4
+              ],
+              [
+                60,
+                4
+              ],
+              [
+                40,
+                10
+              ],
+              [
+                25,
+                23
+              ],
+              [
+                36,
+                36
+              ],
+              [
+                25,
+                0
+              ],
+              [
+                58,
+                4
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00602": {
+            "status": "present_unreferenced",
+            "max_score": 0.37308632596939684,
+            "third_score": 0.36566813977952906,
+            "top_cells": [
+              [
+                38,
+                46
+              ],
+              [
+                38,
+                49
+              ],
+              [
+                38,
+                37
+              ],
+              [
+                38,
+                40
+              ],
+              [
+                38,
+                42
+              ],
+              [
+                38,
+                39
+              ],
+              [
+                38,
+                38
+              ],
+              [
+                38,
+                44
+              ],
+              [
+                38,
+                41
+              ],
+              [
+                38,
+                52
+              ]
+            ],
+            "top3_in_ignore_boxes": 2
+          },
+          "DSC00674": {
+            "status": "referenced",
+            "max_score": 0.2846194068084147,
+            "third_score": 0.2834143911763211,
+            "top_cells": [
+              [
+                36,
+                6
+              ],
+              [
+                31,
+                2
+              ],
+              [
+                18,
+                10
+              ],
+              [
+                35,
+                6
+              ],
+              [
+                39,
+                53
+              ],
+              [
+                41,
+                46
+              ],
+              [
+                47,
+                31
+              ],
+              [
+                41,
+                47
+              ],
+              [
+                48,
+                16
+              ],
+              [
+                41,
+                48
+              ]
+            ],
+            "top3_in_ignore_boxes": 3,
+            "positive_cells": 2666,
+            "negative_cells": 1255,
+            "auc": 0.19710983522773123,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.0,
+            "precision_at_10_label": 0.1,
+            "precision_at_10_center": 0.1,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.0
+          },
+          "DSC00728": {
+            "status": "absent",
+            "max_score": 0.3235353923665806,
+            "third_score": 0.308833737045226,
+            "top_cells": [
+              [
+                7,
+                14
+              ],
+              [
+                6,
+                12
+              ],
+              [
+                21,
+                13
+              ],
+              [
+                12,
+                3
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                9,
+                9
+              ],
+              [
+                16,
+                3
+              ],
+              [
+                17,
+                8
+              ],
+              [
+                12,
+                6
+              ],
+              [
+                23,
+                15
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC00936": {
+            "status": "referenced",
+            "max_score": 0.0758257103118779,
+            "third_score": 0.07530877692919657,
+            "top_cells": [
+              [
+                56,
+                34
+              ],
+              [
+                45,
+                35
+              ],
+              [
+                49,
+                40
+              ],
+              [
+                63,
+                20
+              ],
+              [
+                63,
+                19
+              ],
+              [
+                47,
+                40
+              ],
+              [
+                45,
+                38
+              ],
+              [
+                50,
+                35
+              ],
+              [
+                50,
+                36
+              ],
+              [
+                50,
+                33
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 71,
+            "negative_cells": 3983,
+            "auc": 0.7050634209474775,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 0.7,
+            "precision_at_10_center": 0.8,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC_1188": {
+            "status": "absent",
+            "max_score": 0.22294697761290572,
+            "third_score": 0.1839339467496599,
+            "top_cells": [
+              [
+                22,
+                24
+              ],
+              [
+                61,
+                9
+              ],
+              [
+                63,
+                14
+              ],
+              [
+                63,
+                13
+              ],
+              [
+                10,
+                10
+              ],
+              [
+                23,
+                24
+              ],
+              [
+                48,
+                29
+              ],
+              [
+                63,
+                47
+              ],
+              [
+                25,
+                20
+              ],
+              [
+                34,
+                25
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1456": {
+            "status": "present_unreferenced",
+            "max_score": 0.3487042392056232,
+            "third_score": 0.33376948233125375,
+            "top_cells": [
+              [
+                38,
+                33
+              ],
+              [
+                38,
+                14
+              ],
+              [
+                38,
+                18
+              ],
+              [
+                15,
+                14
+              ],
+              [
+                12,
+                14
+              ],
+              [
+                40,
+                33
+              ],
+              [
+                22,
+                13
+              ],
+              [
+                20,
+                13
+              ],
+              [
+                40,
+                17
+              ],
+              [
+                18,
+                14
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1535": {
+            "status": "referenced",
+            "max_score": 0.29183456953905174,
+            "third_score": 0.2834689651737813,
+            "top_cells": [
+              [
+                4,
+                18
+              ],
+              [
+                0,
+                16
+              ],
+              [
+                4,
+                17
+              ],
+              [
+                3,
+                18
+              ],
+              [
+                4,
+                58
+              ],
+              [
+                2,
+                18
+              ],
+              [
+                0,
+                18
+              ],
+              [
+                0,
+                15
+              ],
+              [
+                0,
+                17
+              ],
+              [
+                1,
+                18
+              ]
+            ],
+            "top3_in_ignore_boxes": 2,
+            "positive_cells": 817,
+            "negative_cells": 2392,
+            "auc": 0.9514338902011192,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.0,
+            "precision_at_10_label": 0.0,
+            "precision_at_10_center": 0.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.0
+          },
+          "Nikon-D800e-raw-00007": {
+            "status": "absent",
+            "max_score": 0.2447749002661731,
+            "third_score": 0.23131767710303552,
+            "top_cells": [
+              [
+                18,
+                44
+              ],
+              [
+                63,
+                49
+              ],
+              [
+                62,
+                50
+              ],
+              [
+                17,
+                57
+              ],
+              [
+                59,
+                42
+              ],
+              [
+                41,
+                14
+              ],
+              [
+                60,
+                51
+              ],
+              [
+                17,
+                59
+              ],
+              [
+                16,
+                51
+              ],
+              [
+                60,
+                42
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "P1024439": {
+            "status": "referenced",
+            "max_score": 0.3251856508643206,
+            "third_score": 0.3037275304319036,
+            "top_cells": [
+              [
+                39,
+                46
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                11,
+                19
+              ],
+              [
+                9,
+                22
+              ],
+              [
+                52,
+                44
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                33,
+                41
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                0,
+                1
+              ],
+              [
+                12,
+                20
+              ]
+            ],
+            "top3_in_ignore_boxes": 2,
+            "positive_cells": 127,
+            "negative_cells": 2573,
+            "auc": 0.8800536155289178,
+            "precision_at_3_label": 0.3333333333333333,
+            "precision_at_3_center": 0.3333333333333333,
+            "precision_at_10_label": 0.3,
+            "precision_at_10_center": 0.3,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.3333333333333333
+          }
+        },
+        "separation": {
+          "lowest_present_third_score": 0.07530877692919657,
+          "lowest_present_photo": "DSC00936",
+          "highest_absent_max_score": 0.3235353923665806,
+          "highest_absent_photo": "DSC00728",
+          "margin": -0.248226615437384,
+          "threshold": null,
+          "present_photos": 7,
+          "absent_photos": 4,
+          "unreferenced_or_uncertain": {
+            "DSC00562": {
+              "status": "present_unreferenced",
+              "third_score": 0.07227341423114575,
+              "found_at_threshold": false
+            },
+            "DSC00602": {
+              "status": "present_unreferenced",
+              "third_score": 0.36566813977952906,
+              "found_at_threshold": true
+            },
+            "DSC_1456": {
+              "status": "present_unreferenced",
+              "third_score": 0.33376948233125375,
+              "found_at_threshold": true
+            }
+          }
+        },
+        "auc_median": 0.7836352294351328,
+        "auc_minimum": 0.19710983522773123,
+        "acceptance": {
+          "peak_photos": 7,
+          "peak_passed_photos": 3,
+          "peak_failed": [
+            "2088064441",
+            "DSC00674",
+            "DSC_1535",
+            "P1024439"
+          ],
+          "separation_passed": false,
+          "usable": false
+        }
+      },
+      "sky": {
+        "photos": {
+          "2088064441": {
+            "status": "present_unreferenced",
+            "max_score": 0.31414517342346204,
+            "third_score": 0.21027477160032082,
+            "top_cells": [
+              [
+                40,
+                42
+              ],
+              [
+                40,
+                49
+              ],
+              [
+                12,
+                62
+              ],
+              [
+                12,
+                63
+              ],
+              [
+                12,
+                50
+              ],
+              [
+                12,
+                46
+              ],
+              [
+                12,
+                48
+              ],
+              [
+                31,
+                33
+              ],
+              [
+                41,
+                30
+              ],
+              [
+                11,
+                57
+              ]
+            ],
+            "top3_in_ignore_boxes": 1
+          },
+          "5761824892": {
+            "status": "present_unreferenced",
+            "max_score": 0.2585732865864677,
+            "third_score": 0.23775026198411253,
+            "top_cells": [
+              [
+                21,
+                33
+              ],
+              [
+                36,
+                21
+              ],
+              [
+                39,
+                24
+              ],
+              [
+                36,
+                19
+              ],
+              [
+                22,
+                28
+              ],
+              [
+                39,
+                25
+              ],
+              [
+                36,
+                23
+              ],
+              [
+                20,
+                42
+              ],
+              [
+                20,
+                38
+              ],
+              [
+                36,
+                22
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC00326": {
+            "status": "present_unreferenced",
+            "max_score": 0.21106101901780827,
+            "third_score": 0.2049025380874694,
+            "top_cells": [
+              [
+                2,
+                37
+              ],
+              [
+                1,
+                38
+              ],
+              [
+                2,
+                39
+              ],
+              [
+                0,
+                39
+              ],
+              [
+                2,
+                41
+              ],
+              [
+                1,
+                39
+              ],
+              [
+                0,
+                40
+              ],
+              [
+                2,
+                38
+              ],
+              [
+                2,
+                40
+              ],
+              [
+                1,
+                40
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00527": {
+            "status": "referenced",
+            "max_score": 0.2570134997505611,
+            "third_score": 0.24997953142029872,
+            "top_cells": [
+              [
+                22,
+                58
+              ],
+              [
+                30,
+                44
+              ],
+              [
+                30,
+                46
+              ],
+              [
+                30,
+                45
+              ],
+              [
+                30,
+                47
+              ],
+              [
+                24,
+                54
+              ],
+              [
+                27,
+                48
+              ],
+              [
+                20,
+                1
+              ],
+              [
+                20,
+                60
+              ],
+              [
+                24,
+                55
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 1578,
+            "negative_cells": 2386,
+            "auc": 0.9996653482449905,
+            "precision_at_3_label": 0.3333333333333333,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 0.7,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.3333333333333333
+          },
+          "DSC00562": {
+            "status": "present_unreferenced",
+            "max_score": 0.2555693902040306,
+            "third_score": 0.2508941511086339,
+            "top_cells": [
+              [
+                27,
+                62
+              ],
+              [
+                21,
+                46
+              ],
+              [
+                24,
+                62
+              ],
+              [
+                28,
+                62
+              ],
+              [
+                18,
+                15
+              ],
+              [
+                13,
+                0
+              ],
+              [
+                18,
+                16
+              ],
+              [
+                19,
+                46
+              ],
+              [
+                20,
+                63
+              ],
+              [
+                24,
+                63
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00602": {
+            "status": "present_unreferenced",
+            "max_score": 0.3215324512453409,
+            "third_score": 0.29665117750525416,
+            "top_cells": [
+              [
+                19,
+                48
+              ],
+              [
+                2,
+                43
+              ],
+              [
+                0,
+                39
+              ],
+              [
+                4,
+                0
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                19,
+                49
+              ],
+              [
+                1,
+                39
+              ],
+              [
+                6,
+                19
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                6,
+                20
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00674": {
+            "status": "uncertain",
+            "max_score": 0.074558317200355,
+            "third_score": 0.06552615260055583,
+            "top_cells": [
+              [
+                8,
+                59
+              ],
+              [
+                8,
+                20
+              ],
+              [
+                4,
+                49
+              ],
+              [
+                10,
+                61
+              ],
+              [
+                6,
+                24
+              ],
+              [
+                4,
+                50
+              ],
+              [
+                4,
+                48
+              ],
+              [
+                6,
+                57
+              ],
+              [
+                6,
+                56
+              ],
+              [
+                4,
+                51
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00728": {
+            "status": "referenced",
+            "max_score": 0.27200942073423273,
+            "third_score": 0.26385991485447047,
+            "top_cells": [
+              [
+                18,
+                29
+              ],
+              [
+                11,
+                21
+              ],
+              [
+                8,
+                21
+              ],
+              [
+                18,
+                52
+              ],
+              [
+                18,
+                51
+              ],
+              [
+                21,
+                60
+              ],
+              [
+                8,
+                62
+              ],
+              [
+                7,
+                21
+              ],
+              [
+                18,
+                44
+              ],
+              [
+                21,
+                59
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 1351,
+            "negative_cells": 2625,
+            "auc": 0.9981065172182862,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00936": {
+            "status": "absent",
+            "max_score": 0.324982638090046,
+            "third_score": 0.3181735004756564,
+            "top_cells": [
+              [
+                44,
+                34
+              ],
+              [
+                47,
+                41
+              ],
+              [
+                51,
+                41
+              ],
+              [
+                50,
+                41
+              ],
+              [
+                53,
+                32
+              ],
+              [
+                18,
+                37
+              ],
+              [
+                20,
+                45
+              ],
+              [
+                46,
+                1
+              ],
+              [
+                20,
+                17
+              ],
+              [
+                48,
+                1
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1188": {
+            "status": "absent",
+            "max_score": 0.1917508936989042,
+            "third_score": 0.1762525318131739,
+            "top_cells": [
+              [
+                29,
+                53
+              ],
+              [
+                45,
+                22
+              ],
+              [
+                49,
+                13
+              ],
+              [
+                56,
+                19
+              ],
+              [
+                44,
+                23
+              ],
+              [
+                58,
+                17
+              ],
+              [
+                37,
+                4
+              ],
+              [
+                57,
+                18
+              ],
+              [
+                56,
+                20
+              ],
+              [
+                55,
+                20
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1456": {
+            "status": "present_unreferenced",
+            "max_score": 0.2303510558500529,
+            "third_score": 0.22396808752892583,
+            "top_cells": [
+              [
+                20,
+                11
+              ],
+              [
+                28,
+                25
+              ],
+              [
+                16,
+                63
+              ],
+              [
+                28,
+                26
+              ],
+              [
+                22,
+                35
+              ],
+              [
+                22,
+                33
+              ],
+              [
+                26,
+                19
+              ],
+              [
+                28,
+                21
+              ],
+              [
+                28,
+                20
+              ],
+              [
+                26,
+                20
+              ]
+            ],
+            "top3_in_ignore_boxes": 1
+          },
+          "DSC_1535": {
+            "status": "absent",
+            "max_score": 0.31982668976632567,
+            "third_score": 0.22334779238276425,
+            "top_cells": [
+              [
+                9,
+                57
+              ],
+              [
+                37,
+                43
+              ],
+              [
+                25,
+                18
+              ],
+              [
+                39,
+                34
+              ],
+              [
+                5,
+                16
+              ],
+              [
+                11,
+                44
+              ],
+              [
+                22,
+                12
+              ],
+              [
+                21,
+                18
+              ],
+              [
+                19,
+                11
+              ],
+              [
+                21,
+                15
+              ]
+            ],
+            "top3_in_ignore_boxes": 2
+          },
+          "Nikon-D800e-raw-00007": {
+            "status": "referenced",
+            "max_score": 0.2712745204754475,
+            "third_score": 0.2609974722868079,
+            "top_cells": [
+              [
+                23,
+                31
+              ],
+              [
+                23,
+                16
+              ],
+              [
+                23,
+                32
+              ],
+              [
+                23,
+                15
+              ],
+              [
+                0,
+                3
+              ],
+              [
+                23,
+                18
+              ],
+              [
+                23,
+                11
+              ],
+              [
+                23,
+                30
+              ],
+              [
+                2,
+                18
+              ],
+              [
+                23,
+                14
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 967,
+            "negative_cells": 3020,
+            "auc": 0.9709722155639412,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.0,
+            "precision_at_10_label": 0.1,
+            "precision_at_10_center": 0.2,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.0
+          },
+          "P1024439": {
+            "status": "present_unreferenced",
+            "max_score": 0.31543916851160214,
+            "third_score": 0.3075612851301086,
+            "top_cells": [
+              [
+                21,
+                51
+              ],
+              [
+                17,
+                55
+              ],
+              [
+                17,
+                58
+              ],
+              [
+                23,
+                48
+              ],
+              [
+                24,
+                53
+              ],
+              [
+                19,
+                53
+              ],
+              [
+                30,
+                40
+              ],
+              [
+                19,
+                61
+              ],
+              [
+                35,
+                59
+              ],
+              [
+                26,
+                46
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          }
+        },
+        "separation": {
+          "lowest_present_third_score": 0.24997953142029872,
+          "lowest_present_photo": "DSC00527",
+          "highest_absent_max_score": 0.324982638090046,
+          "highest_absent_photo": "DSC00936",
+          "margin": -0.0750031066697473,
+          "threshold": null,
+          "present_photos": 3,
+          "absent_photos": 3,
+          "unreferenced_or_uncertain": {
+            "2088064441": {
+              "status": "present_unreferenced",
+              "third_score": 0.21027477160032082,
+              "found_at_threshold": false
+            },
+            "5761824892": {
+              "status": "present_unreferenced",
+              "third_score": 0.23775026198411253,
+              "found_at_threshold": false
+            },
+            "DSC00326": {
+              "status": "present_unreferenced",
+              "third_score": 0.2049025380874694,
+              "found_at_threshold": false
+            },
+            "DSC00562": {
+              "status": "present_unreferenced",
+              "third_score": 0.2508941511086339,
+              "found_at_threshold": false
+            },
+            "DSC00602": {
+              "status": "present_unreferenced",
+              "third_score": 0.29665117750525416,
+              "found_at_threshold": true
+            },
+            "DSC00674": {
+              "status": "uncertain",
+              "third_score": 0.06552615260055583,
+              "found_at_threshold": false
+            },
+            "DSC_1456": {
+              "status": "present_unreferenced",
+              "third_score": 0.22396808752892583,
+              "found_at_threshold": false
+            },
+            "P1024439": {
+              "status": "present_unreferenced",
+              "third_score": 0.3075612851301086,
+              "found_at_threshold": true
+            }
+          }
+        },
+        "auc_median": 0.9981065172182862,
+        "auc_minimum": 0.9709722155639412,
+        "acceptance": {
+          "peak_photos": 3,
+          "peak_passed_photos": 1,
+          "peak_failed": [
+            "DSC00527",
+            "Nikon-D800e-raw-00007"
+          ],
+          "separation_passed": false,
+          "usable": false
+        }
+      }
+    },
+    "concatenated": {
+      "title": "concatenation of the three normalized sources (352 ch)",
+      "channels": 352,
+      "prototype_cells": {
+        "2088064441": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32624
+        },
+        "5761824892": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32136
+        },
+        "DSC00326": {
+          "person": 3706,
+          "sky": 3896,
+          "other": 31580
+        },
+        "DSC00527": {
+          "person": 3758,
+          "sky": 2318,
+          "other": 34183
+        },
+        "DSC00562": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 33624
+        },
+        "DSC00602": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 33509
+        },
+        "DSC00674": {
+          "person": 1117,
+          "sky": 3896,
+          "other": 35400
+        },
+        "DSC00728": {
+          "person": 3783,
+          "sky": 2545,
+          "other": 32775
+        },
+        "DSC00936": {
+          "person": 3712,
+          "sky": 3896,
+          "other": 31417
+        },
+        "DSC_1188": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 31304
+        },
+        "DSC_1456": {
+          "person": 3783,
+          "sky": 3896,
+          "other": 32360
+        },
+        "DSC_1535": {
+          "person": 2966,
+          "sky": 3896,
+          "other": 33008
+        },
+        "Nikon-D800e-raw-00007": {
+          "person": 3783,
+          "sky": 2929,
+          "other": 32380
+        },
+        "P1024439": {
+          "person": 3656,
+          "sky": 3896,
+          "other": 33900
+        }
+      },
+      "scoring_ms_median": 2.3331499978667125,
+      "person": {
+        "photos": {
+          "2088064441": {
+            "status": "referenced",
+            "max_score": 0.11211822313883335,
+            "third_score": 0.10172430718643832,
+            "top_cells": [
+              [
+                18,
+                17
+              ],
+              [
+                16,
+                13
+              ],
+              [
+                15,
+                62
+              ],
+              [
+                18,
+                18
+              ],
+              [
+                18,
+                20
+              ],
+              [
+                16,
+                22
+              ],
+              [
+                15,
+                56
+              ],
+              [
+                16,
+                15
+              ],
+              [
+                16,
+                20
+              ],
+              [
+                16,
+                14
+              ]
+            ],
+            "top3_in_ignore_boxes": 3,
+            "positive_cells": 0,
+            "negative_cells": 4056,
+            "auc": null,
+            "precision_at_3_label": 0.0,
+            "precision_at_3_center": 0.0,
+            "precision_at_10_label": 0.0,
+            "precision_at_10_center": 0.0,
+            "acceptance_rule": "center",
+            "acceptance_precision_at_3": 0.0
+          },
+          "5761824892": {
+            "status": "absent",
+            "max_score": 0.1599641866009528,
+            "third_score": 0.11579507013233198,
+            "top_cells": [
+              [
+                23,
+                37
+              ],
+              [
+                23,
+                35
+              ],
+              [
+                23,
+                36
+              ],
+              [
+                26,
+                33
+              ],
+              [
+                24,
+                32
+              ],
+              [
+                22,
+                41
+              ],
+              [
+                36,
+                34
+              ],
+              [
+                0,
+                34
+              ],
+              [
+                34,
+                36
+              ],
+              [
+                1,
+                35
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC00326": {
+            "status": "referenced",
+            "max_score": 0.09529727951476907,
+            "third_score": 0.08396457105950028,
+            "top_cells": [
+              [
+                50,
+                31
+              ],
+              [
+                52,
+                31
+              ],
+              [
+                51,
+                31
+              ],
+              [
+                49,
+                34
+              ],
+              [
+                44,
+                29
+              ],
+              [
+                44,
+                30
+              ],
+              [
+                50,
+                34
+              ],
+              [
+                45,
+                31
+              ],
+              [
+                45,
+                36
+              ],
+              [
+                49,
+                31
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 77,
+            "negative_cells": 3964,
+            "auc": 0.9715098221657253,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00527": {
+            "status": "referenced",
+            "max_score": 0.15981725974718058,
+            "third_score": 0.14421080390967578,
+            "top_cells": [
+              [
+                56,
+                31
+              ],
+              [
+                53,
+                32
+              ],
+              [
+                52,
+                32
+              ],
+              [
+                51,
+                32
+              ],
+              [
+                55,
+                33
+              ],
+              [
+                56,
+                33
+              ],
+              [
+                49,
+                32
+              ],
+              [
+                50,
+                31
+              ],
+              [
+                50,
+                32
+              ],
+              [
+                54,
+                32
+              ]
+            ],
+            "top3_in_ignore_boxes": 2,
+            "positive_cells": 25,
+            "negative_cells": 2927,
+            "auc": 0.9350871199180047,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00562": {
+            "status": "present_unreferenced",
+            "max_score": 0.10483758899158635,
+            "third_score": 0.04479177547956592,
+            "top_cells": [
+              [
+                26,
+                24
+              ],
+              [
+                26,
+                23
+              ],
+              [
+                25,
+                24
+              ],
+              [
+                37,
+                14
+              ],
+              [
+                35,
+                34
+              ],
+              [
+                36,
+                34
+              ],
+              [
+                36,
+                36
+              ],
+              [
+                38,
+                8
+              ],
+              [
+                37,
+                6
+              ],
+              [
+                36,
+                6
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00602": {
+            "status": "present_unreferenced",
+            "max_score": 0.2066682799838092,
+            "third_score": 0.19709318817410026,
+            "top_cells": [
+              [
+                50,
+                36
+              ],
+              [
+                38,
+                40
+              ],
+              [
+                38,
+                42
+              ],
+              [
+                38,
+                39
+              ],
+              [
+                38,
+                54
+              ],
+              [
+                38,
+                44
+              ],
+              [
+                38,
+                53
+              ],
+              [
+                38,
+                51
+              ],
+              [
+                38,
+                38
+              ],
+              [
+                38,
+                41
+              ]
+            ],
+            "top3_in_ignore_boxes": 2
+          },
+          "DSC00674": {
+            "status": "referenced",
+            "max_score": 0.17321268286145453,
+            "third_score": 0.16966654839780249,
+            "top_cells": [
+              [
+                23,
+                34
+              ],
+              [
+                28,
+                17
+              ],
+              [
+                23,
+                36
+              ],
+              [
+                25,
+                53
+              ],
+              [
+                25,
+                50
+              ],
+              [
+                24,
+                18
+              ],
+              [
+                17,
+                52
+              ],
+              [
+                23,
+                35
+              ],
+              [
+                23,
+                33
+              ],
+              [
+                47,
+                31
+              ]
+            ],
+            "top3_in_ignore_boxes": 3,
+            "positive_cells": 2666,
+            "negative_cells": 1255,
+            "auc": 0.7431955598461368,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00728": {
+            "status": "absent",
+            "max_score": 0.17239513992648614,
+            "third_score": 0.1629423515982601,
+            "top_cells": [
+              [
+                12,
+                6
+              ],
+              [
+                16,
+                4
+              ],
+              [
+                20,
+                10
+              ],
+              [
+                13,
+                8
+              ],
+              [
+                17,
+                8
+              ],
+              [
+                17,
+                9
+              ],
+              [
+                9,
+                10
+              ],
+              [
+                10,
+                10
+              ],
+              [
+                17,
+                7
+              ],
+              [
+                6,
+                12
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC00936": {
+            "status": "referenced",
+            "max_score": 0.0812331281692028,
+            "third_score": 0.0722596101778582,
+            "top_cells": [
+              [
+                56,
+                34
+              ],
+              [
+                49,
+                40
+              ],
+              [
+                45,
+                38
+              ],
+              [
+                47,
+                40
+              ],
+              [
+                46,
+                34
+              ],
+              [
+                50,
+                36
+              ],
+              [
+                45,
+                35
+              ],
+              [
+                50,
+                35
+              ],
+              [
+                46,
+                36
+              ],
+              [
+                63,
+                20
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 71,
+            "negative_cells": 3983,
+            "auc": 0.7942912306881712,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 0.8,
+            "precision_at_10_center": 0.9,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC_1188": {
+            "status": "absent",
+            "max_score": 0.16796830510267513,
+            "third_score": 0.10983574981499322,
+            "top_cells": [
+              [
+                22,
+                24
+              ],
+              [
+                23,
+                24
+              ],
+              [
+                29,
+                24
+              ],
+              [
+                61,
+                9
+              ],
+              [
+                34,
+                25
+              ],
+              [
+                30,
+                23
+              ],
+              [
+                30,
+                24
+              ],
+              [
+                29,
+                23
+              ],
+              [
+                37,
+                25
+              ],
+              [
+                17,
+                39
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1456": {
+            "status": "present_unreferenced",
+            "max_score": 0.17247425333563143,
+            "third_score": 0.1638324712618604,
+            "top_cells": [
+              [
+                38,
+                18
+              ],
+              [
+                38,
+                33
+              ],
+              [
+                38,
+                19
+              ],
+              [
+                38,
+                14
+              ],
+              [
+                36,
+                14
+              ],
+              [
+                40,
+                17
+              ],
+              [
+                37,
+                26
+              ],
+              [
+                40,
+                33
+              ],
+              [
+                40,
+                18
+              ],
+              [
+                38,
+                34
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1535": {
+            "status": "referenced",
+            "max_score": 0.1941636276660973,
+            "third_score": 0.1668051192609103,
+            "top_cells": [
+              [
+                5,
+                34
+              ],
+              [
+                11,
+                31
+              ],
+              [
+                5,
+                33
+              ],
+              [
+                10,
+                29
+              ],
+              [
+                11,
+                30
+              ],
+              [
+                6,
+                34
+              ],
+              [
+                10,
+                30
+              ],
+              [
+                38,
+                30
+              ],
+              [
+                39,
+                30
+              ],
+              [
+                10,
+                33
+              ]
+            ],
+            "top3_in_ignore_boxes": 3,
+            "positive_cells": 817,
+            "negative_cells": 2392,
+            "auc": 0.9932148368900006,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "Nikon-D800e-raw-00007": {
+            "status": "absent",
+            "max_score": 0.09885374253091506,
+            "third_score": 0.09704544162507522,
+            "top_cells": [
+              [
+                59,
+                42
+              ],
+              [
+                16,
+                51
+              ],
+              [
+                18,
+                44
+              ],
+              [
+                62,
+                50
+              ],
+              [
+                43,
+                50
+              ],
+              [
+                18,
+                33
+              ],
+              [
+                60,
+                51
+              ],
+              [
+                41,
+                14
+              ],
+              [
+                17,
+                55
+              ],
+              [
+                18,
+                30
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "P1024439": {
+            "status": "referenced",
+            "max_score": 0.2195577068061112,
+            "third_score": 0.20965551528964443,
+            "top_cells": [
+              [
+                39,
+                46
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                2,
+                4
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                3,
+                6
+              ],
+              [
+                4,
+                8
+              ]
+            ],
+            "top3_in_ignore_boxes": 2,
+            "positive_cells": 127,
+            "negative_cells": 2573,
+            "auc": 0.953438340611621,
+            "precision_at_3_label": 0.3333333333333333,
+            "precision_at_3_center": 0.3333333333333333,
+            "precision_at_10_label": 0.1,
+            "precision_at_10_center": 0.1,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 0.3333333333333333
+          }
+        },
+        "separation": {
+          "lowest_present_third_score": 0.0722596101778582,
+          "lowest_present_photo": "DSC00936",
+          "highest_absent_max_score": 0.17239513992648614,
+          "highest_absent_photo": "DSC00728",
+          "margin": -0.10013552974862794,
+          "threshold": null,
+          "present_photos": 7,
+          "absent_photos": 4,
+          "unreferenced_or_uncertain": {
+            "DSC00562": {
+              "status": "present_unreferenced",
+              "third_score": 0.04479177547956592,
+              "found_at_threshold": false
+            },
+            "DSC00602": {
+              "status": "present_unreferenced",
+              "third_score": 0.19709318817410026,
+              "found_at_threshold": true
+            },
+            "DSC_1456": {
+              "status": "present_unreferenced",
+              "third_score": 0.1638324712618604,
+              "found_at_threshold": true
+            }
+          }
+        },
+        "auc_median": 0.9442627302648129,
+        "auc_minimum": 0.7431955598461368,
+        "acceptance": {
+          "peak_photos": 7,
+          "peak_passed_photos": 5,
+          "peak_failed": [
+            "2088064441",
+            "P1024439"
+          ],
+          "separation_passed": false,
+          "usable": false
+        }
+      },
+      "sky": {
+        "photos": {
+          "2088064441": {
+            "status": "present_unreferenced",
+            "max_score": 0.1805652221951144,
+            "third_score": 0.1786378291319044,
+            "top_cells": [
+              [
+                8,
+                49
+              ],
+              [
+                9,
+                58
+              ],
+              [
+                6,
+                58
+              ],
+              [
+                8,
+                51
+              ],
+              [
+                7,
+                50
+              ],
+              [
+                6,
+                47
+              ],
+              [
+                6,
+                45
+              ],
+              [
+                9,
+                60
+              ],
+              [
+                8,
+                50
+              ],
+              [
+                8,
+                53
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "5761824892": {
+            "status": "present_unreferenced",
+            "max_score": 0.09759814870821348,
+            "third_score": 0.07590869555942004,
+            "top_cells": [
+              [
+                1,
+                56
+              ],
+              [
+                21,
+                33
+              ],
+              [
+                20,
+                38
+              ],
+              [
+                22,
+                29
+              ],
+              [
+                22,
+                28
+              ],
+              [
+                21,
+                34
+              ],
+              [
+                20,
+                42
+              ],
+              [
+                20,
+                41
+              ],
+              [
+                20,
+                37
+              ],
+              [
+                20,
+                39
+              ]
+            ],
+            "top3_in_ignore_boxes": 2
+          },
+          "DSC00326": {
+            "status": "present_unreferenced",
+            "max_score": 0.16318969102832237,
+            "third_score": 0.15900385657193994,
+            "top_cells": [
+              [
+                1,
+                39
+              ],
+              [
+                1,
+                38
+              ],
+              [
+                1,
+                40
+              ],
+              [
+                2,
+                41
+              ],
+              [
+                2,
+                39
+              ],
+              [
+                6,
+                39
+              ],
+              [
+                5,
+                39
+              ],
+              [
+                2,
+                38
+              ],
+              [
+                0,
+                40
+              ],
+              [
+                5,
+                38
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00527": {
+            "status": "referenced",
+            "max_score": 0.199509318448162,
+            "third_score": 0.18579846264526578,
+            "top_cells": [
+              [
+                22,
+                58
+              ],
+              [
+                24,
+                54
+              ],
+              [
+                24,
+                47
+              ],
+              [
+                28,
+                47
+              ],
+              [
+                23,
+                50
+              ],
+              [
+                23,
+                49
+              ],
+              [
+                26,
+                42
+              ],
+              [
+                25,
+                43
+              ],
+              [
+                21,
+                28
+              ],
+              [
+                24,
+                49
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 1578,
+            "negative_cells": 2386,
+            "auc": 0.9999710499672254,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00562": {
+            "status": "present_unreferenced",
+            "max_score": 0.19649490587275187,
+            "third_score": 0.1947528379014407,
+            "top_cells": [
+              [
+                9,
+                16
+              ],
+              [
+                13,
+                41
+              ],
+              [
+                12,
+                41
+              ],
+              [
+                13,
+                46
+              ],
+              [
+                11,
+                41
+              ],
+              [
+                9,
+                15
+              ],
+              [
+                12,
+                45
+              ],
+              [
+                3,
+                19
+              ],
+              [
+                24,
+                63
+              ],
+              [
+                16,
+                43
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00602": {
+            "status": "present_unreferenced",
+            "max_score": 0.21655710308011367,
+            "third_score": 0.21330912838613414,
+            "top_cells": [
+              [
+                7,
+                43
+              ],
+              [
+                21,
+                6
+              ],
+              [
+                21,
+                5
+              ],
+              [
+                21,
+                7
+              ],
+              [
+                18,
+                21
+              ],
+              [
+                18,
+                18
+              ],
+              [
+                18,
+                20
+              ],
+              [
+                17,
+                21
+              ],
+              [
+                17,
+                20
+              ],
+              [
+                18,
+                19
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00674": {
+            "status": "uncertain",
+            "max_score": 0.10642323575144208,
+            "third_score": 0.10150801848819646,
+            "top_cells": [
+              [
+                6,
+                57
+              ],
+              [
+                4,
+                50
+              ],
+              [
+                6,
+                24
+              ],
+              [
+                8,
+                59
+              ],
+              [
+                10,
+                61
+              ],
+              [
+                4,
+                51
+              ],
+              [
+                6,
+                23
+              ],
+              [
+                6,
+                56
+              ],
+              [
+                10,
+                11
+              ],
+              [
+                10,
+                9
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC00728": {
+            "status": "referenced",
+            "max_score": 0.19185030800998504,
+            "third_score": 0.19064933896357183,
+            "top_cells": [
+              [
+                22,
+                27
+              ],
+              [
+                22,
+                24
+              ],
+              [
+                22,
+                28
+              ],
+              [
+                22,
+                26
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                18,
+                44
+              ],
+              [
+                21,
+                30
+              ],
+              [
+                21,
+                22
+              ],
+              [
+                22,
+                22
+              ],
+              [
+                22,
+                23
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 1351,
+            "negative_cells": 2625,
+            "auc": 0.9996483733389729,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "DSC00936": {
+            "status": "absent",
+            "max_score": 0.2144409299704283,
+            "third_score": 0.21416992042668792,
+            "top_cells": [
+              [
+                42,
+                22
+              ],
+              [
+                26,
+                19
+              ],
+              [
+                42,
+                19
+              ],
+              [
+                42,
+                27
+              ],
+              [
+                43,
+                22
+              ],
+              [
+                44,
+                10
+              ],
+              [
+                43,
+                18
+              ],
+              [
+                42,
+                25
+              ],
+              [
+                41,
+                22
+              ],
+              [
+                44,
+                8
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1188": {
+            "status": "absent",
+            "max_score": 0.07863491619512941,
+            "third_score": 0.0720600285141616,
+            "top_cells": [
+              [
+                29,
+                53
+              ],
+              [
+                30,
+                51
+              ],
+              [
+                18,
+                26
+              ],
+              [
+                23,
+                50
+              ],
+              [
+                24,
+                49
+              ],
+              [
+                21,
+                48
+              ],
+              [
+                19,
+                50
+              ],
+              [
+                22,
+                48
+              ],
+              [
+                24,
+                47
+              ],
+              [
+                37,
+                4
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "DSC_1456": {
+            "status": "present_unreferenced",
+            "max_score": 0.1885899533402393,
+            "third_score": 0.1864820488938339,
+            "top_cells": [
+              [
+                5,
+                7
+              ],
+              [
+                5,
+                9
+              ],
+              [
+                5,
+                8
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                5,
+                10
+              ],
+              [
+                4,
+                7
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                3,
+                7
+              ],
+              [
+                3,
+                9
+              ],
+              [
+                5,
+                11
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          },
+          "DSC_1535": {
+            "status": "absent",
+            "max_score": 0.12904554956710035,
+            "third_score": 0.124580569563434,
+            "top_cells": [
+              [
+                4,
+                2
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                3,
+                3
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                9,
+                57
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                21,
+                18
+              ],
+              [
+                20,
+                18
+              ],
+              [
+                18,
+                15
+              ]
+            ],
+            "top3_in_ignore_boxes": 0
+          },
+          "Nikon-D800e-raw-00007": {
+            "status": "referenced",
+            "max_score": 0.18900236230581702,
+            "third_score": 0.1878363910307751,
+            "top_cells": [
+              [
+                8,
+                43
+              ],
+              [
+                10,
+                35
+              ],
+              [
+                10,
+                49
+              ],
+              [
+                2,
+                19
+              ],
+              [
+                8,
+                46
+              ],
+              [
+                8,
+                47
+              ],
+              [
+                10,
+                34
+              ],
+              [
+                2,
+                9
+              ],
+              [
+                10,
+                48
+              ],
+              [
+                10,
+                37
+              ]
+            ],
+            "top3_in_ignore_boxes": 0,
+            "positive_cells": 967,
+            "negative_cells": 3020,
+            "auc": 0.9892632364724655,
+            "precision_at_3_label": 1.0,
+            "precision_at_3_center": 1.0,
+            "precision_at_10_label": 1.0,
+            "precision_at_10_center": 1.0,
+            "acceptance_rule": "label",
+            "acceptance_precision_at_3": 1.0
+          },
+          "P1024439": {
+            "status": "present_unreferenced",
+            "max_score": 0.20333191646040072,
+            "third_score": 0.19955150859033222,
+            "top_cells": [
+              [
+                17,
+                48
+              ],
+              [
+                16,
+                48
+              ],
+              [
+                13,
+                50
+              ],
+              [
+                13,
+                47
+              ],
+              [
+                14,
+                49
+              ],
+              [
+                14,
+                47
+              ],
+              [
+                13,
+                49
+              ],
+              [
+                11,
+                50
+              ],
+              [
+                9,
+                50
+              ],
+              [
+                12,
+                47
+              ]
+            ],
+            "top3_in_ignore_boxes": 3
+          }
+        },
+        "separation": {
+          "lowest_present_third_score": 0.18579846264526578,
+          "lowest_present_photo": "DSC00527",
+          "highest_absent_max_score": 0.2144409299704283,
+          "highest_absent_photo": "DSC00936",
+          "margin": -0.028642467325162513,
+          "threshold": null,
+          "present_photos": 3,
+          "absent_photos": 3,
+          "unreferenced_or_uncertain": {
+            "2088064441": {
+              "status": "present_unreferenced",
+              "third_score": 0.1786378291319044,
+              "found_at_threshold": false
+            },
+            "5761824892": {
+              "status": "present_unreferenced",
+              "third_score": 0.07590869555942004,
+              "found_at_threshold": false
+            },
+            "DSC00326": {
+              "status": "present_unreferenced",
+              "third_score": 0.15900385657193994,
+              "found_at_threshold": false
+            },
+            "DSC00562": {
+              "status": "present_unreferenced",
+              "third_score": 0.1947528379014407,
+              "found_at_threshold": false
+            },
+            "DSC00602": {
+              "status": "present_unreferenced",
+              "third_score": 0.21330912838613414,
+              "found_at_threshold": true
+            },
+            "DSC00674": {
+              "status": "uncertain",
+              "third_score": 0.10150801848819646,
+              "found_at_threshold": false
+            },
+            "DSC_1456": {
+              "status": "present_unreferenced",
+              "third_score": 0.1864820488938339,
+              "found_at_threshold": false
+            },
+            "P1024439": {
+              "status": "present_unreferenced",
+              "third_score": 0.19955150859033222,
+              "found_at_threshold": false
+            }
+          }
+        },
+        "auc_median": 0.9996483733389729,
+        "auc_minimum": 0.9892632364724655,
+        "acceptance": {
+          "peak_photos": 3,
+          "peak_passed_photos": 3,
+          "peak_failed": [],
+          "separation_passed": false,
+          "usable": false
+        }
+      }
+    }
+  },
+  "peak_working_set_bytes": 645636096,
+  "machine": {
+    "platform": "Windows-11-10.0.22635-SP0",
+    "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "logical_cpus": 20,
+    "memory_bytes": 34121420800,
+    "python": "3.12.4"
+  }
+}

@@ -8,9 +8,10 @@ object edges. The Mask joins the existing Mask system of a Color Grade node.
 This README records the product requirements, the user decisions, and the current model selection.
 The evidence is in the step reports under [`docs/exploration/`](docs/exploration/README.md).
 
-**Status (2026-10-20):** the exploration steps E1 to E5 are done. The model set is under decision.
-The next step is the proof of concept "locate people and sky from the SAM 2.1 image features"
-(section 5).
+**Status (2026-10-20):** the exploration steps E1 to E5 and the proof of concept P0 "locate people
+and sky from the SAM 2.1 image features" (section 5) are done. The model set is under decision.
+The proposed next step is step 1 of section 5: train a small head on the SAM 2.1 tiny
+`image_embed`.
 
 ## Main project
 
@@ -94,7 +95,7 @@ Principle: **SAM 2.1 is the only interactive model.** A task model either makes 
 | --- | --- | --- | --- | --- |
 | F5, F6 (and the final mask of F3, F4a) | SAM 2.1 Hiera tiny | Apache-2.0 | 130.6 MB (encoder 109.4 MB, decoder 21.2 MB, float32) | E1, E3. Mask logits are 256 x 256: one logit cell is 16 px at the 4096 px application input |
 | F1, F2 | BiRefNet (variant: open decision O2) | MIT | lite float16: 96.4 MB; `BiRefNet_512x512` (Swin-L): 444 MB | E2 measured lite at 1024 px (float16: 175 ms, 3.2 GB). The 512 px variant is not measured |
-| F3, F4a localization | A small head on the SAM 2.1 image features (section 5) | Own model; the training data license must permit commercial use | Less than 1 MB (estimate) | Proof of concept open. Person alternative without training: YOLOX-Nano (Apache-2.0) |
+| F3, F4a localization | A small head on the SAM 2.1 image features (section 5) | Own model; the training data license must permit commercial use | Less than 1 MB (estimate) | [P0](docs/exploration/p0_sam_feature_localization.md): `image_embed` holds the class information (AUC 0.994 to 1.000); prototypes without training pass for sky, not for people. Step 1 (trained head) open. Person alternative without training: YOLOX-Nano (Apache-2.0) |
 
 Estimated total download: about 228 MB with BiRefNet lite and the small head.
 
@@ -147,9 +148,30 @@ from the rest of the photo. If they do, a small head (one to three convolution l
 the frozen SAM 2.1 tiny encoder. If they do not, the person localizer changes to a small detector,
 and the sky needs a different feature source.
 
+**Result of the proof of concept (P0, 2026-10-20,
+[report](docs/exploration/p0_sam_feature_localization.md)).** No training: one mean feature
+vector per class from the other 13 photos (leave one photo out), on the 14 quality photos.
+
+- `image_embed` (256 channels, stride 16) holds the class information. Within a photo the class
+  cells score first: AUC 0.994 to 1.000 for people, 1.000 for sky. The pooled high-resolution
+  features do not (person AUC 0.52 and 0.78).
+- **Sky passes** the proposed acceptance criteria on `image_embed`: the 3 top cells are sky on
+  the 3 sky photos, and one threshold separates them from the 3 photos without sky (margin
+  0.026; the waterfall mist is the nearest false result). The 3 top cells as SAM 2.1 points give
+  the whole sky (IoU 0.97 to 0.995).
+- **People fail.** The 3 top cells are on the referenced person on 5 of 7 photos, but no
+  threshold separates the photos: the squirrel photo scores higher than five of the seven people.
+  The top cells cluster on the face or hair, so the points select a part. A box per person selects
+  the whole person (IoU 0.99), but the largest score region is not always the person.
+- **Step 1, proposed:** train a head on the frozen `image_embed` of SAM 2.1 tiny: a sky score map
+  with a presence score, and for people one center and box per person (this also gives the
+  People list). The head must learn a calibrated presence score, person against animal, and mist
+  and water against sky.
+
 Risks:
 
-- SAM features carry more shape and edge information than class information. Linear probes of the
+- SAM features carry more shape and edge information than class information. (P0: true for the
+  high-resolution features; `image_embed` holds the class information.) Linear probes of the
   SAM encoder for classification are clearly worse than CLIP or DINOv2.
 - Two people next to each other give one region in a score map. A center-point output can separate
   them; U5 makes this less important.
@@ -168,6 +190,9 @@ Risks:
 | [`scripts/ai_models/sam2/`](scripts/ai_models/sam2/README.md) | SAM 2.1 export, probes, stroke and candidate tools |
 | [`scripts/ai_models/birefnet/`](scripts/ai_models/birefnet/README.md) | BiRefNet export, float16 conversion, matte probes |
 | [`scripts/ai_models/efficientsam3/`](scripts/ai_models/efficientsam3/README.md) | EfficientSAM3 export and comparison (SM1) |
+| [`scripts/poc/sam_feature_localization/`](scripts/poc/sam_feature_localization/README.md) | P0: people and sky from SAM 2.1 tiny features |
+| [`results/`](results/README.md) | Measurement results of the prototypes (sheets with photos stay local) |
+| `build/tmp/` (not committed) | Local evidence, weights, ONNX files, photos, and the Python environments of all steps |
 
 The scripts came from Alcedo Studio commit `d1e0d8c7` (branch
 `feature/ai-segmentation-sm1-quality-review`). Issue numbers in the reports (for example [AlcedoStudio#458](https://github.com/zidage/AlcedoStudio/issues/458))
@@ -183,7 +208,7 @@ Rules for contributors and agents: [AGENTS.md](AGENTS.md), [CONTRIBUTING.md](CON
 | O1 | Approve the requirement set of section 3, especially F7 (combination across mask types) and F9 (recipe and recompute). |
 | O2 | BiRefNet variant. U9 asks for the 512 px variant. Because U3 removed edge post-processing, the output resolution is the final edge resolution: lite at 1024 px gives 4 px cells at the 4096 px input (measured: 175 ms, 96.4 MB) and `BiRefNet_512x512` gives 8 px cells (Swin-L, 444 MB, not measured). The recommendation is lite at 1024 px. |
 | O3 | Remove the text prompt requirement from Alcedo Studio decision D2 (F11). |
-| O4 | Person localizer: the SAM 2.1 feature head, or YOLOX-Nano, after the proof of concept. |
+| O4 | Person localizer: the SAM 2.1 feature head, or YOLOX-Nano. P0 does not reject the head: `image_embed` holds the person information, but prototypes without training are not sufficient (no threshold separates the photos). The decision needs the trained head of step 1. Sky has no alternative candidate with a commercial license; the P0 sky result is positive. |
 
 ## License
 

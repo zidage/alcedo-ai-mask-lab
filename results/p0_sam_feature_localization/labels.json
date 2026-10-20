@@ -1,0 +1,378 @@
+{
+  "step": "issue #1, step 2: reference cells",
+  "pure_fraction": 0.9,
+  "grid": 64,
+  "label_values": {
+    "excluded": -1,
+    "other": 0,
+    "person": 1,
+    "sky": 2
+  },
+  "presence_file": "class_presence.json",
+  "presence_sha256": "506ecc8ae52b196a1bf646b387948941bc2326bc943eace0c73ae84134af166b",
+  "photos": {
+    "2088064441": {
+      "width": 4096,
+      "height": 2736,
+      "person": {
+        "status": "referenced",
+        "reference_files": [
+          "+2088064441__boarder__single0.png",
+          "-2088064441__board__single0.png"
+        ],
+        "reference_area_fraction": 0.001716658385873538,
+        "positive_cells": 0,
+        "negative_cells": 4056,
+        "center_cells": 5
+      },
+      "sky": {
+        "status": "present_unreferenced",
+        "positive_cells": 0,
+        "negative_cells": 2816,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 0,
+        "sky": 0,
+        "other": 2776,
+        "excluded": 1320,
+        "ignored": 1308
+      }
+    },
+    "5761824892": {
+      "width": 2729,
+      "height": 4096,
+      "person": {
+        "status": "absent",
+        "positive_cells": 0,
+        "negative_cells": 4096,
+        "center_cells": 0
+      },
+      "sky": {
+        "status": "present_unreferenced",
+        "positive_cells": 0,
+        "negative_cells": 3264,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 0,
+        "sky": 0,
+        "other": 3264,
+        "excluded": 832,
+        "ignored": 832
+      }
+    },
+    "DSC00326": {
+      "width": 2723,
+      "height": 4096,
+      "person": {
+        "status": "referenced",
+        "reference_files": [
+          "+DSC00326__person__single0.png"
+        ],
+        "reference_area_fraction": 0.025913783482142856,
+        "positive_cells": 77,
+        "negative_cells": 3964,
+        "center_cells": 109
+      },
+      "sky": {
+        "status": "present_unreferenced",
+        "positive_cells": 0,
+        "negative_cells": 3952,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 77,
+        "sky": 0,
+        "other": 3820,
+        "excluded": 199,
+        "ignored": 144
+      }
+    },
+    "DSC00527": {
+      "width": 4096,
+      "height": 2729,
+      "person": {
+        "status": "referenced",
+        "reference_files": [
+          "+DSC00527__kneeling_woman_box__single0.png"
+        ],
+        "reference_area_fraction": 0.008736638019879077,
+        "positive_cells": 25,
+        "negative_cells": 2927,
+        "center_cells": 37
+      },
+      "sky": {
+        "status": "referenced",
+        "reference_files": [
+          "+DSC00527__sky__multi0.png"
+        ],
+        "reference_area_fraction": 0.40537891269123305,
+        "positive_cells": 1578,
+        "negative_cells": 2386,
+        "center_cells": 1674
+      },
+      "cells": {
+        "person": 25,
+        "sky": 1578,
+        "other": 1217,
+        "excluded": 1276,
+        "ignored": 1152
+      }
+    },
+    "DSC00562": {
+      "width": 4096,
+      "height": 2729,
+      "person": {
+        "status": "present_unreferenced",
+        "positive_cells": 0,
+        "negative_cells": 3888,
+        "center_cells": 0
+      },
+      "sky": {
+        "status": "present_unreferenced",
+        "positive_cells": 0,
+        "negative_cells": 1984,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 0,
+        "sky": 0,
+        "other": 1776,
+        "excluded": 2320,
+        "ignored": 2320
+      }
+    },
+    "DSC00602": {
+      "width": 4096,
+      "height": 2733,
+      "person": {
+        "status": "present_unreferenced",
+        "positive_cells": 0,
+        "negative_cells": 3701,
+        "center_cells": 0
+      },
+      "sky": {
+        "status": "present_unreferenced",
+        "positive_cells": 0,
+        "negative_cells": 2082,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 0,
+        "sky": 0,
+        "other": 1891,
+        "excluded": 2205,
+        "ignored": 2205
+      }
+    },
+    "DSC00674": {
+      "width": 2731,
+      "height": 4096,
+      "person": {
+        "status": "referenced",
+        "reference_files": [
+          "+DSC00674__person__single0.png"
+        ],
+        "reference_area_fraction": 0.6744358393788905,
+        "positive_cells": 2666,
+        "negative_cells": 1255,
+        "center_cells": 2773
+      },
+      "sky": {
+        "status": "uncertain",
+        "positive_cells": 0,
+        "negative_cells": 0,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 2666,
+        "sky": 0,
+        "other": 0,
+        "excluded": 1430,
+        "ignored": 4096
+      }
+    },
+    "DSC00728": {
+      "width": 4096,
+      "height": 2731,
+      "person": {
+        "status": "absent",
+        "positive_cells": 0,
+        "negative_cells": 4096,
+        "center_cells": 0
+      },
+      "sky": {
+        "status": "referenced",
+        "reference_files": [
+          "+DSC00728__sky__multi2.png"
+        ],
+        "reference_area_fraction": 0.348095095231829,
+        "positive_cells": 1351,
+        "negative_cells": 2625,
+        "center_cells": 1435
+      },
+      "cells": {
+        "person": 0,
+        "sky": 1351,
+        "other": 2625,
+        "excluded": 120,
+        "ignored": 0
+      }
+    },
+    "DSC00936": {
+      "width": 2723,
+      "height": 4096,
+      "person": {
+        "status": "referenced",
+        "reference_files": [
+          "+DSC00936__person__single0.png"
+        ],
+        "reference_area_fraction": 0.022257950215754684,
+        "positive_cells": 71,
+        "negative_cells": 3983,
+        "center_cells": 89
+      },
+      "sky": {
+        "status": "absent",
+        "positive_cells": 0,
+        "negative_cells": 4096,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 71,
+        "sky": 0,
+        "other": 3983,
+        "excluded": 42,
+        "ignored": 0
+      }
+    },
+    "DSC_1188": {
+      "width": 4096,
+      "height": 2727,
+      "person": {
+        "status": "absent",
+        "positive_cells": 0,
+        "negative_cells": 4096,
+        "center_cells": 0
+      },
+      "sky": {
+        "status": "absent",
+        "positive_cells": 0,
+        "negative_cells": 4096,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 0,
+        "sky": 0,
+        "other": 4096,
+        "excluded": 0,
+        "ignored": 0
+      }
+    },
+    "DSC_1456": {
+      "width": 2727,
+      "height": 4096,
+      "person": {
+        "status": "present_unreferenced",
+        "positive_cells": 0,
+        "negative_cells": 3200,
+        "center_cells": 0
+      },
+      "sky": {
+        "status": "present_unreferenced",
+        "positive_cells": 0,
+        "negative_cells": 3936,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 0,
+        "sky": 0,
+        "other": 3040,
+        "excluded": 1056,
+        "ignored": 1056
+      }
+    },
+    "DSC_1535": {
+      "width": 2727,
+      "height": 4096,
+      "person": {
+        "status": "referenced",
+        "reference_files": [
+          "+DSC_1535__person__single0.png"
+        ],
+        "reference_area_fraction": 0.22002209172740192,
+        "positive_cells": 817,
+        "negative_cells": 2392,
+        "center_cells": 898
+      },
+      "sky": {
+        "status": "absent",
+        "positive_cells": 0,
+        "negative_cells": 4096,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 817,
+        "sky": 0,
+        "other": 2392,
+        "excluded": 887,
+        "ignored": 888
+      }
+    },
+    "Nikon-D800e-raw-00007": {
+      "width": 4096,
+      "height": 2732,
+      "person": {
+        "status": "absent",
+        "positive_cells": 0,
+        "negative_cells": 4096,
+        "center_cells": 0
+      },
+      "sky": {
+        "status": "referenced",
+        "reference_files": [
+          "+Nikon-D800e-raw-00007__sky__multi0.png"
+        ],
+        "reference_area_fraction": 0.2529135127367771,
+        "positive_cells": 967,
+        "negative_cells": 3020,
+        "center_cells": 1049
+      },
+      "cells": {
+        "person": 0,
+        "sky": 967,
+        "other": 3020,
+        "excluded": 109,
+        "ignored": 0
+      }
+    },
+    "P1024439": {
+      "width": 4096,
+      "height": 3074,
+      "person": {
+        "status": "referenced",
+        "reference_files": [
+          "+P1024439__bassist__single0.png"
+        ],
+        "reference_area_fraction": 0.04292681563109955,
+        "positive_cells": 127,
+        "negative_cells": 2573,
+        "center_cells": 177
+      },
+      "sky": {
+        "status": "present_unreferenced",
+        "positive_cells": 0,
+        "negative_cells": 2791,
+        "center_cells": 0
+      },
+      "cells": {
+        "person": 127,
+        "sky": 0,
+        "other": 1500,
+        "excluded": 2469,
+        "ignored": 2426
+      }
+    }
+  }
+}

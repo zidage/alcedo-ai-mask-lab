@@ -1,0 +1,4993 @@
+{
+  "step": "issue #1, step 6: end to end",
+  "box_fraction": 0.5,
+  "decoder_cpu_ms_median": 31.46464999736054,
+  "peak_working_set_bytes": 1419051008,
+  "results": [
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "e1",
+      "prompt": "e1_prompt",
+      "coords": [
+        [
+          444.416,
+          512.0
+        ],
+        [
+          591.872,
+          616.448
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8446164131164551,
+      "iou": 0.26943556975505856,
+      "mask_area_fraction": 0.003814340334886696,
+      "e1_prompt_name": "boarder"
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          520.0,
+          552.0
+        ],
+        [
+          504.0,
+          600.0
+        ],
+        [
+          392.0,
+          1000.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.6486663818359375,
+      "iou": 0.45155505743905855,
+      "mask_area_fraction": 0.00290613007127193
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          112.0
+        ],
+        [
+          496.0,
+          352.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.909276008605957,
+      "iou": 0.0,
+      "mask_area_fraction": 0.04666271544339364,
+      "region_rule": "above_zero",
+      "region_cells": 199
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          112.0
+        ],
+        [
+          496.0,
+          352.0
+        ],
+        [
+          520.0,
+          552.0
+        ],
+        [
+          504.0,
+          600.0
+        ],
+        [
+          392.0,
+          1000.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.7494357824325562,
+      "iou": 0.004900345454445598,
+      "mask_area_fraction": 0.06359140496504934,
+      "region_rule": "above_zero",
+      "region_cells": 199
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          16.0,
+          128.0
+        ],
+        [
+          400.0,
+          336.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8844490647315979,
+      "iou": 0.0,
+      "mask_area_fraction": 0.028291936506304825,
+      "region_rule": "half_max",
+      "region_cells": 91
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          16.0,
+          128.0
+        ],
+        [
+          400.0,
+          336.0
+        ],
+        [
+          520.0,
+          552.0
+        ],
+        [
+          504.0,
+          600.0
+        ],
+        [
+          392.0,
+          1000.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.6555452346801758,
+      "iou": 0.0,
+      "mask_area_fraction": 0.009531924599095395,
+      "region_rule": "half_max",
+      "region_cells": 91
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          408.0,
+          456.0
+        ],
+        [
+          472.0,
+          312.0
+        ],
+        [
+          968.0,
+          232.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8579844236373901,
+      "iou": 0.0,
+      "mask_area_fraction": 0.2312401665581597
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          96.0
+        ],
+        [
+          1024.0,
+          704.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9106619358062744,
+      "iou": 8.955681021329745e-07,
+      "mask_area_fraction": 0.2971978438527961,
+      "region_rule": "above_zero",
+      "region_cells": 790
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          96.0
+        ],
+        [
+          1024.0,
+          704.0
+        ],
+        [
+          408.0,
+          456.0
+        ],
+        [
+          472.0,
+          312.0
+        ],
+        [
+          968.0,
+          232.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.911730945110321,
+      "iou": 0.00021549877253915524,
+      "mask_area_fraction": 0.49403809664542214,
+      "region_rule": "above_zero",
+      "region_cells": 790
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          0.0,
+          128.0
+        ],
+        [
+          512.0,
+          336.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9152053594589233,
+      "iou": 0.0,
+      "mask_area_fraction": 0.04551634314464547,
+      "region_rule": "half_max",
+      "region_cells": 102
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          128.0
+        ],
+        [
+          512.0,
+          336.0
+        ],
+        [
+          408.0,
+          456.0
+        ],
+        [
+          472.0,
+          312.0
+        ],
+        [
+          968.0,
+          232.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8159641027450562,
+      "iou": 0.0,
+      "mask_area_fraction": 0.06193810178522478,
+      "region_rule": "half_max",
+      "region_cells": 102
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          216.0,
+          264.0
+        ],
+        [
+          360.0,
+          392.0
+        ],
+        [
+          424.0,
+          280.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8486475348472595,
+      "iou": 0.0,
+      "mask_area_fraction": 0.11744761327553911
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          240.0
+        ],
+        [
+          496.0,
+          688.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8189746141433716,
+      "iou": 0.0,
+      "mask_area_fraction": 0.11721792834544043,
+      "region_rule": "above_zero",
+      "region_cells": 321
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          240.0
+        ],
+        [
+          496.0,
+          688.0
+        ],
+        [
+          216.0,
+          264.0
+        ],
+        [
+          360.0,
+          392.0
+        ],
+        [
+          424.0,
+          280.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.7080519199371338,
+      "iou": 0.0,
+      "mask_area_fraction": 0.2042170295938414,
+      "region_rule": "above_zero",
+      "region_cells": 321
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          304.0,
+          432.0
+        ],
+        [
+          464.0,
+          528.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9325511455535889,
+      "iou": 0.0,
+      "mask_area_fraction": 0.009149741011056287,
+      "region_rule": "half_max",
+      "region_cells": 25
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          304.0,
+          432.0
+        ],
+        [
+          464.0,
+          528.0
+        ],
+        [
+          216.0,
+          264.0
+        ],
+        [
+          360.0,
+          392.0
+        ],
+        [
+          424.0,
+          280.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.7073183059692383,
+      "iou": 0.0,
+      "mask_area_fraction": 0.07900528043334247,
+      "region_rule": "half_max",
+      "region_cells": 25
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          280.0,
+          296.0
+        ],
+        [
+          216.0,
+          264.0
+        ],
+        [
+          1000.0,
+          248.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9053332805633545,
+      "iou": 0.0,
+      "mask_area_fraction": 0.09367486607958699
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          112.0
+        ],
+        [
+          512.0,
+          400.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8702061176300049,
+      "iou": 0.0,
+      "mask_area_fraction": 0.04618594520970395,
+      "region_rule": "above_zero",
+      "region_cells": 192
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          112.0
+        ],
+        [
+          512.0,
+          400.0
+        ],
+        [
+          280.0,
+          296.0
+        ],
+        [
+          216.0,
+          264.0
+        ],
+        [
+          1000.0,
+          248.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8101235628128052,
+      "iou": 0.0,
+      "mask_area_fraction": 0.06318602087902046,
+      "region_rule": "above_zero",
+      "region_cells": 192
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          0.0,
+          128.0
+        ],
+        [
+          256.0,
+          224.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8822473287582397,
+      "iou": 0.0,
+      "mask_area_fraction": 0.020482827348318713,
+      "region_rule": "half_max",
+      "region_cells": 51
+    },
+    {
+      "photo": "2088064441",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          128.0
+        ],
+        [
+          256.0,
+          224.0
+        ],
+        [
+          280.0,
+          296.0
+        ],
+        [
+          216.0,
+          264.0
+        ],
+        [
+          1000.0,
+          248.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8585174083709717,
+      "iou": 0.0,
+      "mask_area_fraction": 0.03407760530884503,
+      "region_rule": "half_max",
+      "region_cells": 51
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "e1",
+      "prompt": "e1_prompt",
+      "coords": [
+        [
+          373.76,
+          629.76
+        ],
+        [
+          686.08,
+          906.24
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9707822799682617,
+      "iou": 0.9733203745277337,
+      "mask_area_fraction": 0.025785212914294895,
+      "e1_prompt_name": "person"
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          520.0,
+          680.0
+        ],
+        [
+          504.0,
+          680.0
+        ],
+        [
+          536.0,
+          680.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9344083666801453,
+      "iou": 0.16447252454800904,
+      "mask_area_fraction": 0.004293844536127433
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          224.0,
+          640.0
+        ],
+        [
+          688.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9300013780593872,
+      "iou": 0.26093687783874253,
+      "mask_area_fraction": 0.057843934338275796,
+      "region_rule": "above_zero",
+      "region_cells": 256
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          224.0,
+          640.0
+        ],
+        [
+          688.0,
+          1024.0
+        ],
+        [
+          520.0,
+          680.0
+        ],
+        [
+          504.0,
+          680.0
+        ],
+        [
+          536.0,
+          680.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9578580856323242,
+      "iou": 0.39909370470781635,
+      "mask_area_fraction": 0.06435763849040581,
+      "region_rule": "above_zero",
+      "region_cells": 256
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          432.0,
+          640.0
+        ],
+        [
+          624.0,
+          864.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9270365238189697,
+      "iou": 0.8956084782255584,
+      "mask_area_fraction": 0.02326401042623026,
+      "region_rule": "half_max",
+      "region_cells": 64
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          432.0,
+          640.0
+        ],
+        [
+          624.0,
+          864.0
+        ],
+        [
+          520.0,
+          680.0
+        ],
+        [
+          504.0,
+          680.0
+        ],
+        [
+          536.0,
+          680.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8853034973144531,
+      "iou": 0.9151842319573636,
+      "mask_area_fraction": 0.02405793816562615,
+      "region_rule": "half_max",
+      "region_cells": 64
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          584.0,
+          728.0
+        ],
+        [
+          472.0,
+          712.0
+        ],
+        [
+          552.0,
+          904.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8533753752708435,
+      "iou": 0.9541401317060441,
+      "mask_area_fraction": 0.025780819638266617
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          432.0,
+          672.0
+        ],
+        [
+          624.0,
+          848.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8047342300415039,
+      "iou": 0.538406021239303,
+      "mask_area_fraction": 0.014220137916590159,
+      "region_rule": "above_zero",
+      "region_cells": 35
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          432.0,
+          672.0
+        ],
+        [
+          624.0,
+          848.0
+        ],
+        [
+          584.0,
+          728.0
+        ],
+        [
+          472.0,
+          712.0
+        ],
+        [
+          552.0,
+          904.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8018016815185547,
+      "iou": 0.5278703224693913,
+      "mask_area_fraction": 0.013805556113431877,
+      "region_rule": "above_zero",
+      "region_cells": 35
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          624.0,
+          0.0
+        ],
+        [
+          656.0,
+          32.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8629010319709778,
+      "iou": 0.0,
+      "mask_area_fraction": 0.0015593440139551964,
+      "region_rule": "half_max",
+      "region_cells": 3
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          624.0,
+          0.0
+        ],
+        [
+          656.0,
+          32.0
+        ],
+        [
+          584.0,
+          728.0
+        ],
+        [
+          472.0,
+          712.0
+        ],
+        [
+          552.0,
+          904.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.0001914501190185547,
+      "iou": 0.0007903077763512183,
+      "mask_area_fraction": 0.006444397981316563,
+      "region_rule": "half_max",
+      "region_cells": 3
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          504.0,
+          808.0
+        ],
+        [
+          552.0,
+          808.0
+        ],
+        [
+          504.0,
+          824.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.93679279088974,
+      "iou": 0.21622975512685866,
+      "mask_area_fraction": 0.005650111607142857
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          624.0,
+          544.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9047474265098572,
+      "iou": 0.0,
+      "mask_area_fraction": 0.13860454132046457,
+      "region_rule": "above_zero",
+      "region_cells": 465
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          624.0,
+          544.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ],
+        [
+          504.0,
+          808.0
+        ],
+        [
+          552.0,
+          808.0
+        ],
+        [
+          504.0,
+          824.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.91435706615448,
+      "iou": 0.0027732834181181843,
+      "mask_area_fraction": 0.14373534976932612,
+      "region_rule": "above_zero",
+      "region_cells": 465
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          752.0,
+          768.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8711113929748535,
+      "iou": 0.0,
+      "mask_area_fraction": 0.06153222405205656,
+      "region_rule": "half_max",
+      "region_cells": 120
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          752.0,
+          768.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ],
+        [
+          504.0,
+          808.0
+        ],
+        [
+          552.0,
+          808.0
+        ],
+        [
+          504.0,
+          824.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8101063966751099,
+      "iou": 0.048557259695364646,
+      "mask_area_fraction": 0.06320543460796915,
+      "region_rule": "half_max",
+      "region_cells": 120
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          504.0,
+          808.0
+        ],
+        [
+          504.0,
+          840.0
+        ],
+        [
+          504.0,
+          824.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8951096534729004,
+      "iou": 0.20511632089763898,
+      "mask_area_fraction": 0.0053247402049669485
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          464.0,
+          640.0
+        ],
+        [
+          624.0,
+          880.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8810789585113525,
+      "iou": 0.3935469156579043,
+      "mask_area_fraction": 0.01024251959580426,
+      "region_rule": "above_zero",
+      "region_cells": 52
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          464.0,
+          640.0
+        ],
+        [
+          624.0,
+          880.0
+        ],
+        [
+          504.0,
+          808.0
+        ],
+        [
+          504.0,
+          840.0
+        ],
+        [
+          504.0,
+          824.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8611554503440857,
+      "iou": 0.3513381725877792,
+      "mask_area_fraction": 0.009120978986871099,
+      "region_rule": "above_zero",
+      "region_cells": 52
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          496.0,
+          784.0
+        ],
+        [
+          560.0,
+          864.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.888944149017334,
+      "iou": 0.17929102541933253,
+      "mask_area_fraction": 0.0046591140573356594,
+      "region_rule": "half_max",
+      "region_cells": 9
+    },
+    {
+      "photo": "DSC00326",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          496.0,
+          784.0
+        ],
+        [
+          560.0,
+          864.0
+        ],
+        [
+          504.0,
+          808.0
+        ],
+        [
+          504.0,
+          840.0
+        ],
+        [
+          504.0,
+          824.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.874377965927124,
+      "iou": 0.18300039061284737,
+      "mask_area_fraction": 0.004770021862376056,
+      "region_rule": "half_max",
+      "region_cells": 9
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "e1",
+      "prompt": "e1_prompt",
+      "coords": [
+        [
+          476.16,
+          737.28
+        ],
+        [
+          547.84,
+          972.8
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9408021569252014,
+      "iou": 0.9566460267275427,
+      "mask_area_fraction": 0.008592604891901796,
+      "e1_prompt_name": "kneeling_woman_box"
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          520.0,
+          792.0
+        ],
+        [
+          520.0,
+          776.0
+        ],
+        [
+          504.0,
+          808.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8885672092437744,
+      "iou": 0.23359187933610298,
+      "mask_area_fraction": 0.0020483121106632464
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          288.0,
+          656.0
+        ],
+        [
+          400.0,
+          848.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.49513739347457886,
+      "iou": 0.0,
+      "mask_area_fraction": 0.005896233166910956,
+      "region_rule": "above_zero",
+      "region_cells": 50
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          288.0,
+          656.0
+        ],
+        [
+          400.0,
+          848.0
+        ],
+        [
+          520.0,
+          792.0
+        ],
+        [
+          520.0,
+          776.0
+        ],
+        [
+          504.0,
+          808.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.6293959617614746,
+      "iou": 0.004057401554625438,
+      "mask_area_fraction": 0.005985426352372664,
+      "region_rule": "above_zero",
+      "region_cells": 50
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          496.0,
+          752.0
+        ],
+        [
+          544.0,
+          912.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8937270641326904,
+      "iou": 0.679911970929935,
+      "mask_area_fraction": 0.005945705415216196,
+      "region_rule": "half_max",
+      "region_cells": 15
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          496.0,
+          752.0
+        ],
+        [
+          544.0,
+          912.0
+        ],
+        [
+          520.0,
+          792.0
+        ],
+        [
+          520.0,
+          776.0
+        ],
+        [
+          504.0,
+          808.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.7240006327629089,
+      "iou": 0.7737752014588576,
+      "mask_area_fraction": 0.0068396948859472334,
+      "region_rule": "half_max",
+      "region_cells": 15
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          712.0,
+          808.0
+        ],
+        [
+          696.0,
+          968.0
+        ],
+        [
+          184.0,
+          808.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9682283401489258,
+      "iou": 0.0,
+      "mask_area_fraction": 0.2110498637321363
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          672.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.958914041519165,
+      "iou": 0.0,
+      "mask_area_fraction": 0.2159121000709967,
+      "region_rule": "above_zero",
+      "region_cells": 853
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          672.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ],
+        [
+          712.0,
+          808.0
+        ],
+        [
+          696.0,
+          968.0
+        ],
+        [
+          184.0,
+          808.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9612441062927246,
+      "iou": 0.0,
+      "mask_area_fraction": 0.213982503463952,
+      "region_rule": "above_zero",
+      "region_cells": 853
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          544.0,
+          768.0
+        ],
+        [
+          1024.0,
+          944.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.765204668045044,
+      "iou": 0.0,
+      "mask_area_fraction": 0.044434309442561375,
+      "region_rule": "half_max",
+      "region_cells": 102
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          544.0,
+          768.0
+        ],
+        [
+          1024.0,
+          944.0
+        ],
+        [
+          712.0,
+          808.0
+        ],
+        [
+          696.0,
+          968.0
+        ],
+        [
+          184.0,
+          808.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.7699382305145264,
+      "iou": 0.0,
+      "mask_area_fraction": 0.12208757858304324,
+      "region_rule": "half_max",
+      "region_cells": 102
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          504.0,
+          904.0
+        ],
+        [
+          520.0,
+          856.0
+        ],
+        [
+          520.0,
+          840.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8229918479919434,
+      "iou": 0.5251959572011078,
+      "mask_area_fraction": 0.004615054020474533
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          688.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9580119848251343,
+      "iou": 0.0,
+      "mask_area_fraction": 0.21522610875091608,
+      "region_rule": "above_zero",
+      "region_cells": 653
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          688.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ],
+        [
+          504.0,
+          904.0
+        ],
+        [
+          520.0,
+          856.0
+        ],
+        [
+          520.0,
+          840.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9581764936447144,
+      "iou": 0.0008766989811238388,
+      "mask_area_fraction": 0.2140156937064859,
+      "region_rule": "above_zero",
+      "region_cells": 653
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          64.0,
+          848.0
+        ],
+        [
+          176.0,
+          896.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.7785988450050354,
+      "iou": 0.0,
+      "mask_area_fraction": 0.0038237664323012093,
+      "region_rule": "half_max",
+      "region_cells": 9
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          64.0,
+          848.0
+        ],
+        [
+          176.0,
+          896.0
+        ],
+        [
+          504.0,
+          904.0
+        ],
+        [
+          520.0,
+          856.0
+        ],
+        [
+          520.0,
+          840.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.6094306111335754,
+      "iou": 0.30522441633552744,
+      "mask_area_fraction": 0.0028117771505130084,
+      "region_rule": "half_max",
+      "region_cells": 9
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          504.0,
+          904.0
+        ],
+        [
+          520.0,
+          856.0
+        ],
+        [
+          520.0,
+          840.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8229918479919434,
+      "iou": 0.5251959572011078,
+      "mask_area_fraction": 0.004615054020474533
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          800.0
+        ],
+        [
+          432.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8666982054710388,
+      "iou": 0.0,
+      "mask_area_fraction": 0.06833119460539575,
+      "region_rule": "above_zero",
+      "region_cells": 159
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          800.0
+        ],
+        [
+          432.0,
+          1024.0
+        ],
+        [
+          504.0,
+          904.0
+        ],
+        [
+          520.0,
+          856.0
+        ],
+        [
+          520.0,
+          840.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8232239484786987,
+      "iou": 0.012953347593527067,
+      "mask_area_fraction": 0.19961542260214366,
+      "region_rule": "above_zero",
+      "region_cells": 159
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          496.0,
+          768.0
+        ],
+        [
+          544.0,
+          912.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8957778215408325,
+      "iou": 0.48260722728807837,
+      "mask_area_fraction": 0.004223659650971052,
+      "region_rule": "half_max",
+      "region_cells": 10
+    },
+    {
+      "photo": "DSC00527",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          496.0,
+          768.0
+        ],
+        [
+          544.0,
+          912.0
+        ],
+        [
+          504.0,
+          904.0
+        ],
+        [
+          520.0,
+          856.0
+        ],
+        [
+          520.0,
+          840.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.859290361404419,
+      "iou": 0.4663902538902539,
+      "mask_area_fraction": 0.004077568906879809,
+      "region_rule": "half_max",
+      "region_cells": 10
+    },
+    {
+      "photo": "DSC00527",
+      "class": "sky",
+      "source": "e1",
+      "prompt": "e1_prompt",
+      "coords": [
+        [
+          460.8,
+          153.6
+        ]
+      ],
+      "labels": [
+        1.0
+      ],
+      "predicted_iou": 0.9939758777618408,
+      "iou": 0.9966341371224706,
+      "mask_area_fraction": 0.4046089169567607,
+      "e1_prompt_name": "sky"
+    },
+    {
+      "photo": "DSC00527",
+      "class": "sky",
+      "source": "image_embed",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          840.0,
+          408.0
+        ],
+        [
+          712.0,
+          472.0
+        ],
+        [
+          904.0,
+          344.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9939206838607788,
+      "iou": 0.9952815129496574,
+      "mask_area_fraction": 0.40422387435873947
+    },
+    {
+      "photo": "DSC00527",
+      "class": "sky",
+      "source": "high_res_feats_1",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          776.0,
+          712.0
+        ],
+        [
+          152.0,
+          24.0
+        ],
+        [
+          88.0,
+          8.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9877941012382507,
+      "iou": 0.9969374628639007,
+      "mask_area_fraction": 0.40551802543285087
+    },
+    {
+      "photo": "DSC00527",
+      "class": "sky",
+      "source": "high_res_feats_0",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          936.0,
+          360.0
+        ],
+        [
+          712.0,
+          488.0
+        ],
+        [
+          744.0,
+          488.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9822144508361816,
+      "iou": 0.9916738570489525,
+      "mask_area_fraction": 0.4026582968807255
+    },
+    {
+      "photo": "DSC00527",
+      "class": "sky",
+      "source": "concatenated",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          936.0,
+          360.0
+        ],
+        [
+          872.0,
+          392.0
+        ],
+        [
+          760.0,
+          392.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9952551126480103,
+      "iou": 0.9944744838257081,
+      "mask_area_fraction": 0.4036919358624954
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "e1",
+      "prompt": "e1_prompt",
+      "coords": [
+        [
+          30.72,
+          61.44
+        ],
+        [
+          1024.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9846494793891907,
+      "iou": 0.9875914418545686,
+      "mask_area_fraction": 0.671055863952078,
+      "e1_prompt_name": "person"
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          840.0,
+          440.0
+        ],
+        [
+          312.0,
+          584.0
+        ],
+        [
+          280.0,
+          424.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9021562337875366,
+      "iou": 0.2834436254062151,
+      "mask_area_fraction": 0.1913037127254211
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          16.0,
+          80.0
+        ],
+        [
+          1008.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9906903505325317,
+      "iou": 0.9920851882024125,
+      "mask_area_fraction": 0.67521394263777,
+      "region_rule": "above_zero",
+      "region_cells": 2263
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          16.0,
+          80.0
+        ],
+        [
+          1008.0,
+          1024.0
+        ],
+        [
+          840.0,
+          440.0
+        ],
+        [
+          312.0,
+          584.0
+        ],
+        [
+          280.0,
+          424.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9847641587257385,
+      "iou": 0.9887677344977357,
+      "mask_area_fraction": 0.6758788704915781,
+      "region_rule": "above_zero",
+      "region_cells": 2263
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          736.0,
+          256.0
+        ],
+        [
+          896.0,
+          560.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.17835402488708496,
+      "iou": 0.05969675855082541,
+      "mask_area_fraction": 0.04029223212651044,
+      "region_rule": "half_max",
+      "region_cells": 65
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          736.0,
+          256.0
+        ],
+        [
+          896.0,
+          560.0
+        ],
+        [
+          840.0,
+          440.0
+        ],
+        [
+          312.0,
+          584.0
+        ],
+        [
+          280.0,
+          424.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.010957390069961548,
+      "iou": 0.12903507578992965,
+      "mask_area_fraction": 0.0870307243511992,
+      "region_rule": "half_max",
+      "region_cells": 65
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          728.0,
+          248.0
+        ],
+        [
+          648.0,
+          632.0
+        ],
+        [
+          728.0,
+          664.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9344761371612549,
+      "iou": 0.27560263956979764,
+      "mask_area_fraction": 0.18600333125457708
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9109655618667603,
+      "iou": 0.1629510357621506,
+      "mask_area_fraction": 0.45625332553322956,
+      "region_rule": "above_zero",
+      "region_cells": 3101
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ],
+        [
+          728.0,
+          248.0
+        ],
+        [
+          648.0,
+          632.0
+        ],
+        [
+          728.0,
+          664.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9491442441940308,
+      "iou": 0.9658233220455823,
+      "mask_area_fraction": 0.69198669858225,
+      "region_rule": "above_zero",
+      "region_cells": 3101
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          464.0,
+          224.0
+        ],
+        [
+          1024.0,
+          752.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.7188965678215027,
+      "iou": 0.0,
+      "mask_area_fraction": 0.05821730321425302,
+      "region_rule": "half_max",
+      "region_cells": 410
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          464.0,
+          224.0
+        ],
+        [
+          1024.0,
+          752.0
+        ],
+        [
+          728.0,
+          248.0
+        ],
+        [
+          648.0,
+          632.0
+        ],
+        [
+          728.0,
+          664.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9026916027069092,
+      "iou": 0.2313987833119798,
+      "mask_area_fraction": 0.1567575907977847,
+      "region_rule": "half_max",
+      "region_cells": 410
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          104.0,
+          584.0
+        ],
+        [
+          40.0,
+          504.0
+        ],
+        [
+          168.0,
+          296.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8506725430488586,
+      "iou": 0.03470971506369736,
+      "mask_area_fraction": 0.25295185772153056
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9109655618667603,
+      "iou": 0.1629510357621506,
+      "mask_area_fraction": 0.45625332553322956,
+      "region_rule": "above_zero",
+      "region_cells": 3216
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ],
+        [
+          104.0,
+          584.0
+        ],
+        [
+          40.0,
+          504.0
+        ],
+        [
+          168.0,
+          296.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9275935292243958,
+      "iou": 0.24996280581605682,
+      "mask_area_fraction": 0.5498082633421824,
+      "region_rule": "above_zero",
+      "region_cells": 3216
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9109655618667603,
+      "iou": 0.1629510357621506,
+      "mask_area_fraction": 0.45625332553322956,
+      "region_rule": "half_max",
+      "region_cells": 2281
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ],
+        [
+          104.0,
+          584.0
+        ],
+        [
+          40.0,
+          504.0
+        ],
+        [
+          168.0,
+          296.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9275935292243958,
+      "iou": 0.24996280581605682,
+      "mask_area_fraction": 0.5498082633421824,
+      "region_rule": "half_max",
+      "region_cells": 2281
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          552.0,
+          376.0
+        ],
+        [
+          280.0,
+          456.0
+        ],
+        [
+          584.0,
+          376.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9077459573745728,
+      "iou": 0.28059667392151066,
+      "mask_area_fraction": 0.18940529811081105
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          96.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9883490800857544,
+      "iou": 0.9917877856604282,
+      "mask_area_fraction": 0.6768136850340992,
+      "region_rule": "above_zero",
+      "region_cells": 2492
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          96.0
+        ],
+        [
+          1024.0,
+          1024.0
+        ],
+        [
+          552.0,
+          376.0
+        ],
+        [
+          280.0,
+          456.0
+        ],
+        [
+          584.0,
+          376.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9557898640632629,
+      "iou": 0.9869119561819573,
+      "mask_area_fraction": 0.6773359367848316,
+      "region_rule": "above_zero",
+      "region_cells": 2492
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          240.0,
+          240.0
+        ],
+        [
+          896.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9680798053741455,
+      "iou": 0.4023970037056588,
+      "mask_area_fraction": 0.2727166102160381,
+      "region_rule": "half_max",
+      "region_cells": 1112
+    },
+    {
+      "photo": "DSC00674",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          240.0,
+          240.0
+        ],
+        [
+          896.0,
+          1024.0
+        ],
+        [
+          552.0,
+          376.0
+        ],
+        [
+          280.0,
+          456.0
+        ],
+        [
+          584.0,
+          376.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9682539701461792,
+      "iou": 0.40622624288237913,
+      "mask_area_fraction": 0.27522524229906625,
+      "region_rule": "half_max",
+      "region_cells": 1112
+    },
+    {
+      "photo": "DSC00728",
+      "class": "sky",
+      "source": "e1",
+      "prompt": "e1_prompt",
+      "coords": [
+        [
+          819.2,
+          256.0
+        ]
+      ],
+      "labels": [
+        1.0
+      ],
+      "predicted_iou": 0.9915450811386108,
+      "iou": 0.9969693828113453,
+      "mask_area_fraction": 0.3475833922155346,
+      "e1_prompt_name": "sky"
+    },
+    {
+      "photo": "DSC00728",
+      "class": "sky",
+      "source": "image_embed",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          952.0,
+          536.0
+        ],
+        [
+          936.0,
+          536.0
+        ],
+        [
+          904.0,
+          312.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9727416038513184,
+      "iou": 0.9918993828895967,
+      "mask_area_fraction": 0.34543770811401503
+    },
+    {
+      "photo": "DSC00728",
+      "class": "sky",
+      "source": "high_res_feats_1",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          360.0,
+          360.0
+        ],
+        [
+          472.0,
+          328.0
+        ],
+        [
+          920.0,
+          56.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9944078922271729,
+      "iou": 0.9952045343988212,
+      "mask_area_fraction": 0.34672939170633466
+    },
+    {
+      "photo": "DSC00728",
+      "class": "sky",
+      "source": "high_res_feats_0",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          472.0,
+          296.0
+        ],
+        [
+          344.0,
+          184.0
+        ],
+        [
+          344.0,
+          136.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9921200275421143,
+      "iou": 0.9957176437133978,
+      "mask_area_fraction": 0.34706829214916696
+    },
+    {
+      "photo": "DSC00728",
+      "class": "sky",
+      "source": "concatenated",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          440.0,
+          360.0
+        ],
+        [
+          392.0,
+          360.0
+        ],
+        [
+          456.0,
+          360.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9961943626403809,
+      "iou": 0.9955977380180607,
+      "mask_area_fraction": 0.3470181409625595
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "e1",
+      "prompt": "e1_prompt",
+      "coords": [
+        [
+          506.88,
+          665.6
+        ],
+        [
+          670.72,
+          931.84
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9819154739379883,
+      "iou": 0.9888655386210305,
+      "mask_area_fraction": 0.022119786167600075,
+      "e1_prompt_name": "person"
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          552.0,
+          744.0
+        ],
+        [
+          584.0,
+          744.0
+        ],
+        [
+          584.0,
+          792.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8203518986701965,
+      "iou": 0.6357815654635983,
+      "mask_area_fraction": 0.0142083926276166
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          512.0,
+          672.0
+        ],
+        [
+          672.0,
+          928.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9828465580940247,
+      "iou": 0.9889132225593217,
+      "mask_area_fraction": 0.022118710263266617,
+      "region_rule": "above_zero",
+      "region_cells": 102
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          512.0,
+          672.0
+        ],
+        [
+          672.0,
+          928.0
+        ],
+        [
+          552.0,
+          744.0
+        ],
+        [
+          584.0,
+          744.0
+        ],
+        [
+          584.0,
+          792.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9442863464355469,
+      "iou": 0.982775161871731,
+      "mask_area_fraction": 0.022028334299256335,
+      "region_rule": "above_zero",
+      "region_cells": 102
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          528.0,
+          672.0
+        ],
+        [
+          656.0,
+          928.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9864067435264587,
+      "iou": 0.9892827004219409,
+      "mask_area_fraction": 0.0221260622762119,
+      "region_rule": "half_max",
+      "region_cells": 60
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          528.0,
+          672.0
+        ],
+        [
+          656.0,
+          928.0
+        ],
+        [
+          552.0,
+          744.0
+        ],
+        [
+          584.0,
+          744.0
+        ],
+        [
+          584.0,
+          792.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9269192218780518,
+      "iou": 0.9642934568783472,
+      "mask_area_fraction": 0.021610076489625412,
+      "region_rule": "half_max",
+      "region_cells": 60
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          664.0,
+          760.0
+        ],
+        [
+          24.0,
+          744.0
+        ],
+        [
+          24.0,
+          728.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9958497285842896,
+      "iou": 0.0,
+      "mask_area_fraction": 0.8225493051092545
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          928.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9925141334533691,
+      "iou": 0.0,
+      "mask_area_fraction": 0.8258744771104939,
+      "region_rule": "above_zero",
+      "region_cells": 2861
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          928.0
+        ],
+        [
+          664.0,
+          760.0
+        ],
+        [
+          24.0,
+          744.0
+        ],
+        [
+          24.0,
+          728.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9941518902778625,
+      "iou": 0.0,
+      "mask_area_fraction": 0.8272897396024605,
+      "region_rule": "above_zero",
+      "region_cells": 2861
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          608.0,
+          544.0
+        ],
+        [
+          1024.0,
+          880.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9268827438354492,
+      "iou": 0.0,
+      "mask_area_fraction": 0.09901386195143225,
+      "region_rule": "half_max",
+      "region_cells": 280
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          608.0,
+          544.0
+        ],
+        [
+          1024.0,
+          880.0
+        ],
+        [
+          664.0,
+          760.0
+        ],
+        [
+          24.0,
+          744.0
+        ],
+        [
+          24.0,
+          728.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9146105051040649,
+      "iou": 0.0,
+      "mask_area_fraction": 0.11506312689359163,
+      "region_rule": "half_max",
+      "region_cells": 280
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          552.0,
+          904.0
+        ],
+        [
+          568.0,
+          728.0
+        ],
+        [
+          648.0,
+          792.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8863972425460815,
+      "iou": 0.6910520753382546,
+      "mask_area_fraction": 0.015472221584649283
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          640.0,
+          752.0
+        ],
+        [
+          656.0,
+          800.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.7372680902481079,
+      "iou": 0.03655373511832842,
+      "mask_area_fraction": 0.0008173286586485494,
+      "region_rule": "above_zero",
+      "region_cells": 3
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          640.0,
+          752.0
+        ],
+        [
+          656.0,
+          800.0
+        ],
+        [
+          552.0,
+          904.0
+        ],
+        [
+          568.0,
+          728.0
+        ],
+        [
+          648.0,
+          792.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.0031885504722595215,
+      "iou": 0.0795637540661535,
+      "mask_area_fraction": 0.0017844769957308115,
+      "region_rule": "above_zero",
+      "region_cells": 3
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          560.0,
+          720.0
+        ],
+        [
+          576.0,
+          736.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.7106170654296875,
+      "iou": 0.009893173066078018,
+      "mask_area_fraction": 0.00022020175358060962,
+      "region_rule": "half_max",
+      "region_cells": 1
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          560.0,
+          720.0
+        ],
+        [
+          576.0,
+          736.0
+        ],
+        [
+          552.0,
+          904.0
+        ],
+        [
+          568.0,
+          728.0
+        ],
+        [
+          648.0,
+          792.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.5988030433654785,
+      "iou": 0.01866994280190123,
+      "mask_area_fraction": 0.00041628531835291956,
+      "region_rule": "half_max",
+      "region_cells": 1
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          552.0,
+          904.0
+        ],
+        [
+          648.0,
+          792.0
+        ],
+        [
+          616.0,
+          728.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8790934681892395,
+      "iou": 0.7104709012144252,
+      "mask_area_fraction": 0.01590410751583731
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          544.0,
+          704.0
+        ],
+        [
+          656.0,
+          816.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9371109008789062,
+      "iou": 0.4157267186757803,
+      "mask_area_fraction": 0.009274295354388541,
+      "region_rule": "above_zero",
+      "region_cells": 13
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          544.0,
+          704.0
+        ],
+        [
+          656.0,
+          816.0
+        ],
+        [
+          552.0,
+          904.0
+        ],
+        [
+          648.0,
+          792.0
+        ],
+        [
+          616.0,
+          728.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9274535179138184,
+      "iou": 0.4468675271137449,
+      "mask_area_fraction": 0.009965294912550497,
+      "region_rule": "above_zero",
+      "region_cells": 13
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          544.0,
+          720.0
+        ],
+        [
+          592.0,
+          752.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.660381019115448,
+      "iou": 0.04657241823747382,
+      "mask_area_fraction": 0.0010392339274237973,
+      "region_rule": "half_max",
+      "region_cells": 3
+    },
+    {
+      "photo": "DSC00936",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          544.0,
+          720.0
+        ],
+        [
+          592.0,
+          752.0
+        ],
+        [
+          552.0,
+          904.0
+        ],
+        [
+          648.0,
+          792.0
+        ],
+        [
+          616.0,
+          728.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.6262460947036743,
+      "iou": 0.09855564995751911,
+      "mask_area_fraction": 0.0022030037814450973,
+      "region_rule": "half_max",
+      "region_cells": 3
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "e1",
+      "prompt": "e1_prompt",
+      "coords": [
+        [
+          296.96,
+          30.72
+        ],
+        [
+          768.0,
+          952.32
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.989579975605011,
+      "iou": 0.9925980619938157,
+      "mask_area_fraction": 0.21993569799688303,
+      "e1_prompt_name": "person"
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          488.0,
+          184.0
+        ],
+        [
+          504.0,
+          184.0
+        ],
+        [
+          520.0,
+          152.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9119519591331482,
+      "iou": 0.04341075114633403,
+      "mask_area_fraction": 0.009552818888659699
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          304.0,
+          32.0
+        ],
+        [
+          768.0,
+          960.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9896423816680908,
+      "iou": 0.9926396348687971,
+      "mask_area_fraction": 0.2199334598173359,
+      "region_rule": "above_zero",
+      "region_cells": 899
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          304.0,
+          32.0
+        ],
+        [
+          768.0,
+          960.0
+        ],
+        [
+          488.0,
+          184.0
+        ],
+        [
+          504.0,
+          184.0
+        ],
+        [
+          520.0,
+          152.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9730719327926636,
+      "iou": 0.990937570559972,
+      "mask_area_fraction": 0.2204702647999175,
+      "region_rule": "above_zero",
+      "region_cells": 899
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          432.0,
+          48.0
+        ],
+        [
+          592.0,
+          352.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9698106050491333,
+      "iou": 0.11728996355676834,
+      "mask_area_fraction": 0.02601794196346718,
+      "region_rule": "half_max",
+      "region_cells": 95
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          432.0,
+          48.0
+        ],
+        [
+          592.0,
+          352.0
+        ],
+        [
+          488.0,
+          184.0
+        ],
+        [
+          504.0,
+          184.0
+        ],
+        [
+          520.0,
+          152.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8495931625366211,
+      "iou": 0.11207373489349169,
+      "mask_area_fraction": 0.024719529244591126,
+      "region_rule": "half_max",
+      "region_cells": 95
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          568.0,
+          232.0
+        ],
+        [
+          552.0,
+          232.0
+        ],
+        [
+          568.0,
+          264.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.520378589630127,
+      "iou": 0.7808220179699898,
+      "mask_area_fraction": 0.17246292500343785
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          240.0,
+          80.0
+        ],
+        [
+          752.0,
+          880.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.947289764881134,
+      "iou": 0.8611216279689226,
+      "mask_area_fraction": 0.1897013838753667,
+      "region_rule": "above_zero",
+      "region_cells": 596
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          240.0,
+          80.0
+        ],
+        [
+          752.0,
+          880.0
+        ],
+        [
+          568.0,
+          232.0
+        ],
+        [
+          552.0,
+          232.0
+        ],
+        [
+          568.0,
+          264.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8674403429031372,
+      "iou": 0.6673752080475983,
+      "mask_area_fraction": 0.1469822356584617,
+      "region_rule": "above_zero",
+      "region_cells": 596
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          512.0,
+          208.0
+        ],
+        [
+          624.0,
+          368.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9431755542755127,
+      "iou": 0.04360512548619568,
+      "mask_area_fraction": 0.009594090919508618,
+      "region_rule": "half_max",
+      "region_cells": 41
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          512.0,
+          208.0
+        ],
+        [
+          624.0,
+          368.0
+        ],
+        [
+          568.0,
+          232.0
+        ],
+        [
+          552.0,
+          232.0
+        ],
+        [
+          568.0,
+          264.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9190884828567505,
+      "iou": 0.04313149286641729,
+      "mask_area_fraction": 0.009489881279794646,
+      "region_rule": "half_max",
+      "region_cells": 41
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          296.0,
+          72.0
+        ],
+        [
+          264.0,
+          8.0
+        ],
+        [
+          280.0,
+          72.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9759964942932129,
+      "iou": 0.0,
+      "mask_area_fraction": 0.004794986334570957
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          304.0,
+          240.0
+        ],
+        [
+          752.0,
+          816.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8678065538406372,
+      "iou": 0.4718389815649887,
+      "mask_area_fraction": 0.10389432497937294,
+      "region_rule": "above_zero",
+      "region_cells": 405
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          304.0,
+          240.0
+        ],
+        [
+          752.0,
+          816.0
+        ],
+        [
+          296.0,
+          72.0
+        ],
+        [
+          264.0,
+          8.0
+        ],
+        [
+          280.0,
+          72.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.6221035718917847,
+      "iou": 0.0021165201705786413,
+      "mask_area_fraction": 0.008368553326686835,
+      "region_rule": "above_zero",
+      "region_cells": 405
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          240.0,
+          0.0
+        ],
+        [
+          304.0,
+          80.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9851275682449341,
+      "iou": 0.0,
+      "mask_area_fraction": 0.004774663664283095,
+      "region_rule": "half_max",
+      "region_cells": 17
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          240.0,
+          0.0
+        ],
+        [
+          304.0,
+          80.0
+        ],
+        [
+          296.0,
+          72.0
+        ],
+        [
+          264.0,
+          8.0
+        ],
+        [
+          280.0,
+          72.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.972661018371582,
+      "iou": 0.0,
+      "mask_area_fraction": 0.00477144068573524,
+      "region_rule": "half_max",
+      "region_cells": 17
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          552.0,
+          88.0
+        ],
+        [
+          504.0,
+          184.0
+        ],
+        [
+          536.0,
+          88.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9243603348731995,
+      "iou": 0.04321393796388639,
+      "mask_area_fraction": 0.009511009694719472
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          304.0,
+          32.0
+        ],
+        [
+          752.0,
+          928.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.990289032459259,
+      "iou": 0.9925644994086642,
+      "mask_area_fraction": 0.21981376197515584,
+      "region_rule": "above_zero",
+      "region_cells": 701
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          304.0,
+          32.0
+        ],
+        [
+          752.0,
+          928.0
+        ],
+        [
+          552.0,
+          88.0
+        ],
+        [
+          504.0,
+          184.0
+        ],
+        [
+          536.0,
+          88.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9733496904373169,
+      "iou": 0.9902961201051668,
+      "mask_area_fraction": 0.2208384900990099,
+      "region_rule": "above_zero",
+      "region_cells": 701
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          416.0,
+          480.0
+        ],
+        [
+          528.0,
+          736.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9451635479927063,
+      "iou": 0.09789381309376231,
+      "mask_area_fraction": 0.021573006910066007,
+      "region_rule": "half_max",
+      "region_cells": 51
+    },
+    {
+      "photo": "DSC_1535",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          416.0,
+          480.0
+        ],
+        [
+          528.0,
+          736.0
+        ],
+        [
+          552.0,
+          88.0
+        ],
+        [
+          504.0,
+          184.0
+        ],
+        [
+          536.0,
+          88.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.20880234241485596,
+      "iou": 0.28096493237198644,
+      "mask_area_fraction": 0.06187330972680601,
+      "region_rule": "half_max",
+      "region_cells": 51
+    },
+    {
+      "photo": "Nikon-D800e-raw-00007",
+      "class": "sky",
+      "source": "e1",
+      "prompt": "e1_prompt",
+      "coords": [
+        [
+          512.0,
+          61.44
+        ]
+      ],
+      "labels": [
+        1.0
+      ],
+      "predicted_iou": 0.9859850406646729,
+      "iou": 0.9931950513437712,
+      "mask_area_fraction": 0.2524182611468247,
+      "e1_prompt_name": "sky"
+    },
+    {
+      "photo": "Nikon-D800e-raw-00007",
+      "class": "sky",
+      "source": "image_embed",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          872.0,
+          184.0
+        ],
+        [
+          872.0,
+          168.0
+        ],
+        [
+          840.0,
+          168.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.976044774055481,
+      "iou": 0.9691916737608361,
+      "mask_area_fraction": 0.24608794138337298
+    },
+    {
+      "photo": "Nikon-D800e-raw-00007",
+      "class": "sky",
+      "source": "high_res_feats_1",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          920.0,
+          184.0
+        ],
+        [
+          792.0,
+          152.0
+        ],
+        [
+          824.0,
+          120.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9724476337432861,
+      "iou": 0.967252933774253,
+      "mask_area_fraction": 0.2456900064627562
+    },
+    {
+      "photo": "Nikon-D800e-raw-00007",
+      "class": "sky",
+      "source": "high_res_feats_0",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          504.0,
+          376.0
+        ],
+        [
+          264.0,
+          376.0
+        ],
+        [
+          520.0,
+          376.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9683002233505249,
+      "iou": 0.0,
+      "mask_area_fraction": 0.0567676996591325
+    },
+    {
+      "photo": "Nikon-D800e-raw-00007",
+      "class": "sky",
+      "source": "concatenated",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          696.0,
+          136.0
+        ],
+        [
+          568.0,
+          168.0
+        ],
+        [
+          792.0,
+          168.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9767730832099915,
+      "iou": 0.9513654996666503,
+      "mask_area_fraction": 0.24169260586337848
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "e1",
+      "prompt": "e1_prompt",
+      "coords": [
+        [
+          645.12,
+          276.48
+        ],
+        [
+          890.88,
+          896.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8704498410224915,
+      "iou": 0.9340863974453556,
+      "mask_area_fraction": 0.043273647807213725,
+      "e1_prompt_name": "bassist"
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          104.0,
+          56.0
+        ],
+        [
+          72.0,
+          40.0
+        ],
+        [
+          104.0,
+          40.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9073418378829956,
+      "iou": 0.0,
+      "mask_area_fraction": 0.023798786826000326
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          560.0,
+          1008.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8264724016189575,
+      "iou": 0.0,
+      "mask_area_fraction": 0.2179774704426236,
+      "region_rule": "above_zero",
+      "region_cells": 1221
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          560.0,
+          1008.0
+        ],
+        [
+          104.0,
+          56.0
+        ],
+        [
+          72.0,
+          40.0
+        ],
+        [
+          104.0,
+          40.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9054603576660156,
+      "iou": 0.0,
+      "mask_area_fraction": 0.24433782772344664,
+      "region_rule": "above_zero",
+      "region_cells": 1221
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          656.0,
+          304.0
+        ],
+        [
+          768.0,
+          656.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.8698344230651855,
+      "iou": 0.19451955545780342,
+      "mask_area_fraction": 0.008402758010735199,
+      "region_rule": "half_max",
+      "region_cells": 76
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "image_embed",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          656.0,
+          304.0
+        ],
+        [
+          768.0,
+          656.0
+        ],
+        [
+          104.0,
+          56.0
+        ],
+        [
+          72.0,
+          40.0
+        ],
+        [
+          104.0,
+          40.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8759036064147949,
+      "iou": 0.1123232335268691,
+      "mask_area_fraction": 0.01638299548633702,
+      "region_rule": "half_max",
+      "region_cells": 76
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          40.0,
+          856.0
+        ],
+        [
+          88.0,
+          40.0
+        ],
+        [
+          56.0,
+          24.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8311715126037598,
+      "iou": 0.0011423314528019107,
+      "mask_area_fraction": 0.24419344006689167
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          656.0
+        ],
+        [
+          464.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9882926940917969,
+      "iou": 0.0,
+      "mask_area_fraction": 0.09676990993005856,
+      "region_rule": "above_zero",
+      "region_cells": 418
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          656.0
+        ],
+        [
+          464.0,
+          1024.0
+        ],
+        [
+          40.0,
+          856.0
+        ],
+        [
+          88.0,
+          40.0
+        ],
+        [
+          56.0,
+          24.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9265643358230591,
+      "iou": 0.0,
+      "mask_area_fraction": 0.10712158361967307,
+      "region_rule": "above_zero",
+      "region_cells": 418
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          0.0,
+          768.0
+        ],
+        [
+          400.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9665664434432983,
+      "iou": 0.0,
+      "mask_area_fraction": 0.09006374659442094,
+      "region_rule": "half_max",
+      "region_cells": 239
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "high_res_feats_1",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          768.0
+        ],
+        [
+          400.0,
+          1024.0
+        ],
+        [
+          40.0,
+          856.0
+        ],
+        [
+          88.0,
+          40.0
+        ],
+        [
+          56.0,
+          24.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.898117184638977,
+      "iou": 0.0,
+      "mask_area_fraction": 0.0934138896795706,
+      "region_rule": "half_max",
+      "region_cells": 239
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          744.0,
+          632.0
+        ],
+        [
+          8.0,
+          8.0
+        ],
+        [
+          312.0,
+          184.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8557265996932983,
+      "iou": 0.04821456097391648,
+      "mask_area_fraction": 0.02782329492314574
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          288.0,
+          112.0
+        ],
+        [
+          688.0,
+          1024.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.6351742744445801,
+      "iou": 0.0,
+      "mask_area_fraction": 0.07433788172983084,
+      "region_rule": "above_zero",
+      "region_cells": 352
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          288.0,
+          112.0
+        ],
+        [
+          688.0,
+          1024.0
+        ],
+        [
+          744.0,
+          632.0
+        ],
+        [
+          8.0,
+          8.0
+        ],
+        [
+          312.0,
+          184.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.5660243034362793,
+      "iou": 0.0,
+      "mask_area_fraction": 0.047002470950919,
+      "region_rule": "above_zero",
+      "region_cells": 352
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          272.0,
+          176.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9404929280281067,
+      "iou": 0.0,
+      "mask_area_fraction": 0.0200284264191607,
+      "region_rule": "half_max",
+      "region_cells": 60
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "high_res_feats_0",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          272.0,
+          176.0
+        ],
+        [
+          744.0,
+          632.0
+        ],
+        [
+          8.0,
+          8.0
+        ],
+        [
+          312.0,
+          184.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9355102777481079,
+      "iou": 0.0,
+      "mask_area_fraction": 0.020092757553269357,
+      "region_rule": "half_max",
+      "region_cells": 60
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "top3_points",
+      "coords": [
+        [
+          744.0,
+          632.0
+        ],
+        [
+          40.0,
+          40.0
+        ],
+        [
+          72.0,
+          24.0
+        ]
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.8795520067214966,
+      "iou": 0.034218111330674254,
+      "mask_area_fraction": 0.026863807971088158
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          288.0,
+          752.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9093868732452393,
+      "iou": 0.0,
+      "mask_area_fraction": 0.10383775719746259,
+      "region_rule": "above_zero",
+      "region_cells": 450
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_above_zero_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          288.0,
+          752.0
+        ],
+        [
+          744.0,
+          632.0
+        ],
+        [
+          40.0,
+          40.0
+        ],
+        [
+          72.0,
+          24.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.6716516613960266,
+      "iou": 0.0,
+      "mask_area_fraction": 0.11885931527529278,
+      "region_rule": "above_zero",
+      "region_cells": 450
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          272.0,
+          176.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0
+      ],
+      "predicted_iou": 0.9404929280281067,
+      "iou": 0.0,
+      "mask_area_fraction": 0.0200284264191607,
+      "region_rule": "half_max",
+      "region_cells": 63
+    },
+    {
+      "photo": "P1024439",
+      "class": "person",
+      "source": "concatenated",
+      "prompt": "region_box_half_max_and_top3_points",
+      "coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          272.0,
+          176.0
+        ],
+        [
+          744.0,
+          632.0
+        ],
+        [
+          40.0,
+          40.0
+        ],
+        [
+          72.0,
+          24.0
+        ]
+      ],
+      "labels": [
+        2.0,
+        3.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "predicted_iou": 0.9365339279174805,
+      "iou": 0.0,
+      "mask_area_fraction": 0.019671269493127846,
+      "region_rule": "half_max",
+      "region_cells": 63
+    }
+  ]
+}

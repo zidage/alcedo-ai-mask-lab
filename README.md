@@ -135,6 +135,8 @@ features, so People and Sky add no second image encoder.
 
 ## 5. Next step: locate people and sky from SAM 2.1 image features
 
+Issue: [#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1).
+
 The SAM3 detector is open-vocabulary: it can find any word. The product uses two fixed words, so it
 pays for generality that it does not use. People and Sky need only a coarse answer: "is it there,
 and where are a few reliable points". The SAM 2.1 encoder already computes a 64 x 64 feature map of

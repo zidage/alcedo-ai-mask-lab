@@ -105,10 +105,12 @@ $PY scripts/ai_models/sam2/probe_masks.py --onnx-dir build/tmp/sm1/onnx/efficien
 
 ```powershell
 # DirectML measurement with GPU memory (PowerShell, Windows). Repeat for each variant.
-Set-Location D:\Projects\pu-erh_lab
+# Run from this repository (the evidence is under build\tmp\); the Rust program is in the
+# Alcedo Studio checkout.
+Set-Location D:\Projects\alcedo-ai-mask-lab; $alcedo = "D:\Projects\pu-erh_lab"
 $e = "build\tmp\explore\e1"; $q = "build\tmp\sm1\quality"
 .\scripts\ai_models\sam2\run_with_gpu_memory.ps1 `
-  -Exe rust\puerh_mind\target\release\examples\segmentation_runtime_report.exe `
+  -Exe "$alcedo\rust\puerh_mind\target\release\examples\segmentation_runtime_report.exe" `
   -Arguments @('runtime', '--onnx-dir', "$e\onnx\tiny", '--device', 'directml',
                '--photos', "$q\photos", '--prompts', "$q\prompts.json",
                '--reference-masks', "$e\compare\tiny\reference_masks",
@@ -170,10 +172,12 @@ done
 ```powershell
 # DirectML run per variant (nested setting of the report). The upstream setting is
 # --score-threshold 0.8 --stability-threshold 0.95 --dedupe box --nms-threshold 0.7.
-Set-Location D:\Projects\pu-erh_lab
+# Run from this repository (the evidence is under build\tmp\); the Rust program is in the
+# Alcedo Studio checkout.
+Set-Location D:\Projects\alcedo-ai-mask-lab; $alcedo = "D:\Projects\pu-erh_lab"
 $e = "build\tmp\explore"; $i = "$e\e4\input_4096"
 .\scripts\ai_models\sam2\run_with_gpu_memory.ps1 `
-  -Exe rust\puerh_mind\target\release\examples\segmentation_runtime_report.exe `
+  -Exe "$alcedo\rust\puerh_mind\target\release\examples\segmentation_runtime_report.exe" `
   -Arguments @('candidates', '--onnx-dir', "$e\e4\onnx_float32_batch16\tiny", '--device', 'directml',
                '--photos', "$i\photos", '--prompts', 'build\tmp\sm1\quality\prompts.json',
                '--targets', 'scripts\ai_models\sam2\click_targets.json',
@@ -206,10 +210,12 @@ are byte-identical to E1). Run one command at a time.
 # Add '--decoder-sessions', 'per-point-count' for one decoder session per point count, or
 # '--pad-points', '32', '--pad-mode', 'label' (or 'repeat') for a fixed point count;
 # '--profile-dir', "$e\e3\profiles\tiny" writes operator profiles for --profile-counts (1,5).
-Set-Location D:\Projects\pu-erh_lab
+# Run from this repository (the evidence is under build\tmp\); the Rust program is in the
+# Alcedo Studio checkout.
+Set-Location D:\Projects\alcedo-ai-mask-lab; $alcedo = "D:\Projects\pu-erh_lab"
 $e = "build\tmp\explore"; $i = "$e\e4\input_4096"
 .\scripts\ai_models\sam2\run_with_gpu_memory.ps1 `
-  -Exe rust\puerh_mind\target\release\examples\segmentation_runtime_report.exe `
+  -Exe "$alcedo\rust\puerh_mind\target\release\examples\segmentation_runtime_report.exe" `
   -Arguments @('strokes', '--onnx-dir', "$e\e4\onnx_float32_batch16\tiny", '--device', 'directml',
                '--photos', "$i\photos", '--prompts', 'build\tmp\sm1\quality\prompts.json',
                '--targets', 'scripts\ai_models\sam2\click_targets.json',

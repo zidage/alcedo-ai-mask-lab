@@ -94,20 +94,23 @@ whole-image encoder input for small subjects (plan section 8.6, cases 5 and 6).
 
 ```powershell
 # Rust measurement program (PowerShell, Windows). Use --device coreml on macOS.
+# The evidence is under build\tmp\sm1 of this repository; the Rust program is in the Alcedo
+# Studio checkout.
+$sm1 = "D:\Projects\alcedo-ai-mask-lab\build\tmp\sm1"
 Set-Location D:\Projects\pu-erh_lab\rust\puerh_mind
 cmd /c script\cargo_msvc.cmd build --release --example segmentation_runtime_report
 .\target\release\examples\segmentation_runtime_report.exe runtime `
-  --onnx-dir ..\..\build\tmp\sm1\onnx\efficientvit --device directml `
-  --photos ..\..\build\tmp\sm1\photos --prompts ..\..\build\tmp\sm1\prompts.json `
-  --reference-masks ..\..\build\tmp\sm1\compare\reference_masks `
-  --tokenizer ..\..\build\tmp\sm1\tokenizer\tokenizer.json `
-  --overlay-dir ..\..\build\tmp\sm1\overlays\directml --profile-dir ..\..\build\tmp\sm1\profiles `
-  --out ..\..\build\tmp\sm1\runtime\windows_directml.json
+  --onnx-dir $sm1\onnx\efficientvit --device directml `
+  --photos $sm1\photos --prompts $sm1\prompts.json `
+  --reference-masks $sm1\compare\reference_masks `
+  --tokenizer $sm1\tokenizer\tokenizer.json `
+  --overlay-dir $sm1\overlays\directml --profile-dir $sm1\profiles `
+  --out $sm1\runtime\windows_directml.json
 # Add --overlay-max-edge 2048 to write smaller overlay images of 40 MP photos.
 
 # gRPC round trip against a running sidecar (alcedo_mind --port 50581)
 .\target\release\examples\segmentation_runtime_report.exe ping `
-  --endpoint http://127.0.0.1:50581 --out ..\..\build\tmp\sm1\runtime\windows_ping.json
+  --endpoint http://127.0.0.1:50581 --out $sm1\runtime\windows_ping.json
 ```
 
 ## prompts.json

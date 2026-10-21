@@ -13,6 +13,9 @@ Outputs under the directory of --out:
 - reference_alpha/<stem>.png: the PyTorch alpha at the photo size, 8 bit, for
   `segmentation_runtime_report matte --reference-alpha`;
 - alpha/<stem>.npy: the ONNX Runtime CPU alpha at the model size (float16), for probe_mattes.py.
+
+PyTorch and ONNX Runtime use --threads CPU threads (default 4); the ONNX Runtime CPU memory arena
+is off (AGENTS.md resource limits).
 """
 
 from __future__ import annotations
@@ -50,15 +53,20 @@ def main() -> int:
     parser.add_argument("--prompts", required=True, help="the quality set; only the photo list "
                                                          "is used")
     parser.add_argument("--out", required=True, help="output JSON report path")
+    parser.add_argument("--threads", type=int, default=4)
     args = parser.parse_args()
 
     import onnxruntime as ort
 
+    torch.set_num_threads(args.threads)
     torch.set_grad_enabled(False)
     size = graphs.image_size(args.variant)
     model = graphs.SubjectMatte(graphs.build_model(args.weights, args.variant)).eval()
     options = ort.SessionOptions()
     options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+    options.intra_op_num_threads = args.threads
+    options.inter_op_num_threads = 1
+    options.enable_cpu_mem_arena = False
     session = ort.InferenceSession(str(Path(args.onnx_dir) / "subject_matte.onnx"), options,
                                    providers=["CPUExecutionProvider"])
     out_path = Path(args.out)
@@ -101,7 +109,7 @@ def main() -> int:
     passed = all(r["passed"] for r in results)
     report = {"check": "OnnxMatteMatchesPytorchWithinTolerance", "variant": args.variant,
               "required_iou": REQUIRED_IOU, "onnxruntime": ort.__version__,
-              "torch": torch.__version__, "passed": passed,
+              "torch": torch.__version__, "threads": args.threads, "passed": passed,
               "minimum_iou": min(r["iou"] for r in results),
               "maximum_abs_alpha_diff": max(r["max_abs_alpha_diff"] for r in results),
               "results": results}

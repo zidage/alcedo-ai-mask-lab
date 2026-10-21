@@ -8,10 +8,12 @@ object edges. The Mask joins the existing Mask system of a Color Grade node.
 This README records the product requirements, the user decisions, and the current model selection.
 The evidence is in the step reports under [`docs/exploration/`](docs/exploration/README.md).
 
-**Status (2026-10-20):** the exploration steps E1 to E5 and the proof of concept P0 "locate people
-and sky from the SAM 2.1 image features" (section 5) are done. The model set is under decision.
-The proposed next step is step 1 of section 5: train a small head on the SAM 2.1 tiny
-`image_embed`.
+**Status (2026-10-21):** the exploration steps E1 to E5, the proof of concept P0, and step 1 of
+section 5 (P1: the people and sky head, run 2 selected) are done. The
+[AI Mask MVP](docs/exploration/mvp_ai_mask.md) (issue
+[#5](https://github.com/zidage/alcedo-ai-mask-lab/issues/5)) runs the selected model set end to end
+with a desktop UI: SAM 2.1 tiny, the run 2 head, and BiRefNet lite at 1024 px. The user checks the
+interaction by eye.
 
 ## Main project
 
@@ -66,6 +68,7 @@ These decisions come from the user. Do not change them without a new user decisi
 | U9 | If BiRefNet is used, use the 512 px variant; efficiency first. See open decision O2. | 2026-10-20 |
 | U10 | A comparison experiment of prompt sources for People and Sky ("E7") is not done. | 2026-10-20 |
 | U11 | The SAM3 detector is too large for its task (locating people and sky). Evaluate a small model that gives points or a box to SAM 2.1; a model trained by the user (for example on Colab) is acceptable. | 2026-10-20 |
+| U12 | The AI Mask MVP (issue #5) uses BiRefNet at 1024 px (lite). The MVP uses the float16 graph of E2 (U8). | 2026-10-21 |
 
 ## 3. Product requirements (proposal)
 
@@ -221,6 +224,7 @@ Risks:
 | [`scripts/ai_models/efficientsam3/`](scripts/ai_models/efficientsam3/README.md) | EfficientSAM3 export and comparison (SM1) |
 | [`scripts/poc/sam_feature_localization/`](scripts/poc/sam_feature_localization/README.md) | P0: people and sky from SAM 2.1 tiny features |
 | [`scripts/poc/people_sky_head/`](scripts/poc/people_sky_head/README.md) | Step 1: people and sky head on SAM 2.1 tiny `image_embed`, trained on Colab |
+| [`scripts/poc/ai_mask_mvp/`](scripts/poc/ai_mask_mvp/README.md) | AI Mask MVP: the selected model set with a PySide6 UI (issue #5) |
 | [`results/`](results/README.md) | Measurement results of the prototypes (sheets with photos stay local) |
 | `build/tmp/` (not committed) | Local evidence, weights, ONNX files, photos, and the Python environments of all steps |
 
@@ -236,7 +240,7 @@ Rules for contributors and agents: [AGENTS.md](AGENTS.md), [CONTRIBUTING.md](CON
 | ID | Question |
 | --- | --- |
 | O1 | Approve the requirement set of section 3, especially F7 (combination across mask types) and F9 (recipe and recompute). |
-| O2 | BiRefNet variant. U9 asks for the 512 px variant. Because U3 removed edge post-processing, the output resolution is the final edge resolution: lite at 1024 px gives 4 px cells at the 4096 px input (measured: 175 ms, 96.4 MB) and `BiRefNet_512x512` gives 8 px cells (Swin-L, 444 MB, not measured). The recommendation is lite at 1024 px. |
+| O2 | BiRefNet variant. U9 asks for the 512 px variant. Because U3 removed edge post-processing, the output resolution is the final edge resolution: lite at 1024 px gives 4 px cells at the 4096 px input (measured: 175 ms, 96.4 MB) and `BiRefNet_512x512` gives 8 px cells (Swin-L, 444 MB, not measured). The recommendation is lite at 1024 px. **The MVP uses lite at 1024 px (U12).** With all models loaded, the MVP needs 4.5 GB dedicated GPU memory, more than the 3 GB budget of U6 ([MVP report, section 5.2](docs/exploration/mvp_ai_mask.md#52-memory)). |
 | O3 | Remove the text prompt requirement from Alcedo Studio decision D2 (F11). |
 | O4 | Person localizer: the SAM 2.1 feature head, or YOLOX-Nano. P0 does not reject the head: `image_embed` holds the person information, but prototypes without training are not sufficient (no threshold separates the photos). The decision needs the trained head of step 1. Sky has no alternative candidate with a commercial license; the P0 sky result is positive. |
 

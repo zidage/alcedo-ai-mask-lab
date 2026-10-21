@@ -12,6 +12,7 @@ local; run the commands of the script README to make them again.
 | --- | --- | --- |
 | [`p0_sam_feature_localization/`](p0_sam_feature_localization/) | P0, issue [#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1) | [P0 report](../docs/exploration/p0_sam_feature_localization.md) |
 | [`p1_people_sky_head/`](p1_people_sky_head/) | P1 (README section 5, step 1), issue [#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1) | [P1 report](../docs/exploration/p1_people_sky_head.md) |
+| [`ai_mask_mvp/`](ai_mask_mvp/) | AI Mask MVP, issue [#5](https://github.com/zidage/alcedo-ai-mask-lab/issues/5) | [MVP report](../docs/exploration/mvp_ai_mask.md) |
 
 ## `p0_sam_feature_localization/`
 
@@ -36,3 +37,12 @@ local; run the commands of the script README to make them again.
 | `quality_photos.json` | Per quality photo: presence, sky regions and IoU, People list with rank, score, box, IoU; timings | `evaluate_quality_photos.py` |
 | `sheets/` (local only) | Sky and people overlays per photo | `make_quality_sheets.py` |
 | `run2_coco_openimages/`, `run3_box_giou/` | The same files for runs 2 and 3 (`colab_run/` also has `best_val_measurements.json` of `evaluate_head.py` and the `oi_train` and `oi_val` records of `prepare_openimages_targets.py`) | as above |
+
+## `ai_mask_mvp/`
+
+| File | Content | Script |
+| --- | --- | --- |
+| `comparison_cpu.json` | The MVP (onnxruntime-directml 1.24.4, CPU provider) against `evaluate_quality_photos.py` run 2, the E3 stroke sequences, and the E2 BiRefNet alpha: per check and photo, the differences, IoU, and result | `compare_with_measurement_scripts.py` |
+| `comparison_cpu_onnxruntime_1_31.json` | The same comparison in the reference environment (onnxruntime 1.31.0) | `compare_with_measurement_scripts.py` |
+| `cost_directml.json` | Graph load times, stage times per photo and warm, decoder times per use, working set and private bytes, with all models loaded on DirectML | `measure_pipeline_cost.py` |
+| `cost_directml_gpu_memory.json` | Peak dedicated and shared GPU memory and the samples of that run | `run_with_gpu_memory.ps1` |

@@ -1,0 +1,713 @@
+{
+  "step": "issue #5: AI Mask MVP cost with all models loaded together",
+  "provider": "directml",
+  "threads": 4,
+  "warm_runs": 20,
+  "pipeline": {
+    "step": "issue #5: AI Mask MVP",
+    "provider": "directml",
+    "threads": 4,
+    "onnxruntime": "1.24.4",
+    "graphs": {
+      "point_encoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_encoder.onnx",
+        "bytes": 109381695,
+        "sha256": "17a554b420d3c51a109567f784ff3792b354c78dc8c2c09c585403329b412d61",
+        "load_ms": 2162.3
+      },
+      "point_decoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_decoder.onnx",
+        "bytes": 21188206,
+        "sha256": "6f9a0ef2c217a0abccc8b0c01e631c42c6a78a2038a7944cc7fcb4f536439278",
+        "load_ms": 247.9
+      },
+      "people_sky_head": {
+        "path": "build/tmp/explore/p1/colab_run2_coco_openimages/export/people_sky_head.onnx",
+        "bytes": 1119131,
+        "sha256": "e02f2a1eaace94e0efe2b3c8db0a0391be210b477a95e49063e80758f12abf35",
+        "load_ms": 106.2
+      },
+      "subject_matte": {
+        "path": "build/tmp/explore/e2/onnx_fp16/lite/subject_matte.onnx",
+        "bytes": 96437277,
+        "sha256": "b27fc5c46a703a5de0ab17a43f212d7b0579a58421c4139b8f6c7f36be91e7cf",
+        "load_ms": 7998.3
+      }
+    },
+    "thresholds": {
+      "sky_presence": 0.4231989085674286,
+      "person_presence": 0.533202052116394,
+      "people_list": 0.3132133185863495
+    },
+    "head_checkpoint_epoch": 15
+  },
+  "memory_before_load": {
+    "peak_working_set_bytes": 33755136,
+    "working_set_bytes": 33755136,
+    "private_bytes": 661352448
+  },
+  "memory_after_load": {
+    "peak_working_set_bytes": 1067573248,
+    "working_set_bytes": 1067573248,
+    "private_bytes": 2117783552
+  },
+  "memory_at_end": {
+    "peak_working_set_bytes": 1964204032,
+    "working_set_bytes": 1479917568,
+    "private_bytes": 6920396800
+  },
+  "stages": {
+    "read_photo": {
+      "first_photo_first_call_ms": 84.15,
+      "all_calls": {
+        "count": 14,
+        "p50_ms": 66.62,
+        "p95_ms": 81.05,
+        "max_ms": 84.15
+      },
+      "photos_after_the_first": {
+        "count": 13,
+        "p50_ms": 65.95,
+        "p95_ms": 80.67,
+        "max_ms": 81.05
+      }
+    },
+    "encoder": {
+      "first_photo_first_call_ms": 374.43,
+      "all_calls": {
+        "count": 14,
+        "p50_ms": 75.42,
+        "p95_ms": 81.09,
+        "max_ms": 374.43
+      },
+      "photos_after_the_first": {
+        "count": 13,
+        "p50_ms": 74.12,
+        "p95_ms": 81.05,
+        "max_ms": 81.09
+      }
+    },
+    "head": {
+      "first_photo_first_call_ms": 7.78,
+      "all_calls": {
+        "count": 14,
+        "p50_ms": 2.08,
+        "p95_ms": 2.98,
+        "max_ms": 7.78
+      },
+      "photos_after_the_first": {
+        "count": 13,
+        "p50_ms": 2.08,
+        "p95_ms": 2.89,
+        "max_ms": 2.98
+      }
+    },
+    "decoder": {
+      "first_photo_first_call_ms": 95.53,
+      "all_calls": {
+        "count": 104,
+        "p50_ms": 22.3,
+        "p95_ms": 31.09,
+        "max_ms": 95.53
+      },
+      "photos_after_the_first": {
+        "count": 99,
+        "p50_ms": 22.17,
+        "p95_ms": 29.74,
+        "max_ms": 42.63
+      }
+    },
+    "birefnet": {
+      "first_photo_first_call_ms": 417.31,
+      "all_calls": {
+        "count": 14,
+        "p50_ms": 160.44,
+        "p95_ms": 174.66,
+        "max_ms": 417.31
+      },
+      "photos_after_the_first": {
+        "count": 13,
+        "p50_ms": 159.94,
+        "p95_ms": 172.29,
+        "max_ms": 174.66
+      }
+    }
+  },
+  "warm_first_photo": {
+    "encoder": {
+      "count": 20,
+      "p50_ms": 73.69,
+      "p95_ms": 74.99,
+      "max_ms": 75.11
+    },
+    "head": {
+      "count": 20,
+      "p50_ms": 2.05,
+      "p95_ms": 2.95,
+      "max_ms": 4.27
+    },
+    "decoder_box": {
+      "count": 20,
+      "p50_ms": 23.24,
+      "p95_ms": 29.17,
+      "max_ms": 34.27
+    },
+    "decoder_10_points_mask_input": {
+      "count": 20,
+      "p50_ms": 23.41,
+      "p95_ms": 34.16,
+      "max_ms": 38.59
+    },
+    "birefnet": {
+      "count": 20,
+      "p50_ms": 155.84,
+      "p95_ms": 167.79,
+      "max_ms": 178.91
+    }
+  },
+  "decoder_sky_regions": {
+    "count": 17,
+    "p50_ms": 8.88,
+    "p95_ms": 13.16,
+    "max_ms": 95.53
+  },
+  "decoder_people": {
+    "count": 52,
+    "p50_ms": 22.59,
+    "p95_ms": 29.81,
+    "max_ms": 42.63
+  },
+  "decoder_strokes_and_clicks": {
+    "full_stroke": {
+      "count": 25,
+      "p50_ms": 22.29,
+      "p95_ms": 25.51,
+      "max_ms": 31.9
+    },
+    "stroke": {
+      "count": 10,
+      "p50_ms": 24.2,
+      "p95_ms": 33.95,
+      "max_ms": 33.95
+    }
+  },
+  "per_photo": [
+    {
+      "photo": "2088064441",
+      "size": [
+        4096,
+        2736
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 4,
+      "wall_ms": 3335.9,
+      "stage_ms": {
+        "read_photo": [
+          84.15
+        ],
+        "encoder": [
+          374.43
+        ],
+        "head": [
+          7.78
+        ],
+        "decoder": [
+          95.53,
+          25.45,
+          33.95,
+          31.01,
+          25.27
+        ],
+        "birefnet": [
+          417.31
+        ]
+      }
+    },
+    {
+      "photo": "5761824892",
+      "size": [
+        2729,
+        4096
+      ],
+      "sky_found": false,
+      "sky_regions": 0,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 2,
+      "wall_ms": 521.4,
+      "stage_ms": {
+        "read_photo": [
+          67.3
+        ],
+        "encoder": [
+          80.51
+        ],
+        "head": [
+          2.04
+        ],
+        "decoder": [
+          22.12,
+          22.34
+        ],
+        "birefnet": [
+          158.52
+        ]
+      }
+    },
+    {
+      "photo": "DSC00326",
+      "size": [
+        2723,
+        4096
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": true,
+      "people_listed": 1,
+      "stroke_calls": 2,
+      "wall_ms": 594.0,
+      "stage_ms": {
+        "read_photo": [
+          63.41
+        ],
+        "encoder": [
+          79.38
+        ],
+        "head": [
+          2.25
+        ],
+        "decoder": [
+          10.21,
+          26.65,
+          22.9,
+          22.17
+        ],
+        "birefnet": [
+          172.29
+        ]
+      }
+    },
+    {
+      "photo": "DSC00527",
+      "size": [
+        4096,
+        2729
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": true,
+      "people_listed": 20,
+      "stroke_calls": 4,
+      "wall_ms": 1075.6,
+      "stage_ms": {
+        "read_photo": [
+          63.9
+        ],
+        "encoder": [
+          81.09
+        ],
+        "head": [
+          2.98
+        ],
+        "decoder": [
+          13.16,
+          42.63,
+          32.72,
+          28.3,
+          28.09,
+          29.81,
+          26.59,
+          22.3,
+          21.7,
+          22.64,
+          20.94,
+          20.9,
+          21.36,
+          23.39,
+          21.35,
+          20.08,
+          22.06,
+          20.81,
+          21.8,
+          21.45,
+          20.63,
+          20.2,
+          23.55,
+          21.08,
+          19.66
+        ],
+        "birefnet": [
+          155.94
+        ]
+      }
+    },
+    {
+      "photo": "DSC00562",
+      "size": [
+        4096,
+        2729
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": true,
+      "people_listed": 6,
+      "stroke_calls": 1,
+      "wall_ms": 632.9,
+      "stage_ms": {
+        "read_photo": [
+          65.95
+        ],
+        "encoder": [
+          72.26
+        ],
+        "head": [
+          2.07
+        ],
+        "decoder": [
+          8.88,
+          24.29,
+          24.6,
+          23.17,
+          22.06,
+          23.73,
+          23.21,
+          22.03
+        ],
+        "birefnet": [
+          168.67
+        ]
+      }
+    },
+    {
+      "photo": "DSC00602",
+      "size": [
+        4096,
+        2733
+      ],
+      "sky_found": true,
+      "sky_regions": 3,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 1,
+      "wall_ms": 527.6,
+      "stage_ms": {
+        "read_photo": [
+          59.45
+        ],
+        "encoder": [
+          80.95
+        ],
+        "head": [
+          2.09
+        ],
+        "decoder": [
+          9.36,
+          8.01,
+          7.91,
+          22.45
+        ],
+        "birefnet": [
+          167.73
+        ]
+      }
+    },
+    {
+      "photo": "DSC00674",
+      "size": [
+        2731,
+        4096
+      ],
+      "sky_found": true,
+      "sky_regions": 2,
+      "people_found": true,
+      "people_listed": 1,
+      "stroke_calls": 2,
+      "wall_ms": 624.5,
+      "stage_ms": {
+        "read_photo": [
+          68.92
+        ],
+        "encoder": [
+          72.82
+        ],
+        "head": [
+          2.89
+        ],
+        "decoder": [
+          7.78,
+          10.85,
+          26.58,
+          22.29,
+          25.06
+        ],
+        "birefnet": [
+          172.12
+        ]
+      }
+    },
+    {
+      "photo": "DSC00728",
+      "size": [
+        4096,
+        2731
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 2,
+      "wall_ms": 580.4,
+      "stage_ms": {
+        "read_photo": [
+          80.67
+        ],
+        "encoder": [
+          76.72
+        ],
+        "head": [
+          2.12
+        ],
+        "decoder": [
+          11.73,
+          31.9,
+          25.51
+        ],
+        "birefnet": [
+          159.94
+        ]
+      }
+    },
+    {
+      "photo": "DSC00936",
+      "size": [
+        2723,
+        4096
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": true,
+      "people_listed": 1,
+      "stroke_calls": 1,
+      "wall_ms": 567.0,
+      "stage_ms": {
+        "read_photo": [
+          65.29
+        ],
+        "encoder": [
+          74.12
+        ],
+        "head": [
+          1.92
+        ],
+        "decoder": [
+          8.55,
+          24.97,
+          21.64
+        ],
+        "birefnet": [
+          160.94
+        ]
+      }
+    },
+    {
+      "photo": "DSC_1188",
+      "size": [
+        4096,
+        2727
+      ],
+      "sky_found": false,
+      "sky_regions": 0,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 2,
+      "wall_ms": 503.1,
+      "stage_ms": {
+        "read_photo": [
+          64.83
+        ],
+        "encoder": [
+          72.25
+        ],
+        "head": [
+          2.85
+        ],
+        "decoder": [
+          21.62,
+          24.89
+        ],
+        "birefnet": [
+          158.43
+        ]
+      }
+    },
+    {
+      "photo": "DSC_1456",
+      "size": [
+        2727,
+        4096
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": true,
+      "people_listed": 12,
+      "stroke_calls": 1,
+      "wall_ms": 742.5,
+      "stage_ms": {
+        "read_photo": [
+          63.11
+        ],
+        "encoder": [
+          72.19
+        ],
+        "head": [
+          1.87
+        ],
+        "decoder": [
+          9.12,
+          28.6,
+          22.54,
+          23.71,
+          24.95,
+          22.12,
+          20.96,
+          20.97,
+          22.41,
+          22.15,
+          20.57,
+          20.82,
+          22.45,
+          21.52
+        ],
+        "birefnet": [
+          153.89
+        ]
+      }
+    },
+    {
+      "photo": "DSC_1535",
+      "size": [
+        2727,
+        4096
+      ],
+      "sky_found": false,
+      "sky_regions": 0,
+      "people_found": true,
+      "people_listed": 9,
+      "stroke_calls": 2,
+      "wall_ms": 754.5,
+      "stage_ms": {
+        "read_photo": [
+          81.05
+        ],
+        "encoder": [
+          72.75
+        ],
+        "head": [
+          2.08
+        ],
+        "decoder": [
+          23.11,
+          24.69,
+          23.13,
+          31.09,
+          25.0,
+          27.57,
+          26.99,
+          22.3,
+          21.85,
+          20.14,
+          20.85
+        ],
+        "birefnet": [
+          174.66
+        ]
+      }
+    },
+    {
+      "photo": "Nikon-D800e-raw-00007",
+      "size": [
+        4096,
+        2732
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 8,
+      "wall_ms": 679.5,
+      "stage_ms": {
+        "read_photo": [
+          68.46
+        ],
+        "encoder": [
+          81.05
+        ],
+        "head": [
+          1.86
+        ],
+        "decoder": [
+          9.32,
+          25.16,
+          23.96,
+          22.34,
+          20.95,
+          24.33,
+          23.06,
+          22.45,
+          29.74
+        ],
+        "birefnet": [
+          157.39
+        ]
+      }
+    },
+    {
+      "photo": "P1024439",
+      "size": [
+        4096,
+        3074
+      ],
+      "sky_found": true,
+      "sky_regions": 4,
+      "people_found": true,
+      "people_listed": 2,
+      "stroke_calls": 3,
+      "wall_ms": 621.0,
+      "stage_ms": {
+        "read_photo": [
+          72.64
+        ],
+        "encoder": [
+          71.98
+        ],
+        "head": [
+          1.84
+        ],
+        "decoder": [
+          7.89,
+          8.46,
+          7.52,
+          8.07,
+          19.89,
+          20.81,
+          23.19,
+          24.08,
+          21.72
+        ],
+        "birefnet": [
+          154.88
+        ]
+      }
+    }
+  ],
+  "machine": {
+    "platform": "Windows-11-10.0.22635-SP0",
+    "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "logical_cpus": 20,
+    "memory_bytes": 34121420800,
+    "python": "3.12.4"
+  }
+}

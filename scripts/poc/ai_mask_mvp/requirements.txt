@@ -1,0 +1,15 @@
+# Python 3.12 on Windows. Install the CPU build of PyTorch from its own index:
+#   python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+# onnxruntime-directml holds the DirectML and the CPU execution providers. Do not install the
+# onnxruntime package in the same environment.
+onnxruntime-directml==1.24.4
+PySide6==6.12.0
+numpy==2.5.2
+pillow==12.3.0
+opencv-python==5.0.0.93
+scipy==1.18.1
+psutil==7.2.2
+# sam2_graphs.py, birefnet_graphs.py, and head_model.decode_people import PyTorch (CPU only; no
+# model runs in PyTorch).
+torch==2.14.1+cpu
+torchvision==0.29.1+cpu

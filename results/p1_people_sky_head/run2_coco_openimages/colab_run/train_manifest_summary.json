@@ -1,0 +1,76 @@
+{
+  "step": "README section 5, step 1: targets of the people and sky head",
+  "sources": {
+    "panoptic_json": {
+      "path": "panoptic_train2017.json",
+      "sha256": "560a90a275c65b089d4944fbd8d44d04c57d2e36bf7f66597f367cc4a42bfbbb"
+    },
+    "image_info_json": {
+      "path": "captions_train2017.json",
+      "sha256": "4b62086319480e0739ef390d04084515defb9c213ff13605a036061e33314317"
+    },
+    "annotation_license": "COCO 2017 annotations, CC BY 4.0"
+  },
+  "categories": {
+    "person": 1,
+    "sky-other-merged": 187
+  },
+  "licenses": {
+    "1": "Attribution-NonCommercial-ShareAlike License",
+    "2": "Attribution-NonCommercial License",
+    "3": "Attribution-NonCommercial-NoDerivs License",
+    "4": "Attribution License",
+    "5": "Attribution-ShareAlike License",
+    "6": "Attribution-NoDerivs License",
+    "7": "No known copyright restrictions",
+    "8": "United States Government Work"
+  },
+  "allowed_licenses": [
+    4,
+    5,
+    7,
+    8
+  ],
+  "panoptic_images_per_license": {
+    "1": 32878,
+    "2": 16397,
+    "3": 32184,
+    "4": 19470,
+    "5": 10901,
+    "6": 5992,
+    "7": 465
+  },
+  "shuffle_seed": 0,
+  "max_images": 0,
+  "counts": {
+    "images": 30836,
+    "non_crowd_persons": 67928,
+    "persons_above_max": 0,
+    "box_targets": 67551,
+    "crowd_segments": 1420,
+    "presence": {
+      "sky": {
+        "present": 10224,
+        "absent": 19913,
+        "ignored": 699
+      },
+      "person": {
+        "present": 16404,
+        "absent": 14323,
+        "ignored": 109
+      }
+    }
+  },
+  "seconds": 505.2,
+  "full_manifest": {
+    "sha256": "4a0ef845e466ea8c3c638612e47ecd86dbcb389a1338b166360886a91a2dd619",
+    "bytes": 5445358,
+    "location": "Google Drive alcedo_people_sky_head/run2_coco_openimages/splits/train/manifest.json; local copy build/tmp/explore/p1/colab_run2_coco_openimages/splits/train/manifest.json",
+    "images": 30836,
+    "selected_images_per_license": {
+      "4": 19470,
+      "5": 10901,
+      "7": 465
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "step": "README section 5, step 1: people and sky head export",
+  "onnx": {
+    "path": "people_sky_head.onnx",
+    "bytes": 1119131,
+    "sha256": "e02f2a1eaace94e0efe2b3c8db0a0391be210b477a95e49063e80758f12abf35",
+    "opset": 17
+  },
+  "model": {
+    "in_channels": 256,
+    "width": 96,
+    "dilations": [
+      1,
+      2,
+      4
+    ],
+    "groups": 8
+  },
+  "parameters": 275656,
+  "checkpoint_epoch": 15,
+  "validation": {
+    "sky_cell_iou": 0.8940500345149917,
+    "sky_point_auc": null,
+    "sky_point_accuracy": null,
+    "sky_point_false_sky_share": null,
+    "sky_point_cells": {
+      "sky": 0,
+      "not_sky": 0
+    },
+    "presence_auc_sky": 0.9929531199643008,
+    "map_max_auc_sky": 0.9895013418201651,
+    "presence_best_f1_sky": {
+      "threshold": 0.4231989085674286,
+      "f1": 0.9560078791858175,
+      "precision": 0.9693741677762983,
+      "recall": 0.9430051813471503
+    },
+    "presence_auc_person": 0.9883490586897877,
+    "map_max_auc_person": 0.9714316187622103,
+    "presence_best_f1_person": {
+      "threshold": 0.533202052116394,
+      "f1": 0.9535060975609756,
+      "precision": 0.9600920951650038,
+      "recall": 0.9470098410295231
+    },
+    "person_ap50": 0.639388343559768,
+    "person_top1_hit": 0.8705526116578349,
+    "person_ap50_nms": 0.6733587719837022,
+    "person_list_best_f1_nms": {
+      "threshold": 0.3132133185863495,
+      "f1": 0.7167351849994986,
+      "precision": 0.7796684118673648,
+      "recall": 0.6632028205604008
+    },
+    "person_box_fit_nms": {
+      "small": {
+        "persons": 2090,
+        "mean_best_iou": 0.47151581087931166,
+        "share_best_iou_ge_0_75": 0.20717703349282296,
+        "matched": 1160,
+        "median_log_height_ratio": 0.015465687029063702,
+        "median_log_width_ratio": -0.02125696837902069
+      },
+      "medium": {
+        "persons": 1785,
+        "mean_best_iou": 0.6878354696648232,
+        "share_best_iou_ge_0_75": 0.49635854341736696,
+        "matched": 1523,
+        "median_log_height_ratio": 0.006783196236938238,
+        "median_log_width_ratio": -0.017639994621276855
+      },
+      "large": {
+        "persons": 1514,
+        "mean_best_iou": 0.729056588180309,
+        "share_best_iou_ge_0_75": 0.4900924702774108,
+        "matched": 1442,
+        "median_log_height_ratio": -0.028472785837948322,
+        "median_log_width_ratio": -0.04407336004078388
+      }
+    },
+    "counts": {
+      "persons": 5389,
+      "top1_images": 1321,
+      "sky_union_cells": 859047
+    }
+  },
+  "comparison": {
+    "rule": "max absolute difference per output, ONNX Runtime CPU against PyTorch CPU float32",
+    "tolerance": 0.0001,
+    "images": 16,
+    "max_abs_difference": {
+      "sky_logits": 2.86102294921875e-05,
+      "center_logits": 7.62939453125e-06,
+      "center_offset": 9.5367431640625e-07,
+      "log_size": 3.814697265625e-06,
+      "presence_logits": 6.4373016357421875e-06
+    }
+  }
+}

@@ -180,6 +180,12 @@ def main() -> int:
               f"top-1 {result['person_top1_hit']:.3f}, presence AUC sky "
               f"{result['presence_auc_sky']:.3f} person {result['presence_auc_person']:.3f}"
               f" | score {score:.4f} (best {best_score:.4f})")
+        large = result["person_box_fit_nms"]["large"]
+        large_cut = result["person_edge_fit_nms"]["large"]
+        print(f"  large persons: mean best IoU {optional(large['mean_best_iou'])}, median log "
+              f"height ratio {optional(large['median_log_height_ratio'])}; cut by the photo edge:"
+              f" median gap {optional(large_cut['median_edge_gap'])} cells, gap > 4 "
+              f"{optional(large_cut['share_edge_gap_gt_4'])}")
         for name, extra in line["val_extra"].items():
             print(f"  [{name}] sky point AUC {optional(extra['sky_point_auc'])}, false sky "
                   f"{optional(extra['sky_point_false_sky_share'])}, person AP50 "

@@ -27,6 +27,14 @@
                         with the person, the share with a best IoU >= 0.75, and, for the persons
                         with a best IoU >= 0.5, the median of log(box height / person height) and
                         log(box width / person width) (negative: the box is too small)
+  person_edge_fit_nms   the persons that a photo edge cuts (a box edge within EDGE_TOUCH_CELLS of
+                        the photo edge), per person height as person_box_fit_nms. The boxes after
+                        the suppression are clipped to the photo (the box that SAM 2.1 gets). Per
+                        person: the best IoU of a clipped box. Per cut edge of a person with a
+                        best IoU >= 0.5: the gap between the edge of that box and the photo edge
+                        in cells (0 when the box reaches the photo edge). The count, the mean
+                        best IoU, the median gap, the share of edges with a gap <= 1 cell, and
+                        the share with a gap > 4 cells (P1 report, `DSC00674`: 5.6 cells)
 """
 
 from __future__ import annotations
@@ -42,6 +50,10 @@ NMS_IOU = 0.5
 # Person height buckets in cells (64 cells = the photo height).
 HEIGHT_BUCKETS = (("small", 0.0, 8.0), ("medium", 8.0, 24.0), ("large", 24.0, float("inf")))
 TIGHT_IOU = 0.75
+# A person box edge this near the photo edge (cells) is cut by the photo edge.
+EDGE_TOUCH_CELLS = 0.5
+EDGE_GAP_SMALL = 1.0
+EDGE_GAP_LARGE = 4.0
 
 
 def roc_auc(scores: np.ndarray, labels: np.ndarray) -> float:
@@ -156,6 +168,7 @@ class Evaluation:
         self.top1_images = 0
         self.fit = {name: {"best_iou": [], "log_height": [], "log_width": []}
                     for name, _, _ in HEIGHT_BUCKETS}
+        self.edge_fit = {name: {"best_iou": [], "gaps": []} for name, _, _ in HEIGHT_BUCKETS}
 
     def add(self, outputs: dict[str, torch.Tensor], batch: dict[str, torch.Tensor]) -> None:
         valid = batch["sky_valid"]
@@ -186,6 +199,7 @@ class Evaluation:
             top1_hit = match_boxes(all_maxima[b], persons, crowds, self.box_records)
             match_boxes(suppressed[b], persons, crowds, self.box_records_nms)
             self.add_box_fit(suppressed[b]["boxes"], persons)
+            self.add_edge_fit(suppressed[b]["boxes"], persons)
             if int(batch["presence"][b, 1]) == 1:
                 self.top1_images += 1
                 self.top1_hits += int(top1_hit)
@@ -208,6 +222,45 @@ class Evaluation:
                 ratio = torch.log(box_size / person_size[p])
                 self.fit[name]["log_width"].append(float(ratio[0]))
                 self.fit[name]["log_height"].append(float(ratio[1]))
+
+    def add_edge_fit(self, boxes: torch.Tensor, persons: torch.Tensor) -> None:
+        grid = float(hm.GRID)
+        cut = torch.cat([persons[:, :2] <= EDGE_TOUCH_CELLS,
+                         persons[:, 2:] >= grid - EDGE_TOUCH_CELLS], dim=1)
+        keep = cut.any(1)
+        if not bool(keep.any()):
+            return
+        persons, cut = persons[keep], cut[keep]
+        clipped = boxes.clamp(0.0, grid)
+        if len(clipped):
+            best_iou, best = box_iou(persons, clipped).max(1)
+        else:
+            best_iou = torch.zeros(len(persons), device=persons.device)
+            best = torch.zeros(len(persons), dtype=torch.long, device=persons.device)
+        photo_edges = torch.tensor([0.0, 0.0, grid, grid], device=persons.device)
+        for p in range(len(persons)):
+            height = float(persons[p, 3] - persons[p, 1])
+            name = next(n for n, low, high in HEIGHT_BUCKETS if low <= height < high)
+            self.edge_fit[name]["best_iou"].append(float(best_iou[p]))
+            if float(best_iou[p]) >= IOU_MATCH:
+                gaps = (clipped[best[p]] - photo_edges).abs()[cut[p]]
+                self.edge_fit[name]["gaps"].extend(float(g) for g in gaps)
+
+    def edge_fit_result(self) -> dict:
+        result = {}
+        for name, values in self.edge_fit.items():
+            best_iou, gaps = np.array(values["best_iou"]), np.array(values["gaps"])
+            result[name] = {
+                "persons": len(best_iou),
+                "mean_best_iou": float(best_iou.mean()) if len(best_iou) else float("nan"),
+                "matched_edges": len(gaps),
+                "median_edge_gap": float(np.median(gaps)) if len(gaps) else float("nan"),
+                "share_edge_gap_le_1": float((gaps <= EDGE_GAP_SMALL).mean()) if len(gaps)
+                else float("nan"),
+                "share_edge_gap_gt_4": float((gaps > EDGE_GAP_LARGE).mean()) if len(gaps)
+                else float("nan"),
+            }
+        return result
 
     def box_fit(self) -> dict:
         result = {}
@@ -259,6 +312,7 @@ class Evaluation:
         result["person_ap50_nms"] = average_precision(self.box_records_nms, self.total_persons)
         result["person_list_best_f1_nms"] = box_best_f1(self.box_records_nms, self.total_persons)
         result["person_box_fit_nms"] = self.box_fit()
+        result["person_edge_fit_nms"] = self.edge_fit_result()
         result["counts"] = {"persons": self.total_persons, "top1_images": self.top1_images,
                             "sky_union_cells": self.sky_union}
         return result

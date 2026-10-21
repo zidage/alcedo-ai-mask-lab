@@ -7,7 +7,8 @@ Output: --out (JSON: the checkpoint epoch, the head_metrics.Evaluation result of
         directory name, the device).
 
 Use: the measurements that head_metrics adds after a training run (for example the People list
-threshold `person_list_best_f1_nms` and `person_box_fit_nms`) on an existing checkpoint.
+threshold `person_list_best_f1_nms`, `person_box_fit_nms`, and `person_edge_fit_nms`) on an
+existing checkpoint.
 """
 
 from __future__ import annotations
@@ -91,6 +92,12 @@ def main() -> int:
                   f"{optional(fit['share_best_iou_ge_0_75'])}, median log height ratio "
                   f"{optional(fit['median_log_height_ratio'])}, width "
                   f"{optional(fit['median_log_width_ratio'])}")
+        for size, fit in result["person_edge_fit_nms"].items():
+            print(f"  {size}, cut by the photo edge: {fit['persons']} persons, mean best IoU "
+                  f"{optional(fit['mean_best_iou'])}, {fit['matched_edges']} edges, median gap "
+                  f"{optional(fit['median_edge_gap'])} cells, gap <= 1 "
+                  f"{optional(fit['share_edge_gap_le_1'])}, gap > 4 "
+                  f"{optional(fit['share_edge_gap_gt_4'])}")
     return 0
 
 

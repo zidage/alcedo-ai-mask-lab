@@ -1,0 +1,145 @@
+{
+  "step": "README section 5, step 1: validation measurements of a checkpoint",
+  "checkpoint": "/content/drive/MyDrive/alcedo_people_sky_head/run2_coco_openimages/run/best.pt",
+  "checkpoint_epoch": 15,
+  "val_images": {
+    "val": 2500,
+    "oi_val": 2500
+  },
+  "device": "NVIDIA L4",
+  "torch": "2.11.0+cu130",
+  "validation": {
+    "val": {
+      "sky_cell_iou": 0.8940500345149917,
+      "sky_point_auc": null,
+      "sky_point_accuracy": null,
+      "sky_point_false_sky_share": null,
+      "sky_point_cells": {
+        "sky": 0,
+        "not_sky": 0
+      },
+      "presence_auc_sky": 0.9929531199643008,
+      "map_max_auc_sky": 0.9895013418201651,
+      "presence_best_f1_sky": {
+        "threshold": 0.4231989085674286,
+        "f1": 0.9560078791858175,
+        "precision": 0.9693741677762983,
+        "recall": 0.9430051813471503
+      },
+      "presence_auc_person": 0.9883490586897877,
+      "map_max_auc_person": 0.9714316187622103,
+      "presence_best_f1_person": {
+        "threshold": 0.533202052116394,
+        "f1": 0.9535060975609756,
+        "precision": 0.9600920951650038,
+        "recall": 0.9470098410295231
+      },
+      "person_ap50": 0.639388343559768,
+      "person_top1_hit": 0.8705526116578349,
+      "person_ap50_nms": 0.6733587719837022,
+      "person_list_best_f1_nms": {
+        "threshold": 0.3132133185863495,
+        "f1": 0.7167351849994986,
+        "precision": 0.7796684118673648,
+        "recall": 0.6632028205604008
+      },
+      "person_box_fit_nms": {
+        "small": {
+          "persons": 2090,
+          "mean_best_iou": 0.47151581087931166,
+          "share_best_iou_ge_0_75": 0.20717703349282296,
+          "matched": 1160,
+          "median_log_height_ratio": 0.015465687029063702,
+          "median_log_width_ratio": -0.02125696837902069
+        },
+        "medium": {
+          "persons": 1785,
+          "mean_best_iou": 0.6878354696648232,
+          "share_best_iou_ge_0_75": 0.49635854341736696,
+          "matched": 1523,
+          "median_log_height_ratio": 0.006783196236938238,
+          "median_log_width_ratio": -0.017639994621276855
+        },
+        "large": {
+          "persons": 1514,
+          "mean_best_iou": 0.729056588180309,
+          "share_best_iou_ge_0_75": 0.4900924702774108,
+          "matched": 1442,
+          "median_log_height_ratio": -0.028472785837948322,
+          "median_log_width_ratio": -0.04407336004078388
+        }
+      },
+      "counts": {
+        "persons": 5389,
+        "top1_images": 1321,
+        "sky_union_cells": 859047
+      }
+    },
+    "oi_val": {
+      "sky_cell_iou": 0.9741953778533957,
+      "sky_point_auc": 0.9957930375510571,
+      "sky_point_accuracy": 0.9832335329341317,
+      "sky_point_false_sky_share": 0.019850476927043052,
+      "sky_point_cells": {
+        "sky": 6976,
+        "not_sky": 3879
+      },
+      "presence_auc_sky": NaN,
+      "map_max_auc_sky": NaN,
+      "presence_best_f1_sky": {
+        "threshold": 0.00827269721776247,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "presence_auc_person": 0.9806865928189458,
+      "map_max_auc_person": 0.9238254392666158,
+      "presence_best_f1_person": {
+        "threshold": 0.2021275758743286,
+        "f1": 0.9782848730217151,
+        "precision": 0.9793662490788504,
+        "recall": 0.9772058823529411
+      },
+      "person_ap50": 0.5333695184194114,
+      "person_top1_hit": 0.8058823529411765,
+      "person_ap50_nms": 0.5684275419235143,
+      "person_list_best_f1_nms": {
+        "threshold": 0.3487410843372345,
+        "f1": 0.6452109244774971,
+        "precision": 0.6624539231174302,
+        "recall": 0.6288427893026743
+      },
+      "person_box_fit_nms": {
+        "small": {
+          "persons": 1020,
+          "mean_best_iou": 0.47521186428670725,
+          "share_best_iou_ge_0_75": 0.1803921568627451,
+          "matched": 569,
+          "median_log_height_ratio": 0.04399117827415466,
+          "median_log_width_ratio": 0.004350127186626196
+        },
+        "medium": {
+          "persons": 1393,
+          "mean_best_iou": 0.6650078471917833,
+          "share_best_iou_ge_0_75": 0.4544149318018665,
+          "matched": 1152,
+          "median_log_height_ratio": 0.005702533293515444,
+          "median_log_width_ratio": -0.02171316370368004
+        },
+        "large": {
+          "persons": 1588,
+          "mean_best_iou": 0.7033305343704401,
+          "share_best_iou_ge_0_75": 0.44962216624685136,
+          "matched": 1454,
+          "median_log_height_ratio": -0.03932371363043785,
+          "median_log_width_ratio": -0.04749980755150318
+        }
+      },
+      "counts": {
+        "persons": 4001,
+        "top1_images": 1360,
+        "sky_union_cells": 7053
+      }
+    }
+  }
+}

@@ -103,7 +103,8 @@ Open Images V7 targets (`prepare_openimages_targets.py`), on the same grid:
 ## Objective
 
 ```text
-L = L_sky_bce + L_sky_dice + L_center + L_offset + L_size + L_presence      (all weights 1)
+L = L_sky_bce + L_sky_dice + L_center + L_offset + L_size + L_giou + L_presence   (all weights 1;
+                                                                     runs 1 and 2: L_giou weight 0)
 
 L_sky_bce   = mean over valid cells of BCE(sigmoid(sky_logit), sky_coverage)
 L_sky_dice  = mean over the images with sky_dense of 1 - (2 sum(p t) + 1) / (sum(p) + sum(t) + 1),
@@ -113,6 +114,8 @@ L_center    = (1 / N_centers) sum over cells of
                  -(1 - y)^4 p^2 log(1 - p)            at the other valid cells (target y < 1)
 L_offset    = (1 / N_centers) sum over centers of |offset_pred - offset_target|_1
 L_size      = (1 / N_centers) sum over centers of |log_size_pred - log_size_target|_1
+L_giou      = (1 / N_centers) sum over centers of 1 - GIoU(clip(box_pred), clip(box_target)),
+              box = (cell + offset) -/+ exp(log_size) / 2, clip to [0, 64] (the photo)
 L_presence  = mean over non-ignored labels of BCE(sigmoid(presence_logit), presence)
 ```
 
@@ -123,6 +126,12 @@ L_presence  = mean over non-ignored labels of BCE(sigmoid(presence_logit), prese
   not at the face or the hair (the P0 failure). The `(1 - y)^4` factor reduces the penalty near
   a center.
 - The size loss is L1 of the log size, so the error is relative to the person size.
+- The GIoU loss measures the box edges that SAM 2.1 gets. Run 2 gave boxes of large persons that
+  are 3 to 4 percent too short on COCO and Open Images, and on `DSC00674` a bottom edge 5.6 cells
+  above the photo edge changed the SAM 2.1 mask from the person to the head (P1 report, section
+  10). Both boxes are clipped to the photo, so an edge past the photo edge has no GIoU loss: it
+  selects the same area as an edge at the photo edge. The log-size L1 still pulls such an edge
+  back.
 - The presence loss gives the "found / not found" score that P0 could not calibrate. The
   validation photos give its threshold.
 - The point cells of an Open Images photo give the BCE term only: a few cells do not give the
@@ -144,6 +153,7 @@ batch 32, 20 epochs, float32.
 | `person_ap50_nms` | `person_ap50` after the suppression of overlapping boxes (IoU >= 0.5). `person_top1_hit` does not change, because the top-1 box is never suppressed |
 | `person_list_best_f1_nms` | The box score threshold with the highest F1 of the matched boxes after the suppression (the People list threshold), with precision and recall |
 | `person_box_fit_nms` | Per person height (small < 8 cells, medium 8 to 24, large >= 24): mean best box IoU, share with IoU >= 0.75, median log ratio of box height and width to the person (negative: too small) |
+| `person_edge_fit_nms` | The persons that a photo edge cuts (a box edge within 0.5 cell of the photo edge), per person height: mean best IoU of the boxes after the suppression, clipped to the photo; for the cut edges of the matched persons (best IoU >= 0.5), the median gap between the box edge and the photo edge in cells, the share of edges with a gap <= 1 cell, and the share with a gap > 4 cells |
 | `sky_point_auc`, `sky_point_accuracy`, `sky_point_false_sky_share` | Only the point cells (Open Images): AUC of the sky probability against the point target, accuracy at probability 0.5, and the share of the "not sky" cells with probability >= 0.5. Null on COCO |
 
 `best.pt` is the epoch with the highest mean of `sky_cell_iou` and `person_ap50` on the first
@@ -162,7 +172,7 @@ runs on the development machine with `people_sky_head.onnx` and the P0 features.
    `MyDrive/alcedo_people_sky_head/run/` and `export/`; a new `RUN_NAME` does not change it.
 3. After a runtime reset, run all cells again with `RESUME = True`.
 4. The last cell measures `RUN_NAME/run/best.pt` and the checkpoints of `EVALUATE_CHECKPOINTS`
-   (default: the first run) on COCO `val` and Open Images `oi_val` (`evaluate_head.py`, result
+   (default: runs 1 and 2) on COCO `val` and Open Images `oi_val` (`evaluate_head.py`, result
    `<checkpoint>_val_measurements.json`). With `TRAIN = False`, the notebook prepares and encodes
    only the validation splits and does only this measurement. The scripts come from
    `REPO_BRANCH`, so push the changes first.
@@ -171,9 +181,9 @@ Disk: the `image_embed` cache is 2 MiB per photo on the local disk of the runtim
 for 30,836 + 2,500 COCO and at most 24,000 + 2,500 Open Images photos. The Open Images training
 annotations are about 11 GB. A cell checks the free space before the encoder starts.
 
-Time (estimate from the first run on an L4): COCO download and targets about 25 minutes, Open
-Images annotations and photos not measured, encoder about 13 photos/s, training about 400 s per
-epoch for 55,000 photos.
+Time (L4): COCO download and targets about 25 minutes (first run), Open Images annotations and
+photos not measured, encoder about 13 photos/s (24,000 Open Images photos in 1,737 s), training
+448 s per epoch for 54,836 photos (run 2, median of 20 epochs).
 
 ## Checks on the development machine (2026-10-20)
 
@@ -213,7 +223,21 @@ Checks of the Open Images source (2026-10-20, CPU, real Open Images V7 validatio
 | COCO unchanged | The committed and the changed `head_losses.py` and `head_metrics.py` on the synthetic COCO split, with the Colab `best.pt` and the overfit checkpoint | Loss terms and all fields of the first run equal |
 | Chain | `encode_image_embed.py` (CPU) on the 60 photos, `train_head.py` with two train and two validation splits (3 epochs), `evaluate_head.py` with two splits | Runs; `val_extra` has the `oi_val_small` measurements |
 
-## Results of the first Colab run
+Checks of the GIoU term and `person_edge_fit_nms` (2026-10-21, CPU, `build/tmp/p1_run3/`):
+
+| Check | Rule | Result |
+| --- | --- | --- |
+| Runs 1 and 2 unchanged | The committed and the changed `head_losses.py` and `head_metrics.py`, with `w_box_giou` 0: synthetic COCO split with the overfit checkpoint and the run 2 `best.pt`; the 60 Open Images photos with the run 1 and run 2 `best.pt`. Loss terms and metric fields exactly equal, total within 1e-6 | Equal (total difference 0) |
+| GIoU term, constructed boxes | Target box: 0. The target box with the bottom edge past the photo edge: 0. The `DSC00674` box (bottom edge 5.6 cells short): 1 - IoU = 0.092869. Two boxes without overlap: 1.9. Tolerance 1e-5. Log size 50: finite | All as expected |
+| GIoU gradient | The short box: the gradient of the log height is negative (the training makes the box higher) | -0.042 |
+| `person_edge_fit_nms`, constructed boxes | The `DSC00674` box: gap 5.6 (share > 4 cells: 1). A box past the left photo edge: gap 0 after the clipping. A person that no photo edge cuts: not counted | All as expected |
+| Chain | `train_head.py` (3 epochs, `w_box_giou` 1) and `evaluate_head.py` on the synthetic COCO split and the 60 Open Images photos | Runs; `run.json` records `w_box_giou` 1.0; `train_terms` has `box_giou` |
+
+On the 60 Open Images photos, the large persons that a photo edge cuts have a gap > 4 cells at 30
+percent (run 1) and 26 percent (run 2) of their cut edges (27 edges). This set is small; the
+Colab run measures `oi_val` and COCO `val`.
+
+## Results of the Colab runs
 
 [P1 report](../../../docs/exploration/p1_people_sky_head.md): COCO validation, and end to end on
-the quality photos (commands in its section 3.4).
+the quality photos (commands in its sections 3.4 and 10.2).

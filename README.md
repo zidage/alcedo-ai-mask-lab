@@ -182,10 +182,16 @@ decoder:
   (also the small boarder, 0.689 against 0.269). On `DSC_1535` and `P1024439` the box of the main
   person is too short (head or legs cut off), and on `DSC_1535` it is ranked after 6 background
   pedestrians.
-- **Next:** a second training run on COCO and Open Images V7 (sky point labels and person
-  boxes, CC BY 2.0 photos, annotations CC BY 4.0) for better generalization; the same session
-  measures the first run on the Open Images validation split, the People list threshold, and the
-  box fit per person size. Then the user decides the list order and the training changes.
+- **Run 2 (2026-10-21, [report section 10](docs/exploration/p1_people_sky_head.md#10-run-2-coco-and-open-images-v7)):**
+  trained on COCO and 24,000 Open Images V7 photos (CC BY 2.0, annotations CC BY 4.0). COCO
+  validation stays equal (AP50 0.639); on the Open Images validation split, person AP50 increases
+  from 0.473 to 0.533. On the quality photos, 5 of 7 referenced persons pass (`DSC_1535`,
+  `P1024439`, `DSC00326` improve), but the close-up `DSC00674` fails: its box ends 5.6 cells
+  above the photo edge. The waterfall stays sky (0.999).
+- **Next:** use run 2. The boxes of large persons are 3 to 4 percent too short on COCO and Open
+  Images. Run 3 (prepared, Colab `RUN_NAME = run3_box_giou`) adds a GIoU loss on the person box
+  clipped to the photo, and measures the box edge gap of the persons that the photo edge cuts.
+  The order and threshold of the People list stay open.
 
 Risks:
 

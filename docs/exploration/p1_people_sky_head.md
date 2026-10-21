@@ -1,12 +1,14 @@
 # P1: People and sky head on SAM 2.1 tiny `image_embed` (step 1)
 
-**Issue:** [#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1).
+**Issue:** [#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1); run 2:
+[#4](https://github.com/zidage/alcedo-ai-mask-lab/issues/4).
 **Design:** [README section 5](../../README.md#5-next-step-locate-people-and-sky-from-sam-21-image-features),
 step 1, and [section 4.1](../../README.md#41-how-people-and-sky-work).
 **Previous step:** [P0](p0_sam_feature_localization.md).
-**Date:** 2026-10-20.
-**Status:** the first Colab run and the end-to-end run on the quality photos are done. The People
-list threshold (COCO validation) is open. The user decides the training changes of section 9.
+**Date:** 2026-10-20; run 2: 2026-10-21.
+**Status:** the first Colab run and the end-to-end run on the quality photos are done. Run 2 (COCO
+and Open Images V7) is done and measured (section 10). The People list threshold and the training
+changes of section 9 are user decisions.
 
 > **Images are local only.** The sheets show photos that must not be shared again. They are
 > under `results/p1_people_sky_head/sheets/` (`*.jpg` is in `.gitignore`). To make them again,
@@ -26,6 +28,14 @@ answers:
 3. Which P0 failures does the head correct, and which failures remain?
 
 ## 2. Result summary
+
+- **Run 2 (COCO and Open Images V7, section 10):** all criteria of issue #4 on COCO `val` and
+  `oi_val` pass (`oi_val` person AP50 0.473 to 0.533). On the quality photos, 5 of 7 referenced
+  persons are within 0.02 of the E1 box (run 1: 4 of 7), but `DSC00674` changed from pass to fail
+  (0.992 to 0.731): the box bottom edge is 5.6 cells above the photo edge. The waterfall stays sky
+  (0.999). Recommendation: use run 2, and train the next run with an IoU loss on the boxes.
+
+The bullets below are for run 1.
 
 - **COCO validation (2,500 photos, checkpoint epoch 13):** sky cell IoU 0.895; presence AUC
   0.992 for sky and 0.989 for people (best F1 0.955 and 0.958); person AP50 0.623; top-1 box hit
@@ -288,8 +298,236 @@ Next steps:
    `oi_val` in the same session. Method and checks:
    [script README](../../scripts/poc/people_sky_head/README.md#training-data-and-licenses).
 
-## 10. Not measured and open items
+## 10. Run 2: COCO and Open Images V7
 
+**Issue:** [#4](https://github.com/zidage/alcedo-ai-mask-lab/issues/4). **Date:** 2026-10-21.
+
+### 10.1 Question and result summary
+
+Does a second training run on COCO and Open Images V7 generalize better than the first run (COCO
+only), without a loss on COCO and on the quality photos? The acceptance criteria are the
+proposal of issue #4 (the user confirms the thresholds).
+
+| Criterion (issue #4) | Run 1 | Run 2 | Result |
+| --- | ---: | ---: | --- |
+| COCO `val` sky cell IoU, at most 0.01 lower | 0.8947 | 0.8941 | pass (-0.0006) |
+| COCO `val` presence AUC sky, at most 0.01 lower | 0.9922 | 0.9930 | pass (+0.0007) |
+| COCO `val` presence AUC person, at most 0.01 lower | 0.9886 | 0.9883 | pass (-0.0003) |
+| COCO `val` person AP50, at most 0.01 lower | 0.6234 | 0.6394 | pass (+0.0159) |
+| `oi_val` person AP50, higher | 0.4732 | 0.5334 | pass (+0.0602) |
+| `oi_val` person presence AUC, higher | 0.9769 | 0.9807 | pass (+0.0037) |
+| `oi_val` sky point false sky share, not higher | 0.0201 (78 of 3,879 cells) | 0.0199 (77 of 3,879 cells) | pass (1 cell) |
+| Quality photos: person presence | pass, margin 0.870 | pass, margin 0.881 | as good |
+| Quality photos: sky presence on the photos without sky | fails on the waterfall (0.942) | fails on the waterfall (0.999) | as in run 1 (recorded, not required) |
+| Quality photos: sky masks within 0.02 of E1 | 3 of 3 | 3 of 3 | as good |
+| Quality photos: referenced person within 0.02 of E1 | 4 of 7 | 5 of 7 | **2 new passes, 1 new failure** (`DSC00674`) |
+
+- Run 2 passes all criteria on COCO `val` and `oi_val`. On `oi_val`, person AP50 increases by
+  0.060 and the box fit of large persons improves. The false sky share passes by 1 cell; the
+  value changes between 0.008 and 0.066 from epoch to epoch, so this criterion gives no signal.
+- On the quality photos, the people result is better on 3 photos (`DSC_1535`, `P1024439`,
+  `DSC00326`) and worse on 1 photo (`DSC00674`: IoU 0.992 to 0.731). The cause is the box: its
+  bottom edge is 5.6 cells above the photo edge, but the person continues to the photo edge. With
+  the bottom edge at the photo edge, the same run 2 box gives 0.992 (section 10.5). The criterion
+  "as good as in the first run" is not met per photo.
+
+### 10.2 Inputs and method
+
+| Item | Value |
+| --- | --- |
+| Training | `train_head.py` on COCO `train` (30,836 photos) and `oi_train` (24,000), 20 epochs, all other arguments as in run 1. `best.pt` is selected on COCO `val` (mean of sky cell IoU and person AP50): epoch 15. Colab, NVIDIA L4, PyTorch 2.11.0+cu130 |
+| Encoder cache | The same SAM 2.1 tiny commit, checkpoint SHA-256, and preprocessing as run 1 (`*_image_embed_progress.json`) |
+| Validation | `evaluate_head.py` measures run 1 `best.pt` (epoch 13) and run 2 `best.pt` (epoch 15) on COCO `val` and `oi_val` in the same Colab session (`best_val_measurements.json`) |
+| Quality photos | `evaluate_quality_photos.py` with the run 2 ONNX (SHA-256 `e02f2a1e...`), the same photos, references, SAM 2.1 tiny graphs, and machine as section 3.2. The presence thresholds come from the run 2 export: sky 0.423, person 0.533 |
+| Run 1 values | Run 1 on COCO `val` and `oi_val`: [`colab_run/best_val_measurements.json`](../../results/p1_people_sky_head/colab_run/best_val_measurements.json). Run 1 on the quality photos: `results/p1_people_sky_head/quality_photos.json` (not run again) |
+| Records | [`results/p1_people_sky_head/run2_coco_openimages/`](../../results/p1_people_sky_head/run2_coco_openimages/) (`colab_run/`, `quality_photos.json`); the sheets stay local |
+
+The COCO manifests of run 2 are equal to the run 1 manifests (only the `seconds` field is
+different). The Colab output is under `build/tmp/explore/p1/colab_run2_coco_openimages/`.
+
+Photo count per license of each split (`colab_run/*_manifest_summary.json`):
+
+| Split | Use | Photos | Licenses |
+| --- | --- | ---: | --- |
+| COCO `train` | training | 30,836 | Attribution 19,470; Attribution-ShareAlike 10,901; no known copyright restrictions 465 |
+| COCO `val` | measurement only | 2,500 | Attribution-NonCommercial-ShareAlike 707; Attribution-NonCommercial 330; Attribution-NonCommercial-NoDerivs 720; Attribution 408; Attribution-ShareAlike 200; Attribution-NoDerivs 132; no known copyright restrictions 3 |
+| `oi_train` | training | 24,000 | CC BY 2.0 24,000 (10,265 authors) |
+| `oi_val` | measurement only | 2,500 | CC BY 2.0 2,500 (2,125 authors) |
+
+Annotations: COCO 2017 CC BY 4.0, Open Images V7 CC BY 4.0. The COCO `val` photos with a
+non-commercial license are only measured, as in run 1.
+
+Commands (Git Bash, development machine, one at a time):
+
+```bash
+E=build/tmp/explore; PY="$E/venv/Scripts/python -I"; I=$E/e4/input_4096
+H=$E/p1/colab_run2_coco_openimages/export; R=results/p1_people_sky_head/run2_coco_openimages
+S=scripts/poc/people_sky_head; L=$E/p1/colab_run2_coco_openimages/quality_logits
+# End to end: encoder, head, SAM 2.1 tiny decoder (quality_photos.json).
+$PY $S/evaluate_quality_photos.py --head-onnx $H/people_sky_head.onnx \
+  --head-json $H/people_sky_head.json --photos $I/photos \
+  --onnx-dir $E/e4/onnx_float32_batch16/tiny --reference-masks $I/reference_masks \
+  --reference-scores $E/e1/compare/base_plus/compare.json --out-dir $R \
+  --logit-dir $L --threads 4
+# Sheets (local only).
+$PY $S/make_quality_sheets.py --photos $I/photos --results $R/quality_photos.json \
+  --logits $L --out-dir $R/sheets
+```
+
+### 10.3 Results: COCO `val` and `oi_val`
+
+Per epoch, from [`metrics.jsonl`](../../results/p1_people_sky_head/run2_coco_openimages/colab_run/metrics.jsonl)
+(`val` is COCO, `val_extra` is `oi_val`):
+
+| Epoch | Train loss | COCO sky cell IoU | COCO AP50 | COCO top-1 hit | `oi_val` AP50 | `oi_val` presence AUC person | `oi_val` false sky share |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | 4.004 | 0.810 | 0.447 | 0.658 | 0.301 | 0.969 | 0.018 |
+| 4 | 2.110 | 0.861 | 0.603 | 0.849 | 0.453 | 0.981 | 0.009 |
+| 7 | 1.943 | 0.812 | 0.657 | 0.878 | 0.590 | 0.984 | 0.031 |
+| 10 | 1.805 | 0.888 | 0.622 | 0.864 | 0.471 | 0.979 | 0.020 |
+| **15** | 1.634 | **0.894** | **0.639** | **0.871** | **0.533** | **0.981** | **0.020** |
+| 19 | 1.586 | 0.895 | 0.630 | 0.868 | 0.523 | 0.980 | 0.023 |
+
+Both checkpoints, from `best_val_measurements.json` (run 1 epoch 13, run 2 epoch 15):
+
+| Measurement | COCO `val` run 1 | COCO `val` run 2 | `oi_val` run 1 | `oi_val` run 2 |
+| --- | ---: | ---: | ---: | ---: |
+| Sky cell IoU | 0.895 | 0.894 | 0.966 | 0.974 |
+| Sky point AUC / accuracy | - | - | 0.994 / 0.978 | 0.996 / 0.983 |
+| Presence AUC sky | 0.992 | 0.993 | not defined | not defined |
+| Presence AUC person | 0.989 | 0.988 | 0.977 | 0.981 |
+| Person AP50 | 0.623 | 0.639 | 0.473 | 0.533 |
+| Person AP50 after the suppression (`nms`) | 0.647 | 0.673 | 0.494 | 0.568 |
+| Top-1 box hit | 0.845 | 0.871 | 0.760 | 0.806 |
+| People list best F1 (threshold) | 0.702 (0.342) | 0.717 (0.313) | 0.605 (0.360) | 0.645 (0.349) |
+| Large persons: mean best IoU | 0.701 | 0.729 | 0.667 | 0.703 |
+| Large persons: share with IoU >= 0.75 | 0.404 | 0.490 | 0.329 | 0.450 |
+| Large persons: median log ratio, height / width | -0.049 / -0.060 | -0.028 / -0.044 | -0.052 / -0.040 | -0.039 / -0.047 |
+
+- `oi_val` has no photo with sky absent (1,042 present, 1,458 ignored), so the sky presence AUC
+  is not defined there. The person presence AUC uses 1,360 present and 154 absent photos.
+- The boxes of large persons are still short on both splits: the median height is 3 to 4 percent
+  too small (log ratio -0.028 and -0.039), and the width 4 to 5 percent.
+- The best-F1 presence thresholds of COCO `val` changed from 0.650 to 0.423 (sky) and from 0.602
+  to 0.533 (person). The quality photos use the thresholds of run 2.
+
+### 10.4 Results: presence and sky on the quality photos
+
+| Photo | Sky status | Sky run 1 | Sky run 2 | Person status | Person run 1 | Person run 2 |
+| --- | --- | ---: | ---: | --- | ---: | ---: |
+| `2088064441` | unreferenced | 0.991 | 0.997 | referenced (small) | 0.995 | 0.999 |
+| `5761824892` | unreferenced (foliage gaps) | 0.036 | 0.312 | absent | 0.026 | 0.032 |
+| `DSC00326` | unreferenced (small gap) | 0.988 | 0.941 | referenced | 0.968 | 0.999 |
+| `DSC00527` | referenced | 0.999 | 1.000 | referenced (crowd) | 1.000 | 1.000 |
+| `DSC00562` | unreferenced | 0.998 | 0.999 | unreferenced (very small) | 0.974 | 0.876 |
+| `DSC00602` | unreferenced | 0.995 | 0.998 | unreferenced (passengers) | 0.207 | 0.293 |
+| `DSC00674` | uncertain (sunset backdrop) | 0.130 | **0.773** | referenced (close-up) | 1.000 | 1.000 |
+| `DSC00728` | referenced | 0.999 | 1.000 | absent | 0.004 | 0.116 |
+| `DSC00936` | **absent (waterfall)** | 0.942 | **0.999** | referenced | 0.998 | 0.997 |
+| `DSC_1188` | absent | 0.003 | 0.006 | absent (squirrel) | 0.002 | 0.004 |
+| `DSC_1456` | unreferenced | 0.994 | 0.990 | unreferenced | 1.000 | 1.000 |
+| `DSC_1535` | absent | 0.005 | 0.008 | referenced | 1.000 | 1.000 |
+| `Nikon-D800e-raw-00007` | referenced | 0.995 | 1.000 | absent | 0.098 | 0.012 |
+| `P1024439` | unreferenced | 0.995 | 0.987 | referenced | 1.000 | 1.000 |
+
+- **People:** lowest referenced 0.997, highest absent 0.116 (`DSC00728`), threshold 0.533. The
+  criterion passes with the margin 0.881 (run 1: 0.870). The squirrel scores 0.004.
+- **Sky:** the referenced photos score 1.000. The waterfall of `DSC00936` scores 0.999 (run 1:
+  0.942), and its sky mask covers 81 percent of the photo: the Open Images data does not correct
+  the waterfall. `DSC00674` (uncertain) is now found as sky: 2 regions (639 and 153 cells, 22
+  percent of the photo) on the blue background at the two sides of the head.
+- **Sky masks:** IoU 0.993 (`DSC00527`), 0.990 (`DSC00728`), 0.982 (`Nikon-D800e-raw-00007`);
+  E1 sky point 0.997, 0.997, 0.993. All are within 0.02 (run 1: 0.988, 0.994, 0.980).
+
+### 10.5 Results: people on the quality photos
+
+The People list threshold is the COCO `val` best F1 after the suppression of each run (run 1
+0.342, run 2 0.313). "Shown" tells if the referenced person is in the list at that threshold.
+
+| Photo | E1 box | Run 1: rank, score, IoU | Run 2: rank, score, IoU | Run 2 within 0.02 of E1 | Run 2 shown |
+| --- | ---: | --- | --- | --- | --- |
+| `DSC00936` | 0.989 | 1, 0.72, 0.989 | 1, 0.47, **0.989** | yes | yes |
+| `DSC00674` | 0.988 | 1, 0.66, 0.992 | 1, 0.73, **0.731** | **no** (run 1: yes) | yes |
+| `DSC00527` | 0.957 | 11, 0.62, 0.948 | 6, 0.54, **0.943** | yes | yes |
+| `2088064441` | 0.269 | 1, 0.33, 0.689 | 1, 0.31, **0.686** | yes | no (0.3127) |
+| `DSC00326` | 0.973 | 2, 0.11, 0.922 | 1, 0.46, **0.976** | **yes** (run 1: no) | yes |
+| `DSC_1535` | 0.993 | 7, 0.42, 0.855 | 2, 0.54, **0.971** | no (0.022 below) | yes |
+| `P1024439` | 0.934 | 1, 0.29, 0.325 | 1, 0.36, **0.938** | **yes** (run 1: no) | yes |
+
+Observations from the local sheets (`results/p1_people_sky_head/run2_coco_openimages/sheets/`):
+
+- `DSC_1535`: the main person is at rank 2, after one background pedestrian (score 0.60). The box
+  now includes the head and the shoes; the mask misses parts of the hair and of the dark shirt
+  (IoU 0.971, 0.002 below the limit).
+- `P1024439`: the bassist box now includes the full person (IoU 0.938; run 1: 0.325).
+- `DSC00674`: the box is `[1.1, 2.5, 63.9, 58.4]` cells; the woman continues to the bottom photo
+  edge (64). SAM 2.1 selects the head and the neck without the shoulders and the jacket (mask 50
+  percent of the photo; reference 67 percent). In run 1 the box extended past the photo edge, and
+  the clipping put it at the photo edge. A local check decodes edited boxes on this photo with
+  the same graphs and the same mask selection
+  (`build/tmp/explore/p1/colab_run2_coco_openimages/dsc00674_box_check.py`, output
+  `dsc00674_box_check.txt`):
+
+  | Box (cells) | IoU |
+  | --- | ---: |
+  | Run 2 box `[1.1, 2.5, 63.9, 58.4]` | 0.731 |
+  | Run 2 box, bottom edge at 64 | 0.992 |
+  | Run 2 box, left and right edges at 0 and 64 | 0.730 |
+  | Run 1 box after the clipping `[0, 3.7, 64, 63.3]` | 0.992 |
+
+  The bottom edge alone causes the failure. This is the short box of large persons of section 7
+  and section 10.3, on a person that the photo edge cuts. The check is a diagnosis, not a
+  product rule.
+- `2088064441`: the boarder is at rank 1, but its score (0.3127) is just below the run 2 list
+  threshold (0.3132). In run 1 it was also below the threshold.
+
+### 10.6 Cost
+
+| Item | Run 1 | Run 2 | Note |
+| --- | ---: | ---: | --- |
+| Training time per epoch (L4, median) | 228 s | 448 s | 30,836 against 54,836 photos |
+| Encoder cache of `oi_train` (L4) | - | 1,737 s | 24,000 photos, 13.8 photos/s |
+| Head (`people_sky_head.onnx`), CPU | 19.5 ms | 12.4 ms | 14 photos, the same graph (275,656 parameters) |
+| SAM 2.1 tiny decoder, CPU | 60.0 ms | 35.9 ms | 97 prompts in each run |
+| SAM 2.1 tiny encoder, CPU | 2,798 ms | 1,576 ms | 14 photos |
+| Peak working set | 1,463 MB | 1,466 MB | encoder, head, decoder in one process |
+
+The two heads have the same graph. The CPU times of the development machine changed between the
+runs (section 8). These values are not a cost comparison of the two heads.
+
+### 10.7 Recommendation
+
+**Use run 2 as the head.** It is better than run 1 on all measurements of `oi_val` and equal or
+better on COCO `val`. It corrects `P1024439` and `DSC00326`, and it puts the main person of
+`DSC_1535` at rank 2 (run 1: rank 7).
+
+**Do the next training run with an IoU loss on the boxes (section 9, item 3).** The
+`person_box_fit_nms` values show that the boxes of large persons are short in general (median
+height 3 to 4 percent too small on COCO and Open Images), not only on the quality photos.
+`DSC00674` shows the effect on SAM 2.1: a box edge 5.6 cells inside the photo, on a person that
+the photo edge cuts, changes the selection from the person to the head. The run 2 records give
+the values for the comparison.
+
+The Open Images data does not correct the waterfall of `DSC00936` (0.999). It needs photos of
+falling water with a "not sky" label (section 9, item 3).
+
+User decisions:
+
+1. Confirm the acceptance criteria of issue #4, and the result of the quality-photo criterion:
+   5 of 7 persons (run 1: 4 of 7), but `DSC00674` changed from pass to fail.
+2. The GIoU loss for the next run. **Decided 2026-10-21: run 3 adds it.** The term is
+   1 - GIoU of the person box, with the predicted and the target box clipped to the photo (the
+   box that SAM 2.1 gets), weight 1. A new measurement, `person_edge_fit_nms`, gives the gap
+   between the box edge and the photo edge for the persons that the photo edge cuts (the
+   `DSC00674` case). The notebook measures runs 1 and 2 again with it. Code and checks:
+   [script README](../../scripts/poc/people_sky_head/README.md#objective).
+3. The order of the People list and the list threshold (run 2: 0.313 on COCO `val`; the boarder
+   of `2088064441` is 0.0005 below it).
+
+## 11. Not measured and open items
+
+- **Run 2:** GPU and DirectML cost; the sky presence AUC on `oi_val` (no photo with sky absent);
+  the run 1 quality-photo values were not measured again in the same session as run 2.
 - **The People list threshold** and the box fit on COCO (step 1 of section 9).
 - **The set is small:** 7 referenced persons, 3 referenced skies, 4 photos without people, 3
   without sky (one of them the waterfall). One reference per photo.
@@ -299,7 +537,14 @@ Next steps:
 - **The user confirms** the acceptance criteria of section 3.3 and reviews the sheets
   (`results/p1_people_sky_head/sheets/`).
 
-## 11. Changed files
+## 12. Changed files
+
+Run 2 (section 10): `results/p1_people_sky_head/run2_coco_openimages/` (the Colab run records,
+the split summaries, `quality_photos.json`), `results/p1_people_sky_head/colab_run/best_val_measurements.json`
+(run 1 on COCO `val` and `oi_val`), this report, [the index](README.md), and
+[README](../../README.md) section 5.
+
+Run 1:
 
 - `scripts/poc/people_sky_head/`: `evaluate_quality_photos.py`, `make_quality_sheets.py`,
   `evaluate_head.py` (new); `head_model.py` (`decode_people` with the suppression of overlapping

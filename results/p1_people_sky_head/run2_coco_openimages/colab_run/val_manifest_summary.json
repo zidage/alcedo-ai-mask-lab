@@ -1,0 +1,84 @@
+{
+  "step": "README section 5, step 1: targets of the people and sky head",
+  "sources": {
+    "panoptic_json": {
+      "path": "panoptic_val2017.json",
+      "sha256": "454873a8a01114246066ac841750eb742df3b5e42ce927ef38b49690084ec75a"
+    },
+    "image_info_json": {
+      "path": "captions_val2017.json",
+      "sha256": "afe3b30e403dd7f228e2373023abbd60042a6e10ec6874d3652df034d289ebb9"
+    },
+    "annotation_license": "COCO 2017 annotations, CC BY 4.0"
+  },
+  "categories": {
+    "person": 1,
+    "sky-other-merged": 187
+  },
+  "licenses": {
+    "1": "Attribution-NonCommercial-ShareAlike License",
+    "2": "Attribution-NonCommercial License",
+    "3": "Attribution-NonCommercial-NoDerivs License",
+    "4": "Attribution License",
+    "5": "Attribution-ShareAlike License",
+    "6": "Attribution-NoDerivs License",
+    "7": "No known copyright restrictions",
+    "8": "United States Government Work"
+  },
+  "allowed_licenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "panoptic_images_per_license": {
+    "1": 1431,
+    "2": 630,
+    "3": 1414,
+    "4": 857,
+    "5": 417,
+    "6": 246,
+    "7": 5
+  },
+  "shuffle_seed": 0,
+  "max_images": 2500,
+  "counts": {
+    "images": 2500,
+    "non_crowd_persons": 5389,
+    "persons_above_max": 0,
+    "box_targets": 5361,
+    "crowd_segments": 114,
+    "presence": {
+      "sky": {
+        "present": 772,
+        "absent": 1672,
+        "ignored": 56
+      },
+      "person": {
+        "present": 1321,
+        "absent": 1164,
+        "ignored": 15
+      }
+    }
+  },
+  "seconds": 37.1,
+  "full_manifest": {
+    "sha256": "1c78d508c5854c9e37d5f38eff5af2328d6408f870a93a59fdd975127389cdff",
+    "bytes": 442745,
+    "location": "Google Drive alcedo_people_sky_head/run2_coco_openimages/splits/val/manifest.json; local copy build/tmp/explore/p1/colab_run2_coco_openimages/splits/val/manifest.json",
+    "images": 2500,
+    "selected_images_per_license": {
+      "1": 707,
+      "2": 330,
+      "3": 720,
+      "4": 408,
+      "5": 200,
+      "6": 132,
+      "7": 3
+    }
+  }
+}

@@ -188,10 +188,14 @@ decoder:
   from 0.473 to 0.533. On the quality photos, 5 of 7 referenced persons pass (`DSC_1535`,
   `P1024439`, `DSC00326` improve), but the close-up `DSC00674` fails: its box ends 5.6 cells
   above the photo edge. The waterfall stays sky (0.999).
-- **Next:** use run 2. The boxes of large persons are 3 to 4 percent too short on COCO and Open
-  Images. Run 3 (prepared, Colab `RUN_NAME = run3_box_giou`) adds a GIoU loss on the person box
-  clipped to the photo, and measures the box edge gap of the persons that the photo edge cuts.
-  The order and threshold of the People list stay open.
+- **Run 3 (2026-10-21, [report section 11](docs/exploration/p1_people_sky_head.md#11-run-3-giou-term-on-the-person-box)):**
+  run 2 with a GIoU loss on the person box clipped to the photo. On COCO validation the boxes of
+  large persons fit better (IoU >= 0.75: 0.490 to 0.528; median size error 2 to 3 percent), AP50
+  is equal (0.645). On the quality photos it is worse: 3 of 7 referenced persons and 2 of 3 sky
+  masks pass. `DSC00674` is not corrected: its box is almost the full photo, and SAM 2.1 tiny
+  selects the background. Box edge changes of 2 to 4 cells change the SAM 2.1 selection.
+- **Next:** use run 2. The open decisions are prompt rules (a box with the center point of the
+  person, sky points spread over the region) and the order and threshold of the People list.
 
 Risks:
 

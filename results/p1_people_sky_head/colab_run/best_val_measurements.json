@@ -69,6 +69,32 @@
           "median_log_width_ratio": -0.06001993641257286
         }
       },
+      "person_edge_fit_nms": {
+        "small": {
+          "persons": 152,
+          "mean_best_iou": 0.5432556778694945,
+          "matched_edges": 109,
+          "median_edge_gap": 0.14072418212890625,
+          "share_edge_gap_le_1": 0.963302752293578,
+          "share_edge_gap_gt_4": 0.0
+        },
+        "medium": {
+          "persons": 352,
+          "mean_best_iou": 0.6674939374193358,
+          "matched_edges": 329,
+          "median_edge_gap": 0.0,
+          "share_edge_gap_le_1": 0.8693009118541033,
+          "share_edge_gap_gt_4": 0.015197568389057751
+        },
+        "large": {
+          "persons": 618,
+          "mean_best_iou": 0.7115806210876524,
+          "matched_edges": 745,
+          "median_edge_gap": 0.42197418212890625,
+          "share_edge_gap_le_1": 0.5852348993288591,
+          "share_edge_gap_gt_4": 0.1610738255033557
+        }
+      },
       "counts": {
         "persons": 5389,
         "top1_images": 1321,
@@ -133,6 +159,32 @@
           "matched": 1395,
           "median_log_height_ratio": -0.052419211715459824,
           "median_log_width_ratio": -0.040352802723646164
+        }
+      },
+      "person_edge_fit_nms": {
+        "small": {
+          "persons": 97,
+          "mean_best_iou": 0.4939025477632237,
+          "matched_edges": 58,
+          "median_edge_gap": 0.10632705688476562,
+          "share_edge_gap_le_1": 1.0,
+          "share_edge_gap_gt_4": 0.0
+        },
+        "medium": {
+          "persons": 341,
+          "mean_best_iou": 0.6413530525464641,
+          "matched_edges": 305,
+          "median_edge_gap": 0.009329557418823242,
+          "share_edge_gap_le_1": 0.8622950819672132,
+          "share_edge_gap_gt_4": 0.01639344262295082
+        },
+        "large": {
+          "persons": 900,
+          "mean_best_iou": 0.6971919919571115,
+          "matched_edges": 1357,
+          "median_edge_gap": 0.7020750045776367,
+          "share_edge_gap_le_1": 0.5342667649226235,
+          "share_edge_gap_gt_4": 0.22328666175386883
         }
       },
       "counts": {

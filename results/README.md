@@ -35,3 +35,4 @@ local; run the commands of the script README to make them again.
 | `colab_run/*_manifest_summary.json` | The split manifest without the photo list, with the SHA-256 of the full manifest and the selected photos per license | `prepare_coco_targets.py` |
 | `quality_photos.json` | Per quality photo: presence, sky regions and IoU, People list with rank, score, box, IoU; timings | `evaluate_quality_photos.py` |
 | `sheets/` (local only) | Sky and people overlays per photo | `make_quality_sheets.py` |
+| `run2_coco_openimages/`, `run3_box_giou/` | The same files for runs 2 and 3 (`colab_run/` also has `best_val_measurements.json` of `evaluate_head.py` and the `oi_train` and `oi_val` records of `prepare_openimages_targets.py`) | as above |

@@ -1,0 +1,100 @@
+{
+  "step": "README section 5, step 1: targets of the people and sky head (Open Images V7)",
+  "sources": {
+    "images-csv": {
+      "path": "oidv6-train-images-with-labels-with-rotation.csv",
+      "sha256": "5758734fae55dddf7ed6e4505e25a19c45ea5f6cff7f524eae1721b841b98a79"
+    },
+    "points-csv": {
+      "path": "oidv7-train-annotations-point-labels.csv",
+      "sha256": "b63e9a946344abcc0abdb918fd93f4c8d73ed6984c58f6791058194dd4b2d78f"
+    },
+    "boxes-csv": {
+      "path": "oidv6-train-annotations-bbox.csv",
+      "sha256": "dfc9637907a6b105f87e435bac91a5ee9b29af3ff8391168f86c1d63879786b6"
+    },
+    "image-labels-csv": {
+      "path": "oidv7-train-annotations-human-imagelabels.csv",
+      "sha256": "0237e1e4080291b959ceb99484a8f2d723aeeb7d15b2adf60337f2c027174116"
+    }
+  },
+  "annotation_license": "Open Images V7 annotations, CC BY 4.0 (Google LLC)",
+  "split": "train",
+  "allowed_licenses": [
+    "https://creativecommons.org/licenses/by/2.0/"
+  ],
+  "rotation_rule": "only the photos with the rotation 0 in the image list",
+  "photo_source": "https://open-images-dataset.s3.amazonaws.com/{split}/{image_id}.jpg",
+  "photo_storage": "as downloaded (the CVDF copy: long edge 1024 px, no EXIF data); the check is that the photo decodes",
+  "classes": {
+    "sky": {
+      "/m/01bqvp": "Sky",
+      "/m/0csby": "Cloud"
+    },
+    "person": {
+      "/m/01g317": "Person",
+      "/m/04yx4": "Man",
+      "/m/03bt1vf": "Woman",
+      "/m/01bl7v": "Boy",
+      "/m/05r655": "Girl"
+    }
+  },
+  "person_duplicate_iou": 0.7,
+  "shuffle_seed": 0,
+  "quotas": {
+    "sky_images": 12000,
+    "person_images": 12000
+  },
+  "pools": {
+    "sky": 64188,
+    "person": 693527
+  },
+  "rejected_candidates": {
+    "license": 0,
+    "rotation": 125896,
+    "not_in_image_list": 0
+  },
+  "counts": {
+    "images": 24000,
+    "sky_selected": 12000,
+    "person_selected": 12000,
+    "sky_points": 65738,
+    "images_with_sky_points": 12313,
+    "persons": 66774,
+    "person_duplicates_removed": 1977,
+    "ignored_person_boxes": 6153,
+    "images_with_complete_person_targets": 16173,
+    "sky_presence_conflicts": 119,
+    "persons_above_max": 335,
+    "sky_point_cells": {
+      "sky": 37612,
+      "not_sky": 27795
+    },
+    "presence": {
+      "sky": {
+        "present": 11302,
+        "absent": 668,
+        "ignored": 12030
+      },
+      "person": {
+        "present": 14798,
+        "absent": 103,
+        "ignored": 9099
+      }
+    },
+    "images_per_license": {
+      "https://creativecommons.org/licenses/by/2.0/": 24000
+    }
+  },
+  "seconds": 1345.2,
+  "full_manifest": {
+    "sha256": "3abee1d04b471e4557d0f4d4d9049b80cadb389587dfbe7b75c1b546f0ab9e20",
+    "bytes": 12626368,
+    "location": "Google Drive alcedo_people_sky_head/run3_box_giou/splits/oi_train/manifest.json; local copy build/tmp/explore/p1/colab_run3_box_giou/splits/oi_train/manifest.json",
+    "images": 24000,
+    "selected_images_per_license": {
+      "https://creativecommons.org/licenses/by/2.0/": 24000
+    },
+    "authors": 10265
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "step": "README section 5, step 1: image_embed cache",
+  "sam2_commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+  "checkpoint": {
+    "path": "sam2.1_hiera_tiny.pt",
+    "sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69"
+  },
+  "device": "NVIDIA L4",
+  "torch": "2.11.0+cu130",
+  "encoder_dtype": "float32, TF32 off",
+  "cache_dtype": "float16",
+  "preprocessing": "sam2_graphs.preprocess_image: stretch to 1024 x 1024, bilinear with antialias, ImageNet normalization",
+  "done": 24000,
+  "count": 24000,
+  "seconds": 1740.0,
+  "peak_cuda_memory_bytes": 2895997440
+}

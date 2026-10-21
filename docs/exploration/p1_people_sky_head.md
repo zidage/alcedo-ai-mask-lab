@@ -5,10 +5,11 @@
 **Design:** [README section 5](../../README.md#5-next-step-locate-people-and-sky-from-sam-21-image-features),
 step 1, and [section 4.1](../../README.md#41-how-people-and-sky-work).
 **Previous step:** [P0](p0_sam_feature_localization.md).
-**Date:** 2026-10-20; run 2: 2026-10-21.
+**Date:** 2026-10-20; runs 2 and 3: 2026-10-21.
 **Status:** the first Colab run and the end-to-end run on the quality photos are done. Run 2 (COCO
-and Open Images V7) is done and measured (section 10). The People list threshold and the training
-changes of section 9 are user decisions.
+and Open Images V7) is done and measured (section 10). Run 3 (run 2 with a GIoU term on the person
+box) is done and measured (section 11). The prompt rules and the People list threshold are user
+decisions (section 11.7).
 
 > **Images are local only.** The sheets show photos that must not be shared again. They are
 > under `results/p1_people_sky_head/sheets/` (`*.jpg` is in `.gitignore`). To make them again,
@@ -29,6 +30,13 @@ answers:
 
 ## 2. Result summary
 
+- **Run 3 (GIoU term on the person box, section 11):** all criteria of issue #4 on COCO `val` and
+  `oi_val` pass, and the boxes of large persons fit better on COCO (IoU >= 0.75: 0.490 to 0.528;
+  cut edges with a gap > 4 cells: 0.163 to 0.132). On the quality photos run 3 is worse: 3 of 7
+  referenced persons (run 2: 5 of 7) and 2 of 3 sky masks within 0.02 of E1. `DSC00674` is not
+  corrected (0.000): its box is almost the full photo, and SAM 2.1 tiny selects the background.
+  Box edge changes of 2 to 4 cells change the SAM 2.1 selection. Recommendation: keep run 2; the
+  next step is a prompt rule change (box with the center point), not a box loss change.
 - **Run 2 (COCO and Open Images V7, section 10):** all criteria of issue #4 on COCO `val` and
   `oi_val` pass (`oi_val` person AP50 0.473 to 0.533). On the quality photos, 5 of 7 referenced
   persons are within 0.02 of the E1 box (run 1: 4 of 7), but `DSC00674` changed from pass to fail
@@ -524,10 +532,264 @@ User decisions:
 3. The order of the People list and the list threshold (run 2: 0.313 on COCO `val`; the boarder
    of `2088064441` is 0.0005 below it).
 
-## 11. Not measured and open items
+## 11. Run 3: GIoU term on the person box
+
+**Issue:** [#4](https://github.com/zidage/alcedo-ai-mask-lab/issues/4). **Date:** 2026-10-21.
+
+### 11.1 Question and result summary
+
+Does the GIoU term on the person box (section 10.7, decision 2) correct the short boxes of large
+persons, and does it correct `DSC00674` without a loss on the other quality photos? Run 3 is run 2
+with one change: `w_box_giou` 1 (runs 1 and 2: 0).
+
+| Criterion | Run 1 | Run 2 | Run 3 | Run 3 result |
+| --- | ---: | ---: | ---: | --- |
+| COCO `val` sky cell IoU, at most 0.01 lower than run 1 | 0.8947 | 0.8941 | 0.8918 | pass (-0.0029) |
+| COCO `val` presence AUC sky, at most 0.01 lower | 0.9922 | 0.9930 | 0.9918 | pass (-0.0004) |
+| COCO `val` presence AUC person, at most 0.01 lower | 0.9886 | 0.9883 | 0.9879 | pass (-0.0007) |
+| COCO `val` person AP50, at most 0.01 lower | 0.6234 | 0.6394 | 0.6446 | pass (+0.0212) |
+| `oi_val` person AP50, higher than run 1 | 0.4732 | 0.5334 | 0.5297 | pass (+0.0565; run 2 -0.0037) |
+| `oi_val` person presence AUC, higher than run 1 | 0.9769 | 0.9807 | 0.9802 | pass |
+| `oi_val` sky point false sky share, not higher than run 1 | 0.0201 | 0.0199 | 0.0196 | pass (76 of 3,879 cells) |
+| Quality photos: person presence | margin 0.870 | margin 0.881 | margin 0.937 | pass |
+| Quality photos: sky presence on the photos without sky | fails on the waterfall | fails on the waterfall | fails on the waterfall (0.999) | as before (recorded, not required) |
+| Quality photos: sky masks within 0.02 of E1 | 3 of 3 | 3 of 3 | **2 of 3** | **fail** (`Nikon-D800e-raw-00007` 0.942) |
+| Quality photos: referenced person within 0.02 of E1 | 4 of 7 | 5 of 7 | **3 of 7** | **fail** |
+
+- **The GIoU term does what it should on the validation splits, but the effect is small.** For
+  large persons on COCO `val`, the share of boxes with IoU >= 0.75 increases from 0.490 to 0.528,
+  the median width error from -4.4 to -2.6 percent, and the share of cut edges with a gap > 4
+  cells decreases from 0.163 to 0.132. On `oi_val` the box fit of large persons is almost equal
+  (IoU >= 0.75: 0.450 to 0.452), and the gap > 4 cells decreases from 0.224 to 0.202. AP50 and
+  the top-1 hit do not change (differences of 0.01 or less in both directions).
+- **On the quality photos run 3 is worse than run 2.** `DSC00674` is not corrected: it goes from
+  0.731 to 0.000. `DSC_1535`, `DSC00326`, and `P1024439` fall below the limit. The box edges move
+  by 2 to 4 cells between run 2 and run 3, and SAM 2.1 tiny changes its selection with such
+  changes (section 11.5). The sky mask failure of `Nikon-D800e-raw-00007` comes from the point
+  rule, not from the sky map (section 11.4).
+- **Recommendation: keep run 2 as the head (section 11.7).** A box loss alone does not make the
+  box prompt reliable on large persons.
+
+### 11.2 Inputs and method
+
+| Item | Value |
+| --- | --- |
+| Training | `train_head.py` as in run 2 (COCO `train` 30,836 and `oi_train` 24,000 photos, 20 epochs, seed 0), with `w_box_giou` 1. `best.pt`: epoch 15 (as run 2). Colab, NVIDIA L4, PyTorch 2.11.0+cu130 |
+| Data | The four split manifests are equal to run 2 (only the `seconds` field is different). The encoder cache has the same SAM 2.1 tiny commit, checkpoint SHA-256, and preprocessing (`*_image_embed_progress.json`) |
+| Validation | `evaluate_head.py` measures run 1 (epoch 13), run 2 (epoch 15), and run 3 (epoch 15) `best.pt` on COCO `val` and `oi_val` in the same Colab session, with the `head_metrics.py` of b4f530b (`best_val_measurements.json`). The values of runs 1 and 2 are equal to the earlier records; the files now also have `person_edge_fit_nms` |
+| Export | `people_sky_head.onnx`, 1,119,131 bytes, SHA-256 `ce84bc6430860381aa9045396807f13ab5e1ad21eb9e7fd15e60d6d4d490258f`. ONNX Runtime CPU against PyTorch CPU on 16 validation photos: maximum absolute difference 2.3e-5 (tolerance 1e-4) |
+| Quality photos | `evaluate_quality_photos.py` with the run 3 ONNX and the same photos, references, SAM 2.1 tiny graphs, rules (section 3.3), and machine as section 3.2. Presence thresholds from the run 3 export: sky 0.420, person 0.644. People list threshold (COCO `val` best F1 after the suppression): 0.3145 |
+| Records | [`results/p1_people_sky_head/run3_box_giou/`](../../results/p1_people_sky_head/run3_box_giou/) (`colab_run/`, `quality_photos.json`); the sheets stay local |
+
+The Colab output is under `build/tmp/explore/p1/colab_run3_box_giou/`. Run 1 and run 2 on the
+quality photos were not run again: their values come from `quality_photos.json` of sections 3 and
+10. The run 3 split summaries were made from the full manifests with the rule that gives the
+committed run 2 summaries byte for byte (`build/tmp/p1_run3/scripts/make_manifest_summaries.py`).
+
+Commands (Git Bash, development machine, one at a time):
+
+```bash
+E=build/tmp/explore; PY="$E/venv/Scripts/python -I"; I=$E/e4/input_4096
+H=$E/p1/colab_run3_box_giou/export; R=results/p1_people_sky_head/run3_box_giou
+S=scripts/poc/people_sky_head; L=$E/p1/colab_run3_box_giou/quality_logits
+# End to end: encoder, head, SAM 2.1 tiny decoder (quality_photos.json).
+$PY $S/evaluate_quality_photos.py --head-onnx $H/people_sky_head.onnx \
+  --head-json $H/people_sky_head.json --photos $I/photos \
+  --onnx-dir $E/e4/onnx_float32_batch16/tiny --reference-masks $I/reference_masks \
+  --reference-scores $E/e1/compare/base_plus/compare.json --out-dir $R \
+  --logit-dir $L --threads 4
+# Sheets (local only).
+$PY $S/make_quality_sheets.py --photos $I/photos --results $R/quality_photos.json \
+  --logits $L --out-dir $R/sheets
+# Edited boxes on DSC00674 (section 11.5).
+$PY $E/p1/colab_run3_box_giou/dsc00674_box_check.py .
+```
+
+### 11.3 Results: COCO `val` and `oi_val`
+
+Per epoch, from [`metrics.jsonl`](../../results/p1_people_sky_head/run3_box_giou/colab_run/metrics.jsonl)
+(large persons of COCO `val`; "gap > 4" is the share of the cut edges with a gap > 4 cells):
+
+| Epoch | Train loss | GIoU term | Size L1 | COCO sky cell IoU | COCO AP50 | `oi_val` AP50 | Large: IoU >= 0.75 | Large: gap > 4 |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | 4.462 | 0.455 | 0.759 | 0.805 | 0.432 | 0.280 | 0.087 | 0.319 |
+| 4 | 2.400 | 0.285 | 0.335 | 0.854 | 0.590 | 0.431 | 0.375 | 0.177 |
+| 7 | 2.213 | 0.262 | 0.299 | 0.792 | 0.659 | 0.587 | 0.430 | 0.085 |
+| 10 | 2.065 | 0.247 | 0.274 | 0.882 | 0.619 | 0.453 | 0.473 | 0.103 |
+| **15** | 1.883 | 0.227 | 0.243 | **0.892** | **0.645** | **0.530** | **0.528** | **0.132** |
+| 19 | 1.831 | 0.220 | 0.233 | 0.896 | 0.638 | 0.520 | 0.527 | 0.120 |
+
+The size L1 term of run 3 is lower than in run 2 at each epoch (epoch 19: 0.233 against 0.246),
+so the GIoU term does not work against it. The gap > 4 cells changes between 0.085 and 0.223 from
+epoch to epoch after epoch 4, as the false sky share in section 10.1.
+
+The three checkpoints, from `best_val_measurements.json`:
+
+| Measurement | COCO run 1 | COCO run 2 | COCO run 3 | `oi_val` run 1 | `oi_val` run 2 | `oi_val` run 3 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Sky cell IoU | 0.895 | 0.894 | 0.892 | 0.966 | 0.974 | 0.971 |
+| Presence AUC person | 0.989 | 0.988 | 0.988 | 0.977 | 0.981 | 0.980 |
+| Person AP50 | 0.623 | 0.639 | 0.645 | 0.473 | 0.533 | 0.530 |
+| Person AP50 after the suppression | 0.647 | 0.673 | 0.671 | 0.494 | 0.568 | 0.560 |
+| Top-1 box hit | 0.845 | 0.871 | 0.869 | 0.760 | 0.806 | 0.793 |
+| People list best F1 (threshold) | 0.702 (0.342) | 0.717 (0.313) | 0.716 (0.314) | 0.605 (0.360) | 0.645 (0.349) | 0.645 (0.338) |
+| Medium persons: share with IoU >= 0.75 | 0.436 | 0.496 | 0.506 | 0.389 | 0.454 | 0.467 |
+| Large persons: mean best IoU | 0.701 | 0.729 | 0.730 | 0.667 | 0.703 | 0.704 |
+| Large persons: share with IoU >= 0.75 | 0.404 | 0.490 | 0.528 | 0.329 | 0.450 | 0.452 |
+| Large persons: median log ratio, height / width | -0.049 / -0.060 | -0.028 / -0.044 | -0.023 / -0.026 | -0.052 / -0.040 | -0.039 / -0.047 | -0.030 / -0.029 |
+| Large cut persons: mean best IoU (clipped) | 0.712 | 0.738 | 0.745 | 0.697 | 0.718 | 0.724 |
+| Large cut persons: median edge gap (cells) | 0.42 | 0.69 | 0.34 | 0.70 | 1.47 | 1.05 |
+| Large cut persons: share of edges with gap <= 1 cell | 0.585 | 0.553 | 0.599 | 0.534 | 0.439 | 0.494 |
+| Large cut persons: share of edges with gap > 4 cells | 0.161 | 0.163 | 0.132 | 0.223 | 0.224 | 0.202 |
+
+- The cut persons are 618 large persons (760 matched cut edges) on COCO `val` and 900 (1,385) on
+  `oi_val`.
+- The GIoU term reduces the median size error of large persons to 2 to 3 percent, and the error
+  of the width more than the error of the height. The edges with a gap > 4 cells decrease by 2
+  to 3 percentage points; 13 percent (COCO) and 20 percent (`oi_val`) of the cut edges of large
+  persons still have the `DSC00674` error.
+- Run 2 increased the median edge gap of large cut persons against run 1 (0.42 to 0.69 cells on
+  COCO, 0.70 to 1.47 on `oi_val`); run 3 reduces it again (0.34 and 1.05).
+- Each configuration has one training run (seed 0). The differences between runs 2 and 3 on AP50
+  and the top-1 hit (0.01 or less) are smaller than the change between neighbouring epochs of one
+  run (section 10.3), so they are not a signal.
+
+### 11.4 Results: presence and sky on the quality photos
+
+| Photo | Sky status | Sky run 2 | Sky run 3 | Person status | Person run 2 | Person run 3 |
+| --- | --- | ---: | ---: | --- | ---: | ---: |
+| `2088064441` | unreferenced | 0.997 | 0.997 | referenced (small) | 0.999 | 0.992 |
+| `5761824892` | unreferenced (foliage gaps) | 0.312 | 0.626 | absent | 0.032 | 0.055 |
+| `DSC00326` | unreferenced (small gap) | 0.941 | 0.824 | referenced | 0.999 | 1.000 |
+| `DSC00527` | referenced | 1.000 | 1.000 | referenced (crowd) | 1.000 | 1.000 |
+| `DSC00562` | unreferenced | 0.999 | 0.999 | unreferenced (very small) | 0.876 | 0.953 |
+| `DSC00602` | unreferenced | 0.998 | 0.998 | unreferenced (passengers) | 0.293 | 0.255 |
+| `DSC00674` | uncertain (sunset backdrop) | 0.773 | 0.462 | referenced (close-up) | 1.000 | 1.000 |
+| `DSC00728` | referenced | 1.000 | 1.000 | absent | 0.116 | 0.044 |
+| `DSC00936` | **absent (waterfall)** | 0.999 | **0.999** | referenced | 0.997 | 0.993 |
+| `DSC_1188` | absent | 0.006 | 0.008 | absent (squirrel) | 0.004 | 0.016 |
+| `DSC_1456` | unreferenced | 0.990 | 0.956 | unreferenced | 1.000 | 1.000 |
+| `DSC_1535` | absent | 0.008 | 0.007 | referenced | 1.000 | 1.000 |
+| `Nikon-D800e-raw-00007` | referenced | 1.000 | 0.999 | absent | 0.012 | 0.018 |
+| `P1024439` | unreferenced | 0.987 | 0.985 | referenced | 1.000 | 1.000 |
+
+- **People:** lowest referenced 0.992 (`2088064441`), highest absent 0.055 (`5761824892`),
+  threshold 0.644. The margin is 0.937 (run 2: 0.881). The squirrel scores 0.016.
+- **Sky:** the referenced photos score 0.999 or more. The waterfall stays sky (0.999, mask 79
+  percent of the photo). `5761824892` is found at 0.626 but has no region of 3 cells with
+  probability >= 0.5, so it gets no mask. `DSC00674` (uncertain) is found at 0.462 with 2 regions
+  (804 and 9 cells, mask 17 percent of the photo; run 2: 22 percent).
+- **Sky masks:** IoU 0.993 (`DSC00527`), 0.995 (`DSC00728`), **0.942**
+  (`Nikon-D800e-raw-00007`); E1 sky point 0.997, 0.997, 0.993. On `Nikon-D800e-raw-00007` the
+  sky map is almost the same as in run 2 (1,046 against 1,059 cells with probability >= 0.5, one
+  region). The 3 most probable cells are now all in the clear sky at the top of the photo (y 24 to
+  88 of 1024 model pixels); in run 2 one point was on the lit clouds above the mountains. The
+  sheet shows that the run 3 mask does not include these clouds. The rule "3 most probable cells
+  of the region" selects points from a small part of a large region, and small differences of
+  the sky map move them. This failure is not caused by the box term.
+
+### 11.5 Results: people on the quality photos
+
+"Shown" tells if the referenced person is in the People list at the run 3 threshold (0.3145).
+
+| Photo | E1 box | Run 2: rank, score, IoU | Run 3: rank, score, IoU | Run 3 within 0.02 of E1 | Run 3 shown |
+| --- | ---: | --- | --- | --- | --- |
+| `DSC00936` | 0.989 | 1, 0.47, 0.989 | 1, 0.48, **0.989** | yes | yes |
+| `DSC00674` | 0.988 | 1, 0.73, 0.731 | 2, 0.05, **0.029** (rank 1: 0.000) | no | no |
+| `DSC00527` | 0.957 | 6, 0.54, 0.943 | 9, 0.53, **0.952** | yes | yes |
+| `2088064441` | 0.269 | 1, 0.31, 0.686 | 1, 0.31, **0.702** | yes | no (0.309) |
+| `DSC00326` | 0.973 | 1, 0.46, 0.976 | 1, 0.61, **0.947** | **no** (run 2: yes) | yes |
+| `DSC_1535` | 0.993 | 2, 0.54, 0.971 | 2, 0.56, **0.946** | no | yes |
+| `P1024439` | 0.934 | 1, 0.36, 0.938 | 7, 0.12, **0.827** (rank 1: 0.393) | **no** (run 2: yes) | no |
+
+Observations from the local sheets (`results/p1_people_sky_head/run3_box_giou/sheets/`) and the
+boxes of `quality_photos.json`:
+
+- `DSC00674`: the rank 1 box is `[-1.8, 0.7, 64.9, 60.5]` cells. Clipped to the photo, it covers
+  the photo except 0.7 cells at the top and 3.5 cells at the bottom. SAM 2.1 selects the
+  background (mask 28 percent of the photo, IoU 0.000). The bottom edge is 2.1 cells nearer to
+  the photo edge than in run 2, but the top edge moved from 2.5 to 0.7 cells. The edited boxes
+  (same graphs and mask selection; script and output
+  `build/tmp/explore/p1/colab_run3_box_giou/dsc00674_box_check.py` and `.txt`):
+
+  | Box (cells) | IoU |
+  | --- | ---: |
+  | Run 3 box `[-1.8, 0.7, 64.9, 60.5]` | 0.000 |
+  | Run 3 box, bottom edge at 64 | 0.373 |
+  | Run 3 box, top edge at 2.5 | 0.794 |
+  | Run 3 box, top 2.5 and bottom 58.4 (the run 2 top and bottom edges) | 0.730 |
+  | Run 2 box `[1.1, 2.5, 63.9, 58.4]` | 0.731 |
+  | Run 1 box after the clipping `[0, 3.7, 64, 63.3]` | 0.992 |
+
+  For a person that fills the photo, the box is almost the full photo, and SAM 2.1 tiny gets
+  only the gaps at the photo edges as information. A change of 2 cells at one edge changes the
+  IoU from 0.99 to 0.00. The head cannot predict the edges with this precision: the median edge
+  gap of the large cut persons is 0.3 to 1.0 cells, and 13 to 20 percent of the edges have a gap
+  > 4 cells (section 11.3).
+- `P1024439`: the rank 1 box `[41.3, 22.9, 51.9, 58.2]` starts at the shoulders (run 2: 19.2,
+  above the head). SAM 2.1 selects the legs (IoU 0.393). A second box of the same person,
+  `[38.8, 12.7, 57.9, 52.4]` (IoU 0.827), is at rank 7 with score 0.12: the two boxes have IoU
+  < 0.5, so the suppression keeps both.
+- `DSC_1535`: the box is 1.9 cells narrower at the left and 0.9 cells shorter at the bottom than
+  in run 2 (IoU 0.971 to 0.946). The main person stays at rank 2 after a background pedestrian.
+- `DSC00326`: the right edge is 2.4 cells shorter than in run 2 (IoU 0.976 to 0.947).
+- On all four photos, the run 3 box is smaller than the run 2 box on at least one side, although
+  the validation splits show larger boxes on average. The 7 persons are too few to show the
+  average effect; they show the sensitivity of the box prompt.
+
+### 11.6 Cost
+
+| Item | Run 2 | Run 3 | Note |
+| --- | ---: | ---: | --- |
+| Training time per epoch (L4, median) | 448 s | 432 s | 54,836 photos; the GIoU term adds no measurable time |
+| Head (`people_sky_head.onnx`), CPU | 12.4 ms | 14.2 ms | 14 photos, the same graph (275,656 parameters) |
+| SAM 2.1 tiny decoder, CPU | 35.9 ms | 41.6 ms | 97 and 94 prompts |
+| SAM 2.1 tiny encoder, CPU | 1,576 ms | 1,881 ms | 14 photos |
+| Peak working set | 1,466 MB | 1,452 MB | encoder, head, decoder in one process |
+
+The two heads have the same graph; the CPU time differences come from the machine (section 10.6).
+
+### 11.7 Recommendation
+
+**Keep run 2 as the head. Do not use run 3.** Run 3 passes all criteria of issue #4 on COCO `val`
+and `oi_val`, and its boxes of large persons fit better on COCO. But on the quality photos it is
+worse than run 2 (3 of 7 persons, 2 of 3 sky masks) and worse than run 1 (4 of 7), so it fails
+the criterion "as good as in the first run".
+
+**The GIoU term is not the fix for `DSC00674`.** The results of runs 1 to 3 show that the box
+prompt of SAM 2.1 tiny is sensitive to edge errors of 2 to 4 cells on large persons, and the head
+has such errors on 13 to 20 percent of the cut edges after the GIoU term. Between runs, the
+quality photos change in both directions (run 2 against run 1: 2 new passes, 1 new failure; run
+3 against run 2: IoU higher on 2 persons and lower on 4, 2 new failures) with almost equal
+validation measurements. A further box loss change gives a small average gain
+and does not remove this sensitivity.
+
+User decisions:
+
+1. Confirm run 2 as the head, and the run 3 result of the quality-photo criteria (3 of 7
+   persons, 2 of 3 sky masks).
+2. The prompt of a person. The head gives the center of each person (the heatmap peak) in
+   addition to the box. A box with a positive point at the center gives SAM 2.1 the person
+   inside the box, also when the box is almost the full photo. This is a change of the prompt
+   rule (section 3.3), not of the training; it can be measured with the run 2 head on the
+   quality photos and on COCO `val` without a new Colab run. The decision is the user's: it
+   changes what the product sends to SAM 2.1.
+3. The sky points. The rule "3 most probable cells of each region" can put all points in one
+   part of a large region (`Nikon-D800e-raw-00007`). Points spread over the region (for example
+   the most probable cell of each part of the region) are a rule change of the same kind as
+   item 2.
+4. The People list order and threshold (section 10.7, item 3), and the duplicate boxes of one
+   person with IoU < 0.5 (`P1024439` run 3).
+5. Seed variation: each configuration has one training run. To separate the effect of a training
+   change from the run-to-run variation on the quality photos, a second seed of run 2 is needed.
+
+## 12. Not measured and open items
 
 - **Run 2:** GPU and DirectML cost; the sky presence AUC on `oi_val` (no photo with sky absent);
   the run 1 quality-photo values were not measured again in the same session as run 2.
+- **Run 3:** the run-to-run variation of one configuration (one seed per configuration); the
+  box with a center point and the spread sky points (section 11.7, items 2 and 3) are not
+  measured. Runs 1 and 2 on the quality photos were not measured again in the same session.
 - **The People list threshold** and the box fit on COCO (step 1 of section 9).
 - **The set is small:** 7 referenced persons, 3 referenced skies, 4 photos without people, 3
   without sky (one of them the waterfall). One reference per photo.
@@ -537,7 +799,12 @@ User decisions:
 - **The user confirms** the acceptance criteria of section 3.3 and reviews the sheets
   (`results/p1_people_sky_head/sheets/`).
 
-## 12. Changed files
+## 13. Changed files
+
+Run 3 (section 11): `results/p1_people_sky_head/run3_box_giou/` (the Colab run records, the split
+summaries, `quality_photos.json`), `best_val_measurements.json` of runs 1 and 2 (the same values,
+with `person_edge_fit_nms` added), this report, [the index](README.md), [README](../../README.md)
+section 5, and [`results/README.md`](../../results/README.md).
 
 Run 2 (section 10): `results/p1_people_sky_head/run2_coco_openimages/` (the Colab run records,
 the split summaries, `quality_photos.json`), `results/p1_people_sky_head/colab_run/best_val_measurements.json`

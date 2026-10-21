@@ -69,6 +69,32 @@
           "median_log_width_ratio": -0.04407336004078388
         }
       },
+      "person_edge_fit_nms": {
+        "small": {
+          "persons": 152,
+          "mean_best_iou": 0.5759061211949876,
+          "matched_edges": 108,
+          "median_edge_gap": 0.10986065864562988,
+          "share_edge_gap_le_1": 0.9814814814814815,
+          "share_edge_gap_gt_4": 0.0
+        },
+        "medium": {
+          "persons": 352,
+          "mean_best_iou": 0.6669800055943514,
+          "matched_edges": 328,
+          "median_edge_gap": 0.015979468822479248,
+          "share_edge_gap_le_1": 0.9024390243902439,
+          "share_edge_gap_gt_4": 0.012195121951219513
+        },
+        "large": {
+          "persons": 618,
+          "mean_best_iou": 0.7376775356735974,
+          "matched_edges": 772,
+          "median_edge_gap": 0.6917133331298828,
+          "share_edge_gap_le_1": 0.5531088082901554,
+          "share_edge_gap_gt_4": 0.16321243523316062
+        }
+      },
       "counts": {
         "persons": 5389,
         "top1_images": 1321,
@@ -133,6 +159,32 @@
           "matched": 1454,
           "median_log_height_ratio": -0.03932371363043785,
           "median_log_width_ratio": -0.04749980755150318
+        }
+      },
+      "person_edge_fit_nms": {
+        "small": {
+          "persons": 97,
+          "mean_best_iou": 0.5030747457820269,
+          "matched_edges": 59,
+          "median_edge_gap": 0.07836151123046875,
+          "share_edge_gap_le_1": 1.0,
+          "share_edge_gap_gt_4": 0.0
+        },
+        "medium": {
+          "persons": 341,
+          "mean_best_iou": 0.6488377213398885,
+          "matched_edges": 313,
+          "median_edge_gap": 0.040973663330078125,
+          "share_edge_gap_le_1": 0.8722044728434505,
+          "share_edge_gap_gt_4": 0.03194888178913738
+        },
+        "large": {
+          "persons": 900,
+          "mean_best_iou": 0.7182210912757243,
+          "matched_edges": 1387,
+          "median_edge_gap": 1.468841552734375,
+          "share_edge_gap_le_1": 0.4390771449170872,
+          "share_edge_gap_gt_4": 0.22422494592645997
         }
       },
       "counts": {

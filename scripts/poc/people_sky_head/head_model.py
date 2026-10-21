@@ -8,8 +8,10 @@
                   presence_logits  [B, 2]            sky present, person present (sigmoid)
 
 Layers: LayerNorm over the channels of each cell, a 1 x 1 reduction to `width` channels, and
-residual 3 x 3 blocks with dilations 1, 2, 4 (receptive field 15 cells). The presence output reads
-the mean and the maximum of the trunk features over the grid.
+residual 3 x 3 blocks with the dilations of `dilations`. The receptive field is 1 + 2 * sum(dilations)
+cells: 15 cells (7 cells to each side) with the default 1, 2, 4 of runs 1 to 3, 63 cells (31 to
+each side) with 1, 2, 4, 8, 16. The presence output reads the mean and the maximum of the trunk
+features over the grid.
 """
 
 from __future__ import annotations

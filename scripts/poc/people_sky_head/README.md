@@ -45,6 +45,14 @@ image_embed [1, 256, 64, 64]  (point_encoder.onnx output, the same input as the 
 275,656 parameters, 1.12 MB as float32 ONNX. The receptive field of the 3 x 3 blocks is 15
 cells; `image_embed` already has global context from the Hiera attention.
 
+Run 4 (`--dilations 1 2 4 8 16`): two more residual blocks, receptive field 63 cells (31 cells to
+each side of the center cell), 441,928 parameters, 1.79 MB as float32 ONNX. The inputs and outputs
+are the same as above. Reason: on COCO `val`, the person masks of the run 2 boxes are much worse
+than the masks of the COCO boxes for large persons (mean IoU 0.725 against 0.850), and the box
+edges of a large person are 12 to 32 cells from its center cell, outside the 7 cells that the
+center cell of runs 1 to 3 sees. Beyond 7 cells, the center cell gets only the GroupNorm
+statistics of the grid (the gradient falls by a factor of 34 from 7 to 8 cells).
+
 Use in the product (README section 4.1): Sky = `presence[sky]` above a threshold, then points on
 the confident cells of the sky map, one set per connected sky region. People =
 `presence[person]` above a threshold, then the local maxima of the center heatmap, one box per

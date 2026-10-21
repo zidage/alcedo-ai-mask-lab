@@ -65,6 +65,9 @@ def main() -> int:
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--width", type=int, default=96)
+    parser.add_argument("--dilations", type=int, nargs="+", default=[1, 2, 4],
+                        help="dilation of each residual 3 x 3 block (runs 1 to 3: 1 2 4, "
+                             "receptive field 15 cells; 1 2 4 8 16: 63 cells)")
     parser.add_argument("--workers", type=int, default=2)
     parser.add_argument("--block", type=int, default=256,
                         help="consecutive images per shuffle block (disk read locality)")
@@ -100,7 +103,7 @@ def main() -> int:
         val_set, batch_size=args.batch_size, shuffle=False, num_workers=args.workers,
         pin_memory=device.type == "cuda") for name, val_set in val_sets.items()}
 
-    model = hm.PeopleSkyHead(width=args.width).to(device)
+    model = hm.PeopleSkyHead(width=args.width, dilations=tuple(args.dilations)).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
     steps_per_epoch = len(train_loader)
     total_steps = args.epochs * steps_per_epoch

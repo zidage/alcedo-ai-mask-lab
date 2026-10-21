@@ -1,0 +1,59 @@
+{
+  "step": "README section 5, step 1: people and sky head export",
+  "onnx": {
+    "path": "people_sky_head.onnx",
+    "bytes": 1119131,
+    "sha256": "af44affc0440961205da91da8d029e485c99c0fe3ee9e8883b6f3ebba8ebbc55",
+    "opset": 17
+  },
+  "model": {
+    "in_channels": 256,
+    "width": 96,
+    "dilations": [
+      1,
+      2,
+      4
+    ],
+    "groups": 8
+  },
+  "parameters": 275656,
+  "checkpoint_epoch": 13,
+  "validation": {
+    "sky_cell_iou": 0.894679640863644,
+    "presence_auc_sky": 0.9922248803827751,
+    "map_max_auc_sky": 0.9870671622827677,
+    "presence_best_f1_sky": {
+      "threshold": 0.6495290398597717,
+      "f1": 0.9546351084812623,
+      "precision": 0.9692923898531375,
+      "recall": 0.9404145077720207
+    },
+    "presence_auc_person": 0.9886339100598058,
+    "map_max_auc_person": 0.9686637479156424,
+    "presence_best_f1_person": {
+      "threshold": 0.6018903255462646,
+      "f1": 0.9581573896353166,
+      "precision": 0.9719626168224299,
+      "recall": 0.9447388342165026
+    },
+    "person_ap50": 0.6234394990459522,
+    "person_top1_hit": 0.8448145344436033,
+    "counts": {
+      "persons": 5389,
+      "top1_images": 1321,
+      "sky_union_cells": 866746
+    }
+  },
+  "comparison": {
+    "rule": "max absolute difference per output, ONNX Runtime CPU against PyTorch CPU float32",
+    "tolerance": 0.0001,
+    "images": 16,
+    "max_abs_difference": {
+      "sky_logits": 2.09808349609375e-05,
+      "center_logits": 9.5367431640625e-06,
+      "center_offset": 9.238719940185547e-07,
+      "log_size": 3.0994415283203125e-06,
+      "presence_logits": 5.7220458984375e-06
+    }
+  }
+}

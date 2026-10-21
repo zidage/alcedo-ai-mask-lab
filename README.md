@@ -168,6 +168,23 @@ vector per class from the other 13 photos (leave one photo out), on the 14 quali
   People list). The head must learn a calibrated presence score, person against animal, and mist
   and water against sky.
 
+**Result of step 1 (P1, 2026-10-20, [report](docs/exploration/p1_people_sky_head.md)).** The head
+(275,656 parameters, 19.5 ms on CPU) was trained on Colab on 30,836 COCO 2017 photos with a
+license that permits commercial use. COCO validation: sky cell IoU 0.895, presence AUC 0.992 (sky)
+and 0.989 (people), person AP50 0.623. On the 14 quality photos, end to end with the SAM 2.1 tiny
+decoder:
+
+- **People presence passes:** one COCO threshold finds people on all 7 referenced photos and on
+  none of the 4 photos without people; the squirrel scores 0.002 (P0 margin -0.177, now 0.870).
+- **Sky masks pass:** IoU 0.980 to 0.994, within 0.02 of the E1 sky point. **Sky presence
+  fails** on the waterfall of `DSC00936` (0.942, the whole water curtain is marked as sky).
+- **People boxes:** 4 of 7 referenced persons get a mask within 0.02 of the E1 box or better
+  (also the small boarder, 0.689 against 0.269). On `DSC_1535` and `P1024439` the box of the main
+  person is too short (head or legs cut off), and on `DSC_1535` it is ranked after 6 background
+  pedestrians.
+- **Next:** measure the People list threshold and the box fit per person size on COCO
+  (`evaluate_head.py`), then the user decides the list order and the training changes.
+
 Risks:
 
 - SAM features carry more shape and edge information than class information. (P0: true for the

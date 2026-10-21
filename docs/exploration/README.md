@@ -18,3 +18,4 @@ command that makes them from the local evidence.
 | E5 | [Edge stage of the stroke selection (people)](e5_edge_stage.md) (SAM 2.1 tiny; guided-filter upsampling against the SM1 projection matte, on the photo, rectangle, and tile passes) | Measured 2026-10-20; user review open |
 | E6 | Report per tool and recommendation | Not started |
 | P0 | [Locate people and sky from SAM 2.1 tiny image features (no training)](p0_sam_feature_localization.md) ([#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1)) | Measured 2026-10-20; sky usable on `image_embed`, people not usable without training; user decision on step 1 and O4 open |
+| P1 | [People and sky head on SAM 2.1 tiny `image_embed` (step 1)](p1_people_sky_head.md) ([#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1)) | Measured 2026-10-20; person presence and sky masks pass; the waterfall is found as sky; 3 of 7 person boxes are too short or ranked after background people; People list threshold open |

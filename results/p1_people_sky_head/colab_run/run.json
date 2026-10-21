@@ -1,0 +1,48 @@
+{
+  "step": "README section 5, step 1: people and sky head training",
+  "arguments": {
+    "train_dir": "splits/train",
+    "val_dir": "splits/val",
+    "out_dir": "/content/drive/MyDrive/alcedo_people_sky_head/run",
+    "epochs": 20,
+    "warmup_epochs": 1.0,
+    "batch_size": 32,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "width": 96,
+    "workers": 2,
+    "block": 256,
+    "seed": 0,
+    "resume": false,
+    "device": "cuda",
+    "w_sky_bce": 1.0,
+    "w_sky_dice": 1.0,
+    "w_center_focal": 1.0,
+    "w_offset_l1": 1.0,
+    "w_size_l1": 1.0,
+    "w_presence_bce": 1.0
+  },
+  "loss_weights": {
+    "sky_bce": 1.0,
+    "sky_dice": 1.0,
+    "center_focal": 1.0,
+    "offset_l1": 1.0,
+    "size_l1": 1.0,
+    "presence_bce": 1.0
+  },
+  "model": {
+    "in_channels": 256,
+    "width": 96,
+    "dilations": [
+      1,
+      2,
+      4
+    ],
+    "groups": 8
+  },
+  "parameters": 275656,
+  "train_images": 30836,
+  "val_images": 2500,
+  "device": "NVIDIA L4",
+  "torch": "2.11.0+cu130"
+}

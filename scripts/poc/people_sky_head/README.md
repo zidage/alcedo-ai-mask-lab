@@ -19,6 +19,9 @@ Google Colab, so the dataset is not downloaded to the development machine.
 | `head_metrics.py` | The validation measurements and the checkpoint selection. |
 | `train_head.py` | Training loop, validation each epoch, `best.pt`, `last.pt`, `metrics.jsonl`. |
 | `export_head_onnx.py` | `people_sky_head.onnx` and its comparison with PyTorch. |
+| `evaluate_head.py` | The validation measurements of an existing checkpoint, without training. |
+| `evaluate_quality_photos.py` | End to end on the 14 quality photos: head prompts -> SAM 2.1 tiny decoder -> IoU with the P0 references. |
+| `make_quality_sheets.py` | Overlay sheets of the end-to-end run (local only). |
 | `colab_train_people_sky_head.ipynb` | The Colab run of all steps. |
 | `requirements_colab.txt` | Packages that the Colab runtime does not have. |
 
@@ -42,7 +45,10 @@ cells; `image_embed` already has global context from the Hiera attention.
 Use in the product (README section 4.1): Sky = `presence[sky]` above a threshold, then points on
 the confident cells of the sky map, one set per connected sky region. People =
 `presence[person]` above a threshold, then the local maxima of the center heatmap, one box per
-maximum (`decode_people`), one SAM 2.1 box prompt per person. This is also the People list.
+maximum (`decode_people` with `nms_iou = 0.5`: a large person gives several local maxima, and the
+suppression keeps the box with the highest score), one SAM 2.1 box prompt per person, with the
+box clipped to the photo. This is also the People list. The list threshold is
+`person_list_best_f1_nms` of the COCO validation split.
 
 ## Training data and licenses
 
@@ -109,6 +115,9 @@ batch 32, 20 epochs, float32.
 | `presence_best_f1_*` | Threshold with the highest F1 of "found", with precision and recall |
 | `person_ap50` | Average precision of the person boxes at IoU 0.5; an unmatched box with at least half of its area in a crowd box is not counted |
 | `person_top1_hit` | Share of the photos with a person whose highest-scoring box has IoU >= 0.5 with a person (decision U5) |
+| `person_ap50_nms` | `person_ap50` after the suppression of overlapping boxes (IoU >= 0.5). `person_top1_hit` does not change, because the top-1 box is never suppressed |
+| `person_list_best_f1_nms` | The box score threshold with the highest F1 of the matched boxes after the suppression (the People list threshold), with precision and recall |
+| `person_box_fit_nms` | Per person height (small < 8 cells, medium 8 to 24, large >= 24): mean best box IoU, share with IoU >= 0.75, median log ratio of box height and width to the person (negative: too small) |
 
 `best.pt` is the epoch with the highest mean of `sky_cell_iou` and `person_ap50`. These are COCO
 measurements. The acceptance on the 14 quality photos (P0 criteria, SAM 2.1 decoder end to end)
@@ -123,6 +132,11 @@ runs on the development machine with `people_sky_head.onnx` and the P0 features.
    `last.pt`, `metrics.jsonl`, `run.json`), `export/` (`people_sky_head.onnx`,
    `people_sky_head.json`), `splits/` (the manifests).
 3. After a runtime reset, run all cells again with `RESUME = True`.
+4. To measure an existing `run/best.pt` with the current `head_metrics.py` (for example after a
+   change of the measurements), set `TRAIN = False`. The notebook then prepares and encodes only
+   the validation split, does not train or export, and writes
+   `export/people_sky_head_val_measurements.json` (`evaluate_head.py`). The scripts come from
+   `REPO_BRANCH`, so push the changes first.
 
 Disk: the `image_embed` cache is 2 MiB per photo on the local disk of the runtime. A cell checks
 the free space before the encoder starts.
@@ -142,3 +156,17 @@ local) ran through all scripts on CPU (`--device cpu`), with the SAM 2.1 tiny ch
 | ONNX export | Maximum absolute difference per output at most 1e-4 | 6.2e-6 |
 
 Not checked locally: the Colab notebook cells, the COCO download, and the CUDA run.
+
+Checks of the later changes (2026-10-20, CPU):
+
+| Check | Rule | Result |
+| --- | --- | --- |
+| `head_metrics.py` with `person_ap50_nms`, `person_list_best_f1_nms`, `person_box_fit_nms` | The committed and the changed `Evaluation` give equal values for all fields of the first run, on the 8 synthetic photos, with the 300-epoch overfit checkpoint and with the Colab `best.pt` | Equal |
+| `person_box_fit_nms` | On the overfit checkpoint of epoch 299: mean best IoU 1 and log size ratio 0 | 1.000, +0.000 |
+| `evaluate_head.py` | Runs on CPU on the synthetic split and writes the JSON | Done |
+| Notebook | All code cells are valid Python with the `!` and `%` lines replaced | Valid |
+
+## Results of the first Colab run
+
+[P1 report](../../../docs/exploration/p1_people_sky_head.md): COCO validation, and end to end on
+the quality photos (commands in its section 3.4).

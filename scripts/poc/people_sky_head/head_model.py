@@ -81,11 +81,39 @@ class PeopleSkyHead(nn.Module):
 OUTPUT_NAMES = ("sky_logits", "center_logits", "center_offset", "log_size", "presence_logits")
 
 
+def box_iou(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
+    """[N, 4] x [M, 4] boxes (x0, y0, x1, y1) -> [N, M] IoU."""
+    top_left = torch.maximum(a[:, None, :2], b[None, :, :2])
+    bottom_right = torch.minimum(a[:, None, 2:], b[None, :, 2:])
+    inter = (bottom_right - top_left).clamp(min=0).prod(2)
+    area_a = (a[:, 2:] - a[:, :2]).clamp(min=0).prod(1)
+    area_b = (b[:, 2:] - b[:, :2]).clamp(min=0).prod(1)
+    return inter / (area_a[:, None] + area_b[None, :] - inter).clamp(min=1e-9)
+
+
+def suppress_overlapping_boxes(boxes: torch.Tensor, nms_iou: float) -> torch.Tensor:
+    """Greedy suppression of boxes sorted by score, highest first: a box is removed when its IoU
+    with a kept box of higher score is at least `nms_iou`. Returns the kept indices."""
+    if len(boxes) == 0:
+        return torch.zeros(0, dtype=torch.long, device=boxes.device)
+    overlap = box_iou(boxes, boxes)
+    keep = torch.ones(len(boxes), dtype=torch.bool, device=boxes.device)
+    for i in range(len(boxes)):
+        if keep[i]:
+            later = torch.arange(len(boxes), device=boxes.device) > i
+            keep &= ~(later & (overlap[i] >= nms_iou))
+    return torch.nonzero(keep)[:, 0]
+
+
 def decode_people(outputs: dict[str, torch.Tensor], top_k: int = 20,
-                  min_score: float = 0.05) -> list[dict[str, torch.Tensor]]:
+                  min_score: float = 0.05,
+                  nms_iou: float | None = None) -> list[dict[str, torch.Tensor]]:
     """Person boxes per image: local maxima (3 x 3) of the center heatmap, highest first.
 
-    Returns per image `boxes` [K, 4] (x0, y0, x1, y1 in cells) and `scores` [K]."""
+    With `nms_iou`, a box whose IoU with a box of higher score is at least `nms_iou` is removed
+    (a large person gives several local maxima). None keeps all local maxima (the measurements of
+    the first Colab run). Returns per image `boxes` [K, 4] (x0, y0, x1, y1 in cells) and
+    `scores` [K]."""
     heatmap = torch.sigmoid(outputs["center_logits"][:, 0])
     peaks = heatmap * (F.max_pool2d(heatmap[:, None], 3, stride=1, padding=1)[:, 0] == heatmap)
     batch = heatmap.shape[0]
@@ -101,7 +129,11 @@ def decode_people(outputs: dict[str, torch.Tensor], top_k: int = 20,
         boxes = torch.stack([center_x - width / 2, center_y - height / 2,
                              center_x + width / 2, center_y + height / 2], dim=1)
         keep = scores[b] >= min_score
-        results.append({"boxes": boxes[keep], "scores": scores[b][keep]})
+        boxes, image_scores = boxes[keep], scores[b][keep]
+        if nms_iou is not None:
+            kept = suppress_overlapping_boxes(boxes, nms_iou)
+            boxes, image_scores = boxes[kept], image_scores[kept]
+        results.append({"boxes": boxes, "scores": image_scores})
     return results
 
 

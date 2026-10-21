@@ -2,6 +2,11 @@
 
   sky_cell_iou          IoU over all valid cells of the split: predicted sky probability >= 0.5
                         against a sky share >= 0.5
+  sky_point_*           only the images with point targets (`sky_dense` False, Open Images): the
+                        area under the ROC curve of the sky probability of the point cells against
+                        their target (share >= 0.5), the accuracy at probability 0.5, and the
+                        share of the non-sky cells with probability >= 0.5 (false sky). Not
+                        measured (null) on a split without point targets
   presence_auc_*        area under the ROC curve of the presence output (ignored labels skipped)
   map_max_auc_*         the same with the map maximum as the score (sky probability, center
                         heatmap), for comparison with the presence output
@@ -139,6 +144,8 @@ class Evaluation:
     def __init__(self) -> None:
         self.sky_intersection = 0
         self.sky_union = 0
+        self.sky_point_scores: list[np.ndarray] = []
+        self.sky_point_labels: list[np.ndarray] = []
         self.presence_scores: list[np.ndarray] = []
         self.map_max_scores: list[np.ndarray] = []
         self.presence_labels: list[np.ndarray] = []
@@ -156,6 +163,11 @@ class Evaluation:
         target = batch["sky_coverage"] >= 128
         self.sky_intersection += int((predicted & target & valid).sum())
         self.sky_union += int(((predicted | target) & valid).sum())
+        points = valid & ~batch["sky_dense"][:, None, None]
+        if bool(points.any()):
+            probability = torch.sigmoid(outputs["sky_logits"][:, 0])
+            self.sky_point_scores.append(probability[points].cpu().numpy())
+            self.sky_point_labels.append(target[points].cpu().numpy().astype(np.int8))
 
         self.presence_scores.append(torch.sigmoid(outputs["presence_logits"]).cpu().numpy())
         self.map_max_scores.append(torch.stack([
@@ -215,11 +227,28 @@ class Evaluation:
             }
         return result
 
+    def sky_point_result(self) -> dict:
+        if not self.sky_point_scores:
+            return {"sky_point_auc": None, "sky_point_accuracy": None,
+                    "sky_point_false_sky_share": None,
+                    "sky_point_cells": {"sky": 0, "not_sky": 0}}
+        scores = np.concatenate(self.sky_point_scores)
+        labels = np.concatenate(self.sky_point_labels)
+        predicted = scores >= 0.5
+        negative = labels == 0
+        return {"sky_point_auc": roc_auc(scores, labels),
+                "sky_point_accuracy": float((predicted == (labels == 1)).mean()),
+                "sky_point_false_sky_share": (float(predicted[negative].mean())
+                                              if negative.any() else None),
+                "sky_point_cells": {"sky": int((labels == 1).sum()),
+                                    "not_sky": int(negative.sum())}}
+
     def result(self) -> dict:
         presence_scores = np.concatenate(self.presence_scores)
         map_max_scores = np.concatenate(self.map_max_scores)
         labels = np.concatenate(self.presence_labels)
         result = {"sky_cell_iou": self.sky_intersection / max(self.sky_union, 1)}
+        result.update(self.sky_point_result())
         for k, name in enumerate(("sky", "person")):
             keep = labels[:, k] >= 0
             result[f"presence_auc_{name}"] = roc_auc(presence_scores[keep, k], labels[keep, k])

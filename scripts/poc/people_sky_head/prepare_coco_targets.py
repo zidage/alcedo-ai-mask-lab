@@ -158,6 +158,7 @@ def image_targets(task: dict) -> dict:
         "person_boxes": boxes,
         "crowd_boxes": crowd_slots,
         "presence": np.array([sky_presence, person_presence], np.int8),
+        "sky_dense": np.array(True),
         "_persons": len(person_boxes),
         "_crowds": len(crowd_boxes),
         "_box_targets": int((targets["person_cell"] >= 0).sum()),

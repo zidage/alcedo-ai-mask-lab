@@ -3,6 +3,7 @@
 The scripts of this directory import this module:
 
   prepare_coco_targets.py : COCO panoptic annotations -> per-cell targets of one split
+  prepare_openimages_targets.py : Open Images V7 point labels and boxes -> per-cell targets
   encode_image_embed.py   : SAM 2.1 tiny encoder -> image_embed cache of one split
   train_head.py           : image_embed cache + targets -> trained head
   export_head_onnx.py     : trained head -> head.onnx
@@ -60,6 +61,10 @@ TARGET_ARRAYS = {
     "person_boxes": (np.float32, (MAX_PERSONS, 4)),      # x0, y0, x1, y1 in cells
     "crowd_boxes": (np.float32, (MAX_CROWDS, 4)),        # x0, y0, x1, y1 in cells
     "presence": (np.int8, (len(PRESENCE_CLASSES),)),     # 1, 0, or PRESENCE_IGNORE
+    # True: every cell of `sky_valid` has a sky share from a segmentation (COCO). False: the
+    # valid cells are only the cells of point labels (Open Images), so the image has no Dice term
+    # and its cells count in the point measurements.
+    "sky_dense": (np.bool_, ()),
 }
 
 
@@ -192,7 +197,8 @@ class EmbedDataset:
             value = array[index]
             if value.dtype == np.float16:
                 value = value.astype(np.float32)
-            item[name] = torch.from_numpy(np.ascontiguousarray(value))
+            # np.array keeps a 0-d value (sky_dense) 0-d; np.ascontiguousarray makes it [1].
+            item[name] = torch.from_numpy(np.array(value))
         return item
 
 

@@ -182,8 +182,10 @@ decoder:
   (also the small boarder, 0.689 against 0.269). On `DSC_1535` and `P1024439` the box of the main
   person is too short (head or legs cut off), and on `DSC_1535` it is ranked after 6 background
   pedestrians.
-- **Next:** measure the People list threshold and the box fit per person size on COCO
-  (`evaluate_head.py`), then the user decides the list order and the training changes.
+- **Next:** a second training run on COCO and Open Images V7 (sky point labels and person
+  boxes, CC BY 2.0 photos, annotations CC BY 4.0) for better generalization; the same session
+  measures the first run on the Open Images validation split, the People list threshold, and the
+  box fit per person size. Then the user decides the list order and the training changes.
 
 Risks:
 

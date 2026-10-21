@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Train the people and sky head on the frozen SAM 2.1 tiny image_embed (step 1).
 
-Input:  --train-dir and --val-dir (split directories with targets/ and image_embed.npy).
+Input:  --train-dir (one or more split directories with targets/ and image_embed.npy; the
+        training set is their concatenation) and --val-dir (one or more splits; the first one
+        selects best.pt).
 Output: --out-dir/last.pt (each epoch; --resume continues from it), --out-dir/best.pt (highest
-        head_metrics.selection_score on the validation split), --out-dir/metrics.jsonl (one line
-        per epoch: mean loss terms, validation measurements), --out-dir/run.json.
+        head_metrics.selection_score on the first validation split), --out-dir/metrics.jsonl
+        (one line per epoch: mean loss terms, `val` of the first validation split, `val_extra`
+        of the other splits by directory name), --out-dir/run.json.
 
 Optimizer: AdamW, linear warmup for --warmup-epochs, then cosine decay to zero. The objective is
 head_losses.total_loss. Float32 on --device (cuda on Colab). The head only reads the cache, so the time of an epoch
@@ -33,6 +36,11 @@ def to_device(batch: dict, device) -> dict:
             for k, v in batch.items()}
 
 
+def optional(value: float | None) -> str:
+    """A measurement for the log line; '-' when it is not measured on the split."""
+    return "-" if value is None or value != value else f"{value:.3f}"
+
+
 def evaluate(model, loader, device) -> dict:
     import torch
 
@@ -48,8 +56,8 @@ def evaluate(model, loader, device) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--train-dir", required=True)
-    parser.add_argument("--val-dir", required=True)
+    parser.add_argument("--train-dir", required=True, nargs="+")
+    parser.add_argument("--val-dir", required=True, nargs="+")
     parser.add_argument("--out-dir", required=True)
     parser.add_argument("--epochs", type=int, default=20)
     parser.add_argument("--warmup-epochs", type=float, default=1.0)
@@ -78,14 +86,19 @@ def main() -> int:
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    train_set, val_set = hd.EmbedDataset(args.train_dir), hd.EmbedDataset(args.val_dir)
+    train_parts = [hd.EmbedDataset(d) for d in args.train_dir]
+    train_set = torch.utils.data.ConcatDataset(train_parts)
+    val_sets = {Path(d).name: hd.EmbedDataset(d) for d in args.val_dir}
+    if len(val_sets) != len(args.val_dir):
+        raise ValueError(f"--val-dir names must differ: {args.val_dir}")
+    primary_val = Path(args.val_dir[0]).name
     sampler = hd.BlockShuffleSampler(len(train_set), args.block, args.seed)
     train_loader = torch.utils.data.DataLoader(
         train_set, batch_size=args.batch_size, sampler=sampler, num_workers=args.workers,
         pin_memory=device.type == "cuda", drop_last=True, persistent_workers=args.workers > 0)
-    val_loader = torch.utils.data.DataLoader(
+    val_loaders = {name: torch.utils.data.DataLoader(
         val_set, batch_size=args.batch_size, shuffle=False, num_workers=args.workers,
-        pin_memory=device.type == "cuda")
+        pin_memory=device.type == "cuda") for name, val_set in val_sets.items()}
 
     model = hm.PeopleSkyHead(width=args.width).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
@@ -116,7 +129,10 @@ def main() -> int:
         "model": model.config,
         "parameters": hm.parameter_count(model),
         "train_images": len(train_set),
-        "val_images": len(val_set),
+        "train_images_per_split": {d: len(part) for d, part in zip(args.train_dir, train_parts)},
+        "val_images": len(val_sets[primary_val]),
+        "val_images_per_split": {name: len(v) for name, v in val_sets.items()},
+        "selection_split": primary_val,
         "device": torch.cuda.get_device_name(0) if device.type == "cuda" else "cpu",
         "torch": torch.__version__,
     })
@@ -141,12 +157,14 @@ def main() -> int:
                 print(f"[epoch {epoch}] step {step + 1} / {steps_per_epoch}, "
                       f"loss {total_sum / (step + 1):.4f}")
         train_seconds = time.perf_counter() - started
-        result = evaluate(model, val_loader, device)
+        results = {name: evaluate(model, loader, device) for name, loader in val_loaders.items()}
+        result = results[primary_val]
         score = hmet.selection_score(result)
         line = {"epoch": epoch, "train_loss": total_sum / steps_per_epoch,
                 "train_terms": {k: v / steps_per_epoch for k, v in sums.items()},
                 "learning_rate": scheduler.get_last_lr()[0],
                 "train_seconds": round(train_seconds, 1), "val": result,
+                "val_extra": {k: v for k, v in results.items() if k != primary_val},
                 "selection_score": score}
         with open(out_dir / "metrics.jsonl", "a", encoding="utf-8", newline="\n") as file:
             file.write(json.dumps(line) + "\n")
@@ -162,6 +180,12 @@ def main() -> int:
               f"top-1 {result['person_top1_hit']:.3f}, presence AUC sky "
               f"{result['presence_auc_sky']:.3f} person {result['presence_auc_person']:.3f}"
               f" | score {score:.4f} (best {best_score:.4f})")
+        for name, extra in line["val_extra"].items():
+            print(f"  [{name}] sky point AUC {optional(extra['sky_point_auc'])}, false sky "
+                  f"{optional(extra['sky_point_false_sky_share'])}, person AP50 "
+                  f"{optional(extra['person_ap50'])}, presence AUC sky "
+                  f"{optional(extra['presence_auc_sky'])} person "
+                  f"{optional(extra['presence_auc_person'])}")
     return 0
 
 

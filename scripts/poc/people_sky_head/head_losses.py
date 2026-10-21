@@ -1,7 +1,8 @@
 """Training objective of the people and sky head (README section 5, step 1).
 
   total = w_sky_bce   * sky_bce        per-cell binary cross-entropy against the sky share
-        + w_sky_dice  * sky_dice       soft Dice of the sky map per image
+        + w_sky_dice  * sky_dice       soft Dice of the sky map per image (only the images with
+                                       a dense sky target, `sky_dense`)
         + w_center    * center_focal   CenterNet focal loss of the person center heatmap
         + w_offset    * offset_l1      L1 of the center offset at the person center cells
         + w_size      * size_l1        L1 of the log box size at the person center cells
@@ -23,9 +24,11 @@ FOCAL_ALPHA = 2.0
 FOCAL_BETA = 4.0
 
 
-def sky_losses(logits: torch.Tensor, coverage: torch.Tensor,
-               valid: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
-    """logits [B, 1, 64, 64]; coverage uint8 [B, 64, 64] (share x 255); valid bool [B, 64, 64]."""
+def sky_losses(logits: torch.Tensor, coverage: torch.Tensor, valid: torch.Tensor,
+               dense: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    """logits [B, 1, 64, 64]; coverage uint8 [B, 64, 64] (share x 255); valid bool [B, 64, 64];
+    dense bool [B]. The BCE uses all valid cells; the Dice uses only the dense images, because
+    the few point cells of a sparse image do not give the sky area of the image."""
     target = coverage.float() / 255.0
     weight = valid.float()
     bce = F.binary_cross_entropy_with_logits(logits[:, 0], target, reduction="none")
@@ -34,7 +37,8 @@ def sky_losses(logits: torch.Tensor, coverage: torch.Tensor,
     target = target * weight
     overlap = (probability * target).sum((1, 2))
     dice = 1.0 - (2.0 * overlap + 1.0) / (probability.sum((1, 2)) + target.sum((1, 2)) + 1.0)
-    return bce, dice.mean()
+    dense = dense.float()
+    return bce, (dice * dense).sum() / dense.sum().clamp(min=1.0)
 
 
 def center_focal_loss(logits: torch.Tensor, heatmap: torch.Tensor,
@@ -81,7 +85,7 @@ def presence_loss(logits: torch.Tensor, presence: torch.Tensor) -> torch.Tensor:
 def total_loss(outputs: dict[str, torch.Tensor], batch: dict[str, torch.Tensor],
                weights: dict[str, float]) -> tuple[torch.Tensor, dict[str, float]]:
     sky_bce, sky_dice = sky_losses(outputs["sky_logits"], batch["sky_coverage"],
-                                   batch["sky_valid"])
+                                   batch["sky_valid"], batch["sky_dense"])
     offset_l1, size_l1 = box_losses(outputs, batch)
     terms = {
         "sky_bce": sky_bce,

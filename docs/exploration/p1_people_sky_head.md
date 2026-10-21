@@ -279,6 +279,14 @@ Next steps:
      waterfalls, spray, and fog with a sky label, under a license that permits commercial use
      (U2). Open Images V7 has no sky masks. The COCO-Stuff `fog` class was not checked against
      `sky-other-merged`, because the false sky on `DSC00936` is falling water, not fog.
+4. **Open Images V7 as a second training source (implemented, not run).** The user decided to
+   improve the generalization in general, not only the waterfall case. Open Images V7 has point
+   labels for `Sky` (575,362 points, 284,093 "yes") and `Cloud`, and person boxes, on photos
+   listed as CC BY 2.0 (annotations CC BY 4.0). The second Colab run adds 12,000 photos with sky
+   points and 12,000 photos with person boxes to the COCO training set, and measures an Open
+   Images validation split (`oi_val`, 2,500 photos) each epoch. The first run is measured on
+   `oi_val` in the same session. Method and checks:
+   [script README](../../scripts/poc/people_sky_head/README.md#training-data-and-licenses).
 
 ## 10. Not measured and open items
 

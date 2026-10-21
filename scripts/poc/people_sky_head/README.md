@@ -5,7 +5,9 @@ step 1. The proof of concept [P0](../../../docs/exploration/p0_sam_feature_local
 that `image_embed` holds the person and sky information, but that a prototype without training
 cannot give a calibrated "found" score, separate people from animals, or give one box per person.
 This step trains a small head on the frozen `image_embed` of SAM 2.1 tiny. The training runs on
-Google Colab, so the dataset is not downloaded to the development machine.
+Google Colab, so the dataset is not downloaded to the development machine. The training data are
+COCO 2017 (dense sky and person targets) and, from the second run, Open Images V7 (sky point
+labels and person boxes on more varied photos), for a head that generalizes to more scenes.
 
 ## Files
 
@@ -13,6 +15,7 @@ Google Colab, so the dataset is not downloaded to the development machine.
 | --- | --- |
 | `head_data.py` | Shared layout: grid, target arrays, CenterNet Gaussian, dataset of the `image_embed` cache, block-shuffle sampler. |
 | `prepare_coco_targets.py` | COCO 2017 panoptic annotations -> photos with an allowed license (downloaded) and per-cell targets of one split. |
+| `prepare_openimages_targets.py` | Open Images V7 point labels, boxes, and verified image-level labels -> photos with an allowed license and rotation 0 (downloaded) and per-cell targets of one split. |
 | `encode_image_embed.py` | SAM 2.1 tiny encoder -> float16 `image_embed` cache of one split. Continues a stopped run. |
 | `head_model.py` | The head and the person box decoding. |
 | `head_losses.py` | The training objective. |
@@ -57,11 +60,21 @@ box clipped to the photo. This is also the People list. The list threshold is
 | SAM 2.1 Hiera tiny checkpoint and code (`facebookresearch/sam2` at `2b90b9f5`) | Apache-2.0 | Frozen encoder |
 | COCO 2017 panoptic annotations (`person`, `sky-other-merged`) | CC BY 4.0 | Targets |
 | COCO 2017 photos (Flickr) | Per photo, as the COCO `images` list names it | Training only with license 4 (CC BY 2.0), 5 (CC BY-SA 2.0), 7 (no known copyright restrictions), 8 (United States Government Work). Licenses 1 to 3 (non-commercial) are excluded by decision U2. License 6 (CC BY-ND 2.0) is excluded by default because the effect of "no derivatives" on training is not clear |
+| Open Images V7 annotations (point labels of `Sky` and `Cloud`; boxes of `Person`, `Man`, `Woman`, `Boy`, `Girl`; human-verified image-level labels) | CC BY 4.0 (Google LLC) | Targets |
+| Open Images V7 photos (Flickr; the CVDF copy with the long edge 1024 px) | Per photo, as the image list names it (all photos of the validation list: CC BY 2.0). Open Images asks the user to verify the license of each photo | Only CC BY 2.0 and the rotation 0. The manifest records the license, the author, and the source page of each photo |
 
 The validation split uses the photos of all licenses, because it is only measured. The
 `manifest.json` of each split records the photo ids, the Flickr URL, and the license of each
 photo, and the photo count per license. COCO states the license of each photo; COCO did not
 verify it.
+
+Open Images photos: the image list has no rotation for 12.8 percent of the validation photos and a
+rotation for 1.2 percent. For these photos the orientation of the labels and the pixels is not
+known, so only the photos with the rotation 0 are used. The photos come from the copy of the
+Common Visual Data Foundation (`open-images-dataset` on Amazon S3): the long edge is 1024 px and
+the EXIF data are removed. Some Flickr originals are removed (HTTP 404). The `OriginalMD5` of the
+image list is the MD5 of the Flickr original, so it does not apply to the copy; the check is that
+the photo decodes.
 
 ## Targets
 
@@ -76,6 +89,16 @@ All targets are on the 64 x 64 stretched grid: cell (x, y) covers 1/64 of the ph
 | `heatmap_valid` | False on the cells that a crowd person segment covers (except the peaks) |
 | `person_offset`, `person_log_size` | Box center minus the cell corner; log of the box width and height in cells (minimum 1/16 cell) |
 | `presence` | Sky: 1 if the sky area is at least 1 percent, 0 if there is no sky pixel, ignored otherwise. Person: 1 if a non-crowd person segment has at least one cell area, 0 if there is no person segment, ignored otherwise |
+| `sky_dense` | True: the sky target is a segmentation (COCO) |
+
+Open Images V7 targets (`prepare_openimages_targets.py`), on the same grid:
+
+| Target | Value |
+| --- | --- |
+| `sky_coverage`, `sky_valid` | Only the cells of point labels: a `Sky` or `Cloud` "yes" point counts 1, a `Sky` "no" point counts 0, the cell share is the mean of its points. A `Cloud` "no" point is not used (the point can be on clear sky), and "unsure" points are not used. The "no" points are often on the areas where the model of the Open Images annotation was not sure (foliage, walls, water, snow) |
+| `sky_dense` | False: no Dice term, and the cells count in the `sky_point_*` measurements |
+| Person targets | The boxes of the five person classes; `IsGroupOf` and `IsDepiction` boxes are ignored areas (as COCO crowd segments). Boxes of different person classes with IoU >= 0.7 are one person. Open Images annotates every instance of each positive label of a box-annotated photo, so the targets are complete when the photo has a person box or a verified negative `Person` label; otherwise the person losses ignore the photo |
+| `presence` | Sky: 1 with a `Sky` or `Cloud` "yes" point or a verified positive `Sky` label, 0 with a verified negative `Sky` label and no "yes" point, ignored otherwise. Person: 1 with a person box of at least one cell area, 0 when the targets are complete and the photo has no person box, ignored otherwise |
 
 ## Objective
 
@@ -83,7 +106,8 @@ All targets are on the 64 x 64 stretched grid: cell (x, y) covers 1/64 of the ph
 L = L_sky_bce + L_sky_dice + L_center + L_offset + L_size + L_presence      (all weights 1)
 
 L_sky_bce   = mean over valid cells of BCE(sigmoid(sky_logit), sky_coverage)
-L_sky_dice  = mean over images of 1 - (2 sum(p t) + 1) / (sum(p) + sum(t) + 1),  p, t on valid cells
+L_sky_dice  = mean over the images with sky_dense of 1 - (2 sum(p t) + 1) / (sum(p) + sum(t) + 1),
+              p, t on valid cells
 L_center    = (1 / N_centers) sum over cells of
                  -(1 - p)^2 log(p)                    at the centers (target 1)
                  -(1 - y)^4 p^2 log(1 - p)            at the other valid cells (target y < 1)
@@ -101,6 +125,8 @@ L_presence  = mean over non-ignored labels of BCE(sigmoid(presence_logit), prese
 - The size loss is L1 of the log size, so the error is relative to the person size.
 - The presence loss gives the "found / not found" score that P0 could not calibrate. The
   validation photos give its threshold.
+- The point cells of an Open Images photo give the BCE term only: a few cells do not give the
+  sky area of the photo, so they have no Dice term.
 
 Optimizer: AdamW, learning rate 1e-3, weight decay 1e-4, one epoch linear warmup, cosine decay,
 batch 32, 20 epochs, float32.
@@ -118,9 +144,11 @@ batch 32, 20 epochs, float32.
 | `person_ap50_nms` | `person_ap50` after the suppression of overlapping boxes (IoU >= 0.5). `person_top1_hit` does not change, because the top-1 box is never suppressed |
 | `person_list_best_f1_nms` | The box score threshold with the highest F1 of the matched boxes after the suppression (the People list threshold), with precision and recall |
 | `person_box_fit_nms` | Per person height (small < 8 cells, medium 8 to 24, large >= 24): mean best box IoU, share with IoU >= 0.75, median log ratio of box height and width to the person (negative: too small) |
+| `sky_point_auc`, `sky_point_accuracy`, `sky_point_false_sky_share` | Only the point cells (Open Images): AUC of the sky probability against the point target, accuracy at probability 0.5, and the share of the "not sky" cells with probability >= 0.5. Null on COCO |
 
-`best.pt` is the epoch with the highest mean of `sky_cell_iou` and `person_ap50`. These are COCO
-measurements. The acceptance on the 14 quality photos (P0 criteria, SAM 2.1 decoder end to end)
+`best.pt` is the epoch with the highest mean of `sky_cell_iou` and `person_ap50` on the first
+validation split (COCO `val`). The other validation splits (Open Images `oi_val`) are measured
+each epoch (`val_extra` in `metrics.jsonl`). The acceptance on the 14 quality photos (P0 criteria, SAM 2.1 decoder end to end)
 runs on the development machine with `people_sky_head.onnx` and the P0 features.
 
 ## Colab run
@@ -128,18 +156,24 @@ runs on the development machine with `people_sky_head.onnx` and the P0 features.
 1. Open `colab_train_people_sky_head.ipynb` in Colab (File > Open notebook > GitHub,
    `zidage/alcedo-ai-mask-lab`, branch `main`) and select a GPU runtime. The notebook clones
    the branch that `REPO_BRANCH` names.
-2. Run all cells. The outputs go to `MyDrive/alcedo_people_sky_head/`: `run/` (`best.pt`,
-   `last.pt`, `metrics.jsonl`, `run.json`), `export/` (`people_sky_head.onnx`,
-   `people_sky_head.json`), `splits/` (the manifests).
+2. Run all cells. The outputs go to `MyDrive/alcedo_people_sky_head/RUN_NAME/`: `run/`
+   (`best.pt`, `last.pt`, `metrics.jsonl`, `run.json`), `export/` (`people_sky_head.onnx`,
+   `people_sky_head.json`), `splits/` (the manifests). The first run (COCO only) is in
+   `MyDrive/alcedo_people_sky_head/run/` and `export/`; a new `RUN_NAME` does not change it.
 3. After a runtime reset, run all cells again with `RESUME = True`.
-4. To measure an existing `run/best.pt` with the current `head_metrics.py` (for example after a
-   change of the measurements), set `TRAIN = False`. The notebook then prepares and encodes only
-   the validation split, does not train or export, and writes
-   `export/people_sky_head_val_measurements.json` (`evaluate_head.py`). The scripts come from
+4. The last cell measures `RUN_NAME/run/best.pt` and the checkpoints of `EVALUATE_CHECKPOINTS`
+   (default: the first run) on COCO `val` and Open Images `oi_val` (`evaluate_head.py`, result
+   `<checkpoint>_val_measurements.json`). With `TRAIN = False`, the notebook prepares and encodes
+   only the validation splits and does only this measurement. The scripts come from
    `REPO_BRANCH`, so push the changes first.
 
-Disk: the `image_embed` cache is 2 MiB per photo on the local disk of the runtime. A cell checks
-the free space before the encoder starts.
+Disk: the `image_embed` cache is 2 MiB per photo on the local disk of the runtime: about 117 GiB
+for 30,836 + 2,500 COCO and at most 24,000 + 2,500 Open Images photos. The Open Images training
+annotations are about 11 GB. A cell checks the free space before the encoder starts.
+
+Time (estimate from the first run on an L4): COCO download and targets about 25 minutes, Open
+Images annotations and photos not measured, encoder about 13 photos/s, training about 400 s per
+epoch for 55,000 photos.
 
 ## Checks on the development machine (2026-10-20)
 
@@ -165,6 +199,19 @@ Checks of the later changes (2026-10-20, CPU):
 | `person_box_fit_nms` | On the overfit checkpoint of epoch 299: mean best IoU 1 and log size ratio 0 | 1.000, +0.000 |
 | `evaluate_head.py` | Runs on CPU on the synthetic split and writes the JSON | Done |
 | Notebook | All code cells are valid Python with the `!` and `%` lines replaced | Valid |
+
+Checks of the Open Images source (2026-10-20, CPU, real Open Images V7 validation files,
+`build/tmp/openimages_check/`):
+
+| Check | Rule | Result |
+| --- | --- | --- |
+| Selection and download | 30 sky and 30 person photos of the validation list; all CC BY 2.0, rotation 0, every photo decodes | 60 photos; of 13,506 pool checks (2,280 sky, 11,226 person; a photo in both pools counts twice), 2,039 rejected for the rotation, 0 for the license |
+| CVDF copy | Size against the Flickr original of 3 photos | Long edge 1024 px, same aspect ratio, no EXIF; one Flickr original is removed (404) |
+| Targets by eye | Sky point cells and person boxes drawn on 8 photos | "Yes" cells on sky, "no" cells on foliage, cars, walls; boxes on the people |
+| Targets against the CSV | One photo: sky cells recomputed from the point rows; its group box | Equal; the group box is an ignored area |
+| Sparse sky loss | An Open Images batch with logits 0 | BCE ln 2 = 0.6931, Dice 0, gradient only on the point cells |
+| COCO unchanged | The committed and the changed `head_losses.py` and `head_metrics.py` on the synthetic COCO split, with the Colab `best.pt` and the overfit checkpoint | Loss terms and all fields of the first run equal |
+| Chain | `encode_image_embed.py` (CPU) on the 60 photos, `train_head.py` with two train and two validation splits (3 epochs), `evaluate_head.py` with two splits | Runs; `val_extra` has the `oi_val_small` measurements |
 
 ## Results of the first Colab run
 

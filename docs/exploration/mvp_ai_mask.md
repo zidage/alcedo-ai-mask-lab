@@ -50,9 +50,23 @@ product will use them, with a desktop UI:
     peak is reached at the first BiRefNet run (BiRefNet lite float16 alone: 3,226 MB in E2).
   - Against U6: **the models need 1.5 GB more than the soft 3 GB budget.** With the editor
     (about 5 GB on a 24 MP photo), the total is more than the 8 GB of this GPU.
-- **DirectML device error:** one of four cost runs stopped with `887A0006`
-  (`DXGI_ERROR_DEVICE_HUNG`) at the first BiRefNet call, as in E2. The MVP stopped with the error.
-  The repeat of the same run passed.
+- **BiRefNet memory and GPU resets (section 5.3, recorded on 2026-10-21; the cause is open):**
+  - The GPU memory increases by about 3 GB at the first BiRefNet run, not at the load: the session
+    load holds 227 MB, the first run 3,226 MB. More runs do not increase it (not a leak). DirectML
+    keeps this working memory of the intermediate tensors in its pool until the session is
+    released (then 107 MB). ONNX Runtime has no option that releases the DirectML pool of a session
+    (`memory.enable_memory_arena_shrinkage` refuses the DirectML device). A new session load takes
+    7.5 to 8 s (3.7 to 4.5 s with a saved optimized graph).
+  - `887A0006` (`DXGI_ERROR_DEVICE_HUNG`) is a reset of the display driver: Windows recorded 4
+    events "nvlddmkm stopped responding and has successfully recovered" (event 4101). All 4
+    occurred in the first run of a BiRefNet session: **4 of 9 first runs, 0 of 100 later runs**.
+    A failed first run takes about 64 s. The SAM 2.1 tiny graphs did not fail in this step or in
+    E1, E3, and E4. The MVP stopped with the error each time.
+  - The facts point to the BiRefNet graph as the common factor (the user suspects the model
+    selection): only BiRefNet fails, E2 recorded the same error with the float32 and float16
+    graphs and with the Rust program, and the BiRefNet graph has a special structure (300
+    GridSample nodes from the deformable convolution, 601 DirectML partitions). A test that shows
+    the cause was not done.
 - **Finding on the People list threshold:** on `2088064441` (paddle boarder) the person presence
   is 0.999, but the best box has the score 0.31267, below the list threshold 0.31321 (run 2 COCO
   `val` best F1). The People list is empty and the MVP gives the message "No people found:
@@ -260,6 +274,95 @@ dedicated (1.5 GB over the budget). The samples are 1.3 s apart, so the share of
 not separated; E1 and E2 give 1.4 GB for SAM 2.1 tiny and 3.2 GB for BiRefNet. U6 permits the models to be unloaded when the user goes back to adjusting; the
 MVP keeps all four loaded, as issue #5 asks for the measurement.
 
+### 5.3 BiRefNet memory and GPU resets
+
+The user asked why the GPU memory increases suddenly when Subject is selected. This section
+records the measurements. The cause of the GPU resets is not known; the user suspects the
+selection of BiRefNet.
+
+**Memory per phase of the BiRefNet session.** `measure_birefnet_memory_phases.py`, float16 lite
+graph, `DSC_1535`, DirectML, the session settings of the MVP. Record:
+[`birefnet_memory_phases.json`](../../results/ai_mask_mvp/birefnet_memory_phases.json). The run
+used a copy of the script in `build/tmp/ai_mask_mvp/birefnet_memory/` with the same behavior; the
+record has the repository path form and the photo name added.
+
+| Phase | Time | Dedicated GPU memory | Shared GPU memory |
+| --- | ---: | ---: | ---: |
+| Before the load | — | 0 MB | 0 MB |
+| Session load | 7,860 ms | 227 MB | 180 MB |
+| Run 1 | 781 ms | 3,226 MB | 206 MB |
+| Run 2 | 148 ms | 3,226 MB | 234 MB |
+| Run option `memory.enable_memory_arena_shrinkage` = `gpu:0` | refused: "Did not find an arena based allocator registered for device-id combination" | — | — |
+| The same option with `DML:0` | refused: "Unsupported device specified in the memory arena shrink list: DML" | — | — |
+| Session released | — | 107 MB | 164 MB |
+| Session load again | 7,500 ms | 230 MB | 218 MB |
+| Run after the second load | 63,866 ms (GPU reset, see below) | 3,227 MB | 428 MB |
+
+- The weights take about 0.2 GB. The about 3 GB come at the first run: DirectML allocates the
+  working memory of the intermediate tensors (1024 x 1024 input, decoder maps up to 1024 x 1024)
+  and keeps it in the pool of the session for the next runs. The float32 graph needs 5.7 GB (E2),
+  so the memory is proportional to the tensor data, not a fixed cost per session.
+- It is not a leak: 20 warm runs and 14 photos keep 4,528 MB in the cost run (section 5.2), and run
+  2 here keeps 3,226 MB.
+- Only the release of the session releases the memory. The MVP keeps the session for the program
+  lifetime; it has no release step (U6: unload when the user goes back to adjusting).
+
+**Session load time.** `measure_birefnet_load_time.py` (no inference). Record:
+[`birefnet_load_time.json`](../../results/ai_mask_mvp/birefnet_load_time.json).
+
+| Graph | All optimizations | Extended | Basic | No optimization |
+| --- | ---: | ---: | ---: | ---: |
+| E2 float16 lite graph | 8.03 s | 7.58 s | 6.87 s | 17.90 s |
+| The same graph, optimized once at the extended level on the CPU provider and saved (12.5 s, 94.8 MB) | 4.45 s | — | 3.72 s | 6.02 s |
+
+A release after each Subject call therefore costs 3.7 to 8 s more on the next Subject call, and
+every call becomes a first run (see the resets below).
+
+**GPU resets.** Windows System event log, 2026-10-21 15:00 to 17:30. Record:
+[`gpu_reset_events.json`](../../results/ai_mask_mvp/gpu_reset_events.json). Each reset has
+`nvlddmkm` event 153 at the start of the run, again 60 s and 64 s later, then event 4101 "the
+display driver nvlddmkm stopped responding and has successfully recovered". ONNX Runtime then
+reports `887A0006` (`DXGI_ERROR_DEVICE_HUNG`) for that run or the next run.
+
+| BiRefNet DirectML session (2026-10-21) | First run |
+| --- | --- |
+| Cost run 1 | passed (3,572 ms) |
+| Cost run 2 | reset (event 4101 at 16:03:08) |
+| Cost run 3 | passed |
+| Cost run 4 | passed (417 ms) |
+| UI functional run (section 3.5) | passed |
+| Memory phases, attempt 1 | reset (16:54:16) |
+| Memory phases, attempt 2 | reset (16:56:01) |
+| Memory phases, attempt 3, first session | passed (781 ms) |
+| Memory phases, attempt 3, second session | reset (16:58:48) |
+
+- 4 of 9 first runs reset the driver; 0 of 100 later runs did (33 runs in each of the cost runs
+  1, 3, and 4, and run 2 of the memory phases).
+- A failed first run takes about 64 s: the driver waits 60 s before the reset.
+- The SAM 2.1 tiny sessions did not fail: 6 first runs in this step (the cost runs 1 to 4, the UI
+  run, and cost run 2, which ran SAM 2.1 before BiRefNet), and no such error in E1, E3, and E4.
+- E2 recorded the same error with BiRefNet: the first float16 runs of lite and general, the float16
+  run of lite matting, and one float32 lite run, in the Rust program (`ort`, ONNX Runtime 1.24).
+  So the error does not depend on float16, on the Python package, or on the MVP code.
+- Other programs used the GPU during the runs (desktop programs, about 2.8 GB dedicated memory in
+  total); the dedicated memory of the MVP process was at most 4,016 MB in the failed cost run.
+
+**Facts that point to the BiRefNet graph (the user suspects the model selection).**
+
+- Only the BiRefNet graph fails, with all precisions and both runtimes (E2 and this step).
+- The export decomposes `deform_conv2d` of the BiRefNet decoder into 300 GridSample nodes and one
+  1 x 1 convolution per kernel point (E2 section 3.3). DirectML runs the graph in 601 fused
+  partitions; the float16 graph puts 724 nodes on the CPU (the casts around the float32 GridSample
+  and Range nodes), so data goes between the GPU and the CPU at the partition borders.
+- The working memory of BiRefNet lite at 1024 px is 3.2 GB (float16) and 5.7 GB (float32), against
+  1.4 GB for SAM 2.1 tiny.
+
+Not shown: which part of the graph causes the reset. Tests that can show it: the same BiRefNet
+graph with the decoder without the deformable blocks (a graph change, not a product candidate), a
+Subject model without deformable convolution, and the reset rate of `BiRefNet_512x512` (O2; it has
+the same decoder, so the same structure). These tests need a user decision on the Subject model
+(O2, U9, U12).
+
 ## 6. Recommendation
 
 - **Use the MVP for the interaction check (U1).** The pipeline gives the measured prompts and
@@ -269,11 +372,12 @@ MVP keeps all four loaded, as issue #5 asks for the measurement.
   DirectML package cannot be at 1.31.0 (the newest DirectML build is 1.24.4). A criterion for the
   shipped runtime can be "IoU of alpha > 0.5 >= 0.999 at the photo size" (measured: >= 0.99986).
   This is the user's decision.
-- **GPU memory.** The models need 4.5 GB with BiRefNet lite 1024 float16. If the 3 GB budget of U6
-  is a limit for the product, the engineering options are: load BiRefNet only for the Subject and
-  Background call and unload it after the call (one more session load, 8 s in this run, which is
-  too slow without a change), or a smaller BiRefNet memory peak (fewer DirectML partitions from the
-  300 GridSample nodes, E2 section 6.3). The user decides on the budget and the option.
+- **GPU memory and GPU resets.** The models need 4.5 GB with BiRefNet lite 1024 float16, and the
+  first BiRefNet run reset the display driver in 4 of 9 sessions (section 5.3). Both come from the
+  BiRefNet session. A release after each Subject call frees 3.1 GB but costs 3.7 to 8 s per call
+  and makes each call a first run, so it is not recommended before the cause of the resets is
+  known. The next step is a decision on the Subject model (O2): the tests of section 5.3 show
+  whether the BiRefNet graph structure is the cause.
 - **People list threshold.** The boarder of `2088064441` is lost by a margin of 0.0005. The list
   threshold (best F1 of COCO `val`) is part of the open People list decision of P1 (section 11.7,
   item 4).
@@ -287,9 +391,11 @@ MVP keeps all four loaded, as issue #5 asks for the measurement.
    without a UI change.
 3. **Subject "not found" rule** (F1): not in the MVP. On the lupine photo BiRefNet gives almost
    nothing (E2: 0.3 percent at the camera size).
-4. **GPU memory over U6** (section 5.2) and the unload rule of U6.
-5. **`887A0006`** with BiRefNet on DirectML: 1 of 4 cost runs in this step; E2 had 4 runs. The cause
-   is not known.
+4. **GPU memory over U6** (sections 5.2 and 5.3) and the unload rule of U6: the MVP has no
+   release step for the sessions.
+5. **GPU resets with BiRefNet** (section 5.3): 4 of 9 first runs of a BiRefNet DirectML session
+   reset the display driver (`887A0006`); the cause is not known. The user suspects the selection
+   of BiRefNet (O2).
 6. **F7** (combination across mask types): a stroke after a one-click selection starts a new
    selection in the MVP.
 
@@ -318,10 +424,29 @@ $E/venv_ai_mask_mvp/Scripts/python -I build/tmp/ai_mask_mvp/ui_run_check.py \
   $E/e4/input_4096/photos/DSC00527.jpg directml build/tmp/ai_mask_mvp/ui_check
 ```
 
+Section 5.3 (one at a time; the memory phases run BiRefNet on DirectML and can reset the display
+driver):
+
+```bash
+E=build/tmp/explore; PY="$E/venv_ai_mask_mvp/Scripts/python -I"; M=scripts/poc/ai_mask_mvp
+$PY $M/measure_birefnet_memory_phases.py $E/e2/onnx_fp16/lite/subject_matte.onnx \
+  $E/e4/input_4096/photos/DSC_1535.jpg --out results/ai_mask_mvp/birefnet_memory_phases.json
+$PY $M/measure_birefnet_load_time.py $E/e2/onnx_fp16/lite/subject_matte.onnx \
+  --work-dir build/tmp/ai_mask_mvp/birefnet_memory --out results/ai_mask_mvp/birefnet_load_time.json
+```
+
+```powershell
+# GPU reset events (Windows System event log).
+Get-WinEvent -FilterHashtable @{LogName='System'; StartTime=[datetime]'2026-10-21 15:00';
+  EndTime=[datetime]'2026-10-21 17:30'} |
+  Where-Object { $_.Id -eq 4101 -or ($_.ProviderName -eq 'nvlddmkm' -and $_.Id -eq 153) }
+```
+
 ## 10. Changed files
 
 - `scripts/poc/ai_mask_mvp/` (new): `mask_pipeline.py`, `ai_mask_app.py`,
-  `compare_with_measurement_scripts.py`, `measure_pipeline_cost.py`, `requirements.txt`,
+  `compare_with_measurement_scripts.py`, `measure_pipeline_cost.py`,
+  `measure_birefnet_memory_phases.py`, `measure_birefnet_load_time.py`, `requirements.txt`,
   `README.md`.
 - `scripts/ai_models/birefnet/compare_onnx_outputs.py`: `--threads` (default 4) for PyTorch and
   ONNX Runtime, CPU memory arena off.

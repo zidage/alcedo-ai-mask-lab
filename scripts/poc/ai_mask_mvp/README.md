@@ -17,6 +17,8 @@ Weights, ONNX files, photos, logs, and exported masks are not committed. Keep th
 | `ai_mask_app.py` | PySide6 UI: canvas with the photo and the overlay, one-click buttons, People list, stroke and box tools with Alt for subtract, level change of a click, Feather and Edge, overlay color and opacity, export, stage times. |
 | `compare_with_measurement_scripts.py` | The comparison of the pipeline with `evaluate_quality_photos.py` (run 2), `compare_stroke_outputs.py` (E3 sequences), and the E2 BiRefNet CPU output. |
 | `measure_pipeline_cost.py` | Stage times and memory with all models loaded together (run it under `run_with_gpu_memory.ps1`). |
+| `measure_birefnet_memory_phases.py` | GPU memory of the BiRefNet DirectML session per phase (load, runs, the arena shrinkage run option, release, load again). |
+| `measure_birefnet_load_time.py` | BiRefNet session creation time per graph optimization level, and with a saved optimized graph (no inference). |
 | `requirements.txt` | Packages of the MVP environment (onnxruntime-directml, PySide6). |
 
 ## Models
@@ -129,5 +131,7 @@ $e = "build\tmp\explore"; $py = "$e\venv_ai_mask_mvp\Scripts\python.exe"
   decoding.
 - Not in the MVP: F4b (people parts), F7 (combination across mask types), F9 (stored recipe),
   F11 (text prompts), edge post-processing (U3), a "not found" rule for Subject.
-- E2 records intermittent DirectML device errors (`887A0006`) with BiRefNet. The MVP shows such an
-  error as it occurs.
+- BiRefNet on DirectML: the first run of a session allocates about 3 GB of working memory, which
+  stays until the session is released (the MVP keeps it for the program lifetime), and 4 of 9 first
+  runs reset the display driver (`887A0006`) in the MVP report, section 5.3. The MVP shows the error
+  as it occurs.

@@ -1,0 +1,17 @@
+{
+  "onnxruntime": "1.24.4",
+  "graph": "build/tmp/explore/e2/onnx_fp16/lite/subject_matte.onnx",
+  "directml_seconds": {
+    "all": 8.03,
+    "extended": 7.58,
+    "basic": 6.87,
+    "disable_all": 17.9
+  },
+  "saved_extended_cpu": {
+    "save_seconds": 12.47,
+    "bytes": 94840453,
+    "directml_seconds_all": 4.45,
+    "directml_seconds_basic": 3.72,
+    "directml_seconds_disable_all": 6.02
+  }
+}

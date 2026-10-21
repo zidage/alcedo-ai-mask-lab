@@ -46,3 +46,6 @@ local; run the commands of the script README to make them again.
 | `comparison_cpu_onnxruntime_1_31.json` | The same comparison in the reference environment (onnxruntime 1.31.0) | `compare_with_measurement_scripts.py` |
 | `cost_directml.json` | Graph load times, stage times per photo and warm, decoder times per use, working set and private bytes, with all models loaded on DirectML | `measure_pipeline_cost.py` |
 | `cost_directml_gpu_memory.json` | Peak dedicated and shared GPU memory and the samples of that run | `run_with_gpu_memory.ps1` |
+| `birefnet_memory_phases.json` | GPU memory of the BiRefNet DirectML session per phase, and the refused arena shrinkage run options | `measure_birefnet_memory_phases.py` |
+| `birefnet_load_time.json` | BiRefNet session creation time per graph optimization level and with a saved optimized graph | `measure_birefnet_load_time.py` |
+| `gpu_reset_events.json` | Windows System events 4101 and `nvlddmkm` 153 (display driver resets) of 2026-10-21 | `Get-WinEvent` (MVP report, section 9) |

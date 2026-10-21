@@ -1,0 +1,101 @@
+{
+  "source": "Windows System event log: Display event 4101 (display driver stopped responding and recovered) and nvlddmkm event 153, 2026-10-21 15:00 to 17:30 local time",
+  "events": [
+    {
+      "time": "2026-10-21T16:02:03",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:03:03",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:03:07",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:03:08",
+      "id": 4101,
+      "provider": "Display",
+      "message": "显示器驱动程序 nvlddmkm 已停止响应，并且已成功恢复。"
+    },
+    {
+      "time": "2026-10-21T16:53:11",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:54:11",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:54:14",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:54:16",
+      "id": 4101,
+      "provider": "Display",
+      "message": "显示器驱动程序 nvlddmkm 已停止响应，并且已成功恢复。"
+    },
+    {
+      "time": "2026-10-21T16:54:56",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:55:56",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:56:00",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:56:01",
+      "id": 4101,
+      "provider": "Display",
+      "message": "显示器驱动程序 nvlddmkm 已停止响应，并且已成功恢复。"
+    },
+    {
+      "time": "2026-10-21T16:57:43",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:58:43",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:58:47",
+      "id": 153,
+      "provider": "nvlddmkm",
+      "message": ""
+    },
+    {
+      "time": "2026-10-21T16:58:48",
+      "id": 4101,
+      "provider": "Display",
+      "message": "显示器驱动程序 nvlddmkm 已停止响应，并且已成功恢复。"
+    }
+  ]
+}

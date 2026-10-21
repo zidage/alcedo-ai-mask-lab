@@ -1,0 +1,57 @@
+{
+  "onnxruntime": "1.24.4",
+  "graph": "build/tmp/explore/e2/onnx_fp16/lite/subject_matte.onnx",
+  "photo": "DSC_1535.jpg",
+  "records": [
+    {
+      "phase": "before load",
+      "ms": null,
+      "dedicated_mb": 0,
+      "shared_mb": 0
+    },
+    {
+      "phase": "session load",
+      "ms": 7860.2,
+      "dedicated_mb": 227,
+      "shared_mb": 180
+    },
+    {
+      "phase": "run 1",
+      "ms": 781.4,
+      "dedicated_mb": 3226,
+      "shared_mb": 206
+    },
+    {
+      "phase": "run 2",
+      "ms": 148.2,
+      "dedicated_mb": 3226,
+      "shared_mb": 234
+    },
+    {
+      "phase": "run with arena shrinkage gpu:0",
+      "error": "[ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Did not find an arena based allocator registered for device-id combination in the memory arena shrink list: gpu:0"
+    },
+    {
+      "phase": "run with arena shrinkage DML:0",
+      "error": "[ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Unsupported device specified in the memory arena shrink list: DML"
+    },
+    {
+      "phase": "session released",
+      "ms": null,
+      "dedicated_mb": 107,
+      "shared_mb": 164
+    },
+    {
+      "phase": "session load again",
+      "ms": 7500.3,
+      "dedicated_mb": 230,
+      "shared_mb": 218
+    },
+    {
+      "phase": "run after load again",
+      "ms": 63865.7,
+      "dedicated_mb": 3227,
+      "shared_mb": 428
+    }
+  ]
+}

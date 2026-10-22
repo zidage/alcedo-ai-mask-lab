@@ -18,7 +18,9 @@ desktop UI. The [macOS Core ML verification](docs/exploration/macos_coreml_verif
 models of the set meet the output criteria on an Apple M4; the ONNX Runtime Core ML provider does
 not run the set as it is, and ONNX Runtime 1.24 (the version of Alcedo Studio) computes the SAM 2.1
 tiny encoder wrongly (microsoft/onnxruntime#29071, fixed in 1.28.0). The macOS decisions are U15.
-Open: the user check by eye.
+Open: the user check by eye. The section
+[Final selection and MVP architecture](#final-selection-and-mvp-architecture-reference-for-alcedo-studio)
+gives the summary to port the AI Mask into Alcedo Studio.
 
 ## Main project
 
@@ -32,6 +34,138 @@ Open: the user check by eye.
 
 The production integration (sidecar inference, C++ client, editor UI) is done in Alcedo Studio.
 This repository decides the models and the interaction, and proves them in Python.
+
+## Final selection and MVP architecture (reference for Alcedo Studio)
+
+This section is the summary to port the AI Mask into Alcedo Studio. It contains no new
+measurements: each value comes from the
+[acceptance record](docs/exploration/acceptance_ai_mask_model_set.md), the
+[MVP report](docs/exploration/mvp_ai_mask.md), and the
+[macOS Core ML report](docs/exploration/macos_coreml_verification.md). The reference code is
+[`scripts/poc/ai_mask_mvp/mask_pipeline.py`](scripts/poc/ai_mask_mvp/mask_pipeline.py) (no UI);
+the PySide6 UI [`ai_mask_app.py`](scripts/poc/ai_mask_mvp/ai_mask_app.py) only calls it.
+
+### Models and runtime per platform
+
+| Model (function) | Windows: ONNX Runtime DirectML | macOS: native Core ML (U15) | License |
+| --- | --- | --- | --- |
+| SAM 2.1 Hiera tiny image encoder (F3 to F6) | `point_encoder.onnx`, float32, 109.4 MB | `point_encoder.mlmodelc`, float32, compute units ALL, 134.3 MB | Apache-2.0 |
+| SAM 2.1 tiny prompt encoder and mask decoder (F3 to F6) | `point_decoder.onnx`, float32, 21.2 MB | `point_decoder.mlmodelc`, float32, **CPU_ONLY**, 21.1 MB; point count N = 1 to 64 | Apache-2.0 |
+| People and sky head, P1 run 2, epoch 15 (F3, F4a) | `people_sky_head.onnx` and `people_sky_head.json` (thresholds), float32, 1.1 MB | `people_sky_head.mlmodelc`, float32, ALL, 1.1 MB | Own model (COCO 2017, Open Images V7) |
+| S3OD `s3od-synth` (F1, F2) | `subject_masks.onnx`: attention in 8 chained query chunks (`com.microsoft.MultiHeadAttention`), float16, layer 0 attention float32, 219.3 MB | `s3od.mlmodelc`: `float16_embeddings_attention_float32` (patch embedding and encoder attention float32, other ops float16), ALL, 271.2 MB | MIT; DINOv3 License for the encoder (ship the license text with the weights) |
+
+- The native Core ML models have the same input names, output names, and shapes as the ONNX
+  graphs. The pipeline code is the same on both platforms.
+- The SHA-256 values are in the acceptance record, section 1 (ONNX), and in
+  `results/macos_coreml/native_*_convert.json` (Core ML). The export and conversion commands are
+  in [`scripts/ai_models/sam2/`](scripts/ai_models/sam2/README.md),
+  [`scripts/poc/people_sky_head/`](scripts/poc/people_sky_head/README.md),
+  [`scripts/ai_models/s3od/`](scripts/ai_models/s3od/README.md), and
+  [`scripts/ai_models/coreml/`](scripts/ai_models/coreml/README.md).
+- Do not use the ONNX Runtime Core ML execution provider on macOS: it runs S3OD on the CPU (7.9 s,
+  10.3 GB), and the decoder stops the process in the MLProgram format.
+- Use ONNX Runtime 1.28.0 or later. ONNX Runtime 1.24.4 to 1.27.0 (Alcedo Studio uses 1.24,
+  `ort` 2.0.0-rc.12 with `api-24`) fold the two `If` nodes of the SAM 2.1 tiny encoder into freed
+  memory (microsoft/onnxruntime#29071). On the Mac the encoder output was wrong in every process;
+  on Windows the result depends on the memory reuse.
+- ONNX Runtime session settings of the MVP: one execution provider per session and no other
+  provider after an error; 4 intra-op CPU threads, 1 inter-op thread; CPU memory arena off;
+  DirectML with sequential execution and memory patterns off.
+- Core ML: load compiled `.mlmodelc` models, as Alcedo Studio loads its SigLIP2 models
+  (`rust/puerh_mind/src/service/coreml_clip.rs`, `coreml` crate), with a compute units setting per
+  model. On the GPU, Core ML prepares the decoder again for each new point count (about 52 ms); on
+  the CPU the decoder takes about 30 ms for each call.
+
+### Data flow
+
+```text
+Open the AI Mask tool on a photo
+  photo -> 8-bit RGB, EXIF orientation applied -> long edge at most 4096 px (Lanczos)
+        -> stretch to 1024 x 1024, ImageNet mean and std
+        -> SAM 2.1 encoder (once per photo)
+           -> image_embed [1,256,64,64], high_res_feats_0 [1,32,256,256], high_res_feats_1 [1,64,128,128]
+        -> head(image_embed) (once per photo)
+           -> sky_logits, center_logits, center_offset, log_size [1,C,64,64], presence_logits [1,2]
+
+Sky      presence (sigmoid of presence_logits[0]) < 0.4232 -> "not found"
+         else 8-connected regions of cells with sky probability >= 0.5 and >= 3 cells
+         -> 3 most probable cell centers per region -> decoder per region -> union of the masks
+People   presence (presence_logits[1]) < 0.5332 -> "not found"
+         else decode_people: 3 x 3 local maxima of the center heatmap, top 20, score >= 0.05,
+         box = center + offset, size = exp(log_size), boxes with IoU >= 0.5 with a higher box removed
+         -> People list = boxes with score >= 0.3132 -> one box prompt per person (clipped to the
+         photo) -> decoder per person -> one person or the union of all
+Stroke   4 points at equal spacing along the pointer path (photo pixels, both ends); a click = 1 point
+Box      2 corners (labels 2, 3), always first in the prompt; a new box replaces the box
+Add/sub  label 1 or 0 (Alt); each interaction decodes ALL points and the box of the selection in
+         one decoder call, with the previous selected logits as mask_input (has_mask_input = 1)
+Subject  letterbox: long edge 1024 (bilinear), centered zero padding, ImageNet mean and std
+         -> S3OD -> masks [1,3,1024,1024], iou_scores [1,3] (both after the sigmoid)
+         -> the mask with the largest iou_score -> remove the padding -> alpha (once per photo)
+Background = 1 - Subject alpha (no model run)
+```
+
+Rules of the mask outputs:
+
+| Item | Rule |
+| --- | --- |
+| Decoder prompt coordinates | Normalized photo coordinates x 1024 (the encoder input is stretched, so x and y scale separately) |
+| Decoder mask selection, box or several points | Token 0 when its stability (area of logits > 0.05 / area of logits > -0.05) is >= 0.98, else the token 1 to 3 with the best `iou_predictions`; logits clipped to +-32 |
+| Decoder mask selection, one point without a box (click) | The token 1 to 3 with the best `iou_predictions`; the three tokens, sorted by area, are the levels of `[` and `]` (no model run) |
+| SAM 2.1 mask at the photo size | 256 x 256 logits, bilinear to the photo size, threshold 0 |
+| S3OD alpha at the photo size | Bilinear with antialiasing (PyTorch `interpolate`, `align_corners=False`), clipped to [0, 1] |
+| Edge, Feather (F8) | Edge: dilate (> 0) or erode (< 0) by \|edge\| px with alternating 3 x 3 cross and square steps; Feather: Gaussian blur, sigma in px. No edge post-processing (U3) |
+
+The thresholds come from `people_sky_head.json` (best F1 on COCO validation). The decoder state of
+a selection is: all points and labels, the box, the selected logits of the last call, and the
+click levels.
+
+### Lifecycle and memory
+
+- Load all four models when the AI Mask tool opens. The encoder and the head run once per photo;
+  the Subject alpha is computed at the first Subject or Background selection and kept for the
+  photo. U6 asks to release the models when the user goes back to adjusting the photo; the MVP
+  does not do this.
+- Memory with all models loaded: Windows 2,666 MB dedicated GPU memory (budget 3 GB, U6); macOS
+  3,190 MB peak physical footprint of the Python process (value 3.5 GB, U15). The macOS value
+  includes the Python runtime, PyTorch, and the photo arrays of the MVP.
+- In the MVP UI, the model jobs run in one worker thread with a job queue, and the results go to the
+  UI thread with a queued signal. coremltools predictions in a PySide `QThread` stopped the
+  process (SIGSEGV); this is a Python binding problem, but keep all Core ML calls of a model on one
+  worker thread.
+
+### Cost of the MVP pipeline
+
+All models loaded in one process, warm p50 (records:
+`results/subject_alternatives/mvp_pipeline_s3od_mha_chunk8_float16_cost.json`,
+`results/macos_coreml/mvp_pipeline_native_ALL_decoder_CPU_ONLY_cost.json`):
+
+| Stage | Windows, RTX 3080 Laptop, DirectML | macOS, Apple M4, native Core ML |
+| --- | ---: | ---: |
+| Session load: encoder, decoder, head, S3OD | 2,623, 249, 112, 910 ms | 1,197, 69, 9, 43 ms (a new process with one model: 0.8 to 1.7 s) |
+| Read and scale a 4096 px photo | 65.9 ms | 29 ms |
+| Encoder (once per photo) | 70.5 ms | 191 ms |
+| Head (once per photo) | 2.0 ms | 2.1 ms |
+| Decoder: box; 10 points with `mask_input` | 23.2; 22.2 ms | 33.5; 34.1 ms |
+| S3OD (once per photo) | 191.1 ms | 531 ms |
+
+### Port checks
+
+The port is correct when it gives the results of the MVP on the 14 quality photos.
+[`compare_providers.py`](scripts/poc/ai_mask_mvp/compare_providers.py) has the checks of
+issue #8 against ONNX Runtime 1.31.0 on the CPU: the same Sky and People presence decisions, the
+same People list, the same number of sky regions, SAM 2.1 masks with IoU >= 0.999 at the photo
+size, the S3OD alpha > 0.5 with IoU >= 0.998 on the 1024 grid, and no NaN or infinite output. The
+checks of the MVP against the measurement scripts are in the MVP report, section 3.3.
+
+### Open items for the port
+
+- The user check of the interaction by eye on Windows and macOS (U1).
+- Rules that are not done: Subject "not found" (F1), the People list order and threshold (F4a),
+  the decoder point limit of a long selection (the Core ML decoder takes 1 to 64 points; each
+  stroke adds 4).
+- User decisions: F7 and F9 (O1), the text prompts (O3), the training data rule U13, and the S3OD
+  float32 tolerance (acceptance record, section 6).
 
 ## 1. Background
 
@@ -105,7 +239,7 @@ Principle: **SAM 2.1 is the only interactive model.** A task model either makes 
 | --- | --- | --- | --- | --- |
 | F5, F6 (and the final mask of F3, F4a) | SAM 2.1 Hiera tiny | Apache-2.0 | 130.6 MB (encoder 109.4 MB, decoder 21.2 MB, float32) | E1, E3. Mask logits are 256 x 256: one logit cell is 16 px at the 4096 px application input |
 | F1, F2 | **S3OD `s3od-synth`** (U14), attention in 8 chained query chunks, float16 | MIT; DINOv3 License for the encoder (the license text must go with the weights); training data lineage: proposal U13 | 219.3 MB | [Acceptance record](docs/exploration/acceptance_ai_mask_model_set.md): 191 ms, 1,358 MB, 1.1 s load, 0 driver resets in 88 sessions; the set with SAM 2.1 tiny and the head has a peak of 2,666 MB (U6 met). History: E2 measured BiRefNet lite at 1024 px (float16: 175 ms, 3.2 GB). The 512 px variant is not measured. Alternative measured in issue #6: S3OD `s3od-synth` (MIT, DINOv3 License; 433.8 MB float32): 643 ms, 3.5 GB, 1.0 s load, 0 driver resets in 70 sessions (BiRefNet: 5 in 11), equal or better masks on the 14 photos with hard edges ([Subject alternatives report](docs/exploration/subject_alternatives.md)). With the attention in 8 chained query chunks (`com.microsoft.MultiHeadAttention` per chunk, float16, report section 5.5): 191 ms, 1,358 MB; the MVP pipeline with this S3OD graph has a peak of 2,666 MB (with BiRefNet: 4,528 MB). IS-Net general-use (code Apache-2.0, weights without a license statement; 88.2 MB float16): 14 ms, 437 MB, MVP pipeline peak 1,748 MB, 0 driver resets in 23 sessions, but worse masks than BiRefNet and S3OD on 7 of 14 photos (mean subject recall 0.80; report section 11). Alibaba universal matting (Apache License 2.0; 173.3 MB float32; reads the photo at its size): 116 ms and 2,678 MB at 4096 px, 0 driver resets in 46 sessions, but MVP pipeline peak 3,982 MB (U6 not met) and worse masks than BiRefNet and S3OD on 5 of 14 photos (mean subject recall 0.84; report section 12). Of the three candidates, the report recommends S3OD |
-| F3, F4a localization | A small head on the SAM 2.1 image features (section 5) | Own model; the training data license must permit commercial use | Less than 1 MB (estimate) | [P0](docs/exploration/p0_sam_feature_localization.md): `image_embed` holds the class information (AUC 0.994 to 1.000); prototypes without training pass for sky, not for people. Step 1 (trained head) open. Person alternative without training: YOLOX-Nano (Apache-2.0) |
+| F3, F4a localization | **People and sky head** on the SAM 2.1 tiny `image_embed`, P1 run 2, epoch 15 (section 5) | Own model; training data COCO 2017 and Open Images V7 | 1.1 MB | [P0](docs/exploration/p0_sam_feature_localization.md): `image_embed` holds the class information (AUC 0.994 to 1.000). [P1](docs/exploration/p1_people_sky_head.md): run 2 is used (section 5). Person alternative without training: YOLOX-Nano (Apache-2.0) |
 
 Total download of the accepted set: 351 MB (SAM 2.1 tiny 130.6 MB, head 1.1 MB, S3OD 219.3 MB).
 

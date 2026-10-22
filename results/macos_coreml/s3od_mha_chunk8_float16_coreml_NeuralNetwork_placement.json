@@ -1,0 +1,99 @@
+{
+  "model": "s3od",
+  "photo": "DSC_1535.jpg",
+  "graph": "build/tmp/explore/s3od/onnx_mha_chunk8/float16/subject_masks.onnx",
+  "provider": "coreml",
+  "provider_settings": [
+    [
+      "CoreMLExecutionProvider",
+      {
+        "ModelFormat": "NeuralNetwork",
+        "MLComputeUnits": "ALL"
+      }
+    ],
+    "CPUExecutionProvider"
+  ],
+  "onnxruntime": "1.24.4",
+  "runs": 2,
+  "graph_operators": {
+    "Reshape": 249,
+    "Add": 197,
+    "Mul": 165,
+    "Transpose": 126,
+    "MultiHeadAttention": 88,
+    "ReduceMax": 77,
+    "MatMul": 66,
+    "Concat": 57,
+    "Slice": 48,
+    "Conv": 36,
+    "Split": 33,
+    "LayerNormalization": 22,
+    "Neg": 22,
+    "Cast": 22,
+    "Relu": 20,
+    "Div": 11,
+    "Erf": 11,
+    "Resize": 4,
+    "ConvTranspose": 3,
+    "Gemm": 2,
+    "Sigmoid": 2,
+    "Tile": 1,
+    "Cos": 1,
+    "Sin": 1,
+    "ReduceMean": 1
+  },
+  "coreml_capability": [
+    {
+      "partitions": 0,
+      "graph_nodes": 1241,
+      "coreml_nodes": 0
+    },
+    {
+      "partitions": 0,
+      "graph_nodes": 1261,
+      "coreml_nodes": 0
+    },
+    {
+      "partitions": 0,
+      "graph_nodes": 1261,
+      "coreml_nodes": 0
+    }
+  ],
+  "executed_nodes": {
+    "CPUExecutionProvider": 1734
+  },
+  "kernel_ms_per_run": {
+    "CPUExecutionProvider": 8123.6
+  },
+  "cpu_nodes_per_operator": {
+    "Cast": 525,
+    "Reshape": 314,
+    "Mul": 165,
+    "Add": 132,
+    "MultiHeadAttention": 88,
+    "ReduceMax": 77,
+    "Concat": 57,
+    "Gemm": 56,
+    "Transpose": 49,
+    "Slice": 48,
+    "Unsqueeze": 44,
+    "Split": 33,
+    "Conv": 26,
+    "LayerNormalization": 22,
+    "Neg": 22,
+    "Max": 20,
+    "MatMul": 11,
+    "Div": 11,
+    "Erf": 11,
+    "FusedConv": 10,
+    "Resize": 4,
+    "ConvTranspose": 3,
+    "Tile": 1,
+    "Sin": 1,
+    "Cos": 1,
+    "ReduceMean": 1,
+    "FusedGemm": 1,
+    "Sigmoid": 1
+  },
+  "profile": "build/tmp/macos_coreml/profiles/s3od_float16_coreml_NeuralNetwork_2026-10-22_14-24-49.json"
+}

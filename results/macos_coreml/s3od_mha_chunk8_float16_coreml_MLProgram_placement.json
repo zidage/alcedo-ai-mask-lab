@@ -1,0 +1,69 @@
+{
+  "model": "s3od",
+  "photo": "DSC_1535.jpg",
+  "graph": "build/tmp/explore/s3od/onnx_mha_chunk8/float16/subject_masks.onnx",
+  "provider": "coreml",
+  "provider_settings": [
+    [
+      "CoreMLExecutionProvider",
+      {
+        "ModelFormat": "MLProgram",
+        "MLComputeUnits": "ALL"
+      }
+    ],
+    "CPUExecutionProvider"
+  ],
+  "onnxruntime": "1.24.4",
+  "runs": 2,
+  "graph_operators": {
+    "Reshape": 249,
+    "Add": 197,
+    "Mul": 165,
+    "Transpose": 126,
+    "MultiHeadAttention": 88,
+    "ReduceMax": 77,
+    "MatMul": 66,
+    "Concat": 57,
+    "Slice": 48,
+    "Conv": 36,
+    "Split": 33,
+    "LayerNormalization": 22,
+    "Neg": 22,
+    "Cast": 22,
+    "Relu": 20,
+    "Div": 11,
+    "Erf": 11,
+    "Resize": 4,
+    "ConvTranspose": 3,
+    "Gemm": 2,
+    "Sigmoid": 2,
+    "Tile": 1,
+    "Cos": 1,
+    "Sin": 1,
+    "ReduceMean": 1
+  },
+  "coreml_capability": [
+    {
+      "partitions": 100,
+      "graph_nodes": 1241,
+      "coreml_nodes": 1127
+    }
+  ],
+  "executed_nodes": {
+    "CPUExecutionProvider": 340,
+    "CoreMLExecutionProvider": 100
+  },
+  "kernel_ms_per_run": {
+    "CPUExecutionProvider": 1680.9,
+    "CoreMLExecutionProvider": 381.3
+  },
+  "cpu_nodes_per_operator": {
+    "Cast": 227,
+    "MultiHeadAttention": 88,
+    "Neg": 22,
+    "Tile": 1,
+    "Cos": 1,
+    "Sin": 1
+  },
+  "profile": "build/tmp/macos_coreml/profiles/s3od_float16_coreml_MLProgram_2026-10-22_14-22-41.json"
+}

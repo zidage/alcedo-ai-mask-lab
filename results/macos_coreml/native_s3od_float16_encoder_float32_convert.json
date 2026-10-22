@@ -1,0 +1,58 @@
+{
+  "step": "issue #8: native Core ML model",
+  "model": "s3od",
+  "precision": "float16_encoder_float32",
+  "float32_ops": [
+    "matmul:matmul_0:inner.encoder.model.0.attention.attn_output.1",
+    "softmax:softmax_0:inner.encoder.model.0.attention.attn_output.1",
+    "matmul:attn_output.1:inner.encoder.model.0.attention.attn_output.1"
+  ],
+  "float32_op_types": [],
+  "float32_scopes": [],
+  "coremltools": "9.0",
+  "torch": "2.7.0",
+  "format": "mlprogram",
+  "minimum_deployment_target": "macOS15",
+  "inputs": {
+    "pixel_values": [
+      "1",
+      "3",
+      "1024",
+      "1024"
+    ]
+  },
+  "outputs": [
+    "masks",
+    "iou_scores"
+  ],
+  "checkpoint": {
+    "path": "build/tmp/explore/weights/s3od_synth/s3od.pt",
+    "bytes": 464526126,
+    "sha256": "c67f26415ad5493edaac48c8f2a08fecb1d9933aed2ed473e8ad713b93b8e5f3"
+  },
+  "mlpackage": {
+    "path": "build/tmp/macos_coreml/variants/float16_encoder_float32/s3od.mlpackage",
+    "bytes": 375134797,
+    "sha256": "8cb2548137c37817395a9cc4c72c535aaf0b8dcfbb728b1d4cab45e4ba1554e7"
+  },
+  "mlmodelc": {
+    "path": "build/tmp/macos_coreml/variants/float16_encoder_float32/s3od.mlmodelc",
+    "bytes": 375148958,
+    "sha256": "5dd45dbce56c6f72cae042f98e2824198b83c4370d6e70a69d8a6bb5341ba62d"
+  },
+  "convert_seconds": 5.7,
+  "max_abs_difference_against_pytorch_float32": {
+    "CPU_ONLY": {
+      "masks": 0.574753999710083,
+      "iou_scores": 0.0015012621879577637
+    },
+    "ALL": {
+      "masks": 0.04960352182388306,
+      "iou_scores": 0.0018496513366699219
+    }
+  },
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.7"
+  }
+}

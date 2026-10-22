@@ -4,11 +4,18 @@
 Input:  --photos (the quality photos at the application input size), --strokes-report (the E3
         strokes report: its `full_stroke_then_strokes` sequences are replayed as the stroke, add,
         and subtract interactions), the graphs of mask_pipeline.GraphPaths.default (or
-        --subject-onnx), --provider (directml for the cost measurement).
+        --subject-onnx), --provider (directml for the cost measurement on Windows, coreml or
+        coreml_native on macOS, issue #8), --coreml-model-format (provider coreml; default
+        NeuralNetwork, the production format), --coreml-compute-units (provider coreml_native;
+        default ALL), --subject-coreml (provider coreml_native: the compiled Subject model;
+        default mask_pipeline.GraphPaths.coreml_models).
 Output: --out (JSON): graph load times, per stage the time of the first call, the median and the
-        maximum over the photos, the warm p50 / p95 / maximum on the first photo, the peak working
-        set and the private bytes. Run it under scripts/ai_models/sam2/run_with_gpu_memory.ps1
-        for the dedicated and shared GPU memory of the process.
+        maximum over the photos, the warm p50 / p95 / maximum on the first photo, and the memory.
+        Windows: the peak working set and the private bytes; run it under
+        scripts/ai_models/sam2/run_with_gpu_memory.ps1 for the dedicated and shared GPU memory of
+        the process. macOS: the physical footprint and its lifetime peak (macos_records.py,
+        unified memory); run it under scripts/ai_models/sam2/run_with_memory_sampling.py for the
+        system memory.
 
 Sequence per photo (all graphs stay loaded): read and scale the photo, encoder, head, Sky,
 People (one decoder run per listed person), the stroke sequence of E3 (one decoder run per
@@ -47,6 +54,14 @@ def spread(values: list[float]) -> dict:
 
 
 def memory() -> dict:
+    if sys.platform == "darwin":
+        import macos_records  # scripts/ai_models/sam2, on sys.path by mask_pipeline
+
+        footprint = macos_records.process_footprint()
+        return {"phys_footprint_bytes": int(footprint["phys_footprint_mb"] * 2**20),
+                "lifetime_max_phys_footprint_bytes":
+                    int(footprint["lifetime_max_phys_footprint_mb"] * 2**20),
+                "resident_bytes": int(footprint["resident_mb"] * 2**20)}
     import psutil
 
     info = psutil.Process().memory_info()
@@ -78,7 +93,8 @@ def main() -> int:
     parser.add_argument("--photos", required=True)
     parser.add_argument("--strokes-report", required=True)
     parser.add_argument("--subject-onnx", default=str(defaults.subject_onnx))
-    parser.add_argument("--provider", choices=sorted(mp.PROVIDERS), default="directml")
+    mp.add_provider_arguments(parser, default="directml")
+    parser.add_argument("--subject-coreml", default="")
     parser.add_argument("--threads", type=int, default=4)
     parser.add_argument("--warm-runs", type=int, default=20)
     parser.add_argument("--out", required=True)
@@ -86,8 +102,11 @@ def main() -> int:
 
     paths = mp.GraphPaths.default()
     paths.subject_onnx = Path(args.subject_onnx)
+    if args.subject_coreml:
+        paths.coreml_models["subject_matte"] = Path(args.subject_coreml)
     memory_before = memory()
-    pipeline = mp.MaskPipeline(paths, provider=args.provider, threads=args.threads)
+    pipeline = mp.MaskPipeline(paths, provider=args.provider, threads=args.threads,
+                               **mp.pipeline_provider_options(args))
     memory_after_load = memory()
     strokes = fl.read_json(Path(args.strokes_report))
     stroke_images = {Path(entry["file"]).stem: entry for entry in strokes["images"]}
@@ -177,10 +196,11 @@ def main() -> int:
         "decoder_strokes_and_clicks": {k: spread(v) for k, v in decoder_by_purpose.items()},
         "per_photo": per_photo, "machine": fl.machine_description(),
     })
+    peak = memory_at_end.get("peak_working_set_bytes",
+                             memory_at_end.get("lifetime_max_phys_footprint_bytes", 0))
     print(f"[done] warm encoder {warm['encoder'].get('p50_ms')} ms, decoder box "
           f"{warm['decoder_box'].get('p50_ms')} ms, {subject} {warm[subject].get('p50_ms')} ms; "
-          f"peak working set {memory_at_end['peak_working_set_bytes'] / 2**20:.0f} MB -> "
-          f"{args.out}")
+          f"peak memory {peak / 2**20:.0f} MB -> {args.out}")
     return 0
 
 

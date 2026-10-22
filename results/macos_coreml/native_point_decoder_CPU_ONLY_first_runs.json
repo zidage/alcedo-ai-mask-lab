@@ -1,0 +1,152 @@
+{
+  "graph_name": "point_decoder",
+  "graph": "build/tmp/explore/coreml/float32/point_decoder.mlmodelc",
+  "provider": "coreml_native",
+  "provider_settings": [
+    {
+      "runtime": "Core ML, compiled model (coremltools CompiledMLModel)",
+      "compute_units": "CPU_ONLY"
+    }
+  ],
+  "onnxruntime": "1.24.4",
+  "photo": "DSC_1535.jpg",
+  "pause_seconds": 5.0,
+  "window": [
+    "2026-10-22T16:29:19",
+    "2026-10-22T16:30:28"
+  ],
+  "first_runs": 9,
+  "failed_runs": 0,
+  "runs_with_non_finite_outputs": 0,
+  "runs_with_crash_reports": 0,
+  "crash_reports_recorded": true,
+  "runs": [
+    {
+      "load_ms": 1243.3,
+      "first_run_ms": 31.3,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 426.4,
+      "lifetime_max_phys_footprint_mb": 426.4,
+      "resident_mb": 519.2,
+      "index": 1,
+      "start": "2026-10-22T16:29:19",
+      "end": "2026-10-22T16:29:21",
+      "seconds": 2.1,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1243.3,
+      "first_run_ms": 31.2,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 426.7,
+      "lifetime_max_phys_footprint_mb": 426.7,
+      "resident_mb": 519.5,
+      "index": 2,
+      "start": "2026-10-22T16:29:26",
+      "end": "2026-10-22T16:29:29",
+      "seconds": 2.1,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1235.2,
+      "first_run_ms": 31.4,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 426.9,
+      "lifetime_max_phys_footprint_mb": 426.9,
+      "resident_mb": 519.7,
+      "index": 3,
+      "start": "2026-10-22T16:29:34",
+      "end": "2026-10-22T16:29:36",
+      "seconds": 2.1,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1232.9,
+      "first_run_ms": 31.5,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 426.4,
+      "lifetime_max_phys_footprint_mb": 426.4,
+      "resident_mb": 519.2,
+      "index": 4,
+      "start": "2026-10-22T16:29:41",
+      "end": "2026-10-22T16:29:43",
+      "seconds": 2.1,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1228.1,
+      "first_run_ms": 31.8,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 426.3,
+      "lifetime_max_phys_footprint_mb": 426.3,
+      "resident_mb": 519.0,
+      "index": 5,
+      "start": "2026-10-22T16:29:48",
+      "end": "2026-10-22T16:29:50",
+      "seconds": 2.1,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1232.2,
+      "first_run_ms": 31.3,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 426.7,
+      "lifetime_max_phys_footprint_mb": 426.7,
+      "resident_mb": 519.4,
+      "index": 6,
+      "start": "2026-10-22T16:29:55",
+      "end": "2026-10-22T16:29:57",
+      "seconds": 2.1,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1228.9,
+      "first_run_ms": 31.2,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 426.4,
+      "lifetime_max_phys_footprint_mb": 426.4,
+      "resident_mb": 519.1,
+      "index": 7,
+      "start": "2026-10-22T16:30:02",
+      "end": "2026-10-22T16:30:04",
+      "seconds": 2.1,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1226.1,
+      "first_run_ms": 31.5,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 426.5,
+      "lifetime_max_phys_footprint_mb": 426.5,
+      "resident_mb": 519.2,
+      "index": 8,
+      "start": "2026-10-22T16:30:09",
+      "end": "2026-10-22T16:30:11",
+      "seconds": 2.1,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1226.8,
+      "first_run_ms": 31.0,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 426.7,
+      "lifetime_max_phys_footprint_mb": 426.7,
+      "resident_mb": 519.5,
+      "index": 9,
+      "start": "2026-10-22T16:30:16",
+      "end": "2026-10-22T16:30:18",
+      "seconds": 2.1,
+      "exit_code": 0,
+      "crash_reports": []
+    }
+  ],
+  "crash_reports": []
+}

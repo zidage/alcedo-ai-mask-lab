@@ -1,0 +1,2476 @@
+{
+  "step": "issue #8: MVP outputs of two providers compared",
+  "reference": {
+    "dir": "build/tmp/macos_coreml/outputs_cpu_onnxruntime_1_31_0",
+    "provider": "cpu",
+    "provider_settings": [
+      "CPUExecutionProvider"
+    ],
+    "graphs": {
+      "point_encoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_encoder.onnx",
+        "bytes": 109381695,
+        "sha256": "17a554b420d3c51a109567f784ff3792b354c78dc8c2c09c585403329b412d61",
+        "load_ms": 282.6
+      },
+      "point_decoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_decoder.onnx",
+        "bytes": 21188206,
+        "sha256": "6f9a0ef2c217a0abccc8b0c01e631c42c6a78a2038a7944cc7fcb4f536439278",
+        "load_ms": 40.6
+      },
+      "people_sky_head": {
+        "path": "build/tmp/explore/p1/colab_run2_coco_openimages/export/people_sky_head.onnx",
+        "bytes": 1119131,
+        "sha256": "e02f2a1eaace94e0efe2b3c8db0a0391be210b477a95e49063e80758f12abf35",
+        "load_ms": 2.4
+      },
+      "subject_matte": {
+        "path": "build/tmp/explore/s3od/onnx_mha_chunk8/float32/subject_masks.onnx",
+        "bytes": 435196652,
+        "sha256": "d85a33e3307e2caf6f80c0fa11de44ba2bc328ba158b62d4bcaf38a07b6f3520",
+        "load_ms": 155.2
+      }
+    }
+  },
+  "candidate": {
+    "dir": "build/tmp/macos_coreml/outputs_cpu",
+    "provider": "cpu",
+    "provider_settings": [
+      "CPUExecutionProvider"
+    ],
+    "graphs": {
+      "point_encoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_encoder.onnx",
+        "bytes": 109381695,
+        "sha256": "17a554b420d3c51a109567f784ff3792b354c78dc8c2c09c585403329b412d61",
+        "load_ms": 313.7
+      },
+      "point_decoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_decoder.onnx",
+        "bytes": 21188206,
+        "sha256": "6f9a0ef2c217a0abccc8b0c01e631c42c6a78a2038a7944cc7fcb4f536439278",
+        "load_ms": 35.2
+      },
+      "people_sky_head": {
+        "path": "build/tmp/explore/p1/colab_run2_coco_openimages/export/people_sky_head.onnx",
+        "bytes": 1119131,
+        "sha256": "e02f2a1eaace94e0efe2b3c8db0a0391be210b477a95e49063e80758f12abf35",
+        "load_ms": 2.2
+      },
+      "subject_matte": {
+        "path": "build/tmp/explore/s3od/onnx_mha_chunk8/float32/subject_masks.onnx",
+        "bytes": 435196652,
+        "sha256": "d85a33e3307e2caf6f80c0fa11de44ba2bc328ba158b62d4bcaf38a07b6f3520",
+        "load_ms": 146.0
+      }
+    }
+  },
+  "onnxruntime": "1.24.4",
+  "passed": false,
+  "checks": {
+    "PresenceDecisionsEqual": {
+      "rule": "sky and people present and found equal",
+      "passed_photos": 13,
+      "photos": 14,
+      "passed": false
+    },
+    "PeopleListEqual": {
+      "rule": "listed ranks equal (number and order)",
+      "passed_photos": 12,
+      "photos": 14,
+      "passed": false
+    },
+    "SkyRegionsEqual": {
+      "rule": "number of sky regions equal",
+      "passed_photos": 13,
+      "photos": 14,
+      "passed": false
+    },
+    "MaskIoU": {
+      "rule": "IoU >= 0.999 at the photo size",
+      "masks": 211,
+      "masks_missing": 2,
+      "passed_masks": 112,
+      "minimum_iou": 0.8321312402771885,
+      "passed_photos": 3,
+      "photos": 14,
+      "passed": false
+    },
+    "SubjectAlphaIoU": {
+      "rule": "IoU of alpha > 0.5 >= 0.998 on the model grid",
+      "passed_photos": 14,
+      "minimum_iou": 1.0,
+      "photos": 14,
+      "passed": true
+    },
+    "OutputsFinite": {
+      "rule": "no NaN or infinite candidate output",
+      "passed_photos": 14,
+      "photos": 14,
+      "passed": true
+    }
+  },
+  "encoder_summary": {
+    "image_embed": {
+      "max_abs_difference": 0.11192378401756287,
+      "max_relative_error": 0.012518919614295392,
+      "minimum_cosine": 0.9999216352901895
+    },
+    "high_res_feats_0": {
+      "max_abs_difference": 0.01993003487586975,
+      "max_relative_error": 0.008375479064898791,
+      "minimum_cosine": 0.9999649309679726
+    },
+    "high_res_feats_1": {
+      "max_abs_difference": 0.12959856539964676,
+      "max_relative_error": 0.025493880002479475,
+      "minimum_cosine": 0.9996756177727736
+    }
+  },
+  "photos": [
+    {
+      "photo": "2088064441",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.04512166976928711,
+          "relative_error": 0.009136775198787913,
+          "cosine": 0.9999582637446752
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.017177477478981018,
+          "relative_error": 0.006520346783497392,
+          "cosine": 0.9999787427075089
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.11144310981035233,
+          "relative_error": 0.018533025731164224,
+          "cosine": 0.999828422323819
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.09729433059692383,
+        "center_logits": 0.053193092346191406,
+        "center_offset": 0.010206550359725952,
+        "log_size": 0.047197818756103516,
+        "presence_logits": 0.007320404052734375
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": false
+        }
+      },
+      "decisions_equal": false,
+      "presence_difference": {
+        "sky": 1.9431114196777344e-05,
+        "people": 4.410743713378906e-06
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1
+        ],
+        "reference_ranks": [],
+        "equal": false,
+        "boxes": [
+          20,
+          20
+        ],
+        "max_box_difference_cells": 0.012544631958007812,
+        "max_score_difference": 0.001766115427017212
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9998286398587674
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": null,
+          "note": "missing in one provider"
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__click_then_clicks__0",
+          "iou": 0.9980293801504837
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__click_then_clicks__1",
+          "iou": 0.9991883775667559
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__click_then_strokes__0",
+          "iou": 0.9980293801504837
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__click_then_strokes__1",
+          "iou": 0.9988165180269665
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__stroke_then_strokes__0",
+          "iou": 0.9497489593614556
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__stroke_then_strokes__1",
+          "iou": 0.9866261623383841
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__stroke_then_strokes__2",
+          "iou": 0.9932894144604935
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__full_stroke_then_strokes__0",
+          "iou": 0.9989180091368117
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__full_stroke_then_strokes__1",
+          "iou": 0.9990299549899115
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__full_stroke_then_strokes__2",
+          "iou": 0.999208152585554
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__full_stroke_then_strokes__3",
+          "iou": 0.9994361432196223
+        }
+      ],
+      "minimum_mask_iou": 0.9497489593614556,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          684,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 0.0001793503761291504,
+        "passed": true
+      }
+    },
+    {
+      "photo": "5761824892",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.029164016246795654,
+          "relative_error": 0.005874763853814333,
+          "cosine": 0.9999827445666986
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.015593528747558594,
+          "relative_error": 0.005016549005571015,
+          "cosine": 0.9999874186175571
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.07768222689628601,
+          "relative_error": 0.012001151884082534,
+          "cosine": 0.9999279838082474
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.11125850677490234,
+        "center_logits": 0.037453651428222656,
+        "center_offset": 0.008759468793869019,
+        "log_size": 0.02274501323699951,
+        "presence_logits": 0.005458950996398926
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "sky_found": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.0011710822582244873,
+        "people": 0.0001222565770149231
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          18,
+          18
+        ],
+        "max_box_difference_cells": 0.017303466796875,
+        "max_score_difference": 0.0006955116987228394
+      },
+      "sky_regions": {
+        "candidate": 0,
+        "reference": 0,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_clicks__0",
+          "iou": 0.9993531229785093
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_clicks__1",
+          "iou": 0.9997108335365058
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_strokes__0",
+          "iou": 0.9993531229785093
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_strokes__1",
+          "iou": 0.9991232432755665
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__stroke_then_strokes__0",
+          "iou": 0.9975434134292738
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__stroke_then_strokes__1",
+          "iou": 0.9997376715827446
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__full_stroke_then_strokes__0",
+          "iou": 0.9988127611481686
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kayak__click_then_clicks__0",
+          "iou": 0.9994293109949351
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kayak__click_then_strokes__0",
+          "iou": 0.9994293109949351
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kayak__stroke_then_strokes__0",
+          "iou": 0.9997501860858748
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kayak__full_stroke_then_strokes__0",
+          "iou": 0.9997431854252593
+        }
+      ],
+      "minimum_mask_iou": 0.9975434134292738,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          1024,
+          682
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 4.9591064453125e-05,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00326",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.10970463976264,
+          "relative_error": 0.012518919614295392,
+          "cosine": 0.9999216352901895
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.01979827880859375,
+          "relative_error": 0.007606332394876248,
+          "cosine": 0.9999710848299579
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.10485993325710297,
+          "relative_error": 0.022143560738428707,
+          "cosine": 0.9997548660329902
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.1781482696533203,
+        "center_logits": 0.06244850158691406,
+        "center_offset": 0.014622509479522705,
+        "log_size": 0.05181396007537842,
+        "presence_logits": 0.04885435104370117
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.002776920795440674,
+        "people": 6.616115570068359e-06
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1
+        ],
+        "reference_ranks": [
+          1
+        ],
+        "equal": true,
+        "boxes": [
+          7,
+          8
+        ],
+        "max_box_difference_cells": 0.05235481262207031,
+        "max_score_difference": 0.005801647901535034
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9996893673721298
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 0.9997185692198113
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__jacket__click_then_clicks__0",
+          "iou": 0.9994286892246076
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__jacket__click_then_strokes__0",
+          "iou": 0.9994286892246076
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__jacket__stroke_then_strokes__0",
+          "iou": 0.9994473238191153
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__jacket__full_stroke_then_strokes__0",
+          "iou": 0.9996547957919041
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_clicks__0",
+          "iou": 0.9994222158023978
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_strokes__0",
+          "iou": 0.9994222158023978
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__stroke_then_strokes__0",
+          "iou": 0.999498429867411
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__stroke_then_strokes__1",
+          "iou": 0.9995227732600314
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__full_stroke_then_strokes__0",
+          "iou": 0.9993873196290115
+        }
+      ],
+      "minimum_mask_iou": 0.9993873196290115,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          1024,
+          681
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 5.9545040130615234e-05,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00527",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.03716576099395752,
+          "relative_error": 0.008590495614436179,
+          "cosine": 0.9999631010184873
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.01592346280813217,
+          "relative_error": 0.0075128634373187505,
+          "cosine": 0.9999717798620961
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.08832456171512604,
+          "relative_error": 0.01939142991915236,
+          "cosine": 0.999812219138546
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.09973526000976562,
+        "center_logits": 0.04183053970336914,
+        "center_offset": 0.009181082248687744,
+        "log_size": 0.023581743240356445,
+        "presence_logits": 0.02695178985595703
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 2.1457672119140625e-06,
+        "people": 2.384185791015625e-07
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "reference_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "equal": true,
+        "boxes": [
+          20,
+          20
+        ],
+        "max_box_difference_cells": 0.004649162292480469,
+        "max_score_difference": 0.0017099082469940186
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 512.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9984688391125434
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 0.9987157534246576
+        },
+        {
+          "kind": "person",
+          "name": "person_rank2",
+          "iou": 0.9990092029800126
+        },
+        {
+          "kind": "person",
+          "name": "person_rank3",
+          "iou": 0.9982985963419821
+        },
+        {
+          "kind": "person",
+          "name": "person_rank4",
+          "iou": 0.9986210798005869
+        },
+        {
+          "kind": "person",
+          "name": "person_rank5",
+          "iou": 0.9979790324617911
+        },
+        {
+          "kind": "person",
+          "name": "person_rank6",
+          "iou": 0.9986110963856699
+        },
+        {
+          "kind": "person",
+          "name": "person_rank7",
+          "iou": 0.9984300115683358
+        },
+        {
+          "kind": "person",
+          "name": "person_rank8",
+          "iou": 0.9978046103183315
+        },
+        {
+          "kind": "person",
+          "name": "person_rank9",
+          "iou": 0.9987143431096827
+        },
+        {
+          "kind": "person",
+          "name": "person_rank10",
+          "iou": 0.9980765120752297
+        },
+        {
+          "kind": "person",
+          "name": "person_rank11",
+          "iou": 0.9995702467499911
+        },
+        {
+          "kind": "person",
+          "name": "person_rank12",
+          "iou": 0.9981863523010656
+        },
+        {
+          "kind": "person",
+          "name": "person_rank13",
+          "iou": 0.9985669930737998
+        },
+        {
+          "kind": "person",
+          "name": "person_rank14",
+          "iou": 0.9993102259010174
+        },
+        {
+          "kind": "person",
+          "name": "person_rank15",
+          "iou": 0.9595924104005622
+        },
+        {
+          "kind": "person",
+          "name": "person_rank16",
+          "iou": 0.9912037037037037
+        },
+        {
+          "kind": "person",
+          "name": "person_rank17",
+          "iou": 0.9994069488240229
+        },
+        {
+          "kind": "person",
+          "name": "person_rank18",
+          "iou": 0.9974079834110938
+        },
+        {
+          "kind": "person",
+          "name": "person_rank19",
+          "iou": 0.9985855728429985
+        },
+        {
+          "kind": "person",
+          "name": "person_rank20",
+          "iou": 0.9960956564177648
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_clicks__0",
+          "iou": 0.9999500309763726
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_strokes__0",
+          "iou": 0.9999500309763726
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__stroke_then_strokes__0",
+          "iou": 0.9999469602921223
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__full_stroke_then_strokes__0",
+          "iou": 0.9999484494276665
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tree__click_then_clicks__0",
+          "iou": 0.9990664145187931
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tree__click_then_strokes__0",
+          "iou": 0.9990664145187931
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tree__stroke_then_strokes__0",
+          "iou": 0.9981893535346672
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tree__full_stroke_then_strokes__0",
+          "iou": 0.9973766715720775
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tree__full_stroke_then_strokes__1",
+          "iou": 0.9987322868615803
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__click_then_clicks__0",
+          "iou": 0.9987826889980271
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__click_then_clicks__1",
+          "iou": 0.9992860985804742
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__click_then_strokes__0",
+          "iou": 0.9987826889980271
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__click_then_strokes__1",
+          "iou": 0.998003992015968
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__stroke_then_strokes__0",
+          "iou": 0.9990467293283255
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__stroke_then_strokes__1",
+          "iou": 0.9981079347128736
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__full_stroke_then_strokes__0",
+          "iou": 0.9993678565238227
+        }
+      ],
+      "minimum_mask_iou": 0.9595924104005622,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          682,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 0.00034248828887939453,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00562",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.08282770216464996,
+          "relative_error": 0.00895778243445994,
+          "cosine": 0.9999598844156633
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.016643941402435303,
+          "relative_error": 0.007586220238948011,
+          "cosine": 0.9999712267168605
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.12959856539964676,
+          "relative_error": 0.019364652550754015,
+          "cosine": 0.9998124933274827
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.101531982421875,
+        "center_logits": 0.05289793014526367,
+        "center_offset": 0.02337506413459778,
+        "log_size": 0.027329683303833008,
+        "presence_logits": 0.013156652450561523
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 8.046627044677734e-06,
+        "people": 0.0014343857765197754
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "reference_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "equal": false,
+        "boxes": [
+          19,
+          19
+        ],
+        "max_box_difference_cells": 0.02358245849609375,
+        "max_score_difference": 0.0024545788764953613
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9998479598551642
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 0.999475890985325
+        },
+        {
+          "kind": "person",
+          "name": "person_rank2",
+          "iou": 0.9983626688497749
+        },
+        {
+          "kind": "person",
+          "name": "person_rank3",
+          "iou": 0.9906385233595337
+        },
+        {
+          "kind": "person",
+          "name": "person_rank4",
+          "iou": 0.9987102321582115
+        },
+        {
+          "kind": "person",
+          "name": "person_rank5",
+          "iou": 0.9990305133176854
+        },
+        {
+          "kind": "person",
+          "name": "person_rank6",
+          "iou": null,
+          "note": "missing in one provider"
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__duck__click_then_clicks__0",
+          "iou": 0.9997271040279445
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__duck__click_then_strokes__0",
+          "iou": 0.9997271040279445
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__duck__stroke_then_strokes__0",
+          "iou": 0.9995978629287069
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__duck__full_stroke_then_strokes__0",
+          "iou": 0.9995475624929306
+        }
+      ],
+      "minimum_mask_iou": 0.9906385233595337,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          682,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 0.00012481212615966797,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00602",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.04713359475135803,
+          "relative_error": 0.008875262491284765,
+          "cosine": 0.9999606149138872
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.016761302947998047,
+          "relative_error": 0.00710697768406453,
+          "cosine": 0.9999747456428153
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.11135925352573395,
+          "relative_error": 0.017791845540678378,
+          "cosine": 0.9998417500136729
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.08837032318115234,
+        "center_logits": 0.05566978454589844,
+        "center_offset": 0.01461327075958252,
+        "log_size": 0.03837323188781738,
+        "presence_logits": 0.02463686466217041
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 6.556510925292969e-06,
+        "people": 0.005133926868438721
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          20,
+          20
+        ],
+        "max_box_difference_cells": 0.019420623779296875,
+        "max_score_difference": 0.001421809196472168
+      },
+      "sky_regions": {
+        "candidate": 3,
+        "reference": 3,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9995152690256908
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tram__click_then_clicks__0",
+          "iou": 0.9992689887287095
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tram__click_then_strokes__0",
+          "iou": 0.9992689887287095
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tram__stroke_then_strokes__0",
+          "iou": 0.9993803842184675
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tram__full_stroke_then_strokes__0",
+          "iou": 0.9994046741543234
+        }
+      ],
+      "minimum_mask_iou": 0.9992689887287095,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          683,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 0.00021183490753173828,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00674",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.11192378401756287,
+          "relative_error": 0.01114054204150747,
+          "cosine": 0.9999379442936633
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.017423927783966064,
+          "relative_error": 0.0083209150571331,
+          "cosine": 0.9999653977656267
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.10891479253768921,
+          "relative_error": 0.022383985109766025,
+          "cosine": 0.9997501461008623
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.1557917594909668,
+        "center_logits": 0.06242656707763672,
+        "center_offset": 0.023197025060653687,
+        "log_size": 0.02935051918029785,
+        "presence_logits": 0.026752471923828125
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.0025299787521362305,
+        "people": 2.7418136596679688e-06
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1
+        ],
+        "reference_ranks": [
+          1
+        ],
+        "equal": true,
+        "boxes": [
+          2,
+          2
+        ],
+        "max_box_difference_cells": 0.10986709594726562,
+        "max_score_difference": 0.0011889860033988953
+      },
+      "sky_regions": {
+        "candidate": 2,
+        "reference": 2,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9990488466616078
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 0.9992826680781346
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__face__click_then_clicks__0",
+          "iou": 0.9996776589210067
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__face__click_then_strokes__0",
+          "iou": 0.9996776589210067
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__face__stroke_then_strokes__0",
+          "iou": 0.9934227640392553
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__face__stroke_then_strokes__1",
+          "iou": 0.999706361167128
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__face__full_stroke_then_strokes__0",
+          "iou": 0.9972378799740421
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_clicks__0",
+          "iou": 0.996885956181465
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_strokes__0",
+          "iou": 0.996885956181465
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__stroke_then_strokes__0",
+          "iou": 0.9962250756575233
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__full_stroke_then_strokes__0",
+          "iou": 0.9986747290393078
+        }
+      ],
+      "minimum_mask_iou": 0.9934227640392553,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          1024,
+          683
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 0.0001112222671508789,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00728",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.04680773615837097,
+          "relative_error": 0.010724436813076955,
+          "cosine": 0.9999424917689193
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.01855902373790741,
+          "relative_error": 0.008243803004879818,
+          "cosine": 0.9999660333646728
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.1012207567691803,
+          "relative_error": 0.020799851590340278,
+          "cosine": 0.9997838008426918
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.13716411590576172,
+        "center_logits": 0.06178712844848633,
+        "center_offset": 0.010367006063461304,
+        "log_size": 0.03915143013000488,
+        "presence_logits": 0.017792701721191406
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 1.1920928955078125e-06,
+        "people": 7.463991641998291e-05
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          6,
+          6
+        ],
+        "max_box_difference_cells": 0.0067596435546875,
+        "max_score_difference": 0.001316264271736145
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9998280245310167
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__balloon__click_then_clicks__0",
+          "iou": 0.9996489257126808
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__balloon__click_then_strokes__0",
+          "iou": 0.9996489257126808
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__balloon__stroke_then_strokes__0",
+          "iou": 0.9988646595936265
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__balloon__stroke_then_strokes__1",
+          "iou": 0.9997585041054302
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__balloon__full_stroke_then_strokes__0",
+          "iou": 0.9998939592096426
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_clicks__0",
+          "iou": 0.9999557639906024
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_strokes__0",
+          "iou": 0.9999557639906024
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__stroke_then_strokes__0",
+          "iou": 0.9999352629446384
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__full_stroke_then_strokes__0",
+          "iou": 0.9999471401261107
+        }
+      ],
+      "minimum_mask_iou": 0.9988646595936265,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          683,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 1.609325408935547e-05,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00936",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.04460445046424866,
+          "relative_error": 0.011334027324768034,
+          "cosine": 0.9999357787624358
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.01579686999320984,
+          "relative_error": 0.008352288887158244,
+          "cosine": 0.9999651201538404
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.08542758226394653,
+          "relative_error": 0.025493880002479475,
+          "cosine": 0.9996756177727736
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.10191917419433594,
+        "center_logits": 0.061318397521972656,
+        "center_offset": 0.010795742273330688,
+        "log_size": 0.03391313552856445,
+        "presence_logits": 0.031233787536621094
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 3.647804260253906e-05,
+        "people": 4.357099533081055e-05
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1
+        ],
+        "reference_ranks": [
+          1
+        ],
+        "equal": true,
+        "boxes": [
+          4,
+          4
+        ],
+        "max_box_difference_cells": 0.7994823455810547,
+        "max_score_difference": 0.0013944506645202637
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 352.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9995479420304215
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 0.9989234648244155
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_clicks__0",
+          "iou": 0.99785257586988
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_clicks__1",
+          "iou": 0.9998305378808359
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_strokes__0",
+          "iou": 0.99785257586988
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_strokes__1",
+          "iou": 0.9998028827393667
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__stroke_then_strokes__0",
+          "iou": 0.9990901166305046
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__stroke_then_strokes__1",
+          "iou": 0.9998190460105677
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__full_stroke_then_strokes__0",
+          "iou": 0.9997298942556168
+        }
+      ],
+      "minimum_mask_iou": 0.99785257586988,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          1024,
+          681
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 0.00016030669212341309,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC_1188",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.04546630382537842,
+          "relative_error": 0.01066599504213058,
+          "cosine": 0.9999431216331381
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.016666904091835022,
+          "relative_error": 0.008111750238880422,
+          "cosine": 0.999967112416714
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.09188386797904968,
+          "relative_error": 0.022389254685310642,
+          "cosine": 0.9997493590367866
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.1664409637451172,
+        "center_logits": 0.07572460174560547,
+        "center_offset": 0.01227271556854248,
+        "log_size": 0.04457831382751465,
+        "presence_logits": 0.02101755142211914
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "sky_found": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.00010013720020651817,
+        "people": 7.713423110544682e-05
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          0,
+          0
+        ],
+        "max_box_difference_cells": 0.0,
+        "max_score_difference": 0.0
+      },
+      "sky_regions": {
+        "candidate": 0,
+        "reference": 0,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "stroke",
+          "name": "stroke__body__click_then_clicks__0",
+          "iou": 0.9997204178955724
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__body__click_then_clicks__1",
+          "iou": 0.9997708974275054
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__body__click_then_strokes__0",
+          "iou": 0.9997204178955724
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__body__click_then_strokes__1",
+          "iou": 0.9997296329207221
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__body__stroke_then_strokes__0",
+          "iou": 0.9995285490703303
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__body__full_stroke_then_strokes__0",
+          "iou": 0.999698491603888
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tail__click_then_clicks__0",
+          "iou": 0.9994677641785898
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tail__click_then_strokes__0",
+          "iou": 0.9994677641785898
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tail__stroke_then_strokes__0",
+          "iou": 0.9995710330304567
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tail__full_stroke_then_strokes__0",
+          "iou": 0.9994917439901877
+        }
+      ],
+      "minimum_mask_iou": 0.9994677641785898,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          682,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 0.00014010071754455566,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC_1456",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.0817116848193109,
+          "relative_error": 0.009215345019529019,
+          "cosine": 0.9999575519635047
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.01886114478111267,
+          "relative_error": 0.006814709511484179,
+          "cosine": 0.9999767823749969
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.09705694019794464,
+          "relative_error": 0.015930451386202037,
+          "cosine": 0.9998731363365713
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.12484264373779297,
+        "center_logits": 0.052878379821777344,
+        "center_offset": 0.017606019973754883,
+        "log_size": 0.04589974880218506,
+        "presence_logits": 0.02182483673095703
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.00021201372146606445,
+        "people": 8.344650268554688e-07
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "reference_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "equal": true,
+        "boxes": [
+          20,
+          20
+        ],
+        "max_box_difference_cells": 14.638410747051239,
+        "max_score_difference": 0.0021696388721466064
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9996814567506975
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 0.9984965635738832
+        },
+        {
+          "kind": "person",
+          "name": "person_rank2",
+          "iou": 0.9996259312752627
+        },
+        {
+          "kind": "person",
+          "name": "person_rank3",
+          "iou": 0.9985188150520417
+        },
+        {
+          "kind": "person",
+          "name": "person_rank4",
+          "iou": 0.9995547144606479
+        },
+        {
+          "kind": "person",
+          "name": "person_rank5",
+          "iou": 0.9997129035499476
+        },
+        {
+          "kind": "person",
+          "name": "person_rank6",
+          "iou": 0.998446219498851
+        },
+        {
+          "kind": "person",
+          "name": "person_rank7",
+          "iou": 0.9987714987714987
+        },
+        {
+          "kind": "person",
+          "name": "person_rank8",
+          "iou": 0.9977178144717411
+        },
+        {
+          "kind": "person",
+          "name": "person_rank9",
+          "iou": 0.9989286479537176
+        },
+        {
+          "kind": "person",
+          "name": "person_rank10",
+          "iou": 0.9948999780171466
+        },
+        {
+          "kind": "person",
+          "name": "person_rank11",
+          "iou": 0.9987526459026308
+        },
+        {
+          "kind": "person",
+          "name": "person_rank12",
+          "iou": 0.8321312402771885
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_clicks__0",
+          "iou": 0.9970601045296167
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_clicks__1",
+          "iou": 0.9997727206584449
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_strokes__0",
+          "iou": 0.9970601045296167
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_strokes__1",
+          "iou": 0.9997609128680308
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__stroke_then_strokes__0",
+          "iou": 0.9995788422624817
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__full_stroke_then_strokes__0",
+          "iou": 0.9997404554235697
+        }
+      ],
+      "minimum_mask_iou": 0.8321312402771885,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          1024,
+          682
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 6.860494613647461e-05,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC_1535",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.06476104818284512,
+          "relative_error": 0.009526997964719834,
+          "cosine": 0.9999546176805011
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.017007976770401,
+          "relative_error": 0.007721151694490021,
+          "cosine": 0.9999701978932493
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.08845040202140808,
+          "relative_error": 0.019101875238048713,
+          "cosine": 0.9998177595104129
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.10764694213867188,
+        "center_logits": 0.05353069305419922,
+        "center_offset": 0.011140495538711548,
+        "log_size": 0.01624155044555664,
+        "presence_logits": 0.015674591064453125
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "sky_found": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 3.9550475776195526e-05,
+        "people": 0.0
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "reference_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "equal": true,
+        "boxes": [
+          20,
+          20
+        ],
+        "max_box_difference_cells": 1.1338748931884766,
+        "max_score_difference": 0.00487673282623291
+      },
+      "sky_regions": {
+        "candidate": 0,
+        "reference": 0,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 0.9992091510195429
+        },
+        {
+          "kind": "person",
+          "name": "person_rank2",
+          "iou": 0.9968566112173609
+        },
+        {
+          "kind": "person",
+          "name": "person_rank3",
+          "iou": 0.9983845781056486
+        },
+        {
+          "kind": "person",
+          "name": "person_rank4",
+          "iou": 0.9981043114762067
+        },
+        {
+          "kind": "person",
+          "name": "person_rank5",
+          "iou": 0.9931689323041192
+        },
+        {
+          "kind": "person",
+          "name": "person_rank6",
+          "iou": 0.9974057559789218
+        },
+        {
+          "kind": "person",
+          "name": "person_rank7",
+          "iou": 0.9986159459799522
+        },
+        {
+          "kind": "person",
+          "name": "person_rank8",
+          "iou": 0.9981899376387274
+        },
+        {
+          "kind": "person",
+          "name": "person_rank9",
+          "iou": 0.9983130604634645
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_clicks__0",
+          "iou": 0.9997844173496636
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_clicks__1",
+          "iou": 0.9998954978192258
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_strokes__0",
+          "iou": 0.9997844173496636
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_strokes__1",
+          "iou": 0.999902754282357
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__stroke_then_strokes__0",
+          "iou": 0.9995095958246015
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__stroke_then_strokes__1",
+          "iou": 0.9999072373198908
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__full_stroke_then_strokes__0",
+          "iou": 0.9998556802692442
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_clicks__0",
+          "iou": 0.9997843041538479
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_strokes__0",
+          "iou": 0.9997843041538479
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__stroke_then_strokes__0",
+          "iou": 0.9993172729932702
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__full_stroke_then_strokes__0",
+          "iou": 0.9994326117318436
+        }
+      ],
+      "minimum_mask_iou": 0.9931689323041192,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          1024,
+          682
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 7.069110870361328e-05,
+        "passed": true
+      }
+    },
+    {
+      "photo": "Nikon-D800e-raw-00007",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.04668092727661133,
+          "relative_error": 0.009170334305101913,
+          "cosine": 0.9999579739193977
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.01993003487586975,
+          "relative_error": 0.008375479064898791,
+          "cosine": 0.9999649309679726
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.1010158360004425,
+          "relative_error": 0.01896044123544575,
+          "cosine": 0.9998203420352186
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.07945632934570312,
+        "center_logits": 0.039391517639160156,
+        "center_offset": 0.01075291633605957,
+        "log_size": 0.02647089958190918,
+        "presence_logits": 0.025348663330078125
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 1.1920928955078125e-07,
+        "people": 0.00030048005282878876
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          19,
+          19
+        ],
+        "max_box_difference_cells": 2.0279383659362793,
+        "max_score_difference": 0.0010978877544403076
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9998227287617011
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_clicks__0",
+          "iou": 0.9999129142194442
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_strokes__0",
+          "iou": 0.9999129142194442
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__stroke_then_strokes__0",
+          "iou": 0.9997137342233443
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__full_stroke_then_strokes__0",
+          "iou": 0.9998135802806805
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__click_then_clicks__0",
+          "iou": 0.9984330805901178
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__click_then_clicks__1",
+          "iou": 0.9986115822935907
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__click_then_strokes__0",
+          "iou": 0.9984330805901178
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__click_then_strokes__1",
+          "iou": 0.9981529302058676
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__stroke_then_strokes__0",
+          "iou": 0.9985083936755892
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__stroke_then_strokes__1",
+          "iou": 0.9987042277625314
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__full_stroke_then_strokes__0",
+          "iou": 0.9979461873518223
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__full_stroke_then_strokes__1",
+          "iou": 0.9984412306854874
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_clicks__0",
+          "iou": 0.9974706971005552
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_clicks__1",
+          "iou": 0.9977906458797328
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_clicks__2",
+          "iou": 0.9973776908023483
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_strokes__0",
+          "iou": 0.9974706971005552
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_strokes__1",
+          "iou": 0.993122277568204
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_strokes__2",
+          "iou": 0.9972020046397139
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_strokes__3",
+          "iou": 0.9971535016116204
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_strokes__4",
+          "iou": 0.9990405096812573
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__stroke_then_strokes__0",
+          "iou": 0.9970792548152826
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__stroke_then_strokes__1",
+          "iou": 0.9980056068787748
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__stroke_then_strokes__2",
+          "iou": 0.9983861326957562
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__stroke_then_strokes__3",
+          "iou": 0.9988728940915922
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__stroke_then_strokes__4",
+          "iou": 0.9993096174129831
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__full_stroke_then_strokes__0",
+          "iou": 0.9969863632939049
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__full_stroke_then_strokes__1",
+          "iou": 0.9977281123014408
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__full_stroke_then_strokes__2",
+          "iou": 0.9986378442404501
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__full_stroke_then_strokes__3",
+          "iou": 0.9984489427286828
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__full_stroke_then_strokes__4",
+          "iou": 0.9989963261750558
+        }
+      ],
+      "minimum_mask_iou": 0.993122277568204,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          683,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 0.00013381242752075195,
+        "passed": true
+      }
+    },
+    {
+      "photo": "P1024439",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 0.07487404346466064,
+          "relative_error": 0.011594750645132003,
+          "cosine": 0.9999327793145957
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 0.01770007610321045,
+          "relative_error": 0.007518857996098194,
+          "cosine": 0.9999717396215206
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 0.10325303673744202,
+          "relative_error": 0.020788969667580755,
+          "cosine": 0.9997839705387989
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.14889144897460938,
+        "center_logits": 0.057263851165771484,
+        "center_offset": 0.015967875719070435,
+        "log_size": 0.03607439994812012,
+        "presence_logits": 0.008326530456542969
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 6.753206253051758e-05,
+        "people": 1.0728836059570312e-06
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1,
+          2
+        ],
+        "reference_ranks": [
+          1,
+          2
+        ],
+        "equal": true,
+        "boxes": [
+          6,
+          6
+        ],
+        "max_box_difference_cells": 1.5826148986816406,
+        "max_score_difference": 0.004120856523513794
+      },
+      "sky_regions": {
+        "candidate": 5,
+        "reference": 4,
+        "equal": false,
+        "max_point_difference_model_px": null
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9798636997873852
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 0.9976374249798453
+        },
+        {
+          "kind": "person",
+          "name": "person_rank2",
+          "iou": 0.9971090617039812
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__click_then_clicks__0",
+          "iou": 0.9989080481598238
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__click_then_clicks__1",
+          "iou": 0.9986899809036143
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__click_then_strokes__0",
+          "iou": 0.9989080481598238
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__click_then_strokes__1",
+          "iou": 0.9991092223493041
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__stroke_then_strokes__0",
+          "iou": 0.9988448473338489
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__stroke_then_strokes__1",
+          "iou": 0.9989973881865669
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__full_stroke_then_strokes__0",
+          "iou": 0.998511310742367
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__full_stroke_then_strokes__1",
+          "iou": 0.9992287191392201
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_clicks__0",
+          "iou": 0.9991482112436116
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_strokes__0",
+          "iou": 0.9991482112436116
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__stroke_then_strokes__0",
+          "iou": 0.9989623130984387
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__full_stroke_then_strokes__0",
+          "iou": 0.9991322483900924
+        }
+      ],
+      "minimum_mask_iou": 0.9798636997873852,
+      "masks_passed": false,
+      "subject": {
+        "grid": [
+          768,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 1.0,
+        "max_abs_alpha_difference": 0.00011974573135375977,
+        "passed": true
+      }
+    }
+  ],
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "logical_cpus": 10,
+    "memory_bytes": 17179869184,
+    "python": "3.13.7"
+  }
+}

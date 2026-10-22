@@ -17,6 +17,10 @@ Weights, ONNX files, photos, logs, and exported masks are not committed. Keep th
 | `ai_mask_app.py` | PySide6 UI: canvas with the photo and the overlay, one-click buttons, People list, stroke and box tools with Alt for subtract, level change of a click, Feather and Edge, overlay color and opacity, export, stage times. |
 | `compare_with_measurement_scripts.py` | The comparison of the pipeline with `evaluate_quality_photos.py` (run 2), `compare_stroke_outputs.py` (E3 sequences), and the E2 BiRefNet CPU output. |
 | `measure_pipeline_cost.py` | Stage times and memory with all models loaded together (run it under `run_with_gpu_memory.ps1`). `--subject-onnx` selects another Subject graph, for example S3OD, IS-Net general-use, or Alibaba universal matting (issue #6). |
+| `coreml_native.py` | The `coreml_native` provider (issue #8): a compiled Core ML model (`scripts/ai_models/coreml/convert_models.py`) with the `InferenceSession` methods that the pipeline uses. |
+| `provider_placement.py` | Operator placement of a graph on an ONNX Runtime provider: the Core ML capability log (partitions, supported nodes) and the ONNX Runtime profile. |
+| `measure_graph_cost.py` | Issue #8: placement, cost, and first runs of the SAM 2.1 encoder, the decoder, or the head on one provider (the S3OD graph has the scripts of `scripts/ai_models/s3od/`). |
+| `compare_providers.py` | Issue #8: the MVP outputs of two providers on the quality photos (decisions, People list, masks per stroke step, Subject alpha) against the acceptance criteria. |
 | `measure_birefnet_memory_phases.py` | GPU memory of the BiRefNet DirectML session per phase (load, runs, the arena shrinkage run option, release, load again). |
 | `measure_birefnet_load_time.py` | BiRefNet session creation time per graph optimization level, and with a saved optimized graph (no inference). |
 | `requirements.txt` | Packages of the MVP environment (onnxruntime-directml, PySide6). |
@@ -84,13 +88,21 @@ Feather  Gaussian blur, sigma in photo px; Edge: dilate (> 0) or erode (< 0) in 
 
 ## Runtime
 
-- `--provider directml` (default of the UI) or `--provider cpu`. Each session has only the
-  selected execution provider. If the provider fails, the error stops the program; the MVP does not
-  change the provider.
+- `--provider directml` (default of the UI), `--provider cpu`, and on macOS (issue #8,
+  [report](../../../docs/exploration/macos_coreml_verification.md)) `--provider coreml` (the ONNX Runtime Core ML provider with the production
+  settings of Alcedo Studio; `--coreml-model-format`) or `--provider coreml_native` (the compiled
+  native Core ML models of `mask_pipeline.GraphPaths.coreml_models`, with S3OD
+  `float16_embeddings_attention_float32`; `--coreml-compute-units`, default ALL, and
+  `--coreml-decoder-compute-units` for the decoder, default CPU_ONLY (README U15);
+  `--subject-coreml` selects another Subject model). Each session has only the
+  selected execution provider (Core ML: the nodes that Core ML does not take run on the CPU
+  provider, as in production). If the provider fails, the error stops the program; the MVP does
+  not change the provider.
 - CPU threads 4 (ONNX Runtime intra-op threads, PyTorch, OpenCV), CPU memory arena off. DirectML
   sessions use sequential execution without memory patterns.
 - All four graphs load together at the start. The model calls run one at a time in one worker
-  thread.
+  thread, a Python thread (with a QThread, coremltools stopped the process at the first prediction
+  on macOS, issue #8 report section 11).
 - Each stage time (photo read, encoder, head, each decoder run, BiRefNet) shows in the UI. `--log`
   writes a JSON record of the times and the graph hashes.
 
@@ -135,6 +147,13 @@ $e = "build\tmp\explore"; $py = "$e\venv_ai_mask_mvp\Scripts\python.exe"
                '--out', 'results\ai_mask_mvp\cost_directml.json') `
   -Out results\ai_mask_mvp\cost_directml_gpu_memory.json -Log build\tmp\ai_mask_mvp\cost_directml.log
 ```
+
+### macOS (issue #8)
+
+The commands of the macOS measurements (Core ML provider placement, native model outputs against
+the CPU, cost, first runs, the MVP pipeline, the UI) are in the [report, section 15](../../../docs/exploration/macos_coreml_verification.md).
+On macOS, run `measure_pipeline_cost.py` under `scripts/ai_models/sam2/run_with_memory_sampling.py`
+(physical footprint and system memory) in place of `run_with_gpu_memory.ps1`.
 
 ## Limits
 

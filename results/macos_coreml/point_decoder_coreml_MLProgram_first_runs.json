@@ -1,0 +1,125 @@
+{
+  "graph_name": "point_decoder",
+  "graph": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_decoder.onnx",
+  "provider": "coreml",
+  "provider_settings": [
+    [
+      "CoreMLExecutionProvider",
+      {
+        "ModelFormat": "MLProgram",
+        "MLComputeUnits": "ALL"
+      }
+    ],
+    "CPUExecutionProvider"
+  ],
+  "onnxruntime": "1.24.4",
+  "photo": "DSC_1535.jpg",
+  "pause_seconds": 5.0,
+  "window": [
+    "2026-10-22T16:04:04",
+    "2026-10-22T16:04:30"
+  ],
+  "first_runs": 3,
+  "failed_runs": 3,
+  "runs_with_non_finite_outputs": 0,
+  "runs_with_crash_reports": 3,
+  "crash_reports_recorded": true,
+  "runs": [
+    {
+      "error": "om.apple.xbs/TemporaryDirectory.WK6jPd/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/MPSGraphExecutable.mm:4419: failed assertion `Error: Optimize Original Module MLIR pass manager failed \nPass failed: MPSCopyDataFiles\nDiagnostics:\nerror: loc(\"at /private/var/folders/4p/35nsnmnx1v53jnpr3j6ht9jm0000gn/T/onnxruntime-09BFA7A1-986C-4342-9447-BD9A75C1DF3A-65952-000014B3AC0977B8.mlmodelc/model.mil\":18:12): 'mps.matmul' op contracting dimensions differ 1 & 256\n'\n",
+      "index": 1,
+      "start": "2026-10-22T16:04:04",
+      "end": "2026-10-22T16:04:06",
+      "seconds": 1.9,
+      "exit_code": -6,
+      "crash_reports": [
+        {
+          "file": "/Users/zidage/Library/Logs/DiagnosticReports/Python-2026-10-22-160408.ips",
+          "time": "2026-10-22T16:04:08",
+          "process": "Python",
+          "bug_type": "309",
+          "exception": "EXC_CRASH",
+          "signal": "SIGABRT"
+        },
+        {
+          "file": "/Users/zidage/Library/Logs/DiagnosticReports/Python-2026-10-22-160413.ips",
+          "time": "2026-10-22T16:04:13",
+          "process": "Python",
+          "bug_type": "309",
+          "exception": "EXC_CRASH",
+          "signal": "SIGABRT"
+        }
+      ]
+    },
+    {
+      "error": "om.apple.xbs/TemporaryDirectory.WK6jPd/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/MPSGraphExecutable.mm:4419: failed assertion `Error: Optimize Original Module MLIR pass manager failed \nPass failed: MPSCopyDataFiles\nDiagnostics:\nerror: loc(\"at /private/var/folders/4p/35nsnmnx1v53jnpr3j6ht9jm0000gn/T/onnxruntime-39721141-1C87-49A4-B71E-30E7593ABBAA-65954-000014B3B5EC6A64.mlmodelc/model.mil\":18:12): 'mps.matmul' op contracting dimensions differ 1 & 256\n'\n",
+      "index": 2,
+      "start": "2026-10-22T16:04:11",
+      "end": "2026-10-22T16:04:13",
+      "seconds": 1.9,
+      "exit_code": -6,
+      "crash_reports": [
+        {
+          "file": "/Users/zidage/Library/Logs/DiagnosticReports/Python-2026-10-22-160413.ips",
+          "time": "2026-10-22T16:04:13",
+          "process": "Python",
+          "bug_type": "309",
+          "exception": "EXC_CRASH",
+          "signal": "SIGABRT"
+        },
+        {
+          "file": "/Users/zidage/Library/Logs/DiagnosticReports/Python-2026-10-22-160420.ips",
+          "time": "2026-10-22T16:04:20",
+          "process": "Python",
+          "bug_type": "309",
+          "exception": "EXC_CRASH",
+          "signal": "SIGABRT"
+        }
+      ]
+    },
+    {
+      "error": "om.apple.xbs/TemporaryDirectory.WK6jPd/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/MPSGraphExecutable.mm:4419: failed assertion `Error: Optimize Original Module MLIR pass manager failed \nPass failed: MPSCopyDataFiles\nDiagnostics:\nerror: loc(\"at /private/var/folders/4p/35nsnmnx1v53jnpr3j6ht9jm0000gn/T/onnxruntime-3199D749-7585-4BF4-9A35-9D2F4553D55F-65957-000014B3BFCA9E87.mlmodelc/model.mil\":18:12): 'mps.matmul' op contracting dimensions differ 1 & 256\n'\n",
+      "index": 3,
+      "start": "2026-10-22T16:04:18",
+      "end": "2026-10-22T16:04:20",
+      "seconds": 1.9,
+      "exit_code": -6,
+      "crash_reports": [
+        {
+          "file": "/Users/zidage/Library/Logs/DiagnosticReports/Python-2026-10-22-160420.ips",
+          "time": "2026-10-22T16:04:20",
+          "process": "Python",
+          "bug_type": "309",
+          "exception": "EXC_CRASH",
+          "signal": "SIGABRT"
+        }
+      ]
+    }
+  ],
+  "crash_reports": [
+    {
+      "file": "/Users/zidage/Library/Logs/DiagnosticReports/Python-2026-10-22-160408.ips",
+      "time": "2026-10-22T16:04:08",
+      "process": "Python",
+      "bug_type": "309",
+      "exception": "EXC_CRASH",
+      "signal": "SIGABRT"
+    },
+    {
+      "file": "/Users/zidage/Library/Logs/DiagnosticReports/Python-2026-10-22-160413.ips",
+      "time": "2026-10-22T16:04:13",
+      "process": "Python",
+      "bug_type": "309",
+      "exception": "EXC_CRASH",
+      "signal": "SIGABRT"
+    },
+    {
+      "file": "/Users/zidage/Library/Logs/DiagnosticReports/Python-2026-10-22-160420.ips",
+      "time": "2026-10-22T16:04:20",
+      "process": "Python",
+      "bug_type": "309",
+      "exception": "EXC_CRASH",
+      "signal": "SIGABRT"
+    }
+  ]
+}

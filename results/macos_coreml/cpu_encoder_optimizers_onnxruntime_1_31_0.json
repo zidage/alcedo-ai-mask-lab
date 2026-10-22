@@ -1,0 +1,31 @@
+{
+  "step": "issue #8: ONNX Runtime CPU graph optimizers and the SAM 2.1 tiny encoder",
+  "onnxruntime": "1.31.0",
+  "onnx": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_encoder.onnx",
+  "photo": "DSC_1535.jpg",
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "processor": "arm"
+  },
+  "level": "ORT_ENABLE_BASIC",
+  "tolerance": 1e-05,
+  "all_optimizers_relative_error": {
+    "image_embed": 0.0,
+    "high_res_feats_0": 0.0,
+    "high_res_feats_1": 0.0
+  },
+  "disabled_one_at_a_time": [
+    {
+      "disabled": "ConstantFolding",
+      "relative_error": {
+        "image_embed": 0.0,
+        "high_res_feats_0": 0.0,
+        "high_res_feats_1": 0.0
+      },
+      "matches_reference": true
+    }
+  ],
+  "optimizers_that_change_the_output": [
+    "ConstantFolding"
+  ]
+}

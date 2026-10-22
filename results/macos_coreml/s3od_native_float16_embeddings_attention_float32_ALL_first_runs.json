@@ -1,0 +1,151 @@
+{
+  "model": "s3od",
+  "graph": "build/tmp/explore/coreml/float16_embeddings_attention_float32/s3od.mlmodelc",
+  "provider": "coreml_native",
+  "provider_settings": [
+    {
+      "runtime": "Core ML, compiled model (coremltools CompiledMLModel)",
+      "compute_units": "ALL"
+    }
+  ],
+  "onnxruntime": "1.24.4",
+  "photo": "DSC_1535.jpg",
+  "pause_seconds": 5.0,
+  "window": [
+    "2026-10-22T15:23:58",
+    "2026-10-22T15:25:13"
+  ],
+  "first_runs": 9,
+  "failed_runs": 0,
+  "runs_with_non_finite_outputs": 0,
+  "runs_with_crash_reports": 0,
+  "runs": [
+    {
+      "load_ms": 1601.7,
+      "first_run_ms": 646.7,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1563.9,
+      "lifetime_max_phys_footprint_mb": 1563.9,
+      "resident_mb": 734.5,
+      "index": 1,
+      "start": "2026-10-22T15:23:58",
+      "end": "2026-10-22T15:24:01",
+      "seconds": 2.7,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1606.5,
+      "first_run_ms": 636.4,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1564.0,
+      "lifetime_max_phys_footprint_mb": 1564.0,
+      "resident_mb": 734.6,
+      "index": 2,
+      "start": "2026-10-22T15:24:06",
+      "end": "2026-10-22T15:24:09",
+      "seconds": 2.7,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1604.2,
+      "first_run_ms": 629.6,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1563.8,
+      "lifetime_max_phys_footprint_mb": 1563.8,
+      "resident_mb": 734.5,
+      "index": 3,
+      "start": "2026-10-22T15:24:14",
+      "end": "2026-10-22T15:24:16",
+      "seconds": 2.7,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1609.6,
+      "first_run_ms": 637.6,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1564.0,
+      "lifetime_max_phys_footprint_mb": 1564.0,
+      "resident_mb": 734.6,
+      "index": 4,
+      "start": "2026-10-22T15:24:21",
+      "end": "2026-10-22T15:24:24",
+      "seconds": 2.7,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1612.3,
+      "first_run_ms": 636.2,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1563.4,
+      "lifetime_max_phys_footprint_mb": 1563.4,
+      "resident_mb": 734.0,
+      "index": 5,
+      "start": "2026-10-22T15:24:29",
+      "end": "2026-10-22T15:24:32",
+      "seconds": 2.7,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1616.1,
+      "first_run_ms": 639.5,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1563.7,
+      "lifetime_max_phys_footprint_mb": 1563.7,
+      "resident_mb": 734.4,
+      "index": 6,
+      "start": "2026-10-22T15:24:37",
+      "end": "2026-10-22T15:24:40",
+      "seconds": 2.7,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1608.1,
+      "first_run_ms": 634.0,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1563.9,
+      "lifetime_max_phys_footprint_mb": 1563.9,
+      "resident_mb": 734.6,
+      "index": 7,
+      "start": "2026-10-22T15:24:45",
+      "end": "2026-10-22T15:24:47",
+      "seconds": 2.7,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1613.1,
+      "first_run_ms": 659.3,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1564.1,
+      "lifetime_max_phys_footprint_mb": 1564.1,
+      "resident_mb": 734.8,
+      "index": 8,
+      "start": "2026-10-22T15:24:52",
+      "end": "2026-10-22T15:24:55",
+      "seconds": 2.8,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1739.9,
+      "first_run_ms": 699.3,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1564.7,
+      "lifetime_max_phys_footprint_mb": 1564.7,
+      "resident_mb": 735.4,
+      "index": 9,
+      "start": "2026-10-22T15:25:00",
+      "end": "2026-10-22T15:25:03",
+      "seconds": 3.0,
+      "exit_code": 0,
+      "crash_reports": []
+    }
+  ],
+  "crash_reports": []
+}

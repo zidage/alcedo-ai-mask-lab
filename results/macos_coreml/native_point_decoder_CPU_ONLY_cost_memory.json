@@ -1,0 +1,138 @@
+{
+  "command": [
+    "build/tmp/explore/venv_ai_mask_mvp/bin/python",
+    "-I",
+    "scripts/poc/ai_mask_mvp/measure_graph_cost.py",
+    "cost",
+    "--graph-name",
+    "point_decoder",
+    "--provider",
+    "coreml_native",
+    "--coreml-compute-units",
+    "CPU_ONLY",
+    "--photos",
+    "build/tmp/explore/e4/input_4096/photos",
+    "--prompts",
+    "build/tmp/sm1/quality/prompts.json",
+    "--features-dir",
+    "build/tmp/macos_coreml/features_cpu",
+    "--out",
+    "results/macos_coreml/native_point_decoder_CPU_ONLY_cost.json"
+  ],
+  "exit_code": 0,
+  "start": "2026-10-22T16:29:15",
+  "end": "2026-10-22T16:29:19",
+  "seconds": 4.1,
+  "interval_ms": 200,
+  "peak_phys_footprint_mb_per_process": {
+    "66512": 667.5
+  },
+  "peak_phys_footprint_mb": 667.5,
+  "peak_sampled_phys_footprint_sum_mb": 663.8,
+  "system_used_before_mb": 6603.2,
+  "system_used_peak_mb": 7266.8,
+  "system_used_peak_increase_mb": 663.6,
+  "crash_reports": [],
+  "samples": [
+    {
+      "s": 0.01,
+      "phys_footprint_mb": 5.3,
+      "system_used_mb": 6610.6
+    },
+    {
+      "s": 0.22,
+      "phys_footprint_mb": 99.4,
+      "system_used_mb": 6656.2
+    },
+    {
+      "s": 0.44,
+      "phys_footprint_mb": 145.6,
+      "system_used_mb": 6702.2
+    },
+    {
+      "s": 0.65,
+      "phys_footprint_mb": 392.7,
+      "system_used_mb": 6949.4
+    },
+    {
+      "s": 0.87,
+      "phys_footprint_mb": 442.1,
+      "system_used_mb": 6998.9
+    },
+    {
+      "s": 1.08,
+      "phys_footprint_mb": 475.3,
+      "system_used_mb": 7032.2
+    },
+    {
+      "s": 1.29,
+      "phys_footprint_mb": 493.0,
+      "system_used_mb": 7060.3
+    },
+    {
+      "s": 1.51,
+      "phys_footprint_mb": 501.1,
+      "system_used_mb": 7071.0
+    },
+    {
+      "s": 1.72,
+      "phys_footprint_mb": 514.0,
+      "system_used_mb": 7095.2
+    },
+    {
+      "s": 1.93,
+      "phys_footprint_mb": 645.0,
+      "system_used_mb": 7226.5
+    },
+    {
+      "s": 2.15,
+      "phys_footprint_mb": 646.0,
+      "system_used_mb": 7228.1
+    },
+    {
+      "s": 2.36,
+      "phys_footprint_mb": 646.0,
+      "system_used_mb": 7228.2
+    },
+    {
+      "s": 2.57,
+      "phys_footprint_mb": 662.5,
+      "system_used_mb": 7244.7
+    },
+    {
+      "s": 2.79,
+      "phys_footprint_mb": 662.5,
+      "system_used_mb": 7245.4
+    },
+    {
+      "s": 3.0,
+      "phys_footprint_mb": 662.5,
+      "system_used_mb": 7250.5
+    },
+    {
+      "s": 3.22,
+      "phys_footprint_mb": 663.8,
+      "system_used_mb": 7262.0
+    },
+    {
+      "s": 3.43,
+      "phys_footprint_mb": 663.8,
+      "system_used_mb": 7266.8
+    },
+    {
+      "s": 3.64,
+      "phys_footprint_mb": 663.2,
+      "system_used_mb": 7260.8
+    },
+    {
+      "s": 3.86,
+      "phys_footprint_mb": 663.3,
+      "system_used_mb": 7258.2
+    },
+    {
+      "s": 4.06,
+      "phys_footprint_mb": 0.0,
+      "system_used_mb": 6595.0
+    }
+  ]
+}

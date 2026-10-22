@@ -13,8 +13,12 @@ SAM 2.1 tiny, the people and sky head (P1 run 2), and S3OD `s3od-synth` for Subj
 [acceptance record](docs/exploration/acceptance_ai_mask_model_set.md) gives the evidence for each
 requirement and the open items. The [AI Mask MVP](docs/exploration/mvp_ai_mask.md) (issue
 [#5](https://github.com/zidage/alcedo-ai-mask-lab/issues/5)) runs the model set end to end with a
-desktop UI. Open: the macOS Core ML verification (issue
-[#8](https://github.com/zidage/alcedo-ai-mask-lab/issues/8)) and the user check by eye.
+desktop UI. The [macOS Core ML verification](docs/exploration/macos_coreml_verification.md)
+(issue [#8](https://github.com/zidage/alcedo-ai-mask-lab/issues/8)) is measured: native Core ML
+models of the set meet the output criteria on an Apple M4; the ONNX Runtime Core ML provider does
+not run the set as it is, and ONNX Runtime 1.24 (the version of Alcedo Studio) computes the SAM 2.1
+tiny encoder wrongly (microsoft/onnxruntime#29071, fixed in 1.28.0). The macOS decisions are U15.
+Open: the user check by eye.
 
 ## Main project
 
@@ -63,7 +67,7 @@ These decisions come from the user. Do not change them without a new user decisi
 | U3 | Edge post-processing is rejected: the tile pass, guided-filter upsampling, and the projection matte are too slow and give poor results. The edge quality comes from the model output. | 2026-10-20 |
 | U4 | One-click People and one-click Sky are required. | 2026-10-20 |
 | U5 | The selection of one person is more important than recall in crowds. | 2026-10-20 |
-| U6 | GPU memory: the editor uses about 5 GB on a 24 MP photo. The 3 GB budget for the models is soft, because the driver can swap part of the editor memory (caches). Models run while the user selects; they are unloaded when the user goes back to adjusting the photo. | 2026-10-20 |
+| U6 | GPU memory: the editor uses about 5 GB on a 24 MP photo. The 3 GB budget for the models is soft, because the driver can swap part of the editor memory (caches). Models run while the user selects; they are unloaded when the user goes back to adjusting the photo. **macOS (2026-10-22):** the budget can be somewhat larger because of the 16 GB unified memory, but not much larger; U15 sets 3.5 GB (the MVP pipeline with the native Core ML models has a peak footprint of 3,190 MB, [macOS report](docs/exploration/macos_coreml_verification.md#9-cost-and-memory)). | 2026-10-20 |
 | U7 | An interaction that follows the pointer (hover highlight) is rejected. The stroke is the prompt tool (E3). | 2026-10-20 |
 | U8 | Float16 models are acceptable (lower precision for a shorter processing time). | 2026-10-19 |
 | U9 | If BiRefNet is used, use the 512 px variant; efficiency first. See open decision O2. | 2026-10-20 |
@@ -71,6 +75,7 @@ These decisions come from the user. Do not change them without a new user decisi
 | U11 | The SAM3 detector is too large for its task (locating people and sky). Evaluate a small model that gives points or a box to SAM 2.1; a model trained by the user (for example on Colab) is acceptable. | 2026-10-20 |
 | U12 | The AI Mask MVP (issue #5) uses BiRefNet at 1024 px (lite). The MVP uses the float16 graph of E2 (U8). Replaced by U14 for the Subject model. | 2026-10-21 |
 | U14 | F1 and F2 use S3OD `s3od-synth` (the 8 chunk MHA float16 graph of issue #6) in place of BiRefNet lite. The model set is SAM 2.1 tiny, the people and sky head, and S3OD. The exploration on Windows DirectML is complete; the verification on macOS follows. (U13 is the proposed training data rule of issue #6; it is not decided.) | 2026-10-22 |
+| U15 | macOS uses native Core ML models (`.mlmodelc`), not the ONNX Runtime Core ML provider (issue #8). The user selected CPU_ONLY for the SAM 2.1 decoder (about 30 ms for each call, no cost for a change of the point count) and gave the other decisions to the exploration: the encoder, the head, and S3OD use the compute units ALL; S3OD on macOS is `float16_embeddings_attention_float32` (the DINOv3 patch embedding and the encoder attention in float32; the accepted precision gives a wrong alpha on the Neural Engine); the macOS memory value is 3.5 GB peak physical footprint of the process with all models loaded (measured 3,190 MB). [macOS report](docs/exploration/macos_coreml_verification.md#13-recommendation) | 2026-10-22 |
 
 ## 3. Product requirements (proposal)
 

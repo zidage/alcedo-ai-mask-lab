@@ -1,0 +1,72 @@
+{
+  "model": "build/tmp/explore/coreml/float32/people_sky_head.mlmodelc",
+  "compute_units": "ALL",
+  "coremltools": "9.0",
+  "macos": "27.0.1",
+  "ops": 69,
+  "ops_per_preferred_device": {
+    "GPU": 69
+  },
+  "estimated_cost_share_per_preferred_device": {
+    "GPU": 1.0
+  },
+  "op_types_per_preferred_device": {
+    "GPU": {
+      "ios16.reduce_mean": 11,
+      "ios18.add": 8,
+      "ios18.reshape": 8,
+      "ios18.conv": 7,
+      "ios18.sub": 5,
+      "ios18.sqrt": 5,
+      "ios18.real_div": 5,
+      "ios18.batch_norm": 5,
+      "ios18.square": 4,
+      "ios18.gelu": 4,
+      "ios18.slice_by_index": 2,
+      "ios18.pow": 1,
+      "ios16.reduce_max": 1,
+      "ios18.concat": 1,
+      "ios18.sigmoid": 1,
+      "ios18.linear": 1
+    }
+  },
+  "ops_without_device": {},
+  "supported_op_types_per_device": {
+    "CPU": {
+      "ios16.reduce_mean": 11,
+      "ios18.add": 8,
+      "ios18.reshape": 8,
+      "ios18.conv": 7,
+      "ios18.sub": 5,
+      "ios18.sqrt": 5,
+      "ios18.real_div": 5,
+      "ios18.batch_norm": 5,
+      "ios18.square": 4,
+      "ios18.gelu": 4,
+      "ios18.slice_by_index": 2,
+      "ios18.pow": 1,
+      "ios16.reduce_max": 1,
+      "ios18.concat": 1,
+      "ios18.sigmoid": 1,
+      "ios18.linear": 1
+    },
+    "GPU": {
+      "ios16.reduce_mean": 11,
+      "ios18.add": 8,
+      "ios18.reshape": 8,
+      "ios18.conv": 7,
+      "ios18.sub": 5,
+      "ios18.sqrt": 5,
+      "ios18.real_div": 5,
+      "ios18.batch_norm": 5,
+      "ios18.square": 4,
+      "ios18.gelu": 4,
+      "ios18.slice_by_index": 2,
+      "ios18.pow": 1,
+      "ios16.reduce_max": 1,
+      "ios18.concat": 1,
+      "ios18.sigmoid": 1,
+      "ios18.linear": 1
+    }
+  }
+}

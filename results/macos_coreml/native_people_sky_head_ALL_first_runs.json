@@ -1,0 +1,152 @@
+{
+  "graph_name": "people_sky_head",
+  "graph": "build/tmp/explore/coreml/float32/people_sky_head.mlmodelc",
+  "provider": "coreml_native",
+  "provider_settings": [
+    {
+      "runtime": "Core ML, compiled model (coremltools CompiledMLModel)",
+      "compute_units": "ALL"
+    }
+  ],
+  "onnxruntime": "1.24.4",
+  "photo": "DSC_1535.jpg",
+  "pause_seconds": 5.0,
+  "window": [
+    "2026-10-22T15:22:50",
+    "2026-10-22T15:23:58"
+  ],
+  "first_runs": 9,
+  "failed_runs": 0,
+  "runs_with_non_finite_outputs": 0,
+  "runs_with_crash_reports": 0,
+  "crash_reports_recorded": true,
+  "runs": [
+    {
+      "load_ms": 1186.7,
+      "first_run_ms": 22.4,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 361.7,
+      "lifetime_max_phys_footprint_mb": 361.7,
+      "resident_mb": 397.9,
+      "index": 1,
+      "start": "2026-10-22T15:22:50",
+      "end": "2026-10-22T15:22:52",
+      "seconds": 2.0,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1183.1,
+      "first_run_ms": 22.2,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 361.9,
+      "lifetime_max_phys_footprint_mb": 361.9,
+      "resident_mb": 398.0,
+      "index": 2,
+      "start": "2026-10-22T15:22:57",
+      "end": "2026-10-22T15:22:59",
+      "seconds": 2.0,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1185.5,
+      "first_run_ms": 22.6,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 361.7,
+      "lifetime_max_phys_footprint_mb": 361.7,
+      "resident_mb": 397.9,
+      "index": 3,
+      "start": "2026-10-22T15:23:04",
+      "end": "2026-10-22T15:23:06",
+      "seconds": 2.0,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1186.4,
+      "first_run_ms": 22.4,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 362.0,
+      "lifetime_max_phys_footprint_mb": 362.0,
+      "resident_mb": 398.2,
+      "index": 4,
+      "start": "2026-10-22T15:23:11",
+      "end": "2026-10-22T15:23:13",
+      "seconds": 2.0,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1192.5,
+      "first_run_ms": 22.5,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 361.6,
+      "lifetime_max_phys_footprint_mb": 361.6,
+      "resident_mb": 397.8,
+      "index": 5,
+      "start": "2026-10-22T15:23:18",
+      "end": "2026-10-22T15:23:20",
+      "seconds": 2.0,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1186.9,
+      "first_run_ms": 22.4,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 361.9,
+      "lifetime_max_phys_footprint_mb": 361.9,
+      "resident_mb": 398.1,
+      "index": 6,
+      "start": "2026-10-22T15:23:25",
+      "end": "2026-10-22T15:23:27",
+      "seconds": 2.0,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1178.8,
+      "first_run_ms": 22.3,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 361.7,
+      "lifetime_max_phys_footprint_mb": 361.7,
+      "resident_mb": 397.9,
+      "index": 7,
+      "start": "2026-10-22T15:23:32",
+      "end": "2026-10-22T15:23:34",
+      "seconds": 2.0,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1177.6,
+      "first_run_ms": 20.9,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 361.7,
+      "lifetime_max_phys_footprint_mb": 361.7,
+      "resident_mb": 397.8,
+      "index": 8,
+      "start": "2026-10-22T15:23:39",
+      "end": "2026-10-22T15:23:41",
+      "seconds": 2.0,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1185.8,
+      "first_run_ms": 22.4,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 361.5,
+      "lifetime_max_phys_footprint_mb": 361.5,
+      "resident_mb": 397.6,
+      "index": 9,
+      "start": "2026-10-22T15:23:46",
+      "end": "2026-10-22T15:23:48",
+      "seconds": 2.0,
+      "exit_code": 0,
+      "crash_reports": []
+    }
+  ],
+  "crash_reports": []
+}

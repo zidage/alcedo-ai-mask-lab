@@ -1,0 +1,92 @@
+{
+  "step": "issue #8: S3OD native Core ML output per compute units",
+  "model": "build/tmp/macos_coreml/variants/layer_norm_float32/s3od.mlmodelc",
+  "model_record": {
+    "precision": "float16_layer0_float32",
+    "float32_op_types": [
+      "layer_norm"
+    ],
+    "float32_scopes": [],
+    "float32_ops": [
+      "matmul:matmul_0:inner.encoder.model.0.attention.attn_output.1",
+      "softmax:softmax_0:inner.encoder.model.0.attention.attn_output.1",
+      "matmul:attn_output.1:inner.encoder.model.0.attention.attn_output.1"
+    ],
+    "coremltools": "9.0",
+    "torch": "2.7.0",
+    "mlmodelc": {
+      "path": "build/tmp/macos_coreml/variants/layer_norm_float32/s3od.mlmodelc",
+      "bytes": 217059577,
+      "sha256": "17bdf42fae0428b1f5a6f8544decaf16b9fcd0617a93b58b43e8c38d39714d49"
+    }
+  },
+  "reference_alpha": "build/tmp/explore/s3od/compare_cpu/float32/alpha",
+  "results": {
+    "ALL": {
+      "rows": [
+        {
+          "photo": "DSC_1535",
+          "repeat": 0,
+          "ms": 1684.8,
+          "iou_scores": [
+            0.9941,
+            0.9902,
+            0.9946
+          ],
+          "selected_mask": 2,
+          "iou_alpha_gt_0_5": 0.4881681808578069,
+          "max_abs_alpha_difference": 1.0,
+          "non_finite": 0
+        },
+        {
+          "photo": "P1024439",
+          "repeat": 0,
+          "ms": 1622.5,
+          "iou_scores": [
+            0.8765,
+            0.9478,
+            0.9365
+          ],
+          "selected_mask": 1,
+          "iou_alpha_gt_0_5": 0.3061517212069698,
+          "max_abs_alpha_difference": 1.0,
+          "non_finite": 0
+        },
+        {
+          "photo": "DSC_1535",
+          "repeat": 1,
+          "ms": 1630.5,
+          "iou_scores": [
+            0.9839,
+            0.9897,
+            0.9893
+          ],
+          "selected_mask": 1,
+          "iou_alpha_gt_0_5": 0.4932246458610536,
+          "max_abs_alpha_difference": 1.0,
+          "non_finite": 0
+        },
+        {
+          "photo": "P1024439",
+          "repeat": 1,
+          "ms": 1631.1,
+          "iou_scores": [
+            0.8862,
+            0.9507,
+            0.9404
+          ],
+          "selected_mask": 1,
+          "iou_alpha_gt_0_5": 0.23527753767522266,
+          "max_abs_alpha_difference": 1.0,
+          "non_finite": 0
+        }
+      ],
+      "minimum_iou": 0.23527753767522266,
+      "ms_after_first_call": [
+        1622.5,
+        1630.5,
+        1631.1
+      ]
+    }
+  }
+}

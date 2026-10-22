@@ -1,0 +1,32 @@
+{
+  "step": "issue #8: native decoder call time per point count sequence",
+  "model": "build/tmp/explore/coreml/float32_decoder_enumerated/point_decoder.mlmodelc",
+  "compute_units": "CPU_AND_GPU",
+  "features": "DSC_1535.npz",
+  "sequences": {
+    "same_2": {
+      "count": 20,
+      "p50_ms": 6.66,
+      "p95_ms": 10.59,
+      "max_ms": 60.89
+    },
+    "same_10": {
+      "count": 20,
+      "p50_ms": 6.77,
+      "p95_ms": 11.19,
+      "max_ms": 57.24
+    },
+    "alternate": {
+      "count": 40,
+      "p50_ms": 59.5,
+      "p95_ms": 63.04,
+      "max_ms": 68.43
+    },
+    "counts_1_to_8": {
+      "count": 160,
+      "p50_ms": 60.0,
+      "p95_ms": 65.37,
+      "max_ms": 68.6
+    }
+  }
+}

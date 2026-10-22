@@ -1,4 +1,5 @@
-"""Shared helpers of the DirectML measurements of issue #6 (MVP environment, onnxruntime-directml).
+"""Shared helpers of the DirectML measurements of issue #6 (MVP environment, onnxruntime-directml)
+and of the Core ML measurements of issue #8 (macOS, onnxruntime).
 
 The measurements run the S3OD, IS-Net general-use, and universal matting graphs and, as the
 reference, the BiRefNet
@@ -18,9 +19,12 @@ each model and the alpha that the measurement stores:
             (universal_matting_graphs.alpha_from_rgba) at the photo size, float16
 
 Sessions: `mask_pipeline.create_session` of the MVP (one execution provider only, 4 CPU threads,
-CPU memory arena off, sequential execution and no memory patterns on DirectML).
-GPU memory: the "GPU Process Memory" counters of this process
-(`measure_birefnet_memory_phases.gpu_memory_mb`).
+CPU memory arena off, sequential execution and no memory patterns on DirectML; on Core ML the
+production provider settings of `mask_pipeline.provider_settings` with the model format
+`coreml_model_format`).
+Memory (`memory_record`): on Windows the "GPU Process Memory" counters of this process
+(`measure_birefnet_memory_phases.gpu_memory_mb`) and the working set; on macOS the physical
+footprint and its lifetime peak (`macos_records.py`; unified memory, no GPU counter).
 """
 
 from __future__ import annotations
@@ -40,6 +44,7 @@ for directory in (HERE, MVP):
         sys.path.insert(0, str(directory))
 
 import mask_pipeline as mp  # noqa: E402
+import macos_records  # noqa: E402  (scripts/ai_models/sam2, on sys.path by mask_pipeline)
 import s3od_graphs  # noqa: E402
 from measure_birefnet_memory_phases import gpu_memory_mb  # noqa: E402,F401
 
@@ -109,34 +114,33 @@ class SubjectModel:
         return outputs[0][0, 0].astype(np.float16), {}
 
 
-def create_session(graph: Path, provider: str, threads: int = 4, profile_prefix: str | None = None):
-    """`mask_pipeline.create_session`, with ONNX Runtime profiling when `profile_prefix` is set."""
-    if profile_prefix is None:
-        return mp.create_session(graph, provider, threads)
-    import onnxruntime as ort
+def create_session(graph: Path, provider: str, threads: int = 4, profile_prefix: str | None = None,
+                   coreml_model_format: str = mp.COREML_MODEL_FORMATS[0],
+                   coreml_compute_units: str = mp.NATIVE_COMPUTE_UNITS[0]):
+    """`mask_pipeline.create_session`, with ONNX Runtime profiling when `profile_prefix` is set.
+    Provider coreml_native: `graph` is the compiled Core ML model (convert_models.py)."""
+    return mp.create_session(graph, provider, threads, coreml_model_format, profile_prefix,
+                             coreml_compute_units=coreml_compute_units)
 
-    options = ort.SessionOptions()
-    options.intra_op_num_threads = threads
-    options.inter_op_num_threads = 1
-    options.enable_cpu_mem_arena = False
-    options.log_severity_level = mp.ORT_ERROR_LOG_LEVEL
-    options.enable_profiling = True
-    options.profile_file_prefix = profile_prefix
+
+def memory_record(pid: int) -> dict:
+    """The memory of this process after a phase: Windows GPU counters and working set, or the
+    macOS physical footprint (see the module docstring)."""
+    if sys.platform == "darwin":
+        return macos_records.memory_record(pid)
+    return {**gpu_memory_mb(pid), **macos_records.memory_record(pid)}
+
+
+def session_settings(provider: str, coreml_model_format: str,
+                     coreml_compute_units: str = mp.NATIVE_COMPUTE_UNITS[0]) -> dict:
+    """The session settings of `create_session` for the measurement records."""
+    settings = {"intra_op_threads": 4, "inter_op_threads": 1, "cpu_memory_arena": False,
+                "graph_optimization": "ORT_ENABLE_ALL"}
     if provider == "directml":
-        options.enable_mem_pattern = False
-        options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
-    session = ort.InferenceSession(str(graph), options, providers=[mp.PROVIDERS[provider]])
-    if session.get_providers()[0] != mp.PROVIDERS[provider]:
-        raise RuntimeError(f"{graph.name}: ONNX Runtime selected {session.get_providers()}")
-    return session
-
-
-def working_set() -> dict:
-    import psutil
-
-    info = psutil.Process().memory_info()
-    return {"working_set_mb": round(info.rss / 2**20),
-            "peak_working_set_mb": round(getattr(info, "peak_wset", info.rss) / 2**20)}
+        settings.update({"memory_pattern": False, "execution_mode": "sequential"})
+    settings["providers"] = mp.provider_settings(provider, coreml_model_format,
+                                                 coreml_compute_units)
+    return settings
 
 
 def percentiles(values: list[float]) -> dict:

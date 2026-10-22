@@ -1,0 +1,113 @@
+{
+  "command": [
+    "build/tmp/explore/venv_ai_mask_mvp/bin/python",
+    "-I",
+    "scripts/poc/ai_mask_mvp/measure_graph_cost.py",
+    "cost",
+    "--graph-name",
+    "point_decoder",
+    "--provider",
+    "coreml_native",
+    "--coreml-compute-units",
+    "ALL",
+    "--photos",
+    "build/tmp/explore/e4/input_4096/photos",
+    "--prompts",
+    "build/tmp/sm1/quality/prompts.json",
+    "--features-dir",
+    "build/tmp/macos_coreml/features_cpu",
+    "--out",
+    "results/macos_coreml/native_point_decoder_ALL_cost.json"
+  ],
+  "exit_code": 0,
+  "start": "2026-10-22T16:01:50",
+  "end": "2026-10-22T16:01:53",
+  "seconds": 3.1,
+  "interval_ms": 200,
+  "peak_phys_footprint_mb_per_process": {
+    "65873": 706.6
+  },
+  "peak_phys_footprint_mb": 706.6,
+  "peak_sampled_phys_footprint_sum_mb": 705.8,
+  "system_used_before_mb": 6313.1,
+  "system_used_peak_mb": 7050.7,
+  "system_used_peak_increase_mb": 737.6,
+  "crash_reports": [],
+  "samples": [
+    {
+      "s": 0.01,
+      "phys_footprint_mb": 5.3,
+      "system_used_mb": 6320.5
+    },
+    {
+      "s": 0.23,
+      "phys_footprint_mb": 100.7,
+      "system_used_mb": 6415.2
+    },
+    {
+      "s": 0.45,
+      "phys_footprint_mb": 148.0,
+      "system_used_mb": 6463.6
+    },
+    {
+      "s": 0.66,
+      "phys_footprint_mb": 397.9,
+      "system_used_mb": 6713.3
+    },
+    {
+      "s": 0.88,
+      "phys_footprint_mb": 451.5,
+      "system_used_mb": 6766.6
+    },
+    {
+      "s": 1.1,
+      "phys_footprint_mb": 487.5,
+      "system_used_mb": 6803.0
+    },
+    {
+      "s": 1.32,
+      "phys_footprint_mb": 493.5,
+      "system_used_mb": 6808.8
+    },
+    {
+      "s": 1.54,
+      "phys_footprint_mb": 501.9,
+      "system_used_mb": 6817.3
+    },
+    {
+      "s": 1.75,
+      "phys_footprint_mb": 528.9,
+      "system_used_mb": 6844.4
+    },
+    {
+      "s": 1.97,
+      "phys_footprint_mb": 567.2,
+      "system_used_mb": 6887.6
+    },
+    {
+      "s": 2.19,
+      "phys_footprint_mb": 590.3,
+      "system_used_mb": 6904.6
+    },
+    {
+      "s": 2.41,
+      "phys_footprint_mb": 705.8,
+      "system_used_mb": 7050.7
+    },
+    {
+      "s": 2.63,
+      "phys_footprint_mb": 592.1,
+      "system_used_mb": 6906.2
+    },
+    {
+      "s": 2.84,
+      "phys_footprint_mb": 593.3,
+      "system_used_mb": 6907.6
+    },
+    {
+      "s": 3.05,
+      "phys_footprint_mb": 0.0,
+      "system_used_mb": 6320.3
+    }
+  ]
+}

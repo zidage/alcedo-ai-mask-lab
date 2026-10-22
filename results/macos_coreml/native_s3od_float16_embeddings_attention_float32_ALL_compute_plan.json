@@ -1,0 +1,111 @@
+{
+  "model": "build/tmp/explore/coreml/float16_embeddings_attention_float32/s3od.mlmodelc",
+  "compute_units": "ALL",
+  "coremltools": "9.0",
+  "macos": "27.0.1",
+  "ops": 591,
+  "ops_per_preferred_device": {
+    "GPU": 402,
+    "NeuralEngine": 189
+  },
+  "estimated_cost_share_per_preferred_device": {
+    "GPU": 0.7574,
+    "NeuralEngine": 0.2426
+  },
+  "op_types_per_preferred_device": {
+    "GPU": {
+      "ios18.mul": 77,
+      "ios18.reshape": 45,
+      "ios18.transpose": 45,
+      "ios18.concat": 45,
+      "ios18.linear": 44,
+      "ios18.slice_by_index": 44,
+      "ios18.cast": 23,
+      "split": 22,
+      "ios18.add": 22,
+      "ios18.matmul": 22,
+      "ios18.softmax": 11,
+      "ios18.conv": 1,
+      "ios18.layer_norm": 1
+    },
+    "NeuralEngine": {
+      "ios18.conv": 35,
+      "ios18.add": 32,
+      "ios18.linear": 24,
+      "ios18.mul": 22,
+      "ios18.layer_norm": 21,
+      "ios18.relu": 20,
+      "ios18.gelu": 11,
+      "ios18.reshape": 5,
+      "ios18.slice_by_index": 4,
+      "ios18.transpose": 4,
+      "ios16.upsample_bilinear": 4,
+      "ios18.conv_transpose": 3,
+      "ios18.sigmoid": 2,
+      "ios16.reduce_mean": 1,
+      "ios18.concat": 1
+    }
+  },
+  "ops_without_device": {},
+  "supported_op_types_per_device": {
+    "CPU": {
+      "ios18.mul": 99,
+      "ios18.linear": 68,
+      "ios18.add": 54,
+      "ios18.reshape": 50,
+      "ios18.transpose": 49,
+      "ios18.slice_by_index": 48,
+      "ios18.concat": 46,
+      "ios18.conv": 36,
+      "ios18.cast": 23,
+      "ios18.layer_norm": 22,
+      "split": 22,
+      "ios18.matmul": 22,
+      "ios18.relu": 20,
+      "ios18.softmax": 11,
+      "ios18.gelu": 11,
+      "ios16.upsample_bilinear": 4,
+      "ios18.conv_transpose": 3,
+      "ios18.sigmoid": 2,
+      "ios16.reduce_mean": 1
+    },
+    "GPU": {
+      "ios18.mul": 99,
+      "ios18.linear": 68,
+      "ios18.add": 54,
+      "ios18.reshape": 50,
+      "ios18.transpose": 49,
+      "ios18.slice_by_index": 48,
+      "ios18.concat": 46,
+      "ios18.conv": 36,
+      "ios18.cast": 23,
+      "ios18.layer_norm": 22,
+      "split": 22,
+      "ios18.matmul": 22,
+      "ios18.relu": 20,
+      "ios18.softmax": 11,
+      "ios18.gelu": 11,
+      "ios16.upsample_bilinear": 4,
+      "ios18.conv_transpose": 3,
+      "ios18.sigmoid": 2,
+      "ios16.reduce_mean": 1
+    },
+    "NeuralEngine": {
+      "ios18.conv": 35,
+      "ios18.add": 32,
+      "ios18.linear": 24,
+      "ios18.layer_norm": 22,
+      "ios18.mul": 22,
+      "ios18.relu": 20,
+      "ios18.gelu": 11,
+      "ios18.reshape": 5,
+      "ios18.slice_by_index": 4,
+      "ios18.transpose": 4,
+      "ios16.upsample_bilinear": 4,
+      "ios18.conv_transpose": 3,
+      "ios18.sigmoid": 2,
+      "ios16.reduce_mean": 1,
+      "ios18.concat": 1
+    }
+  }
+}

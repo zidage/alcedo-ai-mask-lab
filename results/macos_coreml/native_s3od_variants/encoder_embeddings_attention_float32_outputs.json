@@ -1,0 +1,93 @@
+{
+  "step": "issue #8: S3OD native Core ML output per compute units",
+  "model": "build/tmp/macos_coreml/variants/encoder_embeddings_attention_float32/s3od.mlmodelc",
+  "model_record": {
+    "precision": "float16_layer0_float32",
+    "float32_op_types": [],
+    "float32_scopes": [
+      "inner\\.encoder\\.embeddings",
+      "inner\\.encoder\\.model\\.[0-9]+\\.attention"
+    ],
+    "float32_ops": [
+      "matmul:matmul_0:inner.encoder.model.0.attention.attn_output.1",
+      "softmax:softmax_0:inner.encoder.model.0.attention.attn_output.1",
+      "matmul:attn_output.1:inner.encoder.model.0.attention.attn_output.1"
+    ],
+    "coremltools": "9.0",
+    "torch": "2.7.0",
+    "mlmodelc": {
+      "path": "build/tmp/macos_coreml/variants/encoder_embeddings_attention_float32/s3od.mlmodelc",
+      "bytes": 271166829,
+      "sha256": "5412652928efd71da3649e9c9b7044d4de04b305dd1eefc2dbc3e682d0c5d929"
+    }
+  },
+  "reference_alpha": "build/tmp/explore/s3od/compare_cpu/float32/alpha",
+  "results": {
+    "ALL": {
+      "rows": [
+        {
+          "photo": "DSC_1535",
+          "repeat": 0,
+          "ms": 629.3,
+          "iou_scores": [
+            0.9922,
+            0.9897,
+            0.9907
+          ],
+          "selected_mask": 0,
+          "iou_alpha_gt_0_5": 0.9999549888436634,
+          "max_abs_alpha_difference": 0.079345703125,
+          "non_finite": 0
+        },
+        {
+          "photo": "P1024439",
+          "repeat": 0,
+          "ms": 533.3,
+          "iou_scores": [
+            0.0592,
+            0.8989,
+            0.9307
+          ],
+          "selected_mask": 2,
+          "iou_alpha_gt_0_5": 0.9997301504929943,
+          "max_abs_alpha_difference": 0.19140625,
+          "non_finite": 0
+        },
+        {
+          "photo": "DSC_1535",
+          "repeat": 1,
+          "ms": 537.1,
+          "iou_scores": [
+            0.9922,
+            0.9897,
+            0.9907
+          ],
+          "selected_mask": 0,
+          "iou_alpha_gt_0_5": 0.9999549888436634,
+          "max_abs_alpha_difference": 0.079345703125,
+          "non_finite": 0
+        },
+        {
+          "photo": "P1024439",
+          "repeat": 1,
+          "ms": 560.6,
+          "iou_scores": [
+            0.0592,
+            0.8989,
+            0.9307
+          ],
+          "selected_mask": 2,
+          "iou_alpha_gt_0_5": 0.9997301504929943,
+          "max_abs_alpha_difference": 0.19140625,
+          "non_finite": 0
+        }
+      ],
+      "minimum_iou": 0.9997301504929943,
+      "ms_after_first_call": [
+        533.3,
+        537.1,
+        560.6
+      ]
+    }
+  }
+}

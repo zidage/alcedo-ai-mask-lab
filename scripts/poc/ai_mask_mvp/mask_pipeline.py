@@ -41,9 +41,29 @@ Data flow (issue #5):
   Subject  BiRefNet lite 1024 (or S3OD 1024, IS-Net 1024, or universal matting at the photo
            size) -> alpha;  Background = 1 - alpha
 
-Runtime: ONNX Runtime with DirectML (`directml`) or the CPU (`cpu`). The selected provider is the
-only provider of every session; if it fails, the error stops the pipeline. CPU threads are
-limited to `threads` (4) and the CPU memory arena is off.
+Runtime: ONNX Runtime with DirectML (`directml`), Core ML (`coreml`, macOS, issue #8), or the CPU
+(`cpu`); or native Core ML models (`coreml_native`, macOS, issue #8). The selected provider is the
+only provider of every session; if it fails, the error stops the pipeline. CPU threads are limited
+to `threads` (4) and the CPU memory arena is off.
+
+Core ML uses the provider settings of the Alcedo Studio sidecar (`ort_runtime::session_builder`
+with `--device coreml`): `CoreMLExecutionProvider` with the compute units `ALL` and the model
+format NeuralNetwork (the provider default), then `CPUExecutionProvider`, graph optimization level
+3 (ORT_ENABLE_ALL, the ONNX Runtime default). Core ML takes the nodes that it supports; ONNX
+Runtime runs the other nodes on the CPU provider. This is the partitioning of the production
+setting, not a provider change after an error: `profile_operator_placement.py` and
+`measure_graph_cost.py placement` record which nodes run where. `coreml_model_format` MLProgram
+is the other model format of the provider (`segmentation_runtime_report.rs --session-settings
+coreml-mlprogram`, not the production setting).
+
+`coreml_native` loads the compiled Core ML models of scripts/ai_models/coreml/convert_models.py
+(`GraphPaths.coreml_models`; the form of the Alcedo Studio native Core ML SigLIP2 models) with
+coremltools `CompiledMLModel` and the compute units `coreml_compute_units` (default ALL, the
+production default of the native models; coreml_native.py), except the decoder, which uses
+`coreml_decoder_compute_units` (default CPU_ONLY: README U15; on the GPU each change of the point
+count costs about 52 ms). The default Subject model is S3OD `float16_embeddings_attention_float32`
+(U15). The models have the inputs and outputs of the ONNX graphs, so the pipeline code is the
+same.
 """
 
 from __future__ import annotations
@@ -70,7 +90,16 @@ import feature_localization as fl  # noqa: E402
 DEFAULT_EXPLORE = REPOSITORY / "build" / "tmp" / "explore"
 MAX_EDGE = 4096
 STROKE_POINT_COUNT = 4
-PROVIDERS = {"directml": "DmlExecutionProvider", "cpu": "CPUExecutionProvider"}
+PROVIDERS = {"directml": "DmlExecutionProvider", "coreml": "CoreMLExecutionProvider",
+             "cpu": "CPUExecutionProvider", "coreml_native": "CoreMLNative"}
+NATIVE_COREML = "coreml_native"
+# Core ML model formats; the first is the production format (the provider default).
+COREML_MODEL_FORMATS = ("NeuralNetwork", "MLProgram")
+COREML_COMPUTE_UNITS = "ALL"
+# Compute units of the native Core ML models; the first is the production default.
+NATIVE_COMPUTE_UNITS = ("ALL", "CPU_AND_GPU", "CPU_AND_NE", "CPU_ONLY")
+# README U15: the native decoder runs on the CPU (no cost for a change of the point count).
+NATIVE_DECODER_COMPUTE_UNITS = "CPU_ONLY"
 # Subject graph kinds, by the output names of the graph.
 SUBJECT_OUTPUTS = {("alpha",): "birefnet", ("masks", "iou_scores"): "s3od", ("d1",): "isnet",
                    ("rgba",): "universal_matting"}
@@ -126,16 +155,27 @@ class GraphPaths:
     head_onnx: Path
     head_json: Path
     subject_onnx: Path
+    # The compiled native Core ML models (convert_models.py) of the `coreml_native` provider.
+    coreml_models: dict[str, Path] = field(default_factory=dict)
 
     @classmethod
     def default(cls, explore: Path = DEFAULT_EXPLORE) -> "GraphPaths":
         head = explore / "p1" / "colab_run2_coco_openimages" / "export"
+        coreml = explore / "coreml"
         return cls(sam2_dir=explore / "e4" / "onnx_float32_batch16" / "tiny",
                    head_onnx=head / "people_sky_head.onnx",
                    head_json=head / "people_sky_head.json",
-                   subject_onnx=explore / "e2" / "onnx_fp16" / "lite" / "subject_matte.onnx")
+                   subject_onnx=explore / "e2" / "onnx_fp16" / "lite" / "subject_matte.onnx",
+                   coreml_models={
+                       "point_encoder": coreml / "float32" / "point_encoder.mlmodelc",
+                       "point_decoder": coreml / "float32" / "point_decoder.mlmodelc",
+                       "people_sky_head": coreml / "float32" / "people_sky_head.mlmodelc",
+                       "subject_matte": (coreml / "float16_embeddings_attention_float32"
+                                         / "s3od.mlmodelc")})
 
-    def files(self) -> dict[str, Path]:
+    def files(self, provider: str = "cpu") -> dict[str, Path]:
+        if provider == NATIVE_COREML:
+            return dict(self.coreml_models)
         return {"point_encoder": self.sam2_dir / "point_encoder.onnx",
                 "point_decoder": self.sam2_dir / "point_decoder.onnx",
                 "people_sky_head": self.head_onnx,
@@ -151,21 +191,105 @@ def repository_path(path: Path) -> str:
         return str(resolved)
 
 
-def create_session(path: Path, provider: str, threads: int):
-    """ONNX Runtime session on `provider` only. CPU threads `threads`, CPU memory arena off.
+def add_provider_arguments(parser, default: str = "cpu") -> None:
+    """--provider, --coreml-model-format, and --coreml-compute-units of the scripts."""
+    parser.add_argument("--provider", choices=sorted(PROVIDERS), default=default)
+    parser.add_argument("--coreml-model-format", default=COREML_MODEL_FORMATS[0],
+                        choices=COREML_MODEL_FORMATS,
+                        help="provider coreml: the Core ML model format")
+    parser.add_argument("--coreml-compute-units", default=NATIVE_COMPUTE_UNITS[0],
+                        choices=NATIVE_COMPUTE_UNITS,
+                        help="provider coreml_native: the compute units (the measured graph of "
+                             "a single-graph script; in MaskPipeline all graphs but the decoder)")
+    parser.add_argument("--coreml-decoder-compute-units", default=NATIVE_DECODER_COMPUTE_UNITS,
+                        choices=NATIVE_COMPUTE_UNITS,
+                        help="provider coreml_native: the compute units of the decoder in "
+                             "MaskPipeline (README U15)")
+
+
+def provider_options(args) -> dict:
+    """The Core ML keyword arguments of create_session and MaskPipeline from the arguments of
+    add_provider_arguments."""
+    return {"coreml_model_format": args.coreml_model_format,
+            "coreml_compute_units": args.coreml_compute_units}
+
+
+def pipeline_provider_options(args) -> dict:
+    """provider_options and the decoder compute units, for MaskPipeline."""
+    return {**provider_options(args),
+            "coreml_decoder_compute_units": args.coreml_decoder_compute_units}
+
+
+def graph_sha256(path: Path) -> str:
+    """SHA-256 of an ONNX file, or of a compiled Core ML model directory (over the sorted
+    relative paths and file hashes, as convert_models.directory_sha256)."""
+    import hashlib
+
+    path = Path(path)
+    if path.is_file():
+        return fl.file_sha256(path)
+    digest = hashlib.sha256()
+    for file in sorted(p for p in path.rglob("*") if p.is_file()):
+        digest.update(file.relative_to(path).as_posix().encode("utf-8") + b"\0")
+        digest.update(fl.file_sha256(file).encode("ascii"))
+    return digest.hexdigest()
+
+
+def graph_bytes(path: Path) -> int:
+    path = Path(path)
+    return path.stat().st_size if path.is_file() else sum(
+        p.stat().st_size for p in path.rglob("*") if p.is_file())
+
+
+def provider_settings(provider: str,
+                      coreml_model_format: str = COREML_MODEL_FORMATS[0],
+                      coreml_compute_units: str = NATIVE_COMPUTE_UNITS[0]) -> list:
+    """The `providers` argument of the ONNX Runtime session for `provider` (see the module
+    docstring for Core ML), or the runtime and compute units of `coreml_native`."""
+    if provider == NATIVE_COREML:
+        return [{"runtime": "Core ML, compiled model (coremltools CompiledMLModel)",
+                 "compute_units": coreml_compute_units}]
+    if provider == "coreml":
+        if coreml_model_format not in COREML_MODEL_FORMATS:
+            raise ValueError(f"Core ML model format {coreml_model_format!r}: use one of "
+                             f"{COREML_MODEL_FORMATS}")
+        return [(PROVIDERS["coreml"], {"ModelFormat": coreml_model_format,
+                                       "MLComputeUnits": COREML_COMPUTE_UNITS}),
+                PROVIDERS["cpu"]]
+    return [PROVIDERS[provider]]
+
+
+def create_session(path: Path, provider: str, threads: int,
+                   coreml_model_format: str = COREML_MODEL_FORMATS[0],
+                   profile_prefix: str | None = None, log_severity_level: int = ORT_ERROR_LOG_LEVEL,
+                   coreml_compute_units: str = NATIVE_COMPUTE_UNITS[0]):
+    """ONNX Runtime session on `provider`. CPU threads `threads`, CPU memory arena off.
     DirectML needs sequential execution without memory patterns (ONNX Runtime documentation).
-    A provider that cannot be created raises the ONNX Runtime error."""
+    Core ML: `provider_settings`. ONNX Runtime profiling when `profile_prefix` is set. A provider
+    that cannot be created raises the ONNX Runtime error. `coreml_native`: a
+    coreml_native.CoreMLSession of the compiled model `path` with `coreml_compute_units`."""
+    if provider == NATIVE_COREML:
+        from coreml_native import CoreMLSession
+
+        if profile_prefix is not None:
+            raise ValueError("coreml_native has no ONNX Runtime profile; use "
+                             "scripts/ai_models/coreml/profile_compute_plan.py")
+        return CoreMLSession(path, coreml_compute_units)
     import onnxruntime as ort
 
     options = ort.SessionOptions()
     options.intra_op_num_threads = threads
     options.inter_op_num_threads = 1
     options.enable_cpu_mem_arena = False
-    options.log_severity_level = ORT_ERROR_LOG_LEVEL
+    options.log_severity_level = log_severity_level
+    if profile_prefix is not None:
+        options.enable_profiling = True
+        options.profile_file_prefix = profile_prefix
     if provider == "directml":
         options.enable_mem_pattern = False
         options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
-    session = ort.InferenceSession(str(path), options, providers=[PROVIDERS[provider]])
+    session = ort.InferenceSession(str(path), options,
+                                   providers=provider_settings(provider, coreml_model_format))
     if session.get_providers()[0] != PROVIDERS[provider]:
         raise RuntimeError(f"{path.name}: ONNX Runtime selected {session.get_providers()}, "
                            f"not {PROVIDERS[provider]}")
@@ -326,7 +450,10 @@ class MaskPipeline:
     """All graphs of the MVP, loaded together on one provider."""
 
     def __init__(self, paths: GraphPaths, provider: str = "directml", threads: int = 4,
-                 log_path: Path | None = None) -> None:
+                 log_path: Path | None = None,
+                 coreml_model_format: str = COREML_MODEL_FORMATS[0],
+                 coreml_compute_units: str = NATIVE_COMPUTE_UNITS[0],
+                 coreml_decoder_compute_units: str = NATIVE_DECODER_COMPUTE_UNITS) -> None:
         if provider not in PROVIDERS:
             raise ValueError(f"provider {provider!r}: use one of {sorted(PROVIDERS)}")
         fl.limit_threads(threads)
@@ -338,6 +465,10 @@ class MaskPipeline:
         self.birefnet = _load_birefnet_graphs()
         self.paths = paths
         self.provider = provider
+        self.coreml_model_format = coreml_model_format if provider == "coreml" else None
+        native = provider == NATIVE_COREML
+        self.coreml_compute_units = coreml_compute_units if native else None
+        self.coreml_decoder_compute_units = coreml_decoder_compute_units if native else None
         self.threads = threads
         self.log_path = Path(log_path) if log_path else None
         self.events: list[dict] = []
@@ -352,16 +483,20 @@ class MaskPipeline:
         }
         self.head_epoch = head_info["checkpoint_epoch"]
         self.sessions = {}
-        for name, path in paths.files().items():
-            sha256 = fl.file_sha256(path)
-            if name == "people_sky_head" and sha256 != head_info["onnx"]["sha256"]:
+        for name, path in paths.files(provider).items():
+            sha256 = graph_sha256(path)
+            if provider != NATIVE_COREML and name == "people_sky_head" \
+                    and sha256 != head_info["onnx"]["sha256"]:
                 raise ValueError(f"{path}: SHA-256 {sha256}, {paths.head_json} names "
                                  f"{head_info['onnx']['sha256']}")
             started = time.perf_counter()
-            self.sessions[name] = create_session(path, provider, threads)
+            units = coreml_decoder_compute_units if name == "point_decoder" \
+                else coreml_compute_units
+            self.sessions[name] = create_session(path, provider, threads, coreml_model_format,
+                                                 coreml_compute_units=units)
             load_ms = (time.perf_counter() - started) * 1000
             self.graph_records[name] = {"path": repository_path(path),
-                                        "bytes": path.stat().st_size,
+                                        "bytes": graph_bytes(path),
                                         "sha256": sha256, "load_ms": round(load_ms, 1)}
             self._record("load", load_ms, graph=name)
         outputs = tuple(o.name for o in self.sessions["subject_matte"].get_outputs())
@@ -398,6 +533,10 @@ class MaskPipeline:
         import onnxruntime as ort
 
         return {"step": "issue #5: AI Mask MVP", "provider": self.provider,
+                "provider_settings": provider_settings(
+                    self.provider, self.coreml_model_format or COREML_MODEL_FORMATS[0],
+                    self.coreml_compute_units or NATIVE_COMPUTE_UNITS[0]),
+                "coreml_decoder_compute_units": self.coreml_decoder_compute_units,
                 "threads": self.threads, "onnxruntime": ort.__version__,
                 "graphs": self.graph_records, "thresholds": self.thresholds,
                 "head_checkpoint_epoch": self.head_epoch, "events": self.events}

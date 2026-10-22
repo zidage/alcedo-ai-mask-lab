@@ -1,0 +1,152 @@
+{
+  "graph_name": "point_decoder",
+  "graph": "build/tmp/explore/coreml/float32/point_decoder.mlmodelc",
+  "provider": "coreml_native",
+  "provider_settings": [
+    {
+      "runtime": "Core ML, compiled model (coremltools CompiledMLModel)",
+      "compute_units": "ALL"
+    }
+  ],
+  "onnxruntime": "1.24.4",
+  "photo": "DSC_1535.jpg",
+  "pause_seconds": 5.0,
+  "window": [
+    "2026-10-22T15:21:39",
+    "2026-10-22T15:22:49"
+  ],
+  "first_runs": 9,
+  "failed_runs": 0,
+  "runs_with_non_finite_outputs": 0,
+  "runs_with_crash_reports": 0,
+  "crash_reports_recorded": true,
+  "runs": [
+    {
+      "load_ms": 1366.7,
+      "first_run_ms": 59.4,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 480.8,
+      "lifetime_max_phys_footprint_mb": 480.8,
+      "resident_mb": 477.9,
+      "index": 1,
+      "start": "2026-10-22T15:21:39",
+      "end": "2026-10-22T15:21:41",
+      "seconds": 2.2,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1369.2,
+      "first_run_ms": 48.4,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 480.2,
+      "lifetime_max_phys_footprint_mb": 480.2,
+      "resident_mb": 477.4,
+      "index": 2,
+      "start": "2026-10-22T15:21:46",
+      "end": "2026-10-22T15:21:48",
+      "seconds": 2.2,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1372.6,
+      "first_run_ms": 58.7,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 480.5,
+      "lifetime_max_phys_footprint_mb": 480.5,
+      "resident_mb": 477.6,
+      "index": 3,
+      "start": "2026-10-22T15:21:53",
+      "end": "2026-10-22T15:21:56",
+      "seconds": 2.2,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1372.9,
+      "first_run_ms": 59.3,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 480.6,
+      "lifetime_max_phys_footprint_mb": 480.6,
+      "resident_mb": 477.7,
+      "index": 4,
+      "start": "2026-10-22T15:22:01",
+      "end": "2026-10-22T15:22:03",
+      "seconds": 2.3,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1365.2,
+      "first_run_ms": 58.6,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 480.2,
+      "lifetime_max_phys_footprint_mb": 480.2,
+      "resident_mb": 477.3,
+      "index": 5,
+      "start": "2026-10-22T15:22:08",
+      "end": "2026-10-22T15:22:10",
+      "seconds": 2.3,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1363.1,
+      "first_run_ms": 59.5,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 480.5,
+      "lifetime_max_phys_footprint_mb": 480.5,
+      "resident_mb": 477.6,
+      "index": 6,
+      "start": "2026-10-22T15:22:15",
+      "end": "2026-10-22T15:22:17",
+      "seconds": 2.2,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1372.2,
+      "first_run_ms": 58.7,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 480.8,
+      "lifetime_max_phys_footprint_mb": 480.8,
+      "resident_mb": 477.9,
+      "index": 7,
+      "start": "2026-10-22T15:22:22",
+      "end": "2026-10-22T15:22:25",
+      "seconds": 2.3,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1364.6,
+      "first_run_ms": 59.1,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 480.6,
+      "lifetime_max_phys_footprint_mb": 480.6,
+      "resident_mb": 477.6,
+      "index": 8,
+      "start": "2026-10-22T15:22:30",
+      "end": "2026-10-22T15:22:32",
+      "seconds": 2.2,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 1363.9,
+      "first_run_ms": 59.5,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 480.4,
+      "lifetime_max_phys_footprint_mb": 480.4,
+      "resident_mb": 477.5,
+      "index": 9,
+      "start": "2026-10-22T15:22:37",
+      "end": "2026-10-22T15:22:39",
+      "seconds": 2.2,
+      "exit_code": 0,
+      "crash_reports": []
+    }
+  ],
+  "crash_reports": []
+}

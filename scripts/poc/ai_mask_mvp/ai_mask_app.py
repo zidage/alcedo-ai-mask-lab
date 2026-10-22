@@ -8,7 +8,8 @@ Output: the mask as an 8-bit PNG at the photo size, the prompts as JSON, and wit
 
 Tools:
 
-  Subject, Background   BiRefNet lite 1024 (F1, F2); Background is the inverted Subject alpha
+  Subject, Background   BiRefNet lite 1024, or the --subject-onnx graph (the accepted S3OD graph,
+                        issue #6) (F1, F2); Background is the inverted Subject alpha
   Sky, People           head run 2 + SAM 2.1 tiny decoder (F3, F4a); the People list selects one
                         person or all people; "not found" is a message, not an empty mask
   Stroke tool           drag a stroke: 4 points at equal spacing, one decoder run when the stroke
@@ -21,13 +22,20 @@ Tools:
 
 All models load together when the program starts. The model calls run one at a time in one worker
 thread; the UI does not accept a new model call while one runs. A model error (for example the
-DirectML error 887A0006) is shown as it is; the program does not change the provider.
+DirectML error 887A0006) is shown as it is; the program does not change the provider. On macOS,
+`--provider coreml` uses the production Core ML settings (mask_pipeline.provider_settings, issue
+#8); `--coreml-model-format MLProgram` selects the other model format. `--provider coreml_native`
+loads the compiled native Core ML models (mask_pipeline.GraphPaths.coreml_models) with
+`--coreml-compute-units` (default ALL) and the decoder with `--coreml-decoder-compute-units`
+(default CPU_ONLY, README U15).
 """
 
 from __future__ import annotations
 
 import argparse
+import queue
 import sys
+import threading
 import time
 import traceback
 from pathlib import Path
@@ -38,7 +46,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import mask_pipeline as mp  # noqa: E402
 
-from PySide6.QtCore import QObject, QPointF, QRectF, Qt, QThread, QTimer, Signal, Slot  # noqa: E402
+from PySide6.QtCore import QObject, QPointF, QRectF, Qt, QTimer, Signal, Slot  # noqa: E402
 from PySide6.QtGui import (QAction, QColor, QImage, QKeySequence, QPainter, QPainterPath,  # noqa: E402
                            QPen, QPixmap)
 from PySide6.QtWidgets import (QApplication, QButtonGroup, QCheckBox, QColorDialog,  # noqa: E402
@@ -67,20 +75,42 @@ def rgba_qimage(array: np.ndarray) -> QImage:
 
 
 class ModelWorker(QObject):
-    """Runs one job at a time in its own thread. A job is a callable without arguments."""
+    """Runs one job at a time in one Python thread. A job is a callable without arguments; the
+    result goes to the UI thread with the `finished` signal (a queued connection).
+
+    The thread is a Python thread, not a QThread: PySide gives a Qt thread a Python thread state
+    only for the time of one slot call, and coremltools (provider coreml_native) keeps the thread
+    state of the thread, so its first prediction in a later slot call used a deleted thread state
+    and stopped the process with SIGSEGV in `take_gil` (issue #8). A Python thread has one thread
+    state for its life."""
 
     finished = Signal(str, object, str, float)
 
-    @Slot(str, object)
-    def run(self, name: str, job) -> None:
-        started = time.perf_counter()
-        try:
-            result, error = job(), ""
-        except mp.NothingToSubtract as exc:
-            result, error = None, f"message:{exc}"
-        except Exception:  # noqa: BLE001 - the error text goes to the UI unchanged
-            result, error = None, traceback.format_exc()
-        self.finished.emit(name, result, error, (time.perf_counter() - started) * 1000)
+    def __init__(self) -> None:
+        super().__init__()
+        self.jobs: queue.Queue = queue.Queue()
+        self.thread = threading.Thread(target=self._run_jobs, name="model-worker", daemon=True)
+        self.thread.start()
+
+    def submit(self, name: str, job) -> None:
+        self.jobs.put((name, job))
+
+    def stop(self) -> None:
+        """Finish the running job, then end the thread."""
+        self.jobs.put(None)
+        self.thread.join()
+
+    def _run_jobs(self) -> None:
+        while (item := self.jobs.get()) is not None:
+            name, job = item
+            started = time.perf_counter()
+            try:
+                result, error = job(), ""
+            except mp.NothingToSubtract as exc:
+                result, error = None, f"message:{exc}"
+            except Exception:  # noqa: BLE001 - the error text goes to the UI unchanged
+                result, error = None, traceback.format_exc()
+            self.finished.emit(name, result, error, (time.perf_counter() - started) * 1000)
 
 
 class Canvas(QWidget):
@@ -193,8 +223,6 @@ class Canvas(QWidget):
 
 
 class MainWindow(QMainWindow):
-    submit = Signal(str, object)
-
     def __init__(self, args: argparse.Namespace) -> None:
         super().__init__()
         self.args = args
@@ -212,11 +240,7 @@ class MainWindow(QMainWindow):
         self.overlay_color = QColor(255, 40, 80)
 
         self.worker = ModelWorker()
-        self.worker_thread = QThread(self)
-        self.worker.moveToThread(self.worker_thread)
-        self.submit.connect(self.worker.run)
-        self.worker.finished.connect(self.job_finished)
-        self.worker_thread.start()
+        self.worker.finished.connect(self.job_finished, Qt.ConnectionType.QueuedConnection)
 
         self.canvas = Canvas()
         self.canvas.strokeFinished.connect(self.stroke_finished)
@@ -226,7 +250,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.build_layout())
         self.build_actions()
         self.set_busy(True, "Loading models ...")
-        self.submit.emit("load", self.load_job)
+        self.worker.submit("load", self.load_job)
 
     # Layout.
 
@@ -344,14 +368,17 @@ class MainWindow(QMainWindow):
         paths = mp.GraphPaths.default(Path(self.args.explore))
         if self.args.subject_onnx:
             paths.subject_onnx = Path(self.args.subject_onnx)
+        if self.args.subject_coreml:
+            paths.coreml_models["subject_matte"] = Path(self.args.subject_coreml)
         return mp.MaskPipeline(paths, provider=self.args.provider, threads=self.args.threads,
-                               log_path=Path(self.args.log) if self.args.log else None)
+                               log_path=Path(self.args.log) if self.args.log else None,
+                               **mp.pipeline_provider_options(self.args))
 
     def run_job(self, name: str, job, message: str) -> None:
         if self.busy or self.pipeline is None:
             return
         self.set_busy(True, message)
-        self.submit.emit(name, job)
+        self.worker.submit(name, job)
 
     def set_busy(self, busy: bool, message: str = "") -> None:
         if busy and not self.busy:
@@ -400,7 +427,10 @@ class MainWindow(QMainWindow):
 
     def after_load(self, pipeline: mp.MaskPipeline) -> None:
         hashes = ", ".join(f"{k} {v['sha256'][:8]}" for k, v in pipeline.graph_records.items())
-        self.statusBar().showMessage(f"Models loaded on {pipeline.provider}: {hashes}")
+        provider = pipeline.provider
+        if pipeline.coreml_model_format or pipeline.coreml_compute_units:
+            provider += f" ({pipeline.coreml_model_format or pipeline.coreml_compute_units})"
+        self.statusBar().showMessage(f"Models loaded on {provider}: {hashes}")
         if self.args.photo:
             self.open_photo(Path(self.args.photo))
 
@@ -443,11 +473,11 @@ class MainWindow(QMainWindow):
 
     def select_subject(self) -> None:
         self.run_job("subject", lambda: self.pipeline.select_subject(self.state),
-                     "Subject (BiRefNet) ...")
+                     f"Subject ({self.pipeline.subject_kind}) ...")
 
     def select_background(self) -> None:
         self.run_job("background", lambda: self.pipeline.select_subject(self.state),
-                     "Background (BiRefNet) ...")
+                     f"Background ({self.pipeline.subject_kind}) ...")
 
     def after_subject(self, _alpha) -> None:
         self.show_mask("subject", "Subject")
@@ -651,8 +681,7 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(f"Exported {path} and its prompts JSON")
 
     def closeEvent(self, event) -> None:  # noqa: N802
-        self.worker_thread.quit()
-        self.worker_thread.wait()
+        self.worker.stop()
         super().closeEvent(event)
 
 
@@ -660,13 +689,17 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("photo", nargs="?", default="")
-    parser.add_argument("--provider", choices=sorted(mp.PROVIDERS), default="directml")
+    mp.add_provider_arguments(parser, default="directml")
     parser.add_argument("--threads", type=int, default=4)
     parser.add_argument("--explore", default=str(mp.DEFAULT_EXPLORE),
                         help="build/tmp/explore of this repository (the graph locations of "
                              "mask_pipeline.GraphPaths.default)")
     parser.add_argument("--subject-onnx", default="",
-                        help="another BiRefNet lite 1024 graph (default: the E2 float16 graph)")
+                        help="another Subject graph at 1024 px (mask_pipeline.SUBJECT_OUTPUTS; "
+                             "default: the E2 BiRefNet lite float16 graph)")
+    parser.add_argument("--subject-coreml", default="",
+                        help="provider coreml_native: another compiled Subject model (default: "
+                             "mask_pipeline.GraphPaths.coreml_models)")
     parser.add_argument("--stroke-points", type=int, default=mp.STROKE_POINT_COUNT)
     parser.add_argument("--log", default="", help="JSON record of the stage times and hashes")
     args = parser.parse_args()

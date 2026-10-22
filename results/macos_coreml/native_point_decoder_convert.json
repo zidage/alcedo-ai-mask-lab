@@ -1,0 +1,85 @@
+{
+  "step": "issue #8: native Core ML model",
+  "model": "point_decoder",
+  "precision": "float32",
+  "float32_ops": [],
+  "coremltools": "9.0",
+  "torch": "2.7.0",
+  "format": "mlprogram",
+  "minimum_deployment_target": "macOS15",
+  "inputs": {
+    "image_embed": [
+      "1",
+      "256",
+      "64",
+      "64"
+    ],
+    "high_res_feats_0": [
+      "1",
+      "32",
+      "256",
+      "256"
+    ],
+    "high_res_feats_1": [
+      "1",
+      "64",
+      "128",
+      "128"
+    ],
+    "point_coords": [
+      "1",
+      "RangeDim(lower_bound=1, upper_bound=64, default=2, symbol=\"is0\")",
+      "2"
+    ],
+    "point_labels": [
+      "1",
+      "RangeDim(lower_bound=1, upper_bound=64, default=2, symbol=\"is1\")"
+    ],
+    "mask_input": [
+      "1",
+      "1",
+      "256",
+      "256"
+    ],
+    "has_mask_input": [
+      "1"
+    ]
+  },
+  "outputs": [
+    "masks",
+    "iou_predictions",
+    "object_score_logits"
+  ],
+  "checkpoint": {
+    "path": "build/tmp/explore/weights/sam2.1_hiera_tiny.pt",
+    "bytes": 156008466,
+    "sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69"
+  },
+  "mlpackage": {
+    "path": "build/tmp/explore/coreml/float32/point_decoder.mlpackage",
+    "bytes": 21090366,
+    "sha256": "3f6a3394547d426937898fadf675ec26a28b0b488b86670e7b60f8f3d1cfb109"
+  },
+  "mlmodelc": {
+    "path": "build/tmp/explore/coreml/float32/point_decoder.mlmodelc",
+    "bytes": 21098274,
+    "sha256": "f2efed0420fba10b641afa384a58a872cc878231472711e9d86219bf4440fd70"
+  },
+  "convert_seconds": 1.2,
+  "max_abs_difference_against_pytorch_float32": {
+    "CPU_ONLY": {
+      "masks": 0.00015735626220703125,
+      "iou_predictions": 6.4373016357421875e-06,
+      "object_score_logits": 1.1444091796875e-05
+    },
+    "ALL": {
+      "masks": 0.00016117095947265625,
+      "iou_predictions": 6.9141387939453125e-06,
+      "object_score_logits": 9.5367431640625e-06
+    }
+  },
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.7"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "command": [
+    "build/tmp/explore/venv_ai_mask_mvp/bin/python",
+    "-I",
+    "scripts/poc/ai_mask_mvp/measure_graph_cost.py",
+    "cost",
+    "--graph-name",
+    "people_sky_head",
+    "--provider",
+    "coreml_native",
+    "--coreml-compute-units",
+    "ALL",
+    "--photos",
+    "build/tmp/explore/e4/input_4096/photos",
+    "--prompts",
+    "build/tmp/sm1/quality/prompts.json",
+    "--features-dir",
+    "build/tmp/macos_coreml/features_cpu",
+    "--out",
+    "results/macos_coreml/native_people_sky_head_ALL_cost.json"
+  ],
+  "exit_code": 0,
+  "start": "2026-10-22T16:01:53",
+  "end": "2026-10-22T16:01:55",
+  "seconds": 2.4,
+  "interval_ms": 200,
+  "peak_phys_footprint_mb_per_process": {
+    "65894": 423.3
+  },
+  "peak_phys_footprint_mb": 423.3,
+  "peak_sampled_phys_footprint_sum_mb": 376.4,
+  "system_used_before_mb": 6318.9,
+  "system_used_peak_mb": 6709.9,
+  "system_used_peak_increase_mb": 391.0,
+  "crash_reports": [],
+  "samples": [
+    {
+      "s": 0.01,
+      "phys_footprint_mb": 5.3,
+      "system_used_mb": 6326.3
+    },
+    {
+      "s": 0.23,
+      "phys_footprint_mb": 100.4,
+      "system_used_mb": 6420.9
+    },
+    {
+      "s": 0.45,
+      "phys_footprint_mb": 146.9,
+      "system_used_mb": 6467.2
+    },
+    {
+      "s": 0.66,
+      "phys_footprint_mb": 254.3,
+      "system_used_mb": 6575.0
+    },
+    {
+      "s": 0.88,
+      "phys_footprint_mb": 296.1,
+      "system_used_mb": 6616.7
+    },
+    {
+      "s": 1.1,
+      "phys_footprint_mb": 326.2,
+      "system_used_mb": 6647.4
+    },
+    {
+      "s": 1.32,
+      "phys_footprint_mb": 327.0,
+      "system_used_mb": 6648.1
+    },
+    {
+      "s": 1.54,
+      "phys_footprint_mb": 330.9,
+      "system_used_mb": 6651.8
+    },
+    {
+      "s": 1.75,
+      "phys_footprint_mb": 364.7,
+      "system_used_mb": 6693.5
+    },
+    {
+      "s": 1.97,
+      "phys_footprint_mb": 376.2,
+      "system_used_mb": 6709.7
+    },
+    {
+      "s": 2.19,
+      "phys_footprint_mb": 376.4,
+      "system_used_mb": 6709.9
+    },
+    {
+      "s": 2.4,
+      "phys_footprint_mb": 0.0,
+      "system_used_mb": 6337.7
+    }
+  ]
+}

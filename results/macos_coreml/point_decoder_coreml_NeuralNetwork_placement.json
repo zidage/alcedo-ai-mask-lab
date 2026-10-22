@@ -1,0 +1,94 @@
+{
+  "graph_name": "point_decoder",
+  "photo": "DSC_1535.jpg",
+  "graph": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_decoder.onnx",
+  "provider": "coreml",
+  "provider_settings": [
+    [
+      "CoreMLExecutionProvider",
+      {
+        "ModelFormat": "NeuralNetwork",
+        "MLComputeUnits": "ALL"
+      }
+    ],
+    "CPUExecutionProvider"
+  ],
+  "onnxruntime": "1.24.4",
+  "runs": 2,
+  "graph_operators": {
+    "Constant": 318,
+    "Shape": 105,
+    "Gather": 98,
+    "Unsqueeze": 89,
+    "Add": 67,
+    "Cast": 54,
+    "MatMul": 48,
+    "Concat": 39,
+    "Reshape": 38,
+    "Mul": 37,
+    "Div": 36,
+    "Transpose": 31,
+    "Sqrt": 24,
+    "Gemm": 18,
+    "Slice": 15,
+    "Relu": 14,
+    "LayerNormalization": 9,
+    "Softmax": 7,
+    "Equal": 6,
+    "Where": 6,
+    "ReduceMean": 6,
+    "Sub": 5,
+    "ConstantOfShape": 4,
+    "Erf": 4,
+    "Conv": 3,
+    "Pow": 3,
+    "ConvTranspose": 2,
+    "Neg": 1,
+    "Sin": 1,
+    "Cos": 1,
+    "Expand": 1,
+    "OneHot": 1,
+    "Tile": 1,
+    "Sigmoid": 1
+  },
+  "coreml_capability": [
+    {
+      "partitions": 56,
+      "graph_nodes": 479,
+      "coreml_nodes": 260
+    }
+  ],
+  "executed_nodes": {
+    "CPUExecutionProvider": 220,
+    "CoreMLExecutionProvider": 56
+  },
+  "kernel_ms_per_run": {
+    "CPUExecutionProvider": 10.1,
+    "CoreMLExecutionProvider": 163.3
+  },
+  "cpu_nodes_per_operator": {
+    "MatMul": 47,
+    "Gather": 36,
+    "Reshape": 34,
+    "Unsqueeze": 29,
+    "Concat": 17,
+    "LayerNormalization": 9,
+    "Cast": 7,
+    "Mul": 7,
+    "Equal": 6,
+    "Where": 6,
+    "Slice": 4,
+    "Erf": 4,
+    "ConstantOfShape": 3,
+    "Squeeze": 2,
+    "ConvTranspose": 2,
+    "Split": 1,
+    "Cos": 1,
+    "Sin": 1,
+    "Neg": 1,
+    "Expand": 1,
+    "OneHot": 1,
+    "Tile": 1
+  },
+  "profile": "build/tmp/macos_coreml/profiles/point_decoder_coreml_NeuralNetwork_2026-10-22_14-25-56.json"
+}

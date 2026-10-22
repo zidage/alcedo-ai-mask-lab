@@ -1,0 +1,81 @@
+{
+  "step": "issue #8: native Core ML model",
+  "model": "point_decoder",
+  "precision": "float32",
+  "float32_ops": [],
+  "float32_op_types": [],
+  "float32_scopes": [],
+  "point_shapes": "enumerated",
+  "coremltools": "9.0",
+  "torch": "2.7.0",
+  "format": "mlprogram",
+  "minimum_deployment_target": "macOS15",
+  "inputs": {
+    "image_embed": [
+      "1",
+      "256",
+      "64",
+      "64"
+    ],
+    "high_res_feats_0": [
+      "1",
+      "32",
+      "256",
+      "256"
+    ],
+    "high_res_feats_1": [
+      "1",
+      "64",
+      "128",
+      "128"
+    ],
+    "point_coords": "EnumeratedShapes([(1, 1, 2), (1, 2, 2), (1, 3, 2), (1, 4, 2), (1, 5, 2), (1, 6, 2), (1, 7, 2), (1, 8, 2), (1, 9, 2), (1, 10, 2), (1, 11, 2), (1, 12, 2), (1, 13, 2), (1, 14, 2), (1, 15, 2), (1, 16, 2), (1, 17, 2), (1, 18, 2), (1, 19, 2), (1, 20, 2), (1, 21, 2), (1, 22, 2), (1, 23, 2), (1, 24, 2), (1, 25, 2), (1, 26, 2), (1, 27, 2), (1, 28, 2), (1, 29, 2), (1, 30, 2), (1, 31, 2), (1, 32, 2), (1, 33, 2), (1, 34, 2), (1, 35, 2), (1, 36, 2), (1, 37, 2), (1, 38, 2), (1, 39, 2), (1, 40, 2), (1, 41, 2), (1, 42, 2), (1, 43, 2), (1, 44, 2), (1, 45, 2), (1, 46, 2), (1, 47, 2), (1, 48, 2), (1, 49, 2), (1, 50, 2), (1, 51, 2), (1, 52, 2), (1, 53, 2), (1, 54, 2), (1, 55, 2), (1, 56, 2), (1, 57, 2), (1, 58, 2), (1, 59, 2), (1, 60, 2), (1, 61, 2), (1, 62, 2), (1, 63, 2), (1, 64, 2)], default=[1, 2, 2])",
+    "point_labels": "EnumeratedShapes([(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11), (1, 12), (1, 13), (1, 14), (1, 15), (1, 16), (1, 17), (1, 18), (1, 19), (1, 20), (1, 21), (1, 22), (1, 23), (1, 24), (1, 25), (1, 26), (1, 27), (1, 28), (1, 29), (1, 30), (1, 31), (1, 32), (1, 33), (1, 34), (1, 35), (1, 36), (1, 37), (1, 38), (1, 39), (1, 40), (1, 41), (1, 42), (1, 43), (1, 44), (1, 45), (1, 46), (1, 47), (1, 48), (1, 49), (1, 50), (1, 51), (1, 52), (1, 53), (1, 54), (1, 55), (1, 56), (1, 57), (1, 58), (1, 59), (1, 60), (1, 61), (1, 62), (1, 63), (1, 64)], default=[1, 2])",
+    "mask_input": [
+      "1",
+      "1",
+      "256",
+      "256"
+    ],
+    "has_mask_input": [
+      "1"
+    ]
+  },
+  "outputs": [
+    "masks",
+    "iou_predictions",
+    "object_score_logits"
+  ],
+  "checkpoint": {
+    "path": "build/tmp/explore/weights/sam2.1_hiera_tiny.pt",
+    "bytes": 156008466,
+    "sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69"
+  },
+  "mlpackage": {
+    "path": "build/tmp/explore/coreml/float32_decoder_enumerated/point_decoder.mlpackage",
+    "bytes": 21091176,
+    "sha256": "c91672355103452dba73e7ae1cedf1a9dc4125485d6fcb1928274f5e86b75a37"
+  },
+  "mlmodelc": {
+    "path": "build/tmp/explore/coreml/float32_decoder_enumerated/point_decoder.mlmodelc",
+    "bytes": 21114932,
+    "sha256": "1512ee2bcb55e2233ca87e7adaa0b6c2cd7f4a80e66ff4f780c7e8dd5663d881"
+  },
+  "convert_seconds": 1.3,
+  "max_abs_difference_against_pytorch_float32": {
+    "CPU_ONLY": {
+      "masks": 0.00022125244140625,
+      "iou_predictions": 2.7418136596679688e-06,
+      "object_score_logits": 3.814697265625e-06
+    },
+    "ALL": {
+      "masks": 0.0002307891845703125,
+      "iou_predictions": 2.9802322387695312e-06,
+      "object_score_logits": 3.814697265625e-06
+    }
+  },
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.7"
+  }
+}

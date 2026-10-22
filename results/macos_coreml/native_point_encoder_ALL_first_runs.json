@@ -1,0 +1,152 @@
+{
+  "graph_name": "point_encoder",
+  "graph": "build/tmp/explore/coreml/float32/point_encoder.mlmodelc",
+  "provider": "coreml_native",
+  "provider_settings": [
+    {
+      "runtime": "Core ML, compiled model (coremltools CompiledMLModel)",
+      "compute_units": "ALL"
+    }
+  ],
+  "onnxruntime": "1.24.4",
+  "photo": "DSC_1535.jpg",
+  "pause_seconds": 5.0,
+  "window": [
+    "2026-10-22T15:20:27",
+    "2026-10-22T15:21:38"
+  ],
+  "first_runs": 9,
+  "failed_runs": 0,
+  "runs_with_non_finite_outputs": 0,
+  "runs_with_crash_reports": 0,
+  "crash_reports_recorded": true,
+  "runs": [
+    {
+      "load_ms": 771.1,
+      "first_run_ms": 269.9,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1401.9,
+      "lifetime_max_phys_footprint_mb": 1401.9,
+      "resident_mb": 1091.6,
+      "index": 1,
+      "start": "2026-10-22T15:20:27",
+      "end": "2026-10-22T15:20:29",
+      "seconds": 2.4,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 776.2,
+      "first_run_ms": 255.7,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1402.0,
+      "lifetime_max_phys_footprint_mb": 1402.0,
+      "resident_mb": 1091.8,
+      "index": 2,
+      "start": "2026-10-22T15:20:34",
+      "end": "2026-10-22T15:20:36",
+      "seconds": 2.4,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 777.2,
+      "first_run_ms": 255.4,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1401.7,
+      "lifetime_max_phys_footprint_mb": 1401.7,
+      "resident_mb": 1091.5,
+      "index": 3,
+      "start": "2026-10-22T15:20:41",
+      "end": "2026-10-22T15:20:44",
+      "seconds": 2.4,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 776.0,
+      "first_run_ms": 254.6,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1402.1,
+      "lifetime_max_phys_footprint_mb": 1402.1,
+      "resident_mb": 1091.9,
+      "index": 4,
+      "start": "2026-10-22T15:20:49",
+      "end": "2026-10-22T15:20:51",
+      "seconds": 2.4,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 777.0,
+      "first_run_ms": 251.5,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1401.8,
+      "lifetime_max_phys_footprint_mb": 1401.8,
+      "resident_mb": 1091.6,
+      "index": 5,
+      "start": "2026-10-22T15:20:56",
+      "end": "2026-10-22T15:20:59",
+      "seconds": 2.4,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 778.4,
+      "first_run_ms": 261.5,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1401.5,
+      "lifetime_max_phys_footprint_mb": 1401.5,
+      "resident_mb": 1091.2,
+      "index": 6,
+      "start": "2026-10-22T15:21:04",
+      "end": "2026-10-22T15:21:06",
+      "seconds": 2.4,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 777.1,
+      "first_run_ms": 255.6,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1401.7,
+      "lifetime_max_phys_footprint_mb": 1401.7,
+      "resident_mb": 1091.5,
+      "index": 7,
+      "start": "2026-10-22T15:21:11",
+      "end": "2026-10-22T15:21:13",
+      "seconds": 2.4,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 781.1,
+      "first_run_ms": 260.0,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1402.0,
+      "lifetime_max_phys_footprint_mb": 1402.0,
+      "resident_mb": 1091.8,
+      "index": 8,
+      "start": "2026-10-22T15:21:18",
+      "end": "2026-10-22T15:21:21",
+      "seconds": 2.4,
+      "exit_code": 0,
+      "crash_reports": []
+    },
+    {
+      "load_ms": 772.6,
+      "first_run_ms": 258.3,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 1401.5,
+      "lifetime_max_phys_footprint_mb": 1401.5,
+      "resident_mb": 1091.3,
+      "index": 9,
+      "start": "2026-10-22T15:21:26",
+      "end": "2026-10-22T15:21:28",
+      "seconds": 2.4,
+      "exit_code": 0,
+      "crash_reports": []
+    }
+  ],
+  "crash_reports": []
+}

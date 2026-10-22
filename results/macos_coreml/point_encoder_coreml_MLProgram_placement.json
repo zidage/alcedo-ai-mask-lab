@@ -1,0 +1,72 @@
+{
+  "graph_name": "point_encoder",
+  "photo": "DSC_1535.jpg",
+  "graph": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_encoder.onnx",
+  "provider": "coreml",
+  "provider_settings": [
+    [
+      "CoreMLExecutionProvider",
+      {
+        "ModelFormat": "MLProgram",
+        "MLComputeUnits": "ALL"
+      }
+    ],
+    "CPUExecutionProvider"
+  ],
+  "onnxruntime": "1.24.4",
+  "runs": 2,
+  "graph_operators": {
+    "Constant": 802,
+    "Unsqueeze": 216,
+    "Cast": 146,
+    "Add": 115,
+    "Shape": 114,
+    "Gather": 102,
+    "Transpose": 89,
+    "Concat": 84,
+    "Div": 79,
+    "Reshape": 76,
+    "MatMul": 75,
+    "Mul": 72,
+    "Mod": 48,
+    "Squeeze": 36,
+    "Sqrt": 36,
+    "Sub": 30,
+    "Slice": 27,
+    "LayerNormalization": 24,
+    "Split": 12,
+    "Softmax": 12,
+    "Erf": 12,
+    "Conv": 7,
+    "MaxPool": 6,
+    "ConstantOfShape": 5,
+    "Pad": 5,
+    "Resize": 2,
+    "If": 2,
+    "Size": 1,
+    "Greater": 1,
+    "Less": 1,
+    "Tile": 1
+  },
+  "coreml_capability": [
+    {
+      "partitions": 19,
+      "graph_nodes": 508,
+      "coreml_nodes": 449
+    }
+  ],
+  "executed_nodes": {
+    "CPUExecutionProvider": 59,
+    "CoreMLExecutionProvider": 19
+  },
+  "kernel_ms_per_run": {
+    "CPUExecutionProvider": 6.5,
+    "CoreMLExecutionProvider": 2266.5
+  },
+  "cpu_nodes_per_operator": {
+    "Reshape": 36,
+    "Transpose": 18,
+    "Pad": 5
+  },
+  "profile": "build/tmp/macos_coreml/profiles/point_encoder_coreml_MLProgram_2026-10-22_14-25-17.json"
+}

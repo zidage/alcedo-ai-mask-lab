@@ -1,0 +1,60 @@
+{
+  "graph_name": "people_sky_head",
+  "photo": "DSC_1535.jpg",
+  "graph": "build/tmp/explore/p1/colab_run2_coco_openimages/export/people_sky_head.onnx",
+  "provider": "coreml",
+  "provider_settings": [
+    [
+      "CoreMLExecutionProvider",
+      {
+        "ModelFormat": "NeuralNetwork",
+        "MLComputeUnits": "ALL"
+      }
+    ],
+    "CPUExecutionProvider"
+  ],
+  "onnxruntime": "1.24.4",
+  "runs": 2,
+  "graph_operators": {
+    "Constant": 34,
+    "Add": 13,
+    "Mul": 13,
+    "Reshape": 8,
+    "Conv": 7,
+    "Div": 5,
+    "InstanceNormalization": 4,
+    "Shape": 4,
+    "Erf": 4,
+    "ReduceMean": 3,
+    "Slice": 2,
+    "Sub": 1,
+    "Pow": 1,
+    "Sqrt": 1,
+    "ReduceMax": 1,
+    "Concat": 1,
+    "Sigmoid": 1,
+    "Gemm": 1
+  },
+  "coreml_capability": [
+    {
+      "partitions": 10,
+      "graph_nodes": 66,
+      "coreml_nodes": 56
+    }
+  ],
+  "executed_nodes": {
+    "CPUExecutionProvider": 10,
+    "CoreMLExecutionProvider": 10
+  },
+  "kernel_ms_per_run": {
+    "CPUExecutionProvider": 1.4,
+    "CoreMLExecutionProvider": 18.6
+  },
+  "cpu_nodes_per_operator": {
+    "InstanceNormalization": 4,
+    "Erf": 4,
+    "ReduceMax": 1,
+    "Concat": 1
+  },
+  "profile": "build/tmp/macos_coreml/profiles/people_sky_head_coreml_NeuralNetwork_2026-10-22_14-26-00.json"
+}

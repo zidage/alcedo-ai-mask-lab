@@ -1,0 +1,129 @@
+{
+  "step": "issue #8: native encoder outputs",
+  "input": "random",
+  "model": "build/tmp/explore/coreml/float32/point_encoder.mlmodelc",
+  "onnx": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_encoder.onnx",
+  "records": [
+    {
+      "photo": "random 0",
+      "ranges": {
+        "image_embed": [
+          -1.4042985439300537,
+          1.3409578800201416
+        ],
+        "high_res_feats_0": [
+          -1.0010656118392944,
+          0.7164301872253418
+        ],
+        "high_res_feats_1": [
+          -0.906700074672699,
+          0.8496189713478088
+        ]
+      },
+      "pairs": {
+        "onnxruntime_cpu vs pytorch": {
+          "image_embed": {
+            "max_abs_difference": 0.6804066523909569,
+            "relative_error": 0.31009230808735316,
+            "cosine": 0.9516079834460436
+          },
+          "high_res_feats_0": {
+            "max_abs_difference": 1602104.5017944276,
+            "relative_error": 455879.1328856626,
+            "cosine": -0.050117259938785116
+          },
+          "high_res_feats_1": {
+            "max_abs_difference": 1.2625791728496552,
+            "relative_error": 0.30355394865913077,
+            "cosine": 0.9554346748853975
+          }
+        },
+        "onnxruntime_cpu vs coreml_ALL": {
+          "image_embed": {
+            "max_abs_difference": 0.6804081350564957,
+            "relative_error": 0.31009204675701024,
+            "cosine": 0.9516080471264207
+          },
+          "high_res_feats_0": {
+            "max_abs_difference": 1602104.5017943978,
+            "relative_error": 455879.1264119649,
+            "cosine": -0.050117260171082166
+          },
+          "high_res_feats_1": {
+            "max_abs_difference": 1.2625786066055298,
+            "relative_error": 0.3035539659051359,
+            "cosine": 0.9554346721647953
+          }
+        },
+        "onnxruntime_cpu vs coreml_CPU_ONLY": {
+          "image_embed": {
+            "max_abs_difference": 0.680406779050827,
+            "relative_error": 0.31009222759534005,
+            "cosine": 0.9516080051857496
+          },
+          "high_res_feats_0": {
+            "max_abs_difference": 1602104.5017943084,
+            "relative_error": 455879.1443501761,
+            "cosine": -0.050117259992048774
+          },
+          "high_res_feats_1": {
+            "max_abs_difference": 1.2625786364078522,
+            "relative_error": 0.3035539462512509,
+            "cosine": 0.955434675206169
+          }
+        },
+        "pytorch vs coreml_ALL": {
+          "image_embed": {
+            "max_abs_difference": 1.379847526550293e-05,
+            "relative_error": 3.377111007154933e-06,
+            "cosine": 0.9999999999943887
+          },
+          "high_res_feats_0": {
+            "max_abs_difference": 7.450580596923828e-07,
+            "relative_error": 6.113974715810184e-07,
+            "cosine": 0.9999999999998012
+          },
+          "high_res_feats_1": {
+            "max_abs_difference": 2.7418136596679688e-06,
+            "relative_error": 1.7415945927089723e-06,
+            "cosine": 0.9999999999984803
+          }
+        },
+        "pytorch vs coreml_CPU_ONLY": {
+          "image_embed": {
+            "max_abs_difference": 1.4096498489379883e-05,
+            "relative_error": 3.0751081545915552e-06,
+            "cosine": 0.9999999999952727
+          },
+          "high_res_feats_0": {
+            "max_abs_difference": 6.854534149169922e-07,
+            "relative_error": 5.823146919638518e-07,
+            "cosine": 0.9999999999998186
+          },
+          "high_res_feats_1": {
+            "max_abs_difference": 2.4437904357910156e-06,
+            "relative_error": 1.675507877043781e-06,
+            "cosine": 0.9999999999985929
+          }
+        },
+        "coreml_ALL vs coreml_CPU_ONLY": {
+          "image_embed": {
+            "max_abs_difference": 1.0251998901367188e-05,
+            "relative_error": 3.3312211307595105e-06,
+            "cosine": 0.9999999999945106
+          },
+          "high_res_feats_0": {
+            "max_abs_difference": 5.960464477539062e-07,
+            "relative_error": 4.5826577001128104e-07,
+            "cosine": 0.9999999999998838
+          },
+          "high_res_feats_1": {
+            "max_abs_difference": 1.9073486328125e-06,
+            "relative_error": 1.3161936280916131e-06,
+            "cosine": 0.9999999999991315
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-"""First DirectML runs of one Subject graph in new processes, and the display driver resets
-(issue #6, MVP report section 5.3).
+"""First runs of one Subject graph in new processes: DirectML and the display driver resets
+(issue #6, MVP report section 5.3), or Core ML on macOS and the crash reports (issue #8).
 
 Input:  --model (s3od, birefnet, isnet, or universal_matting), --graph, --photo, --count
-        (default 9).
+        (default 9), --provider (default directml), --coreml-model-format,
+        --coreml-compute-units (provider coreml_native: --graph is the compiled Core ML model).
 Output: --out (JSON): per process the start and end time, the session load time, the first run
-        time or the ONNX Runtime error, the exit code; and the Windows System events of the time
-        window: `nvlddmkm` event 153 and `Display` event 4101 ("the display driver stopped
-        responding and has recovered"). A process counts as reset when an event 4101 is between
-        its start and 5 s after its end.
+        time or the ONNX Runtime error, the number of NaN and infinite output values, the exit
+        code (a negative value is the signal that stopped the process), and the memory record.
+        Windows: the System events of the time window: `nvlddmkm` event 153 and `Display` event
+        4101 ("the display driver stopped responding and has recovered"). A process counts as
+        reset when an event 4101 is between its start and 5 s after its end. macOS: the crash
+        reports (`macos_records.crash_reports`, user and system processes) between the start of
+        the process and 10 s after its end.
 
 Each process creates a new session with the MVP settings, runs the graph once, and exits. The
 processes run one after the other with --pause-seconds between them. The script does not retry a
@@ -30,9 +34,15 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 RESET_EVENT = 4101
 EVENT_MARGIN = timedelta(seconds=5)
+CRASH_REPORT_MARGIN = timedelta(seconds=10)
+PROVIDERS = ("coreml", "coreml_native", "cpu", "directml")
+COREML_MODEL_FORMATS = ("NeuralNetwork", "MLProgram")
+NATIVE_COMPUTE_UNITS = ("ALL", "CPU_AND_GPU", "CPU_AND_NE", "CPU_ONLY")
 
 
 def child(args) -> int:
+    import numpy as np
+
     import subject_runtime as rt
 
     model = rt.SubjectModel(args.model)
@@ -40,12 +50,16 @@ def child(args) -> int:
     record: dict = {}
     try:
         started = time.perf_counter()
-        session = rt.create_session(Path(args.graph), "directml")
+        session = rt.create_session(Path(args.graph), args.provider,
+                                    coreml_model_format=args.coreml_model_format,
+                                    coreml_compute_units=args.coreml_compute_units)
         record["load_ms"] = round((time.perf_counter() - started) * 1000, 1)
         started = time.perf_counter()
-        session.run(None, {session.get_inputs()[0].name: prepared.pixels})
+        outputs = session.run(None, {session.get_inputs()[0].name: prepared.pixels})
         record["first_run_ms"] = round((time.perf_counter() - started) * 1000, 1)
-        record.update(rt.gpu_memory_mb(os.getpid()))
+        record["non_finite_outputs"] = int(sum(np.count_nonzero(~np.isfinite(output))
+                                               for output in outputs))
+        record.update(rt.memory_record(os.getpid()))
     except Exception as error:  # noqa: BLE001 - the parent records the real ONNX Runtime error
         record["error"] = str(error)[:500]
         print(json.dumps(record), flush=True)
@@ -73,6 +87,8 @@ def system_events(start: datetime, end: datetime) -> list[dict]:
 def parent(args) -> int:
     import onnxruntime as ort
 
+    import subject_runtime as rt
+
     runs = []
     window_start = datetime.now().replace(microsecond=0)
     for index in range(1, args.count + 1):
@@ -81,7 +97,9 @@ def parent(args) -> int:
         started = datetime.now()
         process = subprocess.run(
             [sys.executable, "-I", os.path.abspath(__file__), "--child", "--model", args.model,
-             "--graph", args.graph, "--photo", args.photo],
+             "--graph", args.graph, "--photo", args.photo, "--provider", args.provider,
+             "--coreml-model-format", args.coreml_model_format,
+             "--coreml-compute-units", args.coreml_compute_units],
             capture_output=True, text=True)
         ended = datetime.now()
         lines = [line for line in process.stdout.splitlines() if line.startswith("{")]
@@ -94,26 +112,41 @@ def parent(args) -> int:
         print(json.dumps(record), flush=True)
     window_end = datetime.now().replace(microsecond=0) + timedelta(seconds=10)
     time.sleep(10)
-    events = system_events(window_start, window_end)
-    for record in runs:
-        start = datetime.fromisoformat(record["start"])
-        end = datetime.fromisoformat(record["end"]) + EVENT_MARGIN
-        inside = [e for e in events if start <= datetime.fromisoformat(e["time"]) <= end]
-        record["events"] = inside
-        record["reset"] = any(e["id"] == RESET_EVENT for e in inside)
     report = {
-        "model": args.model, "graph": Path(args.graph).as_posix(),
+        "model": args.model, "graph": Path(args.graph).as_posix(), "provider": args.provider,
+        "provider_settings": rt.mp.provider_settings(args.provider, args.coreml_model_format,
+                                                     args.coreml_compute_units),
         "onnxruntime": ort.__version__, "photo": Path(args.photo).name,
         "pause_seconds": args.pause_seconds,
         "window": [window_start.isoformat(), window_end.isoformat()],
         "first_runs": len(runs), "failed_runs": sum(1 for r in runs if r["exit_code"] != 0),
-        "resets": sum(1 for r in runs if r["reset"]), "runs": runs, "events": events,
+        "runs_with_non_finite_outputs": sum(1 for r in runs if r.get("non_finite_outputs")),
     }
+    if sys.platform == "darwin":
+        reports = rt.macos_records.crash_reports(window_start, window_end)
+        for record in runs:
+            start = datetime.fromisoformat(record["start"])
+            end = datetime.fromisoformat(record["end"]) + CRASH_REPORT_MARGIN
+            record["crash_reports"] = [r for r in reports
+                                       if start <= datetime.fromisoformat(r["time"]) <= end]
+        report.update({"runs_with_crash_reports": sum(1 for r in runs if r["crash_reports"]),
+                       "runs": runs, "crash_reports": reports})
+    else:
+        events = system_events(window_start, window_end)
+        for record in runs:
+            start = datetime.fromisoformat(record["start"])
+            end = datetime.fromisoformat(record["end"]) + EVENT_MARGIN
+            inside = [e for e in events if start <= datetime.fromisoformat(e["time"]) <= end]
+            record["events"] = inside
+            record["reset"] = any(e["id"] == RESET_EVENT for e in inside)
+        report.update({"resets": sum(1 for r in runs if r["reset"]), "runs": runs,
+                       "events": events})
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
-    print(f"[first runs] {args.model} {Path(args.graph).parent.name}: {report['failed_runs']} "
-          f"failed, {report['resets']} resets of {len(runs)}; {len(events)} events", flush=True)
+    print(f"[first runs] {args.model} {Path(args.graph).parent.name} {args.provider}: "
+          f"{report['failed_runs']} failed of {len(runs)}; resets {report.get('resets')}, "
+          f"runs with crash reports {report.get('runs_with_crash_reports')}", flush=True)
     return 0
 
 
@@ -126,6 +159,11 @@ def main() -> int:
     parser.add_argument("--photo", required=True)
     parser.add_argument("--count", type=int, default=9)
     parser.add_argument("--pause-seconds", type=float, default=5.0)
+    parser.add_argument("--provider", default="directml", choices=PROVIDERS)
+    parser.add_argument("--coreml-model-format", default=COREML_MODEL_FORMATS[0],
+                        choices=COREML_MODEL_FORMATS)
+    parser.add_argument("--coreml-compute-units", default=NATIVE_COMPUTE_UNITS[0],
+                        choices=NATIVE_COMPUTE_UNITS)
     parser.add_argument("--out")
     parser.add_argument("--child", action="store_true")
     args = parser.parse_args()

@@ -30,6 +30,10 @@ Weights, ONNX files, photos, and reports are not committed. Keep them under `bui
 | `compare_onnx_outputs.py` | `OnnxMaskLogitsMatchPytorchWithinTolerance`: `SAM2ImagePredictor` compared with ONNX Runtime CPU; writes the reference masks for the Rust program. |
 | `probe_masks.py` | Uncertainty, grid energy, hole, and island metrics of plan section 8.16.1 for any point and box graph pair (SAM 2.1 or EfficientSAM3). |
 | `run_with_gpu_memory.ps1` | Run a program and record its peak dedicated and shared GPU memory from the Windows `GPU Process Memory` counters. |
+| `macos_records.py` | Issue #8: macOS physical footprint and its lifetime peak (`proc_pid_rusage`), system memory in use (`vm_stat`), and the crash reports of a time window. |
+| `run_with_memory_sampling.py` | Issue #8: the macOS form of `run_with_gpu_memory.ps1`: run a program, record the peak physical footprint of its processes, the system memory, and the crash reports. |
+| `probe_cpu_encoder_settings.py` | Issue #8: the encoder on the ONNX Runtime CPU provider against PyTorch per graph optimization level and thread count. |
+| `probe_cpu_graph_optimizers.py` | Issue #8: the encoder output with one ONNX Runtime graph optimizer disabled at a time (finds `ConstantFolding`, microsoft/onnxruntime#29071 in 1.24.4 to 1.27.0). |
 | `make_comparison_sheets.py` | Overlay, logit, and detail-crop comparison sheets for the report. |
 | `compare_candidate_outputs.py` | E4: `CandidateDecoderLogitsMatchPytorchWithinTolerance`, the candidate graph compared with `SAM2ImagePredictor._predict` on the generator point grid; optionally the masks of the upstream `SAM2AutomaticMaskGenerator`. |
 | `click_targets.json` | E4: the intended selection (whole object or named part) and the E1 reference mask of each single-point prompt of the quality set. |

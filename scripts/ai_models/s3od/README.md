@@ -36,13 +36,17 @@ TorchScript file. The scripts load it with `torch.load(..., weights_only=True)`.
 | `compare_onnx_outputs.py` | `OnnxMasksMatchPytorchWithinTolerance`: ONNX Runtime CPU against the PyTorch model of the source on the quality photos; writes the reference and ONNX alphas. |
 | `measure_float32_spread.py` | Float32 differences of PyTorch against itself (threads, attention kernel) and of ONNX Runtime with and without graph optimizations. |
 | `subject_runtime.py` | Shared code of the DirectML scripts: preprocessing and stored alpha of S3OD, BiRefNet, IS-Net, and universal matting, MVP session settings, GPU memory and working set. |
-| `profile_operator_placement.py` | Nodes per execution provider (DirectML partitions, CPU nodes) from an ONNX Runtime profile. |
-| `measure_directml_cost.py` | Session load, first run, 20 warm runs, one run per photo, release, with the GPU memory after each phase; stores the DirectML alphas. |
-| `measure_first_runs.py` | First runs in new processes and the display driver resets (System events 153 and 4101). |
+| `profile_operator_placement.py` | Nodes per execution provider (DirectML or Core ML partitions, CPU nodes) from an ONNX Runtime profile, and the Core ML capability log (`provider_placement.py` of the MVP). |
+| `measure_directml_cost.py` | Session load, first run, 20 warm runs, one run per photo, release, with the memory after each phase (Windows GPU counters, macOS physical footprint); stores the alphas. Also `--provider coreml` and `coreml_native` (issue #8). |
+| `measure_first_runs.py` | First runs in new processes; Windows: the display driver resets (System events 153 and 4101); macOS: the crash reports. |
 | `probe_subject_masks.py` | Quality metrics of E2 on a common grid (long edge 1024) and the IoU with the BiRefNet lite mask. |
 | `requirements.txt` | Packages of the export and comparison environment. |
 
-`scripts/ai_models/sam2/run_with_gpu_memory.ps1` records the peak GPU memory of a run.
+`scripts/ai_models/sam2/run_with_gpu_memory.ps1` records the peak GPU memory of a run on Windows,
+`run_with_memory_sampling.py` the physical footprint and the system memory on macOS. The macOS
+measurements of issue #8 (`--provider coreml` with `--coreml-model-format`, `--provider
+coreml_native` with a compiled model of `scripts/ai_models/coreml/` as `--graph` and
+`--coreml-compute-units`) are in the [macOS Core ML report](../../../docs/exploration/macos_coreml_verification.md), section 15.
 
 ## Graph
 

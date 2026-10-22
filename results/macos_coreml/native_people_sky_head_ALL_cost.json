@@ -1,0 +1,176 @@
+{
+  "graph_name": "people_sky_head",
+  "graph": "build/tmp/explore/coreml/float32/people_sky_head.mlmodelc",
+  "graph_bytes": 1138418,
+  "graph_sha256": "ccb5c48d19d8785ca9fc485d01b3b2ef94989de480fb2eba6c9471b0728540c9",
+  "provider": "coreml_native",
+  "provider_settings": [
+    {
+      "runtime": "Core ML, compiled model (coremltools CompiledMLModel)",
+      "compute_units": "ALL"
+    }
+  ],
+  "onnxruntime": "1.24.4",
+  "threads": 4,
+  "warm_photo": "DSC_1535.jpg",
+  "phases": [
+    {
+      "phase": "before load",
+      "phys_footprint_mb": 231.7,
+      "lifetime_max_phys_footprint_mb": 231.7,
+      "resident_mb": 300.5,
+      "time": "2026-10-22T16:01:53"
+    },
+    {
+      "phase": "session load",
+      "ms": 1228.1,
+      "phys_footprint_mb": 365.2,
+      "lifetime_max_phys_footprint_mb": 365.2,
+      "resident_mb": 450.4,
+      "time": "2026-10-22T16:01:54"
+    },
+    {
+      "phase": "first run",
+      "ms": 22.7,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 422.8,
+      "lifetime_max_phys_footprint_mb": 422.8,
+      "resident_mb": 465.2,
+      "time": "2026-10-22T16:01:54"
+    },
+    {
+      "phase": "warm runs",
+      "count": 20,
+      "p50": 1.86,
+      "p95": 5.91,
+      "max": 5.96,
+      "min": 1.78,
+      "phys_footprint_mb": 423.2,
+      "lifetime_max_phys_footprint_mb": 423.2,
+      "resident_mb": 465.5,
+      "time": "2026-10-22T16:01:55"
+    },
+    {
+      "phase": "photos",
+      "count": 14,
+      "p50": 1.9,
+      "p95": 2.0,
+      "max": 2.0,
+      "min": 1.9,
+      "phys_footprint_mb": 423.3,
+      "lifetime_max_phys_footprint_mb": 423.3,
+      "resident_mb": 465.6,
+      "time": "2026-10-22T16:01:55"
+    },
+    {
+      "phase": "session released",
+      "phys_footprint_mb": 375.6,
+      "lifetime_max_phys_footprint_mb": 423.3,
+      "resident_mb": 460.2,
+      "time": "2026-10-22T16:01:55"
+    }
+  ],
+  "warm_runs_ms": [
+    5.96,
+    5.91,
+    5.74,
+    5.72,
+    5.74,
+    2.68,
+    1.78,
+    1.81,
+    1.89,
+    1.86,
+    1.87,
+    1.86,
+    1.82,
+    1.85,
+    1.86,
+    1.84,
+    1.87,
+    1.83,
+    1.84,
+    1.85
+  ],
+  "warm_runs_10_points_mask_input_ms": [],
+  "photos": [
+    {
+      "image": "DSC_1535.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00326.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00674.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00936.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "P1024439.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC_1188.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00527.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "2088064441.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00728.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "5761824892.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00562.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00602.jpg",
+      "ms": 2.0,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC_1456.jpg",
+      "ms": 1.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "Nikon-D800e-raw-00007.jpg",
+      "ms": 2.0,
+      "non_finite_outputs": 0
+    }
+  ],
+  "non_finite_outputs": 0,
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "logical_cpus": 10,
+    "memory_bytes": 17179869184,
+    "python": "3.13.7"
+  }
+}

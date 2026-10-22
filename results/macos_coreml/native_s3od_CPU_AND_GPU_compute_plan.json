@@ -1,0 +1,81 @@
+{
+  "model": "build/tmp/explore/coreml/float16_layer0_float32/s3od.mlmodelc",
+  "compute_units": "CPU_AND_GPU",
+  "coremltools": "9.0",
+  "macos": "27.0.1",
+  "ops": 573,
+  "ops_per_preferred_device": {
+    "GPU": 573
+  },
+  "estimated_cost_share_per_preferred_device": {
+    "GPU": 1.0
+  },
+  "op_types_per_preferred_device": {
+    "GPU": {
+      "ios18.mul": 99,
+      "ios18.linear": 68,
+      "ios18.add": 54,
+      "ios18.reshape": 50,
+      "ios18.transpose": 49,
+      "ios18.slice_by_index": 48,
+      "ios18.concat": 46,
+      "ios18.conv": 36,
+      "ios18.layer_norm": 22,
+      "split": 22,
+      "ios18.matmul": 22,
+      "ios18.relu": 20,
+      "ios18.softmax": 11,
+      "ios18.gelu": 11,
+      "ios18.cast": 5,
+      "ios16.upsample_bilinear": 4,
+      "ios18.conv_transpose": 3,
+      "ios18.sigmoid": 2,
+      "ios16.reduce_mean": 1
+    }
+  },
+  "ops_without_device": {},
+  "supported_op_types_per_device": {
+    "CPU": {
+      "ios18.mul": 99,
+      "ios18.linear": 68,
+      "ios18.add": 54,
+      "ios18.reshape": 50,
+      "ios18.transpose": 49,
+      "ios18.slice_by_index": 48,
+      "ios18.concat": 46,
+      "ios18.conv": 36,
+      "ios18.layer_norm": 22,
+      "split": 22,
+      "ios18.matmul": 22,
+      "ios18.relu": 20,
+      "ios18.softmax": 11,
+      "ios18.gelu": 11,
+      "ios18.cast": 5,
+      "ios16.upsample_bilinear": 4,
+      "ios18.conv_transpose": 3,
+      "ios18.sigmoid": 2,
+      "ios16.reduce_mean": 1
+    },
+    "GPU": {
+      "ios18.mul": 99,
+      "ios18.linear": 68,
+      "ios18.add": 54,
+      "ios18.reshape": 50,
+      "ios18.transpose": 49,
+      "ios18.slice_by_index": 48,
+      "ios18.concat": 46,
+      "ios18.conv": 36,
+      "ios18.layer_norm": 22,
+      "split": 22,
+      "ios18.matmul": 22,
+      "ios18.relu": 20,
+      "ios18.softmax": 11,
+      "ios18.gelu": 11,
+      "ios18.cast": 5,
+      "ios16.upsample_bilinear": 4,
+      "ios18.conv_transpose": 3,
+      "ios18.sigmoid": 2,
+      "ios16.reduce_mean": 1
+    }
+  }
+}

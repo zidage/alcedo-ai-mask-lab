@@ -1,0 +1,61 @@
+{
+  "step": "issue #8: native Core ML model",
+  "model": "people_sky_head",
+  "precision": "float32",
+  "float32_ops": [],
+  "coremltools": "9.0",
+  "torch": "2.7.0",
+  "format": "mlprogram",
+  "minimum_deployment_target": "macOS15",
+  "inputs": {
+    "image_embed": [
+      "1",
+      "256",
+      "64",
+      "64"
+    ]
+  },
+  "outputs": [
+    "sky_logits",
+    "center_logits",
+    "center_offset",
+    "log_size",
+    "presence_logits"
+  ],
+  "checkpoint": {
+    "path": "build/tmp/explore/p1/colab_run2_coco_openimages/run/best.pt",
+    "bytes": 1110733,
+    "sha256": "5da8a4a2937043e0b14db64bb582e605050733a46bd58274db25daa725174952"
+  },
+  "mlpackage": {
+    "path": "build/tmp/explore/coreml/float32/people_sky_head.mlpackage",
+    "bytes": 1137319,
+    "sha256": "02980895cf2ab91184880d7f410eeb189c3c3a0bdf5f863c60054e6c8092f57e"
+  },
+  "mlmodelc": {
+    "path": "build/tmp/explore/coreml/float32/people_sky_head.mlmodelc",
+    "bytes": 1138418,
+    "sha256": "ccb5c48d19d8785ca9fc485d01b3b2ef94989de480fb2eba6c9471b0728540c9"
+  },
+  "convert_seconds": 0.3,
+  "max_abs_difference_against_pytorch_float32": {
+    "CPU_ONLY": {
+      "sky_logits": 0.0001735687255859375,
+      "center_logits": 4.00543212890625e-05,
+      "center_offset": 3.814697265625e-06,
+      "log_size": 2.3365020751953125e-05,
+      "presence_logits": 3.4332275390625e-05
+    },
+    "ALL": {
+      "sky_logits": 0.000171661376953125,
+      "center_logits": 4.00543212890625e-05,
+      "center_offset": 3.725290298461914e-06,
+      "log_size": 2.2411346435546875e-05,
+      "presence_logits": 4.00543212890625e-05
+    }
+  },
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.7"
+  }
+}

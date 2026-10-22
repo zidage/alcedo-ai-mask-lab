@@ -1,0 +1,209 @@
+{
+  "graph_name": "point_decoder",
+  "graph": "build/tmp/explore/coreml/float32/point_decoder.mlmodelc",
+  "graph_bytes": 21098274,
+  "graph_sha256": "f2efed0420fba10b641afa384a58a872cc878231472711e9d86219bf4440fd70",
+  "provider": "coreml_native",
+  "provider_settings": [
+    {
+      "runtime": "Core ML, compiled model (coremltools CompiledMLModel)",
+      "compute_units": "CPU_ONLY"
+    }
+  ],
+  "onnxruntime": "1.24.4",
+  "threads": 4,
+  "warm_photo": "DSC_1535.jpg",
+  "phases": [
+    {
+      "phase": "before load",
+      "phys_footprint_mb": 391.9,
+      "lifetime_max_phys_footprint_mb": 391.9,
+      "resident_mb": 460.6,
+      "time": "2026-10-22T16:29:15"
+    },
+    {
+      "phase": "session load",
+      "ms": 1247.4,
+      "phys_footprint_mb": 632.9,
+      "lifetime_max_phys_footprint_mb": 632.9,
+      "resident_mb": 711.7,
+      "time": "2026-10-22T16:29:17"
+    },
+    {
+      "phase": "first run",
+      "ms": 31.4,
+      "non_finite_outputs": 0,
+      "phys_footprint_mb": 644.9,
+      "lifetime_max_phys_footprint_mb": 644.9,
+      "resident_mb": 743.1,
+      "time": "2026-10-22T16:29:17"
+    },
+    {
+      "phase": "warm runs",
+      "count": 20,
+      "p50": 29.46,
+      "p95": 29.93,
+      "max": 29.95,
+      "min": 29.37,
+      "phys_footprint_mb": 646.0,
+      "lifetime_max_phys_footprint_mb": 646.0,
+      "resident_mb": 744.3,
+      "time": "2026-10-22T16:29:17"
+    },
+    {
+      "phase": "warm runs, 10 points with mask_input",
+      "count": 20,
+      "p50": 30.53,
+      "p95": 31.16,
+      "max": 35.82,
+      "min": 30.35,
+      "phys_footprint_mb": 662.5,
+      "lifetime_max_phys_footprint_mb": 662.5,
+      "resident_mb": 760.9,
+      "time": "2026-10-22T16:29:18"
+    },
+    {
+      "phase": "photos",
+      "count": 14,
+      "p50": 28.95,
+      "p95": 31.53,
+      "max": 34.0,
+      "min": 28.0,
+      "phys_footprint_mb": 663.8,
+      "lifetime_max_phys_footprint_mb": 663.8,
+      "resident_mb": 762.1,
+      "time": "2026-10-22T16:29:18"
+    },
+    {
+      "phase": "session released",
+      "phys_footprint_mb": 663.8,
+      "lifetime_max_phys_footprint_mb": 663.8,
+      "resident_mb": 742.1,
+      "time": "2026-10-22T16:29:18"
+    }
+  ],
+  "warm_runs_ms": [
+    29.95,
+    29.65,
+    29.52,
+    29.42,
+    29.45,
+    29.52,
+    29.37,
+    29.93,
+    29.55,
+    29.4,
+    29.4,
+    29.42,
+    29.37,
+    29.4,
+    29.76,
+    29.63,
+    29.59,
+    29.46,
+    29.46,
+    29.43
+  ],
+  "warm_runs_10_points_mask_input_ms": [
+    35.82,
+    30.83,
+    30.66,
+    30.55,
+    30.6,
+    30.48,
+    30.84,
+    30.49,
+    30.77,
+    30.5,
+    30.49,
+    30.52,
+    30.45,
+    30.35,
+    30.43,
+    30.68,
+    30.49,
+    30.51,
+    30.54,
+    30.92
+  ],
+  "photos": [
+    {
+      "image": "DSC_1535.jpg",
+      "ms": 34.0,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00326.jpg",
+      "ms": 29.4,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00674.jpg",
+      "ms": 28.9,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00936.jpg",
+      "ms": 28.0,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "P1024439.jpg",
+      "ms": 30.2,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC_1188.jpg",
+      "ms": 29.4,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00527.jpg",
+      "ms": 28.8,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "2088064441.jpg",
+      "ms": 29.0,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00728.jpg",
+      "ms": 28.6,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "5761824892.jpg",
+      "ms": 29.7,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00562.jpg",
+      "ms": 28.5,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC00602.jpg",
+      "ms": 29.3,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "DSC_1456.jpg",
+      "ms": 28.8,
+      "non_finite_outputs": 0
+    },
+    {
+      "image": "Nikon-D800e-raw-00007.jpg",
+      "ms": 28.6,
+      "non_finite_outputs": 0
+    }
+  ],
+  "non_finite_outputs": 0,
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "logical_cpus": 10,
+    "memory_bytes": 17179869184,
+    "python": "3.13.7"
+  }
+}

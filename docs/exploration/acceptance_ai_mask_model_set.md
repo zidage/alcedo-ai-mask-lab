@@ -7,7 +7,9 @@
 [#5](https://github.com/zidage/alcedo-ai-mask-lab/issues/5),
 [#6](https://github.com/zidage/alcedo-ai-mask-lab/issues/6); macOS verification:
 [#8](https://github.com/zidage/alcedo-ai-mask-lab/issues/8).
-**Status:** the Windows DirectML exploration is complete. The macOS Core ML verification is open.
+**Status:** the Windows DirectML exploration is complete. The macOS Core ML verification is
+measured ([report](macos_coreml_verification.md), issue #8): native Core ML models of the set meet
+the output criteria; the macOS decisions are README U15; the UI check is open.
 
 This document records the model set that the exploration accepts, the evidence for each
 requirement, and the items that stay open. It does not add measurements: each number comes from
@@ -124,12 +126,25 @@ record `results/subject_alternatives/mvp_pipeline_s3od_mha_chunk8_float16_cost*.
 
 ## 6. Open items
 
-1. **macOS Core ML verification** of the accepted set (master plan section 8.16.4: "record macOS
-   Core ML results when a candidate is selected"). No model of the set is measured on macOS. The
-   SM1 record has Core ML defects of the earlier models (wrong encoder output, NaN detector output,
-   a decoder load that stopped the process). The S3OD graph uses `com.microsoft.MultiHeadAttention`,
-   a contrib operator of ONNX Runtime. Issue
-   [#8](https://github.com/zidage/alcedo-ai-mask-lab/issues/8).
+1. **macOS Core ML verification** of the accepted set (master plan section 8.16.4), issue
+   [#8](https://github.com/zidage/alcedo-ai-mask-lab/issues/8):
+   **measured 2026-10-22** ([macOS Core ML report](macos_coreml_verification.md), Apple M4,
+   16 GB, macOS 27.0.1).
+   - The ONNX Runtime Core ML provider does not run the set as it is: no S3OD node on Core ML in
+     the production format (7.9 s, 10.3 GB on the CPU), the MHA attention on the CPU in the
+     MLProgram format, and the decoder stops the process in the MLProgram format.
+   - ONNX Runtime 1.24.4 to 1.27.0 fold the SAM 2.1 tiny position embedding into freed memory
+     (microsoft/onnxruntime#29071, fixed in 1.28.0): the encoder output is wrong on the Mac.
+     Alcedo Studio uses ONNX Runtime 1.24.
+   - Native Core ML models (the user's direction, as the SigLIP2 models of Alcedo Studio), compute
+     units ALL: the same decisions and People lists as the CPU on 14 photos, 212 of 212 SAM 2.1
+     masks with IoU >= 0.999, the S3OD alpha IoU >= 0.99907, 0 failures in 36 first runs. S3OD
+     needs the patch embedding and the encoder attention in float32 (the Neural Engine gives a
+     wrong alpha in the accepted precision). MVP pipeline with the decoder on CPU_ONLY: encoder
+     191 ms, S3OD 531 ms, decoder 28 to 35 ms, peak footprint 3,190 MB.
+   - Decided (README U15): native Core ML on macOS, S3OD `float16_embeddings_attention_float32`,
+     the decoder with CPU_ONLY, the macOS memory value 3.5 GB (met).
+   - Open: the UI check on macOS.
 2. **The user checks by eye** the MVP interaction (U1) and the hard S3OD edge on hair and fur.
 3. **Decisions:** the S3OD float32 tolerance (section 3.3), the training data rule U13 (section
    3.1), F7 and F9 (O1), the text prompts (O3).

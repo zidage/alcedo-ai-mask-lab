@@ -14,6 +14,7 @@ local; run the commands of the script README to make them again.
 | [`p1_people_sky_head/`](p1_people_sky_head/) | P1 (README section 5, step 1), issue [#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1) | [P1 report](../docs/exploration/p1_people_sky_head.md) |
 | [`ai_mask_mvp/`](ai_mask_mvp/) | AI Mask MVP, issue [#5](https://github.com/zidage/alcedo-ai-mask-lab/issues/5) | [MVP report](../docs/exploration/mvp_ai_mask.md) |
 | [`subject_alternatives/`](subject_alternatives/) | Subject models in place of BiRefNet lite, issue [#6](https://github.com/zidage/alcedo-ai-mask-lab/issues/6) | [Subject alternatives report](../docs/exploration/subject_alternatives.md) |
+| [`macos_coreml/`](macos_coreml/) | macOS Core ML verification of the accepted set, issue [#8](https://github.com/zidage/alcedo-ai-mask-lab/issues/8) | [macOS Core ML report](../docs/exploration/macos_coreml_verification.md) |
 
 ## `p0_sam_feature_localization/`
 
@@ -86,3 +87,29 @@ earlier float16 forms of report section 4.3; they are not candidates.
 | `mvp_pipeline_universal_matting_float32_cost.json`, `..._gpu_memory.json` | The MVP pipeline with the universal matting float32 graph as the Subject graph (report section 12.5) | `measure_pipeline_cost.py`, `run_with_gpu_memory.ps1` |
 | `*_float32_divisions.json` | Quality, float32 cost, and float32 first runs of the first universal matting graph (scalar divisions in float32; DirectML IoU 0.936 on `DSC00674`, report section 12.3) | as above, graph of `export_onnx.py --scalar-divisions float32` |
 | `birefnet_lite_float16_universal_matting_step_failed_runs.json`, `..._cost_gpu_memory.json` | The BiRefNet reference cost run of the universal matting step: phases until the error, the `887A0006` error, the System events 153 and 4101 (report section 12.4) | log of `measure_directml_cost.py`, `Get-WinEvent` |
+
+## `macos_coreml/`
+
+Scripts: [`scripts/ai_models/coreml/`](../scripts/ai_models/coreml/README.md),
+[`scripts/poc/ai_mask_mvp/`](../scripts/poc/ai_mask_mvp/README.md),
+[`scripts/ai_models/s3od/`](../scripts/ai_models/s3od/README.md), and
+[`scripts/ai_models/sam2/`](../scripts/ai_models/sam2/README.md). Machine: Apple M4, 16 GB,
+macOS 27.0.1. `<model>` is `point_encoder`, `point_decoder`, `people_sky_head`, or `s3od`.
+
+| File | Content | Script |
+| --- | --- | --- |
+| `<graph>_coreml_<format>_placement.json` | ONNX Runtime Core ML provider (NeuralNetwork or MLProgram): Core ML capability log, executed nodes and kernel time per provider, CPU nodes per operator | `profile_operator_placement.py`, `measure_graph_cost.py placement` |
+| `point_decoder_coreml_MLProgram_first_runs.json` | The decoder in the MLProgram format: 3 first runs, the MPSGraph assertion, the crash reports | `measure_graph_cost.py first-runs` |
+| `native_<model>_convert.json`, `native_s3od_<precision>_convert.json`, `native_point_decoder_enumerated_convert.json` | Native Core ML conversion records: precision, float32 ops, checkpoint and model SHA-256, difference against PyTorch | `convert_models.py` |
+| `native_<model>_<units>_compute_plan.json`, `native_s3od_*_compute_plan.json` | Core ML compute plan: ops and estimated cost per preferred device | `profile_compute_plan.py` |
+| `native_s3od_variants/<variant>_*.json` | S3OD precision variants: conversion record, compute plan, output per compute units on two photos against the CPU float32 alpha | `convert_models.py`, `profile_compute_plan.py`, `probe_s3od_compute_units.py` |
+| `native_point_encoder_outputs_photos.json`, `native_point_encoder_outputs_random.json` | Encoder outputs of Core ML per compute units, ONNX Runtime 1.24.4 CPU, and PyTorch against each other | `probe_encoder_outputs.py` |
+| `cpu_encoder_settings_onnxruntime_1_24_4.json` | The ONNX Runtime 1.24.4 CPU encoder against PyTorch per graph optimization level and thread count | `probe_cpu_encoder_settings.py` |
+| `cpu_encoder_optimizers_onnxruntime_<version>.json` | The encoder with one graph optimizer disabled at a time (1.24.4: 49 optimizers; other versions and Windows 1.24.4: `ConstantFolding`) | `probe_cpu_graph_optimizers.py` |
+| `cpu_onnxruntime_1_24_4_outputs_against_1_31_0.json` | The MVP outputs of ONNX Runtime 1.24.4 CPU against 1.31.0 CPU | `compare_providers.py` |
+| `native_ALL_outputs_against_cpu.json`, `native_CPU_AND_GPU_outputs_against_cpu.json`, `native_ALL_decoder_CPU_ONLY_outputs_against_cpu.json` | The MVP outputs of the native models against ONNX Runtime 1.31.0 CPU: the checks of issue #8 per photo | `compare_providers.py` |
+| `native_subject_quality.json` | Subject quality metrics of the native S3OD forms and S3OD float32 CPU | `probe_subject_masks.py` |
+| `native_<model>_ALL_cost.json`, `native_point_decoder_CPU_ONLY_cost.json`, `s3od_native_<precision>_<units>_cost.json` (and `_cost_memory.json`) | Session load, first run, warm runs, one run per photo, physical footprint per phase; the sampled peak footprint, system memory, and crash reports | `measure_graph_cost.py cost`, `measure_directml_cost.py`, `run_with_memory_sampling.py` |
+| `native_<model>_ALL_first_runs.json`, `native_point_decoder_CPU_ONLY_first_runs.json`, `s3od_native_float16_embeddings_attention_float32_ALL_first_runs.json` | Nine first runs in new processes: load, first run, exit code, crash reports | `measure_graph_cost.py first-runs`, `measure_first_runs.py` |
+| `native_point_decoder*_point_counts.json` | Decoder call time with the same, alternating, and changing point counts (range and enumerated shapes) | `probe_decoder_point_counts.py` |
+| `mvp_pipeline_native_ALL_decoder_CPU_ONLY_cost*.json` (U15 defaults), `mvp_pipeline_native_ALL_cost*.json` (all ALL) | The MVP pipeline with all native models: load times, stage times, warm runs, memory | `measure_pipeline_cost.py`, `run_with_memory_sampling.py` |

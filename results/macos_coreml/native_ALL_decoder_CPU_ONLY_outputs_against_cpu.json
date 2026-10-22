@@ -1,0 +1,2471 @@
+{
+  "step": "issue #8: MVP outputs of two providers compared",
+  "reference": {
+    "dir": "build/tmp/macos_coreml/outputs_cpu_onnxruntime_1_31_0",
+    "provider": "cpu",
+    "provider_settings": [
+      "CPUExecutionProvider"
+    ],
+    "graphs": {
+      "point_encoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_encoder.onnx",
+        "bytes": 109381695,
+        "sha256": "17a554b420d3c51a109567f784ff3792b354c78dc8c2c09c585403329b412d61",
+        "load_ms": 282.6
+      },
+      "point_decoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_decoder.onnx",
+        "bytes": 21188206,
+        "sha256": "6f9a0ef2c217a0abccc8b0c01e631c42c6a78a2038a7944cc7fcb4f536439278",
+        "load_ms": 40.6
+      },
+      "people_sky_head": {
+        "path": "build/tmp/explore/p1/colab_run2_coco_openimages/export/people_sky_head.onnx",
+        "bytes": 1119131,
+        "sha256": "e02f2a1eaace94e0efe2b3c8db0a0391be210b477a95e49063e80758f12abf35",
+        "load_ms": 2.4
+      },
+      "subject_matte": {
+        "path": "build/tmp/explore/s3od/onnx_mha_chunk8/float32/subject_masks.onnx",
+        "bytes": 435196652,
+        "sha256": "d85a33e3307e2caf6f80c0fa11de44ba2bc328ba158b62d4bcaf38a07b6f3520",
+        "load_ms": 155.2
+      }
+    }
+  },
+  "candidate": {
+    "dir": "build/tmp/macos_coreml/outputs_native_ALL_decoder_CPU_ONLY",
+    "provider": "coreml_native",
+    "provider_settings": [
+      {
+        "runtime": "Core ML, compiled model (coremltools CompiledMLModel)",
+        "compute_units": "ALL"
+      }
+    ],
+    "graphs": {
+      "point_encoder": {
+        "path": "build/tmp/explore/coreml/float32/point_encoder.mlmodelc",
+        "bytes": 134260018,
+        "sha256": "d3f66d7bcc2a81b2245f22e2ff073b3b1bd180720ea49c091bb0ea401e420285",
+        "load_ms": 1138.7
+      },
+      "point_decoder": {
+        "path": "build/tmp/explore/coreml/float32/point_decoder.mlmodelc",
+        "bytes": 21098274,
+        "sha256": "f2efed0420fba10b641afa384a58a872cc878231472711e9d86219bf4440fd70",
+        "load_ms": 65.1
+      },
+      "people_sky_head": {
+        "path": "build/tmp/explore/coreml/float32/people_sky_head.mlmodelc",
+        "bytes": 1138418,
+        "sha256": "ccb5c48d19d8785ca9fc485d01b3b2ef94989de480fb2eba6c9471b0728540c9",
+        "load_ms": 8.8
+      },
+      "subject_matte": {
+        "path": "build/tmp/explore/coreml/float16_embeddings_attention_float32/s3od.mlmodelc",
+        "bytes": 271166829,
+        "sha256": "2c6a24e61ca5dc062ed80a5163974e0e58500fd94fc02b0e078eba7205c0424d",
+        "load_ms": 60.4
+      }
+    }
+  },
+  "onnxruntime": "1.24.4",
+  "passed": true,
+  "checks": {
+    "PresenceDecisionsEqual": {
+      "rule": "sky and people present and found equal",
+      "passed_photos": 14,
+      "photos": 14,
+      "passed": true
+    },
+    "PeopleListEqual": {
+      "rule": "listed ranks equal (number and order)",
+      "passed_photos": 14,
+      "photos": 14,
+      "passed": true
+    },
+    "SkyRegionsEqual": {
+      "rule": "number of sky regions equal",
+      "passed_photos": 14,
+      "photos": 14,
+      "passed": true
+    },
+    "MaskIoU": {
+      "rule": "IoU >= 0.999 at the photo size",
+      "masks": 212,
+      "masks_missing": 0,
+      "passed_masks": 212,
+      "minimum_iou": 0.9995908346972177,
+      "passed_photos": 14,
+      "photos": 14,
+      "passed": true
+    },
+    "SubjectAlphaIoU": {
+      "rule": "IoU of alpha > 0.5 >= 0.998 on the model grid",
+      "passed_photos": 14,
+      "minimum_iou": 0.999074502545118,
+      "photos": 14,
+      "passed": true
+    },
+    "OutputsFinite": {
+      "rule": "no NaN or infinite candidate output",
+      "passed_photos": 14,
+      "photos": 14,
+      "passed": true
+    }
+  },
+  "encoder_summary": {
+    "image_embed": {
+      "max_abs_difference": 1.6734004020690918e-05,
+      "max_relative_error": 3.050561478065373e-06,
+      "minimum_cosine": 0.9999999999953532
+    },
+    "high_res_feats_0": {
+      "max_abs_difference": 2.2798776626586914e-06,
+      "max_relative_error": 1.4469885122517845e-06,
+      "minimum_cosine": 0.999999999998943
+    },
+    "high_res_feats_1": {
+      "max_abs_difference": 9.715557098388672e-06,
+      "max_relative_error": 3.97593551139538e-06,
+      "minimum_cosine": 0.9999999999920935
+    }
+  },
+  "photos": [
+    {
+      "photo": "2088064441",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 1.3314187526702881e-05,
+          "relative_error": 2.3960344502458334e-06,
+          "cosine": 0.9999999999971315
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.691281795501709e-06,
+          "relative_error": 1.0160800822550654e-06,
+          "cosine": 0.9999999999994736
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 8.881092071533203e-06,
+          "relative_error": 2.679326717176662e-06,
+          "cosine": 0.999999999996408
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.0001544952392578125,
+        "center_logits": 6.866455078125e-05,
+        "center_offset": 6.079673767089844e-06,
+        "log_size": 2.956390380859375e-05,
+        "presence_logits": 3.528594970703125e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.0,
+        "people": 0.0
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          20,
+          20
+        ],
+        "max_box_difference_cells": 7.62939453125e-05,
+        "max_score_difference": 2.3543834686279297e-06
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__click_then_clicks__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__click_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__stroke_then_strokes__2",
+          "iou": 0.9999590147137177
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__full_stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__full_stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__full_stroke_then_strokes__2",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__board__full_stroke_then_strokes__3",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.9999590147137177,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          684,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 0.9996582365003418,
+        "max_abs_alpha_difference": 0.18265780806541443,
+        "passed": true
+      }
+    },
+    {
+      "photo": "5761824892",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 1.1492520570755005e-05,
+          "relative_error": 2.2016804598972603e-06,
+          "cosine": 0.9999999999975863
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.5497207641601562e-06,
+          "relative_error": 6.499173455014246e-07,
+          "cosine": 0.9999999999997781
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 5.185604095458984e-06,
+          "relative_error": 1.6869459317295471e-06,
+          "cosine": 0.9999999999985744
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.0002079010009765625,
+        "center_logits": 6.103515625e-05,
+        "center_offset": 7.68899917602539e-06,
+        "log_size": 3.719329833984375e-05,
+        "presence_logits": 2.2470951080322266e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "sky_found": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 4.857778549194336e-06,
+        "people": 4.805624485015869e-07
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          18,
+          18
+        ],
+        "max_box_difference_cells": 0.000152587890625,
+        "max_score_difference": 1.735985279083252e-06
+      },
+      "sky_regions": {
+        "candidate": 0,
+        "reference": 0,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_clicks__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_strokes__1",
+          "iou": 0.9999987356133877
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__stroke_then_strokes__0",
+          "iou": 0.9999995024578582
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__stroke_then_strokes__1",
+          "iou": 0.9999995925628044
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__full_stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kayak__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kayak__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kayak__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kayak__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.9999987356133877,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          1024,
+          682
+        ],
+        "iou_alpha_gt_0_5": 0.9999643150269422,
+        "max_abs_alpha_difference": 0.19165796041488647,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00326",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 1.3269484043121338e-05,
+          "relative_error": 3.050561478065373e-06,
+          "cosine": 0.9999999999953532
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 2.1010637283325195e-06,
+          "relative_error": 1.348402658130019e-06,
+          "cosine": 0.999999999999081
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 7.450580596923828e-06,
+          "relative_error": 3.3668773626479223e-06,
+          "cosine": 0.9999999999943284
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.000171661376953125,
+        "center_logits": 5.626678466796875e-05,
+        "center_offset": 7.331371307373047e-06,
+        "log_size": 3.504753112792969e-05,
+        "presence_logits": 9.5367431640625e-06
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 5.364418029785156e-07,
+        "people": 0.0
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1
+        ],
+        "reference_ranks": [
+          1
+        ],
+        "equal": true,
+        "boxes": [
+          8,
+          8
+        ],
+        "max_box_difference_cells": 0.00022125244140625,
+        "max_score_difference": 1.9222497940063477e-06
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__jacket__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__jacket__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__jacket__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__jacket__full_stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 1.0,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          1024,
+          681
+        ],
+        "iou_alpha_gt_0_5": 0.9996748848550528,
+        "max_abs_alpha_difference": 0.26928839087486267,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00527",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 1.3470649719238281e-05,
+          "relative_error": 2.1152614786199656e-06,
+          "cosine": 0.9999999999977677
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.5618279576301575e-06,
+          "relative_error": 9.277818341811756e-07,
+          "cosine": 0.9999999999995598
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 4.872679710388184e-06,
+          "relative_error": 2.2460125886947077e-06,
+          "cosine": 0.999999999997475
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.00013637542724609375,
+        "center_logits": 5.53131103515625e-05,
+        "center_offset": 5.662441253662109e-06,
+        "log_size": 2.9087066650390625e-05,
+        "presence_logits": 4.00543212890625e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.0,
+        "people": 0.0
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "reference_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "equal": true,
+        "boxes": [
+          20,
+          20
+        ],
+        "max_box_difference_cells": 0.000141143798828125,
+        "max_score_difference": 1.9669532775878906e-06
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank2",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank3",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank4",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank5",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank6",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank7",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank8",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank9",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank10",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank11",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank12",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank13",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank14",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank15",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank16",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank17",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank18",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank19",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank20",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__full_stroke_then_strokes__0",
+          "iou": 0.9999997777927891
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tree__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tree__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tree__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tree__full_stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tree__full_stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__click_then_clicks__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__click_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__kneeling_woman__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.9999997777927891,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          682,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 0.9995565410199556,
+        "max_abs_alpha_difference": 0.2812763452529907,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00562",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 1.11311674118042e-05,
+          "relative_error": 2.0851087636814e-06,
+          "cosine": 0.9999999999978302
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.4957040548324585e-06,
+          "relative_error": 9.288435091264043e-07,
+          "cosine": 0.9999999999995594
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 6.243586540222168e-06,
+          "relative_error": 2.586296048988082e-06,
+          "cosine": 0.9999999999966529
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.00011539459228515625,
+        "center_logits": 6.198883056640625e-05,
+        "center_offset": 7.152557373046875e-06,
+        "log_size": 3.2901763916015625e-05,
+        "presence_logits": 2.2411346435546875e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.0,
+        "people": 1.3113021850585938e-06
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "reference_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "equal": true,
+        "boxes": [
+          19,
+          19
+        ],
+        "max_box_difference_cells": 0.0001659393310546875,
+        "max_score_difference": 1.430511474609375e-06
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.999999610104683
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank2",
+          "iou": 0.9995908346972177
+        },
+        {
+          "kind": "person",
+          "name": "person_rank3",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank4",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank5",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank6",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__duck__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__duck__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__duck__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__duck__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.9995908346972177,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          682,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 0.9999340402664774,
+        "max_abs_alpha_difference": 0.4565984606742859,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00602",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 8.940696716308594e-06,
+          "relative_error": 2.2287781377418267e-06,
+          "cosine": 0.9999999999975169
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.862645149230957e-06,
+          "relative_error": 1.007918981454473e-06,
+          "cosine": 0.9999999999994821
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 6.16908073425293e-06,
+          "relative_error": 2.4241218539983454e-06,
+          "cosine": 0.9999999999970597
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.000125885009765625,
+        "center_logits": 6.771087646484375e-05,
+        "center_offset": 6.318092346191406e-06,
+        "log_size": 3.075599670410156e-05,
+        "presence_logits": 3.045797348022461e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.0,
+        "people": 6.318092346191406e-06
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          20,
+          20
+        ],
+        "max_box_difference_cells": 5.340576171875e-05,
+        "max_score_difference": 3.2335519790649414e-06
+      },
+      "sky_regions": {
+        "candidate": 3,
+        "reference": 3,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9999995017064064
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tram__click_then_clicks__0",
+          "iou": 0.9999989956229247
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tram__click_then_strokes__0",
+          "iou": 0.9999989956229247
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tram__stroke_then_strokes__0",
+          "iou": 0.9999996455672873
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tram__full_stroke_then_strokes__0",
+          "iou": 0.9999992943439551
+        }
+      ],
+      "minimum_mask_iou": 0.9999989956229247,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          683,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 0.999931240578637,
+        "max_abs_alpha_difference": 0.24882498383522034,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00674",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 7.3909759521484375e-06,
+          "relative_error": 2.316351194371097e-06,
+          "cosine": 0.9999999999973221
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 2.2798776626586914e-06,
+          "relative_error": 1.4469885122517845e-06,
+          "cosine": 0.999999999998943
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 8.493661880493164e-06,
+          "relative_error": 3.4403279394598865e-06,
+          "cosine": 0.9999999999940786
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.000194549560546875,
+        "center_logits": 6.103515625e-05,
+        "center_offset": 6.258487701416016e-06,
+        "log_size": 3.0279159545898438e-05,
+        "presence_logits": 4.00543212890625e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 7.152557373046875e-07,
+        "people": 0.0
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1
+        ],
+        "reference_ranks": [
+          1
+        ],
+        "equal": true,
+        "boxes": [
+          2,
+          2
+        ],
+        "max_box_difference_cells": 0.000720977783203125,
+        "max_score_difference": 2.2649765014648438e-06
+      },
+      "sky_regions": {
+        "candidate": 2,
+        "reference": 2,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9999987996125149
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 0.9999848548581558
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__face__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__face__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__face__stroke_then_strokes__0",
+          "iou": 0.9999991254808216
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__face__stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__face__full_stroke_then_strokes__0",
+          "iou": 0.9999996437952335
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_clicks__0",
+          "iou": 0.9999990447231942
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_strokes__0",
+          "iou": 0.9999990447231942
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.9999848548581558,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          1024,
+          683
+        ],
+        "iou_alpha_gt_0_5": 0.999981088463963,
+        "max_abs_alpha_difference": 0.12768560647964478,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00728",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 6.079673767089844e-06,
+          "relative_error": 2.3709966511468608e-06,
+          "cosine": 0.9999999999971934
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.6093254089355469e-06,
+          "relative_error": 1.2080924114425815e-06,
+          "cosine": 0.9999999999992609
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 6.105750799179077e-06,
+          "relative_error": 2.673653466811549e-06,
+          "cosine": 0.9999999999964228
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.00012111663818359375,
+        "center_logits": 6.4849853515625e-05,
+        "center_offset": 4.976987838745117e-06,
+        "log_size": 2.9087066650390625e-05,
+        "presence_logits": 3.528594970703125e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.0,
+        "people": 2.3096799850463867e-07
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          6,
+          6
+        ],
+        "max_box_difference_cells": 3.4332275390625e-05,
+        "max_score_difference": 1.3634562492370605e-06
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__balloon__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__balloon__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__balloon__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__balloon__stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__balloon__full_stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__stroke_then_strokes__0",
+          "iou": 0.9999997420712708
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.9999997420712708,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          683,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 0.9994447529150472,
+        "max_abs_alpha_difference": 0.06890881061553955,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC00936",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 1.1026859283447266e-05,
+          "relative_error": 2.5654384194616556e-06,
+          "cosine": 0.9999999999967071
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.7471611499786377e-06,
+          "relative_error": 1.4270279895135127e-06,
+          "cosine": 0.9999999999989715
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 7.718801498413086e-06,
+          "relative_error": 3.97593551139538e-06,
+          "cosine": 0.9999999999920935
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.00011444091796875,
+        "center_logits": 6.818771362304688e-05,
+        "center_offset": 6.496906280517578e-06,
+        "log_size": 2.8371810913085938e-05,
+        "presence_logits": 1.9073486328125e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.0,
+        "people": 1.1920928955078125e-07
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1
+        ],
+        "reference_ranks": [
+          1
+        ],
+        "equal": true,
+        "boxes": [
+          4,
+          4
+        ],
+        "max_box_difference_cells": 0.0003204345703125,
+        "max_score_difference": 2.250075340270996e-06
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 0.9999998893720503
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_clicks__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.9999998893720503,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          1024,
+          681
+        ],
+        "iou_alpha_gt_0_5": 0.9998718852091474,
+        "max_abs_alpha_difference": 0.09085476398468018,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC_1188",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 7.826834917068481e-06,
+          "relative_error": 2.351617834969911e-06,
+          "cosine": 0.9999999999972355
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.6540288925170898e-06,
+          "relative_error": 1.1484988735844611e-06,
+          "cosine": 0.9999999999993321
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 8.746981620788574e-06,
+          "relative_error": 3.1332216520892435e-06,
+          "cosine": 0.9999999999950884
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.000225067138671875,
+        "center_logits": 6.961822509765625e-05,
+        "center_offset": 7.569789886474609e-06,
+        "log_size": 3.0279159545898438e-05,
+        "presence_logits": 4.0531158447265625e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "sky_found": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 7.35744833946228e-08,
+        "people": 1.471489667892456e-07
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          0,
+          0
+        ],
+        "max_box_difference_cells": 0.0,
+        "max_score_difference": 0.0
+      },
+      "sky_regions": {
+        "candidate": 0,
+        "reference": 0,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "stroke",
+          "name": "stroke__body__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__body__click_then_clicks__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__body__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__body__click_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__body__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__body__full_stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tail__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tail__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tail__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__tail__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 1.0,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          682,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 0.9999200074659699,
+        "max_abs_alpha_difference": 0.24902623891830444,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC_1456",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 1.6734004020690918e-05,
+          "relative_error": 2.3234094453170664e-06,
+          "cosine": 0.9999999999973086
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.7061829566955566e-06,
+          "relative_error": 7.386805114137719e-07,
+          "cosine": 0.9999999999997171
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 8.359551429748535e-06,
+          "relative_error": 1.7698508647398454e-06,
+          "cosine": 0.999999999998431
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.0001697540283203125,
+        "center_logits": 5.340576171875e-05,
+        "center_offset": 5.841255187988281e-06,
+        "log_size": 3.24249267578125e-05,
+        "presence_logits": 2.86102294921875e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 2.980232238769531e-07,
+        "people": 0.0
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "reference_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "equal": true,
+        "boxes": [
+          20,
+          20
+        ],
+        "max_box_difference_cells": 6.4849853515625e-05,
+        "max_score_difference": 1.8030405044555664e-06
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank2",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank3",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank4",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank5",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank6",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank7",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank8",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank9",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank10",
+          "iou": 0.9999779176327702
+        },
+        {
+          "kind": "person",
+          "name": "person_rank11",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank12",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_clicks__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__click_then_strokes__1",
+          "iou": 0.99999860979621
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__stroke_then_strokes__0",
+          "iou": 0.9999986049262843
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__car__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.9999779176327702,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          1024,
+          682
+        ],
+        "iou_alpha_gt_0_5": 0.9999338813832015,
+        "max_abs_alpha_difference": 0.22895339131355286,
+        "passed": true
+      }
+    },
+    {
+      "photo": "DSC_1535",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 1.1354684829711914e-05,
+          "relative_error": 2.348594122774795e-06,
+          "cosine": 0.9999999999972493
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.9371509552001953e-06,
+          "relative_error": 7.570011263134746e-07,
+          "cosine": 0.999999999999704
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 5.0067901611328125e-06,
+          "relative_error": 1.8896857258042392e-06,
+          "cosine": 0.9999999999982114
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.0002346038818359375,
+        "center_logits": 4.9114227294921875e-05,
+        "center_offset": 8.404254913330078e-06,
+        "log_size": 2.765655517578125e-05,
+        "presence_logits": 3.147125244140625e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "sky_found": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 1.5739351511001587e-07,
+        "people": 0.0
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "reference_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "equal": true,
+        "boxes": [
+          20,
+          20
+        ],
+        "max_box_difference_cells": 0.00060272216796875,
+        "max_score_difference": 1.0728836059570312e-06
+      },
+      "sky_regions": {
+        "candidate": 0,
+        "reference": 0,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank2",
+          "iou": 0.9998559978161756
+        },
+        {
+          "kind": "person",
+          "name": "person_rank3",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank4",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank5",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank6",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank7",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank8",
+          "iou": 0.9999867745860446
+        },
+        {
+          "kind": "person",
+          "name": "person_rank9",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_clicks__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__click_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__torso__full_stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.9998559978161756,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          1024,
+          682
+        ],
+        "iou_alpha_gt_0_5": 0.9999549888436634,
+        "max_abs_alpha_difference": 0.07922980189323425,
+        "passed": true
+      }
+    },
+    {
+      "photo": "Nikon-D800e-raw-00007",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 8.981674909591675e-06,
+          "relative_error": 2.5068676232616977e-06,
+          "cosine": 0.9999999999968746
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.952052116394043e-06,
+          "relative_error": 1.3498896668087064e-06,
+          "cosine": 0.9999999999990807
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 6.556510925292969e-06,
+          "relative_error": 2.6621983272822467e-06,
+          "cosine": 0.9999999999964534
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.00011444091796875,
+        "center_logits": 5.626678466796875e-05,
+        "center_offset": 6.318092346191406e-06,
+        "log_size": 2.765655517578125e-05,
+        "presence_logits": 4.0531158447265625e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": false,
+          "reference": false
+        },
+        "people_found": {
+          "candidate": false,
+          "reference": false
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 0.0,
+        "people": 4.861503839492798e-07
+      },
+      "people_list": {
+        "candidate_ranks": [],
+        "reference_ranks": [],
+        "equal": true,
+        "boxes": [
+          19,
+          19
+        ],
+        "max_box_difference_cells": 8.392333984375e-05,
+        "max_score_difference": 1.7210841178894043e-06
+      },
+      "sky_regions": {
+        "candidate": 1,
+        "reference": 1,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__sky__full_stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__click_then_clicks__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__click_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__full_stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__rock__full_stroke_then_strokes__1",
+          "iou": 0.9999938102341588
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_clicks__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_clicks__2",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_strokes__1",
+          "iou": 0.999979061099711
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_strokes__2",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_strokes__3",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__click_then_strokes__4",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__stroke_then_strokes__2",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__stroke_then_strokes__3",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__stroke_then_strokes__4",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__full_stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__full_stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__full_stroke_then_strokes__2",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__full_stroke_then_strokes__3",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__flowers__full_stroke_then_strokes__4",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.999979061099711,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          683,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 0.999074502545118,
+        "max_abs_alpha_difference": 0.3215906620025635,
+        "passed": true
+      }
+    },
+    {
+      "photo": "P1024439",
+      "encoder": {
+        "image_embed": {
+          "max_abs_difference": 1.0415911674499512e-05,
+          "relative_error": 2.4790813315126407e-06,
+          "cosine": 0.9999999999969286
+        },
+        "high_res_feats_0": {
+          "max_abs_difference": 1.737847924232483e-06,
+          "relative_error": 1.2536477076574313e-06,
+          "cosine": 0.9999999999992047
+        },
+        "high_res_feats_1": {
+          "max_abs_difference": 9.715557098388672e-06,
+          "relative_error": 2.959076224923112e-06,
+          "cosine": 0.9999999999956194
+        }
+      },
+      "head_max_abs_difference": {
+        "sky_logits": 0.00015735626220703125,
+        "center_logits": 7.82012939453125e-05,
+        "center_offset": 7.569789886474609e-06,
+        "log_size": 3.266334533691406e-05,
+        "presence_logits": 1.5735626220703125e-05
+      },
+      "non_finite_values": 0,
+      "non_finite_outputs": [],
+      "decisions": {
+        "sky_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "sky_found": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_present": {
+          "candidate": true,
+          "reference": true
+        },
+        "people_found": {
+          "candidate": true,
+          "reference": true
+        }
+      },
+      "decisions_equal": true,
+      "presence_difference": {
+        "sky": 2.384185791015625e-07,
+        "people": 0.0
+      },
+      "people_list": {
+        "candidate_ranks": [
+          1,
+          2
+        ],
+        "reference_ranks": [
+          1,
+          2
+        ],
+        "equal": true,
+        "boxes": [
+          6,
+          6
+        ],
+        "max_box_difference_cells": 0.00067901611328125,
+        "max_score_difference": 1.5497207641601562e-06
+      },
+      "sky_regions": {
+        "candidate": 4,
+        "reference": 4,
+        "equal": true,
+        "max_point_difference_model_px": 0.0
+      },
+      "masks": [
+        {
+          "kind": "sky",
+          "name": "union",
+          "iou": 1.0
+        },
+        {
+          "kind": "person",
+          "name": "person_rank1",
+          "iou": 0.9999401457451107
+        },
+        {
+          "kind": "person",
+          "name": "person_rank2",
+          "iou": 0.9999861814068065
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__click_then_clicks__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__click_then_strokes__1",
+          "iou": 0.9999981925478749
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__full_stroke_then_strokes__0",
+          "iou": 0.9999981678035446
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__dress__full_stroke_then_strokes__1",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_clicks__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__click_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__stroke_then_strokes__0",
+          "iou": 1.0
+        },
+        {
+          "kind": "stroke",
+          "name": "stroke__hair__full_stroke_then_strokes__0",
+          "iou": 1.0
+        }
+      ],
+      "minimum_mask_iou": 0.9999401457451107,
+      "masks_passed": true,
+      "subject": {
+        "grid": [
+          768,
+          1024
+        ],
+        "iou_alpha_gt_0_5": 0.9997301504929943,
+        "max_abs_alpha_difference": 0.19123512506484985,
+        "passed": true
+      }
+    }
+  ],
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "logical_cpus": 10,
+    "memory_bytes": 17179869184,
+    "python": "3.13.7"
+  }
+}

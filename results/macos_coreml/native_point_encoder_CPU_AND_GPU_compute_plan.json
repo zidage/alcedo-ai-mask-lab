@@ -1,0 +1,66 @@
+{
+  "model": "build/tmp/explore/coreml/float32/point_encoder.mlmodelc",
+  "compute_units": "CPU_AND_GPU",
+  "coremltools": "9.0",
+  "macos": "27.0.1",
+  "ops": 352,
+  "ops_per_preferred_device": {
+    "GPU": 352
+  },
+  "estimated_cost_share_per_preferred_device": {
+    "GPU": 1.0
+  },
+  "op_types_per_preferred_device": {
+    "GPU": {
+      "ios18.transpose": 83,
+      "ios18.reshape": 66,
+      "ios18.linear": 51,
+      "ios18.squeeze": 36,
+      "ios18.add": 27,
+      "ios18.layer_norm": 24,
+      "split": 12,
+      "ios18.scaled_dot_product_attention": 12,
+      "ios18.gelu": 12,
+      "ios18.slice_by_index": 10,
+      "ios18.conv": 7,
+      "ios18.max_pool": 6,
+      "pad": 5,
+      "upsample_nearest_neighbor": 1
+    }
+  },
+  "ops_without_device": {},
+  "supported_op_types_per_device": {
+    "CPU": {
+      "ios18.transpose": 83,
+      "ios18.reshape": 66,
+      "ios18.linear": 51,
+      "ios18.squeeze": 36,
+      "ios18.add": 27,
+      "ios18.layer_norm": 24,
+      "split": 12,
+      "ios18.scaled_dot_product_attention": 12,
+      "ios18.gelu": 12,
+      "ios18.slice_by_index": 10,
+      "ios18.conv": 7,
+      "ios18.max_pool": 6,
+      "pad": 5,
+      "upsample_nearest_neighbor": 1
+    },
+    "GPU": {
+      "ios18.transpose": 83,
+      "ios18.reshape": 66,
+      "ios18.linear": 51,
+      "ios18.squeeze": 36,
+      "ios18.add": 27,
+      "ios18.layer_norm": 24,
+      "split": 12,
+      "ios18.scaled_dot_product_attention": 12,
+      "ios18.gelu": 12,
+      "ios18.slice_by_index": 10,
+      "ios18.conv": 7,
+      "ios18.max_pool": 6,
+      "pad": 5,
+      "upsample_nearest_neighbor": 1
+    }
+  }
+}

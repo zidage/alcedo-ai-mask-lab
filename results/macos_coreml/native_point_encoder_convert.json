@@ -1,0 +1,55 @@
+{
+  "step": "issue #8: native Core ML model",
+  "model": "point_encoder",
+  "precision": "float32",
+  "float32_ops": [],
+  "coremltools": "9.0",
+  "torch": "2.7.0",
+  "format": "mlprogram",
+  "minimum_deployment_target": "macOS15",
+  "inputs": {
+    "pixel_values": [
+      "1",
+      "3",
+      "1024",
+      "1024"
+    ]
+  },
+  "outputs": [
+    "image_embed",
+    "high_res_feats_0",
+    "high_res_feats_1"
+  ],
+  "checkpoint": {
+    "path": "build/tmp/explore/weights/sam2.1_hiera_tiny.pt",
+    "bytes": 156008466,
+    "sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69"
+  },
+  "mlpackage": {
+    "path": "build/tmp/explore/coreml/float32/point_encoder.mlpackage",
+    "bytes": 134251135,
+    "sha256": "b9be63c6572b58bd801e1debba7ffb41c5d706329eb65dd32250f738d610b769"
+  },
+  "mlmodelc": {
+    "path": "build/tmp/explore/coreml/float32/point_encoder.mlmodelc",
+    "bytes": 134260018,
+    "sha256": "d3f66d7bcc2a81b2245f22e2ff073b3b1bd180720ea49c091bb0ea401e420285"
+  },
+  "convert_seconds": 1.6,
+  "max_abs_difference_against_pytorch_float32": {
+    "CPU_ONLY": {
+      "image_embed": 1.0132789611816406e-05,
+      "high_res_feats_0": 8.344650268554688e-07,
+      "high_res_feats_1": 2.8908252716064453e-06
+    },
+    "ALL": {
+      "image_embed": 1.0639429092407227e-05,
+      "high_res_feats_0": 7.748603820800781e-07,
+      "high_res_feats_1": 2.637505531311035e-06
+    }
+  },
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.7"
+  }
+}

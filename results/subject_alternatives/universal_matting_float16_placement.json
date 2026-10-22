@@ -1,0 +1,37 @@
+{
+  "model": "universal_matting",
+  "graph": "build/tmp/explore/universal_matting/onnx/float16/universal_matting.onnx",
+  "onnxruntime": "1.24.4",
+  "photo": "DSC_1535.jpg",
+  "runs": 2,
+  "graph_operators": {},
+  "executed_nodes": {
+    "CPUExecutionProvider": 174,
+    "DmlExecutionProvider": 1769
+  },
+  "kernel_ms_per_run": {
+    "CPUExecutionProvider": 1.6,
+    "DmlExecutionProvider": 225.3
+  },
+  "cpu_nodes_per_operator": {
+    "Cast": 57,
+    "Div": 22,
+    "Sub": 16,
+    "Squeeze": 14,
+    "Slice": 12,
+    "Unsqueeze": 9,
+    "Concat": 8,
+    "Mul": 6,
+    "Add": 6,
+    "Greater": 5,
+    "Where": 4,
+    "And": 4,
+    "ReduceMax": 2,
+    "Ceil": 2,
+    "Max": 2,
+    "Equal": 2,
+    "Not": 2,
+    "Split": 1
+  },
+  "profile": "build/tmp/explore/universal_matting/placement/profiles_float16/universal_matting_float16_2026-10-22_13-22-36.json"
+}

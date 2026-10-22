@@ -1,0 +1,100 @@
+{
+  "source": "Windows performance counters: GPU Process Memory (Dedicated Usage, Shared Usage)",
+  "exit_code": 0,
+  "interval_ms": 250,
+  "peak_dedicated_bytes": 4175880192.0,
+  "peak_shared_bytes": 1134039040.0,
+  "sample_count": 18,
+  "samples": [
+    {
+      "seconds": 3.95,
+      "dedicated_bytes": 16871424.0,
+      "shared_bytes": 24952832.0
+    },
+    {
+      "seconds": 5.22,
+      "dedicated_bytes": 241029120.0,
+      "shared_bytes": 175321088.0
+    },
+    {
+      "seconds": 6.49,
+      "dedicated_bytes": 546168832.0,
+      "shared_bytes": 269225984.0
+    },
+    {
+      "seconds": 7.77,
+      "dedicated_bytes": 546168832.0,
+      "shared_bytes": 269225984.0
+    },
+    {
+      "seconds": 9.05,
+      "dedicated_bytes": 1674842112.0,
+      "shared_bytes": 305926144.0
+    },
+    {
+      "seconds": 10.33,
+      "dedicated_bytes": 4073574400.0,
+      "shared_bytes": 865079296.0
+    },
+    {
+      "seconds": 11.61,
+      "dedicated_bytes": 4175351808.0,
+      "shared_bytes": 865079296.0
+    },
+    {
+      "seconds": 12.87,
+      "dedicated_bytes": 4175351808.0,
+      "shared_bytes": 865079296.0
+    },
+    {
+      "seconds": 14.22,
+      "dedicated_bytes": 4175351808.0,
+      "shared_bytes": 865079296.0
+    },
+    {
+      "seconds": 15.48,
+      "dedicated_bytes": 4175351808.0,
+      "shared_bytes": 865079296.0
+    },
+    {
+      "seconds": 16.76,
+      "dedicated_bytes": 4175351808.0,
+      "shared_bytes": 865079296.0
+    },
+    {
+      "seconds": 18.04,
+      "dedicated_bytes": 4175880192.0,
+      "shared_bytes": 1134039040.0
+    },
+    {
+      "seconds": 19.29,
+      "dedicated_bytes": 4175880192.0,
+      "shared_bytes": 1134039040.0
+    },
+    {
+      "seconds": 20.57,
+      "dedicated_bytes": 4175880192.0,
+      "shared_bytes": 1134039040.0
+    },
+    {
+      "seconds": 21.84,
+      "dedicated_bytes": 4175880192.0,
+      "shared_bytes": 1134039040.0
+    },
+    {
+      "seconds": 23.12,
+      "dedicated_bytes": 4175880192.0,
+      "shared_bytes": 1134039040.0
+    },
+    {
+      "seconds": 24.5,
+      "dedicated_bytes": 4175880192.0,
+      "shared_bytes": 1134039040.0
+    },
+    {
+      "seconds": 25.76,
+      "dedicated_bytes": 26894336.0,
+      "shared_bytes": 30568448.0
+    }
+  ]
+}

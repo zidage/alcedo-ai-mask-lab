@@ -12,11 +12,11 @@ Output: --out (JSON): graph load times, per stage the time of the first call, th
 
 Sequence per photo (all graphs stay loaded): read and scale the photo, encoder, head, Sky,
 People (one decoder run per listed person), the stroke sequence of E3 (one decoder run per
-interaction, the previous mask as mask_input), Subject (BiRefNet, or S3OD or IS-Net with
---subject-onnx).
+interaction, the previous mask as mask_input), Subject (BiRefNet, or S3OD, IS-Net, or universal
+matting with --subject-onnx).
 Then --warm-runs repeated calls of each graph on the first photo: encoder, head, decoder with one
 box, decoder with 10 points and mask_input, Subject. The Subject stage has the name of the graph
-kind (`birefnet`, `s3od`, or `isnet`, mask_pipeline.SUBJECT_OUTPUTS).
+kind (`birefnet`, `s3od`, `isnet`, or `universal_matting`, mask_pipeline.SUBJECT_OUTPUTS).
 """
 
 from __future__ import annotations

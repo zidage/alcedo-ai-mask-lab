@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Cost of one Subject graph on ONNX Runtime DirectML with the MVP settings (issue #6).
 
-Input:  --model (s3od, birefnet, or isnet), --graph (ONNX file), the photos of --prompts in
-        --photos (the quality set at a long edge of at most 4096 px), --warm-photo.
+Input:  --model (s3od, birefnet, isnet, or universal_matting), --graph (ONNX file), the photos of
+        --prompts in --photos (the quality set at a long edge of at most 4096 px), --warm-photo.
 Output: --out (JSON), and with --alpha-dir the alpha of each photo (<stem>.npy, float16; see
         subject_runtime.SubjectModel) for probe_subject_masks.py.
 

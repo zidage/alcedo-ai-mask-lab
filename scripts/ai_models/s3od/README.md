@@ -4,9 +4,11 @@ Issue [#6](https://github.com/zidage/alcedo-ai-mask-lab/issues/6) measures Subje
 alternatives to BiRefNet lite (F1 Subject, F2 Background). These scripts export the S3OD
 `s3od-synth` model to ONNX, compare the export with PyTorch, and measure the cost and the quality on
 ONNX Runtime DirectML with the MVP settings. The same DirectML and quality scripts measure the
-BiRefNet lite 1024 float16 graph of the MVP as the reference, and the IS-Net general-use graph
+BiRefNet lite 1024 float16 graph of the MVP as the reference, the IS-Net general-use graph
 (`--model isnet`, kind `isnet`; export and CPU comparison in
-[`scripts/ai_models/isnet/`](../isnet/README.md)). The report is
+[`scripts/ai_models/isnet/`](../isnet/README.md)), and the Alibaba universal matting graph
+(`--model universal_matting`, kind `universal_matting`; conversion and CPU comparison in
+[`scripts/ai_models/universal_matting/`](../universal_matting/README.md)). The report is
 [Subject model alternatives to BiRefNet lite](../../../docs/exploration/subject_alternatives.md) (section S3OD).
 
 Weights, source checkouts, ONNX files, photos, alphas, and logs are not committed. Keep them under
@@ -33,7 +35,7 @@ TorchScript file. The scripts load it with `torch.load(..., weights_only=True)`.
 | `probe_attention_layer.py` | One encoder attention on DirectML in different graph forms (MHA, MatMul form, query chunks, chained query chunks): GPU memory, time, float16 output. |
 | `compare_onnx_outputs.py` | `OnnxMasksMatchPytorchWithinTolerance`: ONNX Runtime CPU against the PyTorch model of the source on the quality photos; writes the reference and ONNX alphas. |
 | `measure_float32_spread.py` | Float32 differences of PyTorch against itself (threads, attention kernel) and of ONNX Runtime with and without graph optimizations. |
-| `subject_runtime.py` | Shared code of the DirectML scripts: preprocessing and stored alpha of S3OD, BiRefNet, and IS-Net, MVP session settings, GPU memory and working set. |
+| `subject_runtime.py` | Shared code of the DirectML scripts: preprocessing and stored alpha of S3OD, BiRefNet, IS-Net, and universal matting, MVP session settings, GPU memory and working set. |
 | `profile_operator_placement.py` | Nodes per execution provider (DirectML partitions, CPU nodes) from an ONNX Runtime profile. |
 | `measure_directml_cost.py` | Session load, first run, 20 warm runs, one run per photo, release, with the GPU memory after each phase; stores the DirectML alphas. |
 | `measure_first_runs.py` | First runs in new processes and the display driver resets (System events 153 and 4101). |

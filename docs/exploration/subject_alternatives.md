@@ -2,12 +2,13 @@
 
 **Issue:** [#6](https://github.com/zidage/alcedo-ai-mask-lab/issues/6). **Date:** 2026-10-21.
 **Code:** [`scripts/ai_models/s3od/`](../../scripts/ai_models/s3od/README.md),
-[`scripts/ai_models/isnet/`](../../scripts/ai_models/isnet/README.md).
+[`scripts/ai_models/isnet/`](../../scripts/ai_models/isnet/README.md),
+[`scripts/ai_models/universal_matting/`](../../scripts/ai_models/universal_matting/README.md).
 **Results:** [`results/subject_alternatives/`](../../results/subject_alternatives/).
 **Status:** S3OD `s3od-synth` is measured (sections 2 to 8), also with the attention in query
 chunks (section 5.5, 2026-10-21). IS-Net general-use is measured (section 11, 2026-10-21).
-Alibaba universal matting is not measured yet (section 9). The check of the masks by eye is open:
-the user does it.
+Alibaba universal matting is measured (section 12, 2026-10-22). The check of the masks by eye is
+open: the user does it.
 
 > **No images.** This report names photos and describes them in words. The comparison sheets are
 > local only; section 6.3 gives the command that makes them.
@@ -96,6 +97,17 @@ MVP settings on ONNX Runtime DirectML and compared with BiRefNet lite:
   d1 maximum 0.047) gets a soft mask of noise. The weights have no license statement
   ([DIS#150](https://github.com/xuebinqin/DIS/issues/150), no answer). In the same period the
   BiRefNet reference run reset the display driver in 2 of 2 sessions.
+- **Alibaba universal matting (section 12): no reset, but U6 not met and worse masks.** The
+  TensorFlow graph reads the photo at its size. The conversion needs rewrites of `ResizeArea`,
+  `ResizeBilinear`, and `CropAndResize` (`tf2onnx` 1.17 converts them to other operations) and
+  float64 scalar divisions (DirectML float32 division moved a crop row and changed one photo).
+  The float32 ONNX output fails 1e-3 against the default TensorFlow session (6.3e-3), but
+  TensorFlow differs from itself by up to 7.2e-3 over its CPU settings. On DirectML: 116 ms warm
+  and 2,678 MB at 4096 px, 1.5 s load, 0 driver resets in 46 sessions; float16 gives no gain. The
+  MVP pipeline with it has a peak of **3,982 MB** (U6 not met). Its masks are worse than BiRefNet
+  and S3OD on 5 of 14 photos (mean subject recall 0.84; the bridge and the water of
+  `2088064441`, the buildings of `DSC00562`). Weights license: Apache License 2.0. The BiRefNet
+  reference run of this step reset the driver again.
 - **License:** weights and code MIT; the encoder is DINOv3 (DINOv3 License, the license text must
   go with the weights). The training images come from FLUX.1 Krea [dev]. The FLUX.1 [dev]
   Non-Commercial License permits commercial use of outputs in section 2(d), but section 4(a)
@@ -487,6 +499,10 @@ problem as BiRefNet (DIS5K) and adds the FLUX output terms. This is open decisio
 
 ## 8. Recommendation
 
+**User decision (2026-10-22, README U14): F1 and F2 use S3OD, the 8 chunk MHA float16 graph of
+section 5.5.** The [acceptance record](acceptance_ai_mask_model_set.md) gives the evidence of the
+model set and the open items.
+
 - **The "no driver reset" criterion: S3OD meets it** (0 resets in 70 S3OD sessions; BiRefNet 5
   in 11 in the same period). This supports the user's suspicion that the BiRefNet graph causes the
   resets: S3OD has no deformable convolution and no GridSample, and its graph is one DirectML
@@ -501,6 +517,9 @@ problem as BiRefNet (DIS5K) and adds the FLUX output terms. This is open decisio
   cost and reset criteria with the largest margin (437 MB, 14 ms, MVP pipeline 1,748 MB), but its
   masks are worse on 7 of 14 photos, and its weights have no license. Of the measured candidates,
   S3OD (8 chunk MHA float16) stays the recommendation.
+- **Alibaba universal matting is not a replacement for BiRefNet lite** (section 12.8): no driver
+  reset, but the MVP pipeline with it has a peak of 3,982 MB (U6 not met), and its masks are worse
+  on 5 of 14 photos. S3OD stays the recommendation of the three candidates.
 - **Decisions for the user:**
   1. The float32 tolerance: accept 1.09e-3 on `P1024439` with the cause of section 4.4 (the
      rounding of the reference is larger than 1e-3), or set a tolerance for this model, for
@@ -515,8 +534,8 @@ problem as BiRefNet (DIS5K) and adds the FLUX output terms. This is open decisio
 
 ## 9. Open items
 
-- **Alibaba universal matting** (issue #6) is not measured. IS-Net general-use is measured
-  (section 11); its open items are in section 11.9.
+- All three candidates of issue #6 are measured. The open items of IS-Net general-use are in
+  section 11.9, those of Alibaba universal matting in section 12.9.
 - Check of the masks by eye (sheets of section 6.3).
 - The tolerance decision (section 8, item 1) and U13.
 - Not measured: S3OD at another input size (the issue forbids a smaller input as a substitute).
@@ -533,7 +552,10 @@ problem as BiRefNet (DIS5K) and adds the FLUX output terms. This is open decisio
 ## 10. Commands
 
 The IS-Net commands are in
-[`scripts/ai_models/isnet/README.md`](../../scripts/ai_models/isnet/README.md#commands). The S3OD
+[`scripts/ai_models/isnet/README.md`](../../scripts/ai_models/isnet/README.md#commands), the
+universal matting commands in
+[`scripts/ai_models/universal_matting/README.md`](../../scripts/ai_models/universal_matting/README.md#commands).
+The S3OD
 commands are in [`scripts/ai_models/s3od/README.md`](../../scripts/ai_models/s3od/README.md#commands):
 sources and weights, export of both forms, the CPU comparison, the float32 spread, placement,
 first runs, cost with GPU memory, quality metrics, and the attention in query chunks of section
@@ -790,3 +812,298 @@ The command is in
 block). The sheets (14 photos and 6 detail crops; panels: BiRefNet lite float16 CPU, S3OD 8 chunk
 MHA float16 DirectML, IS-Net float16 DirectML; red: alpha > 0.5, yellow: 0.05 to 0.95) are in
 `docs/exploration/images/subject_alternatives_isnet/` (in `.gitignore`).
+
+## 12. Alibaba universal matting
+
+**Date:** 2026-10-22. **Code:**
+[`scripts/ai_models/universal_matting/`](../../scripts/ai_models/universal_matting/README.md)
+(conversion, CPU comparison, TensorFlow spread) and the shared DirectML and quality scripts of
+[`scripts/ai_models/s3od/`](../../scripts/ai_models/s3od/README.md) with
+`--model universal_matting`. The questions are the questions of section 1, with the same photos,
+machine, and settings (sections 3 and 5.1).
+
+### 12.1 Result summary
+
+| Item | Universal matting float32 | Universal matting float16 | S3OD 8 chunk MHA float16 | BiRefNet lite float16 |
+| --- | ---: | ---: | ---: | ---: |
+| Input | the photo (4096 px) | the photo (4096 px) | 1024 x 1024 | 1024 x 1024 |
+| Session load | 1,513 ms | 1,827 ms | 1,111 ms | 9,442 ms |
+| Per photo, p50 / maximum (14 photos) | 126 / 248 ms | 130 / 167 ms | 192 / 213 ms | 153 / 200 ms |
+| Dedicated GPU memory, peak of the cost run | 2,678 MB | 2,664 MB | 1,358 MB | 3,226 MB |
+| Driver resets in 9 first runs | 0 | 0 | 0 | 4 |
+| MVP pipeline peak dedicated GPU memory | **3,982 MB** | | 2,666 MB | 4,528 MB |
+| Mean subject recall (14 photos) | 0.838 (TensorFlow) | | 0.986 (S3OD float32) | 0.922 |
+| Float32 ONNX against the framework (1e-3) | **fails** (6.3e-3; TensorFlow against itself 7.2e-3) | | fails (1.09e-3) | |
+| Weights license | Apache License 2.0 (model card) | | MIT | MIT |
+
+- **U6 is not met.** The graph reads the photo at its size and keeps tensors of the photo size,
+  so the MVP pipeline with it has a peak of 3,982 MB dedicated GPU memory (3 GB budget). No
+  driver reset occurred in 46 sessions.
+- **The masks are worse than BiRefNet lite and S3OD on 5 of the 14 photos**: large background
+  areas on 2 photos (the bridge and the water of `2088064441`, the buildings and trees of
+  `DSC00562`), a wide soft band on the squirrel tail, parts of the mountains on the photo where
+  BiRefNet finds no subject (section 12.6).
+- **The conversion needs graph rewrites.** `tf2onnx` 1.17 converts `ResizeArea`,
+  `ResizeBilinear`, and `CropAndResize` to other operations and fails on a constant `tf.cond`.
+  The rewrites keep the TensorFlow kernel arithmetic (0.0 difference against the original graph).
+  DirectML float32 division is not correctly rounded: one division moved the last row of a crop
+  and changed the alpha of `DSC00674` (IoU 0.936). The export now computes the scalar divisions in
+  float64 (section 12.3).
+- **Float16 gives no gain.** The instance norms reach 5.2e8, so most U-Net nodes stay float32. On
+  DirectML float16 saves 14 MB and no time, and it changes the crop box of two photos (IoU 0.98).
+
+### 12.2 Sources
+
+| Item | Value |
+| --- | --- |
+| Graph | `tf_graph.pb`, 204,740,209 bytes, SHA-256 `afcad611b6707f8a7e815f5702216af69fa77a72ef470d0b2c25a6afc340ea1f`, ModelScope `iic/cv_unet_universal-matting` master `2e7fe175a9a4a8ce234324b7cccd0a756c75c229` (tag v1.0.0 `de441e1b...`), downloaded 2026-10-21 |
+| Model card | `README.md` 4,334 bytes, SHA-256 `d21254bf...` (`license: Apache License 2.0`; tags "CVPR 2020", "semantic human matting"; citation Liu et al., "Boosting semantic human matting with coarse annotations") |
+| Pipeline code | `modelscope/modelscope` at `958c3f7da68b700cc671134e267c356a2444398b`: `image_matting_pipeline.py` (SHA-256 `b0333642...`), `preprocessors/image.py` (`ba44792d...`), `LICENSE` Apache-2.0 (`cfc7749b...`) |
+| Model | TensorFlow 1 frozen graph: six U-Nets with instance normalization and branch rules in `tf.cond` (`universal_matting_graphs.GRAPH_RULES`); 173 MB of float32 weights |
+
+**Processing of the source** (`ImageMattingPipeline`): read the photo with Pillow,
+`exif_transpose`, RGB, `astype(float)`; feed it at its size to `input_image:0`; the output
+`output_png:0` is the uint8 RGBA. The graph does all resizing: a person detector at 192 px; for
+photos with a person, a crop of 1920 px (AvgPool to 384 px) for a coarse U-Net at 224 px and a
+refine U-Net at 480 px; for other photos, or when the human alpha covers less than 10 % of the
+photo, an object branch at 224 px and a refine U-Net at 640 px. The alpha is resized to the box
+and padded to the photo. The scripts use the float32 RGBA before the uint8 Cast (`output_png` is
+its truncation, checked on 14 photos). On the 14 photos the human result is used on `DSC_1535`
+and `DSC00674`; the human branch also runs on 4 more photos.
+
+The model card states that the expected result is for images below 2000 x 2000 and that larger
+images can have blurred edges. The quality photos have a long edge of 4096 px; the issue requires
+the input size of the source, which is the photo.
+
+### 12.3 Conversion and comparison with TensorFlow
+
+- **Rewrites before `tf2onnx` 1.17** (`universal_matting_graphs.rewrite_for_onnx`). `tf2onnx`
+  cannot convert the `tf.cond` with a constant in each branch (`cond_2`), converts `ResizeArea`
+  to a nearest-neighbor Resize, and writes float scales for a static `ResizeBilinear` (224 to 480
+  becomes 479 in ONNX Runtime). ONNX Runtime `Resize` (linear, `align_corners`,
+  `tf_crop_and_resize`) also differs from the TensorFlow kernels (1e-4 to 7e-4, and 0.996 in the
+  last row of a full-box crop, where the kernel writes the extrapolation value because the float
+  source row is above H - 1). The rewrites write the kernel arithmetic of TensorFlow v2.21.0
+  (`resize_area_op.cc`, `resize_bilinear_op.cc`, `crop_and_resize_op.cc`) with Cast, MatMul, and
+  Gather. Check `RewrittenGraphMatchesTensorflowGraph` (grappler off in both sessions): 0.0 RGBA
+  difference and equal branch tensors on the 14 photos.
+- **No grappler in the conversion.** The grappler constant folding that
+  `tf2onnx.from_graph_def` runs changes `(x * y) / c` to another float order. That moved one crop
+  position by one ulp and changed the alpha of `DSC00674` (IoU 0.934). `convert_to_onnx` calls
+  `process_tf_graph` and `optimize_graph` without grappler.
+- **Float64 scalar divisions.** On DirectML, the first float32 graph gave IoU 0.936 against
+  TensorFlow on `DSC00674` (CPU: 1.0000). A diagnosis with the If branches inlined (ad hoc
+  scripts in `build/tmp/universal_matting/`) found the first different tensor: the 1920 px crop
+  of the human branch, in its last row only. DirectML computes 4095 / 1919 as 2.13392377, one ulp
+  below the correctly rounded 2.13392401 of the CPU and TensorFlow. The source row of the last
+  crop row is then 4094.99976 (not above 4095), so DirectML reads the photo where TensorFlow
+  writes 0. With the DirectML metacommands off or the graph optimizations at the basic level, the
+  result did not change. The export now computes each of the 42 one-element Div nodes outside the
+  U-Nets in float64 (Cast, Div, Cast to float32). DirectML has no float64 Div, so ONNX Runtime
+  runs these nodes on the CPU: 22 of them run on `DSC_1535`, 2.3 ms CPU kernel time in total per
+  run, warm p50 +1.7 ms. The CPU output is bit-identical to the first graph on the 14 photos. The
+  records of the first graph are `*_float32_divisions.json`.
+- **Float16** (`convert_regions_to_float16`): only nodes of the six U-Nets, and only when the
+  output and each input of the node have a largest absolute value of at most 4,094 on the 14
+  photos (the S3OD limit, 65,504 / 16). The instance norms of the detector, coarse, and object
+  U-Nets reach 5.2e8 (squared deviations), so 888 of 1,954 U-Net nodes are float16 (refine U-Nets:
+  38 to 40 of 55; their maximum is 10,135). The input rule is necessary: with the output rule
+  only, the `x - mean` of an instance norm read a float16 copy of a large Conv output (IoU 0.70 on
+  `DSC_1188`). The ONNX Runtime float16 converter cannot convert this graph: it moves the If branch
+  outputs to float16 with the Cast in the parent graph and writes one Cast name in two branches.
+- Graphs: float32 173.3 MB, 3,400 nodes with the If branches (SHA-256 `eda5d60e...`); float16
+  154.8 MB, 4,023 nodes (`66dfb827...`). Records
+  [`universal_matting_float32_export.json`](../../results/subject_alternatives/universal_matting_float32_export.json),
+  [`universal_matting_float16_export.json`](../../results/subject_alternatives/universal_matting_float16_export.json).
+- **`OnnxAlphaMatchesTensorflowWithinTolerance`** (`compare_onnx_outputs.py`, ONNX Runtime 1.31.0
+  CPU against TensorFlow 2.21.0 CPU with its default session, 4 threads; record
+  [`universal_matting_comparison_cpu.json`](../../results/subject_alternatives/universal_matting_comparison_cpu.json)):
+
+  | Graph | Maximum alpha difference | Against TensorFlow with grappler off | Minimum IoU of alpha > 0.5 | Result |
+  | --- | ---: | ---: | ---: | --- |
+  | float32 | 6.3e-3 (`DSC00527`); above 1e-3 on 7 photos | 3.4e-3 (`DSC00674`); the other 13 photos at most 9.0e-4 | 0.99991 | **fails** (1e-3) |
+  | float16 (CPU) | 1.0 | 1.0 | 0.9769 (`DSC00674`), 0.9798 (`DSC00326`) | no requirement |
+
+- **The reference is not stable to 1e-3**
+  ([`universal_matting_tensorflow_spread.json`](../../results/subject_alternatives/universal_matting_tensorflow_spread.json),
+  `measure_tensorflow_spread.py`). TensorFlow with six CPU settings (oneDNN on or off, 1 or 4
+  threads, grappler on or off) differs from itself by up to 7.2e-3 (`5761824892`), 6.6e-3
+  (`DSC00527`), 4.1e-3 (`DSC_1188`), and 3.4e-3 (`DSC00674`). The ONNX float32 alpha is within
+  1.3e-3 of the nearest TensorFlow setting on every photo (the stored ONNX alpha is float16, so
+  values below 2.4e-4 are not resolved). Two runs of the default setting also differ: on
+  `2088064441` the same ONNX alpha is 1.19e-3 from one run and 1.27e-3 from the other. The
+  largest differences are in a few edge pixels (p99.9 at most 6.3e-4; mean at most 3.0e-6).
+- **The model is sensitive on two photos** (ad hoc check). Gaussian noise with a standard
+  deviation of 0.5 (of 255) on the input changes the IoU against TensorFlow to 0.989 to 0.997 on
+  `DSC00674` and to 0.980 to 0.999 on `DSC00326` (`DSC_1535`: 0.9999). The float16 change of
+  these photos comes from one U-Net each (ad hoc, one U-Net in float16 at a time): the coarse
+  U-Net on `DSC00674` and the object stage 0 U-Net on `DSC00326`. Both decide a crop box. The
+  other U-Nets in float16 change at most a few edge pixels (IoU >= 0.998).
+
+### 12.4 Cost on DirectML
+
+Records `results/subject_alternatives/universal_matting_<precision>_*.json`. Times in ms; memory
+in MB (dedicated / shared) of the process. The photos are fed at their size (4096 px long edge).
+
+| Graph | File | Placement (DirectML nodes, CPU nodes) | Session load | First run | Warm p50 / p95 / maximum (20) | Photos p50 / maximum (14) | After load | After first run | After the photos | After release |
+| --- | ---: | --- | ---: | ---: | --- | --- | --- | --- | --- | --- |
+| BiRefNet lite 1024 float16 (section 5.2) | 96.4 MB | 601, 724 (E2) | 9,442 | 817 | 154 / 178 / 187 | 153 / 200 | 227 / 180 | 3,226 / 204 | | 107 / 232 |
+| S3OD 8 chunk MHA float16 (section 5.5) | 219.3 MB | 1, 0 | 1,111 | 234 | 191 / 193 / 198 | 192 / 213 | 297 / 245 | 1,358 / 274 | | |
+| Universal matting float32 | 173.3 MB | 1,404, 174 | 1,513 | 336 | 116 / 127 / 131 | 126 / 248 | 364 / 124 | 1,905 / 638 | **2,678 / 895** | 76 / 44 |
+| Universal matting float16 | 154.8 MB | 1,769, 174 | 1,827 | 352 | 115 / 120 / 120 | 130 / 167 | 345 / 132 | 1,880 / 646 | 2,664 / 903 | 85 / 46 |
+
+- **No DirectML graph fusion.** The DirectML nodes are single operators, not fused partitions:
+  the input has no static size, and the If branches split the graph. A test graph with the If
+  branches inlined fails in the DirectML graph fusion at session creation (`80070057`,
+  E_INVALIDARG). The 174 CPU nodes are shape and box computations (outputs of at most 4 KB) and
+  the float64 divisions; together 2.3 ms per run (DirectML 253 ms in the profiling run).
+- **The memory comes from tensors of the photo size.** One 4096 x 2731 photo is 134 MB as the
+  float32 input and 179 MB as the RGBA output, and the graph keeps more tensors of that size (the
+  scaled photo, the crops, the padded alpha, the masked RGB). The dedicated memory rises from
+  1,905 MB after the first photo to 2,678 MB after the 14 photos of different sizes. Float16 in
+  the U-Nets does not change this (2,664 MB). The split per tensor was not measured.
+- The time per photo depends on the branch: 110 ms (`DSC_1535`, human result, small box), 248 ms
+  (`DSC00674`, human result, full-photo box with the 1920 px crop), 123 to 177 ms (object branch;
+  the human branch also runs on 4 of these photos).
+- The working set of the cost script includes the 14 prepared photo inputs (1.9 GB before the
+  load); it is not comparable with the other models.
+
+**First runs** (9 new processes per graph, `DSC_1535`): 0 failed runs, 0 driver resets, and no
+event 153 or 4101. Float32: load 1,586 to 1,772 ms, first run 231 to 240 ms. Float16: load 1,875
+to 2,030 ms, first run 255 to 267 ms. In total: 0 resets in 46 universal matting sessions (per
+graph form: 18 first runs, 2 cost runs, 2 profiling runs, 1 pipeline run; two graph forms).
+
+**BiRefNet reference in the same period.** One run of `measure_directml_cost.py` with the
+BiRefNet lite float16 graph (13:09:22): first run 64,239 ms with events 153 at 13:09:31,
+13:10:32, and 13:10:35 and event 4101 at 13:10:36, then `DmlFusedNode_0_0 ... 887A0006` on the
+first warm run. Record
+[`birefnet_lite_float16_universal_matting_step_failed_runs.json`](../../results/subject_alternatives/birefnet_lite_float16_universal_matting_step_failed_runs.json)
+(peak 3,226 MB). The BiRefNet values of the tables are from section 5.2. Issue #6 in total:
+BiRefNet 8 resets in 14 sessions; S3OD 0 in 88; IS-Net 0 in 23; universal matting 0 in 46.
+
+### 12.5 MVP pipeline with universal matting and DirectML output
+
+`measure_pipeline_cost.py --subject-onnx <universal matting float32 graph>` under
+`run_with_gpu_memory.ps1` (the sequence of section 5.5; `mask_pipeline.py` selects the universal
+matting processing by the graph output `rgba` and feeds the scaled photo of the MVP). Records
+`mvp_pipeline_universal_matting_float32_cost*.json`.
+
+| Item | MVP with BiRefNet lite float16 | MVP with S3OD (8 chunk MHA float16) | MVP with IS-Net float16 | MVP with universal matting float32 |
+| --- | ---: | ---: | ---: | ---: |
+| Peak dedicated GPU memory | 4,528 MB | 2,666 MB | 1,748 MB | **3,982 MB** |
+| Peak shared GPU memory | 486 MB | 459 MB | 325 MB | 1,082 MB |
+| Peak working set | 1,873 MB | 1,675 MB | 1,476 MB | 2,687 MB |
+| Subject graph load | 7,998 ms | 910 ms | 507 ms | 1,221 ms |
+| Subject first call / warm p50 | 417 ms / 155.8 ms | 250 ms / 191.1 ms | 30.7 ms / 13.9 ms | 240 ms / 115.9 ms |
+| SAM 2.1 tiny encoder warm p50, decoder box warm p50 | 73.7 ms, 23.2 ms | 70.5 ms, 23.2 ms | 72.8 ms, 21.2 ms | 68.1 ms, 20.4 ms |
+
+3,982 MB is 910 MB above the 3 GB budget of U6. No event 153 or 4101 occurred during the run.
+
+**DirectML output against TensorFlow** (stored alphas, IoU of alpha > 0.5 on the 1024 grid,
+[`quality_universal_matting.json`](../../results/subject_alternatives/quality_universal_matting.json)):
+float32 0.9997 (`Nikon-D800e-raw-00007`) to 1.0000; float16 0.9804 (`DSC00326`), 0.9833
+(`Nikon-D800e-raw-00007`), 0.9874 (`2088064441`), the other 11 photos 0.991 or more. The first
+float32 graph (float32 divisions) gave 0.9359 on `DSC00674`
+([`quality_universal_matting_float32_divisions.json`](../../results/subject_alternatives/quality_universal_matting_float32_divisions.json)).
+
+### 12.6 Quality
+
+`probe_subject_masks.py` (section 6.1; kind `universal_matting`: the alpha at the photo size
+resized to the 1024 grid). The universal matting values are the TensorFlow alpha; the ONNX
+float32 alphas (CPU and DirectML) give the same means within 0.001. B: BiRefNet lite float16 CPU;
+S: S3OD float32 CPU; U: universal matting.
+
+| Photo (subject box) | Foreground B / S / U | Subject recall B / S / U | Outside box B / S / U | Edge width px B / S / U | Parts B / S / U | IoU U with B / S |
+| --- | --- | --- | --- | --- | --- | --- |
+| `DSC_1535` (person) | 0.222 / 0.223 / 0.221 | 0.998 / 0.999 / 0.995 | 0.000 / 0.000 / 0.000 | 1.57 / 0.05 / 2.29 | 1 / 1 / 1 | 0.987 / 0.985 |
+| `DSC00326` (person) | 0.026 / 0.026 / 0.026 | 0.989 / 0.991 / 0.968 | 0.000 / 0.000 / 0.000 | 1.32 / 0.08 / 2.98 | 1 / 1 / 1 | 0.945 / 0.927 |
+| `DSC00674` (person) | 0.679 / 0.680 / 0.723 | 0.999 / 1.000 / 0.993 | 0.005 / 0.005 / 0.012 | 5.44 / 0.08 / 6.57 | 1 / 1 / 1 | 0.925 / 0.924 |
+| `DSC00936` (person) | 0.022 / 0.022 / 0.022 | 0.996 / 0.992 / 0.992 | 0.000 / 0.000 / 0.000 | 1.23 / 0.04 / 1.54 | 1 / 1 / 1 | 0.989 / 0.978 |
+| `P1024439` (bassist) | 0.262 / 0.061 / 0.149 | 0.996 / 0.985 / 0.995 | 0.753 / 0.019 / 0.538 | 1.67 / 0.13 / 4.56 | 3 / 1 / 2 | 0.497 / 0.396 |
+| `DSC_1188` (squirrel) | 0.110 / 0.107 / 0.097 | 0.996 / 0.994 / **0.904** | 0.003 / 0.001 / 0.000 | 2.05 / 0.08 / 7.99 | 1 / 1 / 1 | 0.867 / 0.877 |
+| `DSC00527` (kneeling woman) | 0.024 / 0.023 / 0.029 | 0.997 / 0.993 / 0.996 | 0.558 / 0.538 / 0.625 | 0.99 / 0.09 / 2.25 | 2 / 2 / 3 | 0.799 / 0.754 |
+| `2088064441` (boarder) | 0.005 / 0.004 / **0.204** | 0.981 / 0.957 / 1.000 | 0.001 / 0.000 / **0.939** | 1.38 / 0.08 / 8.55 | 1 / 1 / 3 | 0.022 / 0.020 |
+| `DSC00728` (balloon) | 0.003 / 0.003 / 0.003 | 0.992 / 0.977 / 0.981 | 0.000 / 0.000 / 0.000 | 0.99 / 0.03 / 1.29 | 1 / 1 / 1 | 0.980 / 0.969 |
+| `5761824892` (car) | 0.241 / 0.241 / 0.224 | 1.000 / 1.000 / 0.924 | 0.075 / 0.073 / 0.080 | 1.45 / 0.09 / 3.53 | 1 / 1 / 1 | 0.922 / 0.920 |
+| `DSC00562` (duck on the wall) | 0.370 / 0.369 / **0.516** | 0.970 / 0.952 / **0.001** | 0.995 / 0.995 / 0.999 | 1.94 / 0.11 / 6.33 | 1 / 1 / 2 | 0.702 / 0.696 |
+| `DSC00602` (tram) | 0.273 / 0.270 / 0.265 | 1.000 / 0.998 / 0.986 | 0.014 / 0.012 / 0.004 | 1.58 / 0.09 / 5.35 | 1 / 1 / 1 | 0.958 / 0.963 |
+| `DSC_1456` (car) | 0.065 / 0.065 / 0.065 | 0.997 / 0.999 / 0.996 | 0.002 / 0.000 / 0.004 | 1.35 / 0.05 / 2.01 | 1 / 1 / 1 | 0.987 / 0.982 |
+| `Nikon-D800e-raw-00007` (rock) | 0.000 / 0.015 / 0.005 | 0.000 / 0.969 / 0.000 | 0.000 / 0.017 / **1.000** | — / 0.12 / 4.27 | 0 / 1 / 9 | 0.000 / 0.000 |
+| Mean | 0.164 / 0.151 / 0.182 | 0.922 / 0.986 / **0.838** | 0.172 / 0.119 / **0.300** | 1.64 / 0.08 / 4.25 | 1.14 / 1.07 / 2.00 | 0.756 / 0.742 |
+
+Soft share (0.05 < alpha < 0.95), mean: B 0.006, S 0.0002, U 0.029. Mean hole fraction: B
+0.004, S 0.008, U 0.026. Soft share in the hair regions: U 0.046 to 0.070 (B 0.024 to 0.039); in
+the squirrel fur region: U 0.130 (B 0.028).
+
+What the local sheets show (section 12.9), in words:
+
+- **Background areas.** `2088064441`: the mask has the bridge, most of the water, and the roof of
+  a building, partly soft (94 % of the foreground is outside the subject box). BiRefNet and S3OD
+  take only the boarder. `DSC00562`: BiRefNet and S3OD take the wall with the waterfall.
+  Universal matting takes the wall, the buildings behind it, a band of trees, and a floor area;
+  the ducks on the wall are not in the mask (subject recall 0.001).
+- **No subject found.** `Nikon-D800e-raw-00007`: BiRefNet finds nothing, and S3OD finds the rock.
+  Universal matting takes parts of the mountain ridge (9 parts, all outside the box).
+- **Soft bands and missed parts.** `DSC_1188`: a soft band of 0.05 to 0.95 around the tail that
+  is wider than the fur, and the white belly is not in the mask. `P1024439`: the bassist and the
+  guitarist in front, with parts of the microphone stand; less background than BiRefNet (53.8 %
+  outside the box; BiRefNet 75.3 %, S3OD 1.9 %). `5761824892`: the windshield shows the
+  background through the glass, and that area is not in the mask (BiRefNet and S3OD fill the
+  windows).
+- **Hair.** `DSC_1535`, `DSC00326`, `DSC00936`: the same outline as BiRefNet with a soft edge of
+  1.5 to 3.0 px. `DSC00674`: an outline similar to BiRefNet; the hair at the right edge of the
+  photo is softer.
+
+Universal matting is equal to BiRefNet on 6 photos (`DSC_1535`, `DSC00326`, `DSC00936`,
+`DSC00728`, `DSC00602`, `DSC_1456`: IoU 0.945 to 0.989), similar on 2 (`DSC00674`, `DSC00527`),
+and worse than BiRefNet and S3OD on 5 (`2088064441`, `DSC00562`, `DSC_1188`, `5761824892`,
+`Nikon-D800e-raw-00007`). On `P1024439` it is between BiRefNet and S3OD.
+
+### 12.7 License
+
+| Item | License | Commercial use | Evidence |
+| --- | --- | --- | --- |
+| `tf_graph.pb` | Apache License 2.0 (model card front matter) | yes | `README.md` SHA-256 `d21254bf...` |
+| ModelScope pipeline code | Apache-2.0 | yes | `LICENSE` SHA-256 `cfc7749b...` |
+| Training data | "public data sets (COCO etc.) and images from internet searches", annotated, about 200,000 composites | **unknown**: the rights of the internet images are not stated; COCO images are Flickr images with their own licenses | model card, section "training data" |
+
+The weights have a license that permits commercial use. The training data has the same open
+question as the other models (U13).
+
+### 12.8 Recommendation
+
+- **Universal matting is not a replacement for BiRefNet lite:**
+  1. It does not meet U6: the MVP pipeline with it has a peak of 3,982 MB (budget 3 GB). The
+     model reads the photo at its size, so the memory grows with the photo. The Subject graph
+     alone has 2,678 MB: less than BiRefNet (3,226 MB) but twice S3OD (1,358 MB).
+  2. Its masks are worse than BiRefNet and S3OD on 5 of 14 photos (mean subject recall 0.84; 30 %
+     of the foreground outside the subject box), with large background areas on 2 photos.
+  3. The float32 ONNX graph does not meet the 1e-3 tolerance against the default TensorFlow
+     session (6.3e-3). But TensorFlow differs from itself by up to 7.2e-3, and the ONNX alpha is
+     within 1.3e-3 of a TensorFlow setting on every photo.
+- It meets the "no driver reset" criterion (0 resets in 46 sessions), and its warm time at the
+  full photo size is 116 ms. Float16 has no use: no time or memory gain, and box changes on 2
+  photos.
+- **S3OD (8 chunk MHA float16) stays the recommendation** of the measured candidates (section 8).
+- The DirectML division defect (section 12.3) can occur in each graph that compares float
+  positions computed with a division (crop and resize rules written as operators). It was not
+  checked in the S3OD and IS-Net graphs; their DirectML outputs match the CPU (sections 5.5 and
+  11.5).
+
+### 12.9 Open items
+
+- The check of the masks by eye. The command is in
+  [`scripts/ai_models/universal_matting/README.md`](../../scripts/ai_models/universal_matting/README.md#commands)
+  (last block). The sheets (14 photos and 6 detail crops; panels: BiRefNet lite float16 CPU, S3OD
+  8 chunk MHA float16 DirectML, universal matting float32 DirectML; red: alpha > 0.5, yellow:
+  0.05 to 0.95) are in `docs/exploration/images/subject_alternatives_universal_matting/` (in
+  `.gitignore`).
+- Not measured: the model with a photo below 2000 x 2000 px (the range of the model card; less
+  memory). The issue requires the input size of the source, so this is a user decision. The split
+  of the GPU memory per tensor is not measured.
+- The float32 tolerance decision (as section 8, item 1): the TensorFlow reference of this model is
+  not stable to 1e-3.
+- `ai_mask_app.py` with the universal matting graph is not tested (its labels name BiRefNet); the
+  pipeline code is tested through `measure_pipeline_cost.py`.
+- The BiRefNet first runs were not repeated in this step; its one cost run of this step reset the
+  driver (section 12.4).

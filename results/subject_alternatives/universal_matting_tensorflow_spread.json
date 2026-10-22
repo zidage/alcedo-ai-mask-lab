@@ -1,0 +1,476 @@
+{
+  "check": "TensorflowSpreadAgainstOnnx",
+  "graph": "build/tmp/explore/weights/universal_matting/tf_graph.pb",
+  "onnx_alpha": "build/tmp/explore/universal_matting/compare/float32/alpha",
+  "tensorflow": "2.21.0",
+  "settings": {
+    "onednn_t4_grappler": {
+      "onednn": true,
+      "threads": 4,
+      "grappler": true
+    },
+    "onednn_t4_no_grappler": {
+      "onednn": true,
+      "threads": 4,
+      "grappler": false
+    },
+    "onednn_t1_grappler": {
+      "onednn": true,
+      "threads": 1,
+      "grappler": true
+    },
+    "no_onednn_t4_grappler": {
+      "onednn": false,
+      "threads": 4,
+      "grappler": true
+    },
+    "no_onednn_t4_no_grappler": {
+      "onednn": false,
+      "threads": 4,
+      "grappler": false
+    },
+    "no_onednn_t1_no_grappler": {
+      "onednn": false,
+      "threads": 1,
+      "grappler": false
+    }
+  },
+  "reference_setting": "onednn_t4_grappler",
+  "largest_tensorflow_spread": 0.0072367191314697266,
+  "photos_where_onnx_is_inside_the_spread": [
+    "DSC00326.jpg",
+    "DSC00674.jpg",
+    "DSC00936.jpg",
+    "P1024439.jpg",
+    "DSC_1188.jpg",
+    "DSC00527.jpg",
+    "2088064441.jpg",
+    "5761824892.jpg",
+    "DSC00562.jpg",
+    "DSC00602.jpg",
+    "DSC_1456.jpg",
+    "Nikon-D800e-raw-00007.jpg"
+  ],
+  "results": [
+    {
+      "image": "DSC_1535.jpg",
+      "tensorflow_spread": 1.1086463928222656e-05,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 6.735324859619141e-06,
+        "onednn_t4_grappler__onednn_t1_grappler": 6.556510925292969e-06,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 3.5762786865234375e-06,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 4.5299530029296875e-06,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 3.3974647521972656e-06,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 7.569789886474609e-06,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 8.165836334228516e-06,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 7.331371307373047e-06,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 5.4836273193359375e-06,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 5.662441253662109e-06,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 1.1086463928222656e-05,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 9.417533874511719e-06,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 5.424022674560547e-06,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 3.7550926208496094e-06,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 2.6226043701171875e-06
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.0002447962760925293,
+        "onednn_t4_no_grappler": 0.0002453923225402832,
+        "onednn_t1_grappler": 0.0002468228340148926,
+        "no_onednn_t4_grappler": 0.00024509429931640625,
+        "no_onednn_t4_no_grappler": 0.0002447366714477539,
+        "no_onednn_t1_no_grappler": 0.0002447366714477539
+      },
+      "onnx_nearest_setting": 0.0002447366714477539
+    },
+    {
+      "image": "DSC00326.jpg",
+      "tensorflow_spread": 0.0006597042083740234,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.0006597042083740234,
+        "onednn_t4_grappler__onednn_t1_grappler": 1.0848045349121094e-05,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 1.2814998626708984e-05,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.000659555196762085,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0006589591503143311,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.0006583929061889648,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.0006594955921173096,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 1.919269561767578e-05,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 2.256035804748535e-05,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 8.434057235717773e-06,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.0006582438945770264,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.0006576478481292725,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0006593465805053711,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0006587505340576172,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 1.1742115020751953e-05
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.0007745027542114258,
+        "onednn_t4_no_grappler": 0.0002505779266357422,
+        "onednn_t1_grappler": 0.0007756352424621582,
+        "no_onednn_t4_grappler": 0.0007728338241577148,
+        "no_onednn_t4_no_grappler": 0.0002453327178955078,
+        "no_onednn_t1_no_grappler": 0.0002511739730834961
+      },
+      "onnx_nearest_setting": 0.0002453327178955078
+    },
+    {
+      "image": "DSC00674.jpg",
+      "tensorflow_spread": 0.003355652093887329,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.0008980035781860352,
+        "onednn_t4_grappler__onednn_t1_grappler": 0.0005450546741485596,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 0.0020034313201904297,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0006757676601409912,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0013522207736968994,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.0003529489040374756,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.0011054277420043945,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 0.0002269744873046875,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 0.0022502243518829346,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 0.0014583766460418701,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.00021123886108398438,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.001897275447845459,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0013276636600494385,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.003355652093887329,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 0.0020279884338378906
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.002670854330062866,
+        "onednn_t4_no_grappler": 0.0035688579082489014,
+        "onednn_t1_grappler": 0.0032159090042114258,
+        "no_onednn_t4_grappler": 0.004674285650253296,
+        "no_onednn_t4_no_grappler": 0.0033466219902038574,
+        "no_onednn_t1_no_grappler": 0.0013186335563659668
+      },
+      "onnx_nearest_setting": 0.0013186335563659668
+    },
+    {
+      "image": "DSC00936.jpg",
+      "tensorflow_spread": 0.001749277114868164,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.0017370879650115967,
+        "onednn_t4_grappler__onednn_t1_grappler": 3.2067298889160156e-05,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 7.152557373046875e-06,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.001745671033859253,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.001749277114868164,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.0017050206661224365,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.0017304718494415283,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 9.34302806854248e-06,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 1.2278556823730469e-05,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 2.5451183319091797e-05,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.0017136037349700928,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.001717209815979004,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0017390549182891846,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0017426609992980957,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 3.635883331298828e-06
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.001841515302658081,
+        "onednn_t4_no_grappler": 0.00024443864822387695,
+        "onednn_t1_grappler": 0.001809448003768921,
+        "no_onednn_t4_grappler": 0.0018348991870880127,
+        "no_onednn_t4_no_grappler": 0.0002452731132507324,
+        "no_onednn_t1_no_grappler": 0.0002442598342895508
+      },
+      "onnx_nearest_setting": 0.0002442598342895508
+    },
+    {
+      "image": "P1024439.jpg",
+      "tensorflow_spread": 0.0006189346313476562,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.00041943788528442383,
+        "onednn_t4_grappler__onednn_t1_grappler": 0.00016111135482788086,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 9.001791477203369e-05,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.00013668835163116455,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.00020933151245117188,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.00025832653045654297,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.0004056096076965332,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 0.0005272626876831055,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 0.0006189346313476562,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 0.00014728307723999023,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.0002766251564025879,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.00036829710006713867,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.00013083219528198242,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0002225041389465332,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 9.167194366455078e-05
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.0006201863288879395,
+        "onednn_t4_no_grappler": 0.0003158450126647949,
+        "onednn_t1_grappler": 0.00046449899673461914,
+        "no_onednn_t4_grappler": 0.0006075501441955566,
+        "no_onednn_t4_no_grappler": 0.0007359981536865234,
+        "no_onednn_t1_no_grappler": 0.0008254051208496094
+      },
+      "onnx_nearest_setting": 0.0003158450126647949
+    },
+    {
+      "image": "DSC_1188.jpg",
+      "tensorflow_spread": 0.004066109657287598,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.003961443901062012,
+        "onednn_t4_grappler__onednn_t1_grappler": 5.179643630981445e-05,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 0.00010466575622558594,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.003923892974853516,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.003913819789886475,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.004013240337371826,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.004066109657287598,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 6.511807441711426e-05,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 4.76837158203125e-05,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 5.3554773330688477e-05,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.00397568941116333,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.003965616226196289,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0040285587310791016,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0040184855461120605,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 5.08725643157959e-05
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.004109680652618408,
+        "onednn_t4_no_grappler": 0.00027620792388916016,
+        "onednn_t1_grappler": 0.004160940647125244,
+        "no_onednn_t4_grappler": 0.004213958978652954,
+        "no_onednn_t4_no_grappler": 0.00030094385147094727,
+        "no_onednn_t1_no_grappler": 0.00031447410583496094
+      },
+      "onnx_nearest_setting": 0.00027620792388916016
+    },
+    {
+      "image": "DSC00527.jpg",
+      "tensorflow_spread": 0.006613194942474365,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.006503641605377197,
+        "onednn_t4_grappler__onednn_t1_grappler": 0.00010639429092407227,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 0.00010955333709716797,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.006204843521118164,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.006102919578552246,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.006397247314453125,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.006613194942474365,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 0.0002987980842590332,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 0.00040072202682495117,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 0.00021594762802124023,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.006098449230194092,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.005996525287628174,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.006314396858215332,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.006212472915649414,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 0.00010192394256591797
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.006401419639587402,
+        "onednn_t4_no_grappler": 0.0003439188003540039,
+        "onednn_t1_grappler": 0.00629502534866333,
+        "no_onednn_t4_grappler": 0.00651097297668457,
+        "no_onednn_t4_no_grappler": 0.0003528594970703125,
+        "no_onednn_t1_no_grappler": 0.0003685951232910156
+      },
+      "onnx_nearest_setting": 0.0003439188003540039
+    },
+    {
+      "image": "2088064441.jpg",
+      "tensorflow_spread": 0.0022082924842834473,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.0005354881286621094,
+        "onednn_t4_grappler__onednn_t1_grappler": 0.0005357265472412109,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 0.0010007023811340332,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0016725659370422363,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.00099945068359375,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.0010281205177307129,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.0005245208740234375,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 0.0011963844299316406,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 0.0005232691764831543,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 0.0015364289283752441,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.0022082924842834473,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.001535177230834961,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0006718635559082031,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.00021696090698242188,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 0.0006832480430603027
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.00126725435256958,
+        "onednn_t4_no_grappler": 0.0008068680763244629,
+        "onednn_t1_grappler": 0.0017957091331481934,
+        "no_onednn_t4_grappler": 0.0003743171691894531,
+        "no_onednn_t4_no_grappler": 0.0007021427154541016,
+        "no_onednn_t1_no_grappler": 0.00045865774154663086
+      },
+      "onnx_nearest_setting": 0.0003743171691894531
+    },
+    {
+      "image": "DSC00728.jpg",
+      "tensorflow_spread": 5.364418029785156e-07,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 4.172325134277344e-07,
+        "onednn_t4_grappler__onednn_t1_grappler": 4.172325134277344e-07,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 3.5762786865234375e-07,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 4.470348358154297e-07,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 3.8743019104003906e-07,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 3.5762786865234375e-07,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 3.5762786865234375e-07,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 4.76837158203125e-07,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 4.76837158203125e-07,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 3.5762786865234375e-07,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 4.76837158203125e-07,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 5.364418029785156e-07,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 2.980232238769531e-07,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 4.172325134277344e-07,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 3.5762786865234375e-07
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.00024402141571044922,
+        "onednn_t4_no_grappler": 0.00024402141571044922,
+        "onednn_t1_grappler": 0.00024402141571044922,
+        "no_onednn_t4_grappler": 0.00024402141571044922,
+        "no_onednn_t4_no_grappler": 0.00024402141571044922,
+        "no_onednn_t1_no_grappler": 0.00024396181106567383
+      },
+      "onnx_nearest_setting": 0.00024396181106567383
+    },
+    {
+      "image": "5761824892.jpg",
+      "tensorflow_spread": 0.0072367191314697266,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.0064754486083984375,
+        "onednn_t4_grappler__onednn_t1_grappler": 0.0003572404384613037,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 0.000660330057144165,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.006583988666534424,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.006518006324768066,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.006822526454925537,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.00712817907333374,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 0.00010854005813598633,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 6.42538070678711e-05,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 0.0003056526184082031,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.0069310665130615234,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.006865084171295166,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0072367191314697266,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.007170736789703369,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 6.598234176635742e-05
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.005771756172180176,
+        "onednn_t4_no_grappler": 0.0009855031967163086,
+        "onednn_t1_grappler": 0.006118834018707275,
+        "no_onednn_t4_grappler": 0.0064244866371154785,
+        "no_onednn_t4_no_grappler": 0.0010466575622558594,
+        "no_onednn_t1_no_grappler": 0.0010197758674621582
+      },
+      "onnx_nearest_setting": 0.0009855031967163086
+    },
+    {
+      "image": "DSC00562.jpg",
+      "tensorflow_spread": 0.00030854344367980957,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.00015163421630859375,
+        "onednn_t4_grappler__onednn_t1_grappler": 0.00010269880294799805,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 0.00017750263214111328,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.00012132525444030762,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.00019040703773498535,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.00023666024208068848,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.00022149085998535156,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 0.00013771653175354004,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 0.00017708539962768555,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 0.00013881921768188477,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.000216752290725708,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.0002754330635070801,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.00026917457580566406,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.00030854344367980957,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 0.00010502338409423828
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.0003700852394104004,
+        "onednn_t4_no_grappler": 0.00041812658309936523,
+        "onednn_t1_grappler": 0.0004569888114929199,
+        "no_onednn_t4_grappler": 0.0004176497459411621,
+        "no_onednn_t4_no_grappler": 0.00034689903259277344,
+        "no_onednn_t1_no_grappler": 0.00028765201568603516
+      },
+      "onnx_nearest_setting": 0.00028765201568603516
+    },
+    {
+      "image": "DSC00602.jpg",
+      "tensorflow_spread": 0.0008913278579711914,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.0008048415184020996,
+        "onednn_t4_grappler__onednn_t1_grappler": 8.64863395690918e-05,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 4.348158836364746e-05,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0006757974624633789,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0006805658340454102,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.0008913278579711914,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.000830531120300293,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 0.0001290440559387207,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 0.00012427568435668945,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 6.079673767089844e-05,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.0007622838020324707,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.000767052173614502,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0007014870643615723,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0007062554359436035,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 3.701448440551758e-05
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.0009277462959289551,
+        "onednn_t4_no_grappler": 0.0002658963203430176,
+        "onednn_t1_grappler": 0.001008749008178711,
+        "no_onednn_t4_grappler": 0.0009520053863525391,
+        "no_onednn_t4_no_grappler": 0.0003037452697753906,
+        "no_onednn_t1_no_grappler": 0.00030809640884399414
+      },
+      "onnx_nearest_setting": 0.0002658963203430176
+    },
+    {
+      "image": "DSC_1456.jpg",
+      "tensorflow_spread": 0.0009541809558868408,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.000826030969619751,
+        "onednn_t4_grappler__onednn_t1_grappler": 6.002187728881836e-05,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 6.383657455444336e-05,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0009541809558868408,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0008884966373443604,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.0007661879062652588,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.000789344310760498,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 0.00012814998626708984,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 6.246566772460938e-05,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 4.618614912033081e-05,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.0008943378925323486,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.0008286535739898682,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0009174942970275879,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0008518099784851074,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 6.577372550964355e-05
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.00115966796875,
+        "onednn_t4_no_grappler": 0.0003629326820373535,
+        "onednn_t1_grappler": 0.0011014938354492188,
+        "no_onednn_t4_grappler": 0.0011298656463623047,
+        "no_onednn_t4_no_grappler": 0.00025081634521484375,
+        "no_onednn_t1_no_grappler": 0.000302731990814209
+      },
+      "onnx_nearest_setting": 0.00025081634521484375
+    },
+    {
+      "image": "Nikon-D800e-raw-00007.jpg",
+      "tensorflow_spread": 0.0009985566139221191,
+      "tensorflow_pairs": {
+        "onednn_t4_grappler__onednn_t4_no_grappler": 0.0009905695915222168,
+        "onednn_t4_grappler__onednn_t1_grappler": 4.1484832763671875e-05,
+        "onednn_t4_grappler__no_onednn_t4_grappler": 4.9173831939697266e-05,
+        "onednn_t4_grappler__no_onednn_t4_no_grappler": 0.000985562801361084,
+        "onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0009985566139221191,
+        "onednn_t4_no_grappler__onednn_t1_grappler": 0.0009592771530151367,
+        "onednn_t4_no_grappler__no_onednn_t4_grappler": 0.0009929537773132324,
+        "onednn_t4_no_grappler__no_onednn_t4_no_grappler": 4.947185516357422e-05,
+        "onednn_t4_no_grappler__no_onednn_t1_no_grappler": 5.093216896057129e-05,
+        "onednn_t1_grappler__no_onednn_t4_grappler": 9.042024612426758e-05,
+        "onednn_t1_grappler__no_onednn_t4_no_grappler": 0.0009505748748779297,
+        "onednn_t1_grappler__no_onednn_t1_no_grappler": 0.0009635686874389648,
+        "no_onednn_t4_grappler__no_onednn_t4_no_grappler": 0.0009833574295043945,
+        "no_onednn_t4_grappler__no_onednn_t1_no_grappler": 0.0009963512420654297,
+        "no_onednn_t4_no_grappler__no_onednn_t1_no_grappler": 6.586313247680664e-05
+      },
+      "onnx_against_setting": {
+        "onednn_t4_grappler": 0.0011625289916992188,
+        "onednn_t4_no_grappler": 0.00028783082962036133,
+        "onednn_t1_grappler": 0.001127779483795166,
+        "no_onednn_t4_grappler": 0.0011603832244873047,
+        "no_onednn_t4_no_grappler": 0.00029456615447998047,
+        "no_onednn_t1_no_grappler": 0.00028717517852783203
+      },
+      "onnx_nearest_setting": 0.00028717517852783203
+    }
+  ]
+}

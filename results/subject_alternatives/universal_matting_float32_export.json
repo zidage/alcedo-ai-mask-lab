@@ -1,0 +1,386 @@
+{
+  "model": "Alibaba universal matting (ModelScope iic/cv_unet_universal-matting)",
+  "revisions": {
+    "modelscope": {
+      "model": "iic/cv_unet_universal-matting",
+      "revision": "master",
+      "commit": "2e7fe175a9a4a8ce234324b7cccd0a756c75c229",
+      "tag_v1.0.0": "de441e1b1e1f5cc1590f829d06031681bbb89c75",
+      "downloaded": "2026-10-21",
+      "url": "https://modelscope.cn/api/v1/models/iic/cv_unet_universal-matting/repo?Revision=master&FilePath=<file>"
+    },
+    "files": {
+      "tf_graph.pb": {
+        "bytes": 204740209,
+        "sha256": "afcad611b6707f8a7e815f5702216af69fa77a72ef470d0b2c25a6afc340ea1f",
+        "last_commit": "482493bab903b6de04ac571617d22f0069a574a5"
+      },
+      "README.md": {
+        "bytes": 4334,
+        "sha256": "d21254bf847e22fd39cee81a879caa74ef8feae329cb1f809121bc968ad2cdf5",
+        "license": "Apache License 2.0"
+      },
+      "configuration.json": {
+        "bytes": 132,
+        "sha256": "e7f58ee58654891a5719369a36fd408334520146e4bf65bf90df8e721ea9b41b"
+      }
+    },
+    "pipeline_source": {
+      "repository": "modelscope/modelscope",
+      "commit": "958c3f7da68b700cc671134e267c356a2444398b",
+      "files": {
+        "modelscope/pipelines/cv/image_matting_pipeline.py": "b03336422bd06fc7f685454e6025c9a55d9769b006c77e983feb87c4af1013ec",
+        "modelscope/preprocessors/image.py": "ba44792df22b0e85de06529f2f4cc17500c01e134ab637b2152a8d63d60faff3",
+        "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      }
+    }
+  },
+  "source_graph": {
+    "name": "tf_graph.pb",
+    "bytes": 204740209,
+    "sha256": "afcad611b6707f8a7e815f5702216af69fa77a72ef470d0b2c25a6afc340ea1f",
+    "operators": {
+      "Add": 150,
+      "All": 2,
+      "ArgMax": 8,
+      "Assert": 10,
+      "AvgPool": 1,
+      "BiasAdd": 128,
+      "Cast": 26,
+      "ConcatV2": 14,
+      "Const": 1472,
+      "Conv2D": 148,
+      "Conv2DBackpropInput": 30,
+      "CropAndResize": 4,
+      "Fill": 13,
+      "Greater": 15,
+      "GreaterEqual": 8,
+      "Identity": 320,
+      "Less": 2,
+      "Max": 2,
+      "MaxPool": 20,
+      "Maximum": 52,
+      "Mean": 248,
+      "Merge": 5,
+      "Minimum": 4,
+      "Mul": 185,
+      "Pack": 35,
+      "Pad": 2,
+      "Placeholder": 1,
+      "Range": 4,
+      "RealDiv": 144,
+      "Relu": 124,
+      "Reshape": 2,
+      "ResizeArea": 1,
+      "ResizeBilinear": 8,
+      "ReverseV2": 4,
+      "Select": 10,
+      "Shape": 13,
+      "Sqrt": 124,
+      "SquaredDifference": 124,
+      "StopGradient": 124,
+      "StridedSlice": 130,
+      "Sub": 149,
+      "Sum": 7,
+      "Switch": 260,
+      "Tanh": 6,
+      "Unpack": 2,
+      "ZerosLike": 2
+    }
+  },
+  "rewritten_graph": {
+    "name": "tf_graph_rewritten.pb",
+    "bytes": 205021819,
+    "sha256": "37e987b790e5d2fd04cac70ab9c4eb3c8da79b285de5eea67515ae784b0fe73e",
+    "operators": {
+      "Add": 149,
+      "AddV2": 60,
+      "All": 10,
+      "ArgMax": 8,
+      "Assert": 18,
+      "AvgPool": 1,
+      "BiasAdd": 128,
+      "BroadcastTo": 6,
+      "Cast": 185,
+      "Ceil": 28,
+      "ConcatV2": 16,
+      "Const": 2202,
+      "Conv2D": 148,
+      "Conv2DBackpropInput": 30,
+      "Equal": 8,
+      "Fill": 17,
+      "Floor": 26,
+      "GatherV2": 72,
+      "Greater": 51,
+      "GreaterEqual": 18,
+      "Identity": 331,
+      "Less": 6,
+      "LessEqual": 8,
+      "LogicalAnd": 30,
+      "MatMul": 2,
+      "Max": 2,
+      "MaxPool": 20,
+      "Maximum": 100,
+      "Mean": 248,
+      "Merge": 4,
+      "Minimum": 36,
+      "Mul": 267,
+      "OnesLike": 2,
+      "Pack": 51,
+      "Pad": 2,
+      "Placeholder": 1,
+      "Range": 36,
+      "RealDiv": 187,
+      "Relu": 124,
+      "Reshape": 6,
+      "ReverseV2": 4,
+      "Select": 10,
+      "SelectV2": 28,
+      "Shape": 23,
+      "Sqrt": 124,
+      "SquaredDifference": 124,
+      "StopGradient": 124,
+      "StridedSlice": 239,
+      "Sub": 289,
+      "Sum": 9,
+      "Switch": 259,
+      "Tanh": 6,
+      "Transpose": 2,
+      "Unpack": 2,
+      "ZerosLike": 4
+    },
+    "rewrite_seconds": 1.1
+  },
+  "graph_rules": {
+    "detector_input": "photo / 127.5 - 1 resized to 192 x 192 (ResizeArea if the long edge > 1920, else ResizeBilinear; align_corners=True)",
+    "person_rule": "detector channel 0: (tanh + 1) / 2 > 0.8; rows and columns with more than 3 person pixels; the human branch runs if rows + columns > 50",
+    "human_branch": "box of the person rows and columns with a margin of 1/8 (box side > 0.33 of the photo) or 1/2; CropAndResize to 1920 x 1920 and AvgPool 5 x 5 VALID (long edge > 1920) or 640 x 640; ResizeBilinear to 224 (coarse U-Net); refine U-Net at 480 x 480 on the crop and the coarse map; alpha = ((tanh + 1) / 2)^2 * 255",
+    "branch_rule": "human result if the human branch ran and its alpha sum / 255 / photo area > 0.1, else the object branch",
+    "object_branch": "photo ResizeBilinear to 224 (stage 0 U-Net); box of the rows and columns with more than 5 pixels of (tanh + 1) / 2 > 0.8, margin 1/4; CropAndResize to 640 x 640, ResizeBilinear to 224 (stage 1 U-Net); refine U-Net at 640 x 640 on the crop and the stage 1 map; alpha = (tanh + 1) * 127.5",
+    "output": "alpha ResizeBilinear (align_corners=True) from 480 or 640 to the box size in photo pixels, Pad to the photo; RGB = photo * (alpha > 0.001); RGBA"
+  },
+  "model_input": "input_image [H, W, 3] float32, RGB 0 to 255 (LoadImage of ModelScope)",
+  "model_output": "rgba [H, W, 4] float32 (cond_3/Merge:0); alpha = channel 3 / 255",
+  "tensorflow": "2.21.0",
+  "tf2onnx": "1.17.0",
+  "onnx": "1.23.2",
+  "onnxruntime": "1.31.0",
+  "rewrite_check": {
+    "check": "RewrittenGraphMatchesTensorflowGraph",
+    "tolerance": 1e-06,
+    "grappler": "off in both sessions",
+    "passed": true,
+    "max_abs_rgba_diff": 0.0,
+    "results": [
+      {
+        "image": "DSC_1535.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "DSC00326.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "DSC00674.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "DSC00936.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "P1024439.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "DSC00527.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "2088064441.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "DSC00728.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "5761824892.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "DSC00562.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "DSC00602.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "max_abs_rgba_diff": 0.0,
+        "same_branch_tensors": true
+      }
+    ]
+  },
+  "converter": "tf2onnx.tfonnx.process_tf_graph and tf2onnx.optimizer.optimize_graph, without grappler",
+  "opset": 17,
+  "convert_seconds": 28.5,
+  "scalar_divisions": "float64",
+  "float64_divisions": [
+    "truediv_5",
+    "truediv_8",
+    "truediv_9",
+    "truediv_2",
+    "truediv_10",
+    "truediv_11",
+    "truediv_13",
+    "cond/ResizeArea_rewrite/truediv_1",
+    "cond/ResizeArea_rewrite/truediv",
+    "cond/ResizeArea_rewrite/truediv_2",
+    "cond/ResizeBilinear_rewrite/truediv_2",
+    "cond/ResizeBilinear_rewrite/truediv_1",
+    "cond/ResizeBilinear_rewrite/truediv_3",
+    "cond/ResizeBilinear_rewrite/truediv",
+    "cond_1/ResizeBilinear_rewrite/truediv_2",
+    "cond_1/ResizeBilinear_rewrite/truediv_3",
+    "cond_1/ResizeBilinear_rewrite/truediv",
+    "cond_1/ResizeBilinear_rewrite/truediv_1",
+    "cond_1/CropAndResize_rewrite/truediv_1",
+    "cond_1/CropAndResize_rewrite/truediv",
+    "cond_1/ResizeBilinear_2_rewrite/truediv_2",
+    "cond_1/ResizeBilinear_2_rewrite/truediv_3",
+    "cond_1/ResizeBilinear_2_rewrite/truediv",
+    "cond_1/ResizeBilinear_2_rewrite/truediv_1",
+    "cond_1/cond/CropAndResize_rewrite/truediv_1",
+    "cond_1/cond/CropAndResize_rewrite/truediv",
+    "cond_1/cond/CropAndResize_1_rewrite/truediv_1",
+    "cond_1/cond/CropAndResize_1_rewrite/truediv",
+    "cond_3/ResizeBilinear_rewrite/truediv_2",
+    "cond_3/ResizeBilinear_rewrite/truediv_1",
+    "cond_3/ResizeBilinear_rewrite/truediv_3",
+    "cond_3/ResizeBilinear_rewrite/truediv",
+    "cond_3/truediv_3",
+    "cond_3/truediv_4",
+    "cond_3/truediv_1",
+    "cond_3/truediv_2",
+    "cond_3/ResizeBilinear_3_rewrite/truediv_2",
+    "cond_3/ResizeBilinear_3_rewrite/truediv_3",
+    "cond_3/ResizeBilinear_3_rewrite/truediv",
+    "cond_3/ResizeBilinear_3_rewrite/truediv_1",
+    "cond_3/CropAndResize_rewrite/truediv_1",
+    "cond_3/CropAndResize_rewrite/truediv"
+  ],
+  "graph": {
+    "opset": [
+      {
+        "domain": "ai.onnx",
+        "version": 17
+      },
+      {
+        "domain": "ai.onnx.ml",
+        "version": 2
+      }
+    ],
+    "inputs": [
+      {
+        "name": "input_image",
+        "shape": [
+          "unk__7283",
+          "unk__7284",
+          3
+        ],
+        "type": "float"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "rgba",
+        "shape": [
+          "unk__7285",
+          "unk__7286",
+          "unk__7287"
+        ],
+        "type": "float"
+      }
+    ],
+    "nodes_main_graph": 577,
+    "nodes_with_subgraphs": 3400,
+    "operators": {
+      "Sub": 358,
+      "Reshape": 341,
+      "Cast": 337,
+      "Mul": 285,
+      "Transpose": 260,
+      "GlobalAveragePool": 248,
+      "Add": 239,
+      "Div": 171,
+      "Conv": 148,
+      "Sqrt": 124,
+      "Relu": 124,
+      "Slice": 106,
+      "Gather": 80,
+      "Unsqueeze": 63,
+      "Squeeze": 61,
+      "LeakyRelu": 48,
+      "Max": 36,
+      "Not": 32,
+      "Shape": 31,
+      "ConvTranspose": 30,
+      "Min": 30,
+      "Concat": 28,
+      "Greater": 28,
+      "And": 28,
+      "Ceil": 22,
+      "MaxPool": 20,
+      "Floor": 20,
+      "Expand": 16,
+      "GreaterOrEqual": 10,
+      "ReduceSum": 9,
+      "ArgMax": 8,
+      "Less": 8,
+      "LessOrEqual": 8,
+      "Tanh": 6,
+      "Range": 6,
+      "ConstantOfShape": 6,
+      "If": 4,
+      "ReverseSequence": 4,
+      "Where": 4,
+      "ReduceMax": 2,
+      "Equal": 2,
+      "MatMul": 2,
+      "Split": 2,
+      "Pad": 2,
+      "Identity": 2,
+      "AveragePool": 1
+    },
+    "files": [
+      {
+        "name": "universal_matting.onnx",
+        "bytes": 173323991,
+        "sha256": "eda5d60e3ee5c67cdf2642683f27cc7fa1cbb3e47e36a92ae48da59dc81c6283"
+      }
+    ]
+  }
+}

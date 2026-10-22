@@ -4,8 +4,9 @@ Input:  a photo (JPEG, PNG, or TIFF) and the ONNX graphs of the earlier steps (n
           SAM 2.1 tiny `point_encoder.onnx` and `point_decoder.onnx` (E4, float32),
           `people_sky_head.onnx` and `people_sky_head.json` (P1 run 2, epoch 15),
           BiRefNet lite `subject_matte.onnx` at 1024 px (E2; float16 by default), or the S3OD
-          `subject_masks.onnx` or the IS-Net general-use `subject_d1.onnx` of issue #6
-          (scripts/ai_models/s3od, scripts/ai_models/isnet, `--subject-onnx`).
+          `subject_masks.onnx`, the IS-Net general-use `subject_d1.onnx`, or the universal
+          matting `universal_matting.onnx` of issue #6 (scripts/ai_models/s3od,
+          scripts/ai_models/isnet, scripts/ai_models/universal_matting, `--subject-onnx`).
 Output: per selection, the low-resolution logits or the alpha, the mask at the photo size, the
         prompts, and a timing record (stage, milliseconds, graph SHA-256) in an optional JSON log.
 
@@ -26,6 +27,9 @@ and the scripts compute the same prompts and masks:
                            rules of the source; the graph has the outputs `masks`, `iou_scores`)
   IS-Net processing        isnet_graphs.preprocess, normalize_range, and alpha_to_photo (the
                            rules of the DIS `Inference.py`; the graph has the output `d1`)
+  universal matting        universal_matting_graphs.model_input, alpha_from_rgba, and
+                           alpha_to_photo (the photo at its size is the graph input; the graph
+                           has the output `rgba`)
 
 Data flow (issue #5):
 
@@ -34,7 +38,8 @@ Data flow (issue #5):
   Sky      sky regions -> 3 points per region -> decoder per region -> union
   People   decode_people -> one box per person above the list threshold -> decoder per person
   Stroke, box, click     decoder (E3 rules)
-  Subject  BiRefNet lite 1024 (or S3OD 1024, or IS-Net 1024) -> alpha;  Background = 1 - alpha
+  Subject  BiRefNet lite 1024 (or S3OD 1024, IS-Net 1024, or universal matting at the photo
+           size) -> alpha;  Background = 1 - alpha
 
 Runtime: ONNX Runtime with DirectML (`directml`) or the CPU (`cpu`). The selected provider is the
 only provider of every session; if it fails, the error stops the pipeline. CPU threads are
@@ -67,7 +72,8 @@ MAX_EDGE = 4096
 STROKE_POINT_COUNT = 4
 PROVIDERS = {"directml": "DmlExecutionProvider", "cpu": "CPUExecutionProvider"}
 # Subject graph kinds, by the output names of the graph.
-SUBJECT_OUTPUTS = {("alpha",): "birefnet", ("masks", "iou_scores"): "s3od", ("d1",): "isnet"}
+SUBJECT_OUTPUTS = {("alpha",): "birefnet", ("masks", "iou_scores"): "s3od", ("d1",): "isnet",
+                   ("rgba",): "universal_matting"}
 ORT_ERROR_LOG_LEVEL = 3
 
 
@@ -97,6 +103,16 @@ def _load_isnet_graphs():
     on `sys.path`: its `compare_onnx_outputs.py` has the name of the SAM 2 module."""
     path = SCRIPTS / "ai_models" / "isnet" / "isnet_graphs.py"
     spec = importlib.util.spec_from_file_location("isnet_graphs", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _load_universal_matting_graphs():
+    """`scripts/ai_models/universal_matting/universal_matting_graphs.py` by its file path, as the
+    other Subject modules."""
+    path = SCRIPTS / "ai_models" / "universal_matting" / "universal_matting_graphs.py"
+    spec = importlib.util.spec_from_file_location("universal_matting_graphs", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -348,22 +364,28 @@ class MaskPipeline:
                                         "bytes": path.stat().st_size,
                                         "sha256": sha256, "load_ms": round(load_ms, 1)}
             self._record("load", load_ms, graph=name)
-        subject_input = self.sessions["subject_matte"].get_inputs()[0].shape
-        self.subject_size = int(subject_input[-1])
-        if self.subject_size != 1024:
-            raise ValueError(f"{paths.subject_onnx}: input {subject_input}, the MVP uses a "
-                             f"Subject graph at 1024 px")
         outputs = tuple(o.name for o in self.sessions["subject_matte"].get_outputs())
         if outputs not in SUBJECT_OUTPUTS:
             raise ValueError(f"{paths.subject_onnx}: outputs {outputs}, not one of "
                              f"{sorted(SUBJECT_OUTPUTS)}")
         self.subject_kind = SUBJECT_OUTPUTS[outputs]
+        subject_input = self.sessions["subject_matte"].get_inputs()[0].shape
+        # The universal matting graph reads the photo at its size ([H, W, 3]).
+        self.subject_size = None
+        if self.subject_kind != "universal_matting":
+            self.subject_size = int(subject_input[-1])
+            if self.subject_size != 1024:
+                raise ValueError(f"{paths.subject_onnx}: input {subject_input}, the MVP uses a "
+                                 f"Subject graph at 1024 px")
         self.s3od = None
         self.isnet = None
+        self.universal_matting = None
         if self.subject_kind == "s3od":
             self.s3od = _load_s3od_graphs()
         elif self.subject_kind == "isnet":
             self.isnet = _load_isnet_graphs()
+        elif self.subject_kind == "universal_matting":
+            self.universal_matting = _load_universal_matting_graphs()
 
     # Records.
 
@@ -504,7 +526,8 @@ class MaskPipeline:
         """Subject alpha in [0, 1] (no prompt). Background is 1 - alpha. BiRefNet lite: the
         [1024, 1024] alpha. S3OD: the mask with the largest IoU score, unpadded (the photo aspect
         with the long edge 1024). IS-Net: the [1024, 1024] d1 output scaled with its minimum and
-        maximum. The stage name of the record is the graph kind."""
+        maximum. Universal matting: channel 3 of the `rgba` output / 255 at the photo size. The
+        stage name of the record is the graph kind."""
         if state.subject_alpha is None:
             if self.subject_kind == "s3od":
                 pixels, info = self.s3od.letterbox(np.asarray(state.photo.image),
@@ -519,6 +542,12 @@ class MaskPipeline:
                 (d1,), _ = self._run("subject_matte", {"pixel_values": pixels}, "isnet",
                                      photo=state.photo.path.name)
                 state.subject_alpha = self.isnet.normalize_range(d1[0, 0])
+            elif self.subject_kind == "universal_matting":
+                universal = self.universal_matting
+                pixels = universal.model_input(np.asarray(state.photo.image))
+                (rgba,), _ = self._run("subject_matte", {universal.ONNX_INPUT: pixels},
+                                       "universal_matting", photo=state.photo.path.name)
+                state.subject_alpha = universal.alpha_from_rgba(rgba)
             else:
                 pixels = self.birefnet.preprocess(state.photo.image, self.subject_size).numpy()
                 (alpha,), _ = self._run("subject_matte", {"pixel_values": pixels}, "birefnet",
@@ -534,6 +563,8 @@ class MaskPipeline:
             return self.s3od.masks_to_photo(alpha[None], height, width)[0].clip(0.0, 1.0)
         if self.subject_kind == "isnet":
             return self.isnet.alpha_to_photo(alpha, height, width).clip(0.0, 1.0)
+        if self.subject_kind == "universal_matting":
+            return self.universal_matting.alpha_to_photo(alpha, height, width)
         return self.birefnet.alpha_to_photo(alpha, width, height)
 
     def new_selection(self, state: PhotoState,

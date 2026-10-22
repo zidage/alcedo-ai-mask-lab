@@ -1,0 +1,2321 @@
+{
+  "grid": "photo aspect, long edge 1024 px",
+  "soft_range": [
+    0.05,
+    0.95
+  ],
+  "iou_references": [
+    "birefnet_lite_float16_cpu",
+    "s3od_float32_cpu",
+    "universal_matting_tensorflow"
+  ],
+  "alphas": {
+    "birefnet_lite_float16_cpu": {
+      "kind": "birefnet",
+      "dir": "build/tmp/ai_mask_mvp/e2_reference/lite_fp16/alpha"
+    },
+    "s3od_float32_cpu": {
+      "kind": "s3od",
+      "dir": "build/tmp/explore/s3od/compare_cpu/float32/alpha"
+    },
+    "universal_matting_tensorflow": {
+      "kind": "universal_matting",
+      "dir": "build/tmp/explore/universal_matting/compare/reference_alpha"
+    },
+    "universal_matting_float32_cpu": {
+      "kind": "universal_matting",
+      "dir": "build/tmp/explore/universal_matting/compare/float32/alpha"
+    },
+    "universal_matting_float16_cpu": {
+      "kind": "universal_matting",
+      "dir": "build/tmp/explore/universal_matting/compare/float16/alpha"
+    },
+    "universal_matting_float32_directml": {
+      "kind": "universal_matting",
+      "dir": "build/tmp/explore/universal_matting/directml/universal_matting_float32/alpha"
+    },
+    "universal_matting_float16_directml": {
+      "kind": "universal_matting",
+      "dir": "build/tmp/explore/universal_matting/directml/universal_matting_float16/alpha"
+    }
+  },
+  "means": {
+    "birefnet_lite_float16_cpu": {
+      "foreground": 0.16443171461186248,
+      "soft": 0.006005934844366879,
+      "edge_width_px": 1.640055233713566,
+      "parts": 1.1428571428571428,
+      "hole_fraction": 0.004418410867110223,
+      "island_fraction": 0.0540944507239577,
+      "subject_recall": 0.9222920791271788,
+      "outside_box": 0.17184449748587355,
+      "iou_with_birefnet_lite_float16_cpu": 1.0,
+      "iou_with_s3od_float32_cpu": 0.8447576971827743,
+      "iou_with_universal_matting_tensorflow": 0.755694204741462
+    },
+    "s3od_float32_cpu": {
+      "foreground": 0.15074921165347668,
+      "soft": 0.00020476763581460373,
+      "edge_width_px": 0.08049425318742627,
+      "parts": 1.0714285714285714,
+      "hole_fraction": 0.007798923711559885,
+      "island_fraction": 0.034402356441667954,
+      "subject_recall": 0.9860823562562763,
+      "outside_box": 0.11861104352998768,
+      "iou_with_birefnet_lite_float16_cpu": 0.8447576971827743,
+      "iou_with_s3od_float32_cpu": 1.0,
+      "iou_with_universal_matting_tensorflow": 0.7422298170477707
+    },
+    "universal_matting_tensorflow": {
+      "foreground": 0.18200517572503322,
+      "soft": 0.02889827776480266,
+      "edge_width_px": 4.251122887762412,
+      "parts": 2.0,
+      "hole_fraction": 0.025978242164636452,
+      "island_fraction": 0.10076961260861407,
+      "subject_recall": 0.8378659999699133,
+      "outside_box": 0.3001290831766115,
+      "iou_with_birefnet_lite_float16_cpu": 0.755694204741462,
+      "iou_with_s3od_float32_cpu": 0.7422298170477707,
+      "iou_with_universal_matting_tensorflow": 1.0
+    },
+    "universal_matting_float32_cpu": {
+      "foreground": 0.18200538013382947,
+      "soft": 0.028897869096084442,
+      "edge_width_px": 4.25206400246153,
+      "parts": 2.0,
+      "hole_fraction": 0.025979295686550347,
+      "island_fraction": 0.10076961047053283,
+      "subject_recall": 0.8378679603813646,
+      "outside_box": 0.3001290814073929,
+      "iou_with_birefnet_lite_float16_cpu": 0.755696723121828,
+      "iou_with_s3od_float32_cpu": 0.7422323912959895,
+      "iou_with_universal_matting_tensorflow": 0.9999935805501415
+    },
+    "universal_matting_float16_cpu": {
+      "foreground": 0.18074558644069147,
+      "soft": 0.02970051516518486,
+      "edge_width_px": 4.295409156941323,
+      "parts": 2.0,
+      "hole_fraction": 0.026717757125496733,
+      "island_fraction": 0.10069091430479807,
+      "subject_recall": 0.8375363931047354,
+      "outside_box": 0.29989257920497703,
+      "iou_with_birefnet_lite_float16_cpu": 0.7574975140664746,
+      "iou_with_s3od_float32_cpu": 0.7439080085979827,
+      "iou_with_universal_matting_tensorflow": 0.9960895250089992
+    },
+    "universal_matting_float32_directml": {
+      "foreground": 0.1820056862237745,
+      "soft": 0.028897857642936668,
+      "edge_width_px": 4.251755226994944,
+      "parts": 2.0,
+      "hole_fraction": 0.02597876388563164,
+      "island_fraction": 0.10078647406426289,
+      "subject_recall": 0.8378679603813646,
+      "outside_box": 0.3001291420888897,
+      "iou_with_birefnet_lite_float16_cpu": 0.755696700704826,
+      "iou_with_s3od_float32_cpu": 0.7422323707971193,
+      "iou_with_universal_matting_tensorflow": 0.9999718748061236
+    },
+    "universal_matting_float16_directml": {
+      "foreground": 0.18148975045463017,
+      "soft": 0.029266802937313575,
+      "edge_width_px": 4.2598603765156655,
+      "parts": 2.0,
+      "hole_fraction": 0.02650225083072112,
+      "island_fraction": 0.10088559087165318,
+      "subject_recall": 0.8375381195067911,
+      "outside_box": 0.29984996688915777,
+      "iou_with_birefnet_lite_float16_cpu": 0.7564368731681185,
+      "iou_with_s3od_float32_cpu": 0.7430434818957005,
+      "iou_with_universal_matting_tensorflow": 0.9951050628138854
+    }
+  },
+  "results": {
+    "birefnet_lite_float16_cpu": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22205627978372433,
+        "soft": 0.008688828812316715,
+        "edge_width_px": 1.5691750711145591,
+        "parts": 1,
+        "hole_fraction": 0.009040670118715219,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9983261036643349,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.035620779936612924,
+            "mean_alpha": 0.3948151767253876
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9920150335432727,
+        "iou_with_universal_matting_tensorflow": 0.9868881903906601
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.025875321218795887,
+        "soft": 0.0023732906571218796,
+        "edge_width_px": 1.3187250996015936,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.989029255319149,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.023830834638621616,
+            "mean_alpha": 0.6392733454704285
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.956626635213382,
+        "iou_with_universal_matting_tensorflow": 0.9453057708871663
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.6791327324304539,
+        "soft": 0.026281398700585653,
+        "edge_width_px": 5.441385435168739,
+        "parts": 1,
+        "hole_fraction": 3.579098067287044e-05,
+        "island_fraction": 1.8948166238578467e-05,
+        "subject": "person",
+        "subject_recall": 0.9987638352911242,
+        "outside_box": 0.004840203798054655,
+        "regions": {
+          "hair": {
+            "soft": 0.038847271847624786,
+            "mean_alpha": 0.6964094042778015
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9954461703761841,
+        "iou_with_universal_matting_tensorflow": 0.9251278204936895
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.022346216501468428,
+        "soft": 0.0017624013399412629,
+        "edge_width_px": 1.2339357429718876,
+        "parts": 1,
+        "hole_fraction": 0.023102098440608357,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.995935746080898,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.02799480649643516,
+            "mean_alpha": 0.35500651597976685
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9823959326342548,
+        "iou_with_universal_matting_tensorflow": 0.9889927044669141
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.262298583984375,
+        "soft": 0.016530354817708332,
+        "edge_width_px": 1.670307079532314,
+        "parts": 3,
+        "hole_fraction": 0.0027244522008919914,
+        "island_fraction": 0.2896984681016095,
+        "subject": "bassist",
+        "subject_recall": 0.9963800367930686,
+        "outside_box": 0.7531462090362614,
+        "regions": {
+          "hair": {
+            "soft": 0.0309813313682142,
+            "mean_alpha": 0.41387832164764404
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.22987427919588954,
+        "iou_with_universal_matting_tensorflow": 0.4972043229921851
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.10984037069281524,
+        "soft": 0.006340496700879765,
+        "edge_width_px": 2.0452655889145497,
+        "parts": 1,
+        "hole_fraction": 0.0030765620722470635,
+        "island_fraction": 0.00016947163957293146,
+        "subject": "squirrel",
+        "subject_recall": 0.9959791961136804,
+        "outside_box": 0.002789763912969795,
+        "regions": {
+          "fur": {
+            "soft": 0.027982810920121334,
+            "mean_alpha": 0.48424386978149414
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.969838219636968,
+        "iou_with_universal_matting_tensorflow": 0.8670994103651598
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.023742496792521994,
+        "soft": 0.0021349775476539588,
+        "edge_width_px": 0.9906976744186047,
+        "parts": 2,
+        "hole_fraction": 0.022616247512212775,
+        "island_fraction": 0.45950183945479767,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.9972117434804002,
+        "outside_box": 0.5579277486279477,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9281501340482574,
+        "iou_with_universal_matting_tensorflow": 0.7987292277614858
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.004565858004385965,
+        "soft": 0.0010350991410818713,
+        "edge_width_px": 1.383587786259542,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.007817385866166354,
+        "subject": "boarder",
+        "subject_recall": 0.9813323572474377,
+        "outside_box": 0.0009380863039399625,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.8625304136253041,
+        "iou_with_universal_matting_tensorflow": 0.022377122180068862
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.0025908217423133238,
+        "soft": 0.0002988309846266471,
+        "edge_width_px": 0.9858490566037735,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.992260917634052,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9593275488069414,
+        "iou_with_universal_matting_tensorflow": 0.9801762114537445
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.24110068044354838,
+        "soft": 0.0063218818731671554,
+        "edge_width_px": 1.4480157428665137,
+        "parts": 1,
+        "hole_fraction": 0.0007126864120396492,
+        "island_fraction": 5.3451480902973687e-05,
+        "subject": "car_box",
+        "subject_recall": 0.9998014599313051,
+        "outside_box": 0.07485582947789782,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.991154055525313,
+        "iou_with_universal_matting_tensorflow": 0.9216277406349939
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.37020167017961875,
+        "soft": 0.004168289497800587,
+        "edge_width_px": 1.9445557782231129,
+        "parts": 1,
+        "hole_fraction": 0.000549244402155204,
+        "island_fraction": 0.0,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.9702797202797203,
+        "outside_box": 0.9947899140161757,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9883762579869897,
+        "iou_with_universal_matting_tensorflow": 0.7018549802726067
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.27345036831991215,
+        "soft": 0.006083855691800879,
+        "edge_width_px": 1.5800222799851467,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 6.274542611987514e-05,
+        "subject": "tram_box",
+        "subject_recall": 0.9999078875360999,
+        "outside_box": 0.014128178447991885,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9846107281333006,
+        "iou_with_universal_matting_tensorflow": 0.9577830654294947
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06484260447214077,
+        "soft": 0.002063382056451613,
+        "edge_width_px": 1.349250936329588,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "car_box",
+        "subject_recall": 0.9968808484092326,
+        "outside_box": 0.0024070311809910785,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9862623518327819,
+        "iou_with_universal_matting_tensorflow": 0.986552299052299
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.0,
+        "soft": 0.0,
+        "edge_width_px": 0.0,
+        "parts": 0,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_universal_matting_tensorflow": 0.0
+      }
+    ],
+    "s3od_float32_cpu": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22268202437683285,
+        "soft": 0.0002949734237536657,
+        "edge_width_px": 0.05455508474576271,
+        "parts": 1,
+        "hole_fraction": 0.008584436127937035,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9991532820091966,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.001067934408157641,
+            "mean_alpha": 0.40208959579467773
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9920150335432727,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.9851961367869281
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.026458964298825258,
+        "soft": 0.00013766519823788548,
+        "edge_width_px": 0.07704654895666131,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9910239361702128,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.0011747594540165586,
+            "mean_alpha": 0.6404429078102112
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.956626635213382,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.9269668846234972
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.6804395818081991,
+        "soft": 0.0003960582906295754,
+        "edge_width_px": 0.08363526570048309,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9995314024002375,
+        "outside_box": 0.004730044925970909,
+        "regions": {
+          "hair": {
+            "soft": 0.0004917376183243644,
+            "mean_alpha": 0.6943653225898743
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9954461703761841,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.9241795644996216
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.022384934838472835,
+        "soft": 5.879451174743025e-05,
+        "edge_width_px": 0.04175152749490835,
+        "parts": 1,
+        "hole_fraction": 0.0216527866752082,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9920005160957358,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.000933919500694745,
+            "mean_alpha": 0.35559001564979553
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9823959326342548,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.9776845317566278
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.061244964599609375,
+        "soft": 0.0003649393717447917,
+        "edge_width_px": 0.12527280663465734,
+        "parts": 1,
+        "hole_fraction": 0.008284023668639054,
+        "island_fraction": 2.076196408180214e-05,
+        "subject": "bassist",
+        "subject_recall": 0.9849563824105394,
+        "outside_box": 0.019495484272812207,
+        "regions": {
+          "hair": {
+            "soft": 0.00227216900024564,
+            "mean_alpha": 0.364230751991272
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.22987427919588954,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.39590238787796794
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.10739896444281524,
+        "soft": 0.00021765029325513196,
+        "edge_width_px": 0.08141403320835565,
+        "parts": 1,
+        "hole_fraction": 0.003413151298597408,
+        "island_fraction": 0.0,
+        "subject": "squirrel",
+        "subject_recall": 0.9935228005653827,
+        "outside_box": 0.0007999573356087676,
+        "regions": {
+          "fur": {
+            "soft": 0.0009605662285136501,
+            "mean_alpha": 0.4739970266819
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.969838219636968,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.877165747964164
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.02259983275293255,
+        "soft": 0.00019473973607038122,
+        "edge_width_px": 0.09334248455730954,
+        "parts": 2,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.48127732370271814,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.9929473511563064,
+        "outside_box": 0.5382373439776975,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9281501340482574,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.753640835809264
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.004177517361111111,
+        "soft": 5.9964364035087716e-05,
+        "edge_width_px": 0.08450704225352113,
+        "parts": 1,
+        "hole_fraction": 0.06664388243335612,
+        "island_fraction": 0.0,
+        "subject": "boarder",
+        "subject_recall": 0.9571742313323572,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.8625304136253041,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.020462546107347723
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.0025750937957540266,
+        "soft": 8.578879941434847e-06,
+        "edge_width_px": 0.02857142857142857,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9773355444997236,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9593275488069414,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.9686985172981878
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.24075559017595308,
+        "soft": 0.00035224981671554253,
+        "edge_width_px": 0.08568443051201671,
+        "parts": 1,
+        "hole_fraction": 0.0006066517581005853,
+        "island_fraction": 0.00023790265023552361,
+        "subject": "car_box",
+        "subject_recall": 0.9999669099885509,
+        "outside_box": 0.07329780653756483,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.991154055525313,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.9201009599470374
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.36904182322214074,
+        "soft": 0.00023053748167155426,
+        "edge_width_px": 0.1081262592343855,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 9.700186631590791e-05,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.9519230769230769,
+        "outside_box": 0.99480458004012,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9883762579869897,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.6960378669112055
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.2703147877013177,
+        "soft": 0.0003460148243045388,
+        "edge_width_px": 0.09201520912547528,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "tram_box",
+        "subject_recall": 0.9975021267142401,
+        "outside_box": 0.0122291807718348,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9846107281333006,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.9629823688140211
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06496718062683285,
+        "soft": 8.018695014662756e-05,
+        "edge_width_px": 0.053588516746411484,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "car_box",
+        "subject_recall": 0.998952856251671,
+        "outside_box": 2.2040510458222213e-05,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9862623518327819,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.9821990902729181
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.015447703147877013,
+        "soft": 0.00012439375915080527,
+        "edge_width_px": 0.11740890688259109,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "rock_box",
+        "subject_recall": 0.969162571070637,
+        "outside_box": 0.01693817104776009,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_universal_matting_tensorflow": 0.0
+      }
+    ],
+    "universal_matting_tensorflow": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22145774147727273,
+        "soft": 0.012897211785190616,
+        "edge_width_px": 2.2860406091370558,
+        "parts": 1,
+        "hole_fraction": 0.00944012310955069,
+        "island_fraction": 7.759005295521115e-05,
+        "subject": "person",
+        "subject_recall": 0.9953560774812094,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.04719581094116026,
+            "mean_alpha": 0.3836977481842041
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9868881903906601,
+        "iou_with_s3od_float32_cpu": 0.9851961367869281,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.02594415381791483,
+        "soft": 0.005097914372246696,
+        "edge_width_px": 2.9848866498740554,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9681405141843972,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.06159095994629671,
+            "mean_alpha": 0.6467537879943848
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9453057708871663,
+        "iou_with_s3od_float32_cpu": 0.9269668846234972,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.7227749245058566,
+        "soft": 0.040655312042459736,
+        "edge_width_px": 6.565227430154699,
+        "parts": 1,
+        "hole_fraction": 0.003376834558845348,
+        "island_fraction": 0.00023540908758207173,
+        "subject": "person",
+        "subject_recall": 0.99308341461346,
+        "outside_box": 0.012189838635972486,
+        "regions": {
+          "hair": {
+            "soft": 0.045894189168289266,
+            "mean_alpha": 0.6870816349983215
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9251278204936895,
+        "iou_with_s3od_float32_cpu": 0.9241795644996216,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.02222289142804699,
+        "soft": 0.0022542676211453746,
+        "edge_width_px": 1.5426889106967616,
+        "parts": 1,
+        "hole_fraction": 0.023746531586758726,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9916134442939165,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.03580784036810095,
+            "mean_alpha": 0.3528360426425934
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9889927044669141,
+        "iou_with_s3od_float32_cpu": 0.9776845317566278,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.14867146809895834,
+        "soft": 0.04864374796549479,
+        "edge_width_px": 4.563402123344865,
+        "parts": 2,
+        "hole_fraction": 0.09764796442011632,
+        "island_fraction": 0.4907543619568936,
+        "subject": "bassist",
+        "subject_recall": 0.9954602100765533,
+        "outside_box": 0.5378463906944919,
+        "regions": {
+          "hair": {
+            "soft": 0.06966961434536968,
+            "mean_alpha": 0.4006514549255371
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.4972043229921851,
+        "iou_with_s3od_float32_cpu": 0.39590238787796794,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.09691881644061584,
+        "soft": 0.029425746884164224,
+        "edge_width_px": 7.986785853089779,
+        "parts": 1,
+        "hole_fraction": 0.0012262687449213266,
+        "island_fraction": 0.001994533500775652,
+        "subject": "squirrel",
+        "subject_recall": 0.9036242126497509,
+        "outside_box": 4.4322966683903376e-05,
+        "regions": {
+          "fur": {
+            "soft": 0.12986602628918098,
+            "mean_alpha": 0.43009674549102783
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.8670994103651598,
+        "iou_with_s3od_float32_cpu": 0.877165747964164,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.028954648552052785,
+        "soft": 0.007912733687683285,
+        "edge_width_px": 2.2527517325723605,
+        "parts": 3,
+        "hole_fraction": 0.12754067553533455,
+        "island_fraction": 0.491765985856288,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.9963916680334591,
+        "outside_box": 0.6254883536917066,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.7987292277614858,
+        "iou_with_s3od_float32_cpu": 0.753640835809264,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.20358472679093567,
+        "soft": 0.1472339295504386,
+        "edge_width_px": 8.551704121403102,
+        "parts": 3,
+        "hole_fraction": 0.030828786624963182,
+        "island_fraction": 0.1003618665582002,
+        "subject": "boarder",
+        "subject_recall": 0.9996339677891655,
+        "outside_box": 0.9394294290082331,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.022377122180068862,
+        "iou_with_s3od_float32_cpu": 0.020462546107347723,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.002550786969253294,
+        "soft": 0.0003974881039531479,
+        "edge_width_px": 1.287037037037037,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9806522940851299,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9801762114537445,
+        "iou_with_s3od_float32_cpu": 0.9686985172981878,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22437883751832843,
+        "soft": 0.019575639204545456,
+        "edge_width_px": 3.5325581395348835,
+        "parts": 1,
+        "hole_fraction": 0.06495255234557974,
+        "island_fraction": 0.00021697649634011703,
+        "subject": "car_box",
+        "subject_recall": 0.9236083995685063,
+        "outside_box": 0.07998136554796138,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9216277406349939,
+        "iou_with_s3od_float32_cpu": 0.9201009599470374,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.5155004238453079,
+        "soft": 0.06365841504765396,
+        "edge_width_px": 6.3320039880358925,
+        "parts": 2,
+        "hole_fraction": 0.004924876878078048,
+        "island_fraction": 0.14430472571519046,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.0008741258741258741,
+        "outside_box": 0.9992277970828507,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.7018549802726067,
+        "iou_with_s3od_float32_cpu": 0.6960378669112055,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.26535762490849196,
+        "soft": 0.01769965913250366,
+        "edge_width_px": 5.347300215982721,
+        "parts": 1,
+        "hole_fraction": 1.0776500762437428e-05,
+        "island_fraction": 0.00043106003049749714,
+        "subject": "tram_box",
+        "subject_recall": 0.9860747628104054,
+        "outside_box": 0.0037340575141845693,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9577830654294947,
+        "iou_with_s3od_float32_cpu": 0.9629823688140211,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06482398964442815,
+        "soft": 0.003055695564516129,
+        "edge_width_px": 2.0094161958568737,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "car_box",
+        "subject_recall": 0.995610908118706,
+        "outside_box": 0.003865609330476464,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.986552299052299,
+        "iou_with_s3od_float32_cpu": 0.9821990902729181,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.004931426153001464,
+        "soft": 0.0060681277452415815,
+        "edge_width_px": 4.2739174219536755,
+        "parts": 9,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.18063206726587416,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_universal_matting_tensorflow": 1.0
+      }
+    ],
+    "universal_matting_float32_cpu": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22145774147727273,
+        "soft": 0.012897211785190616,
+        "edge_width_px": 2.2860406091370558,
+        "parts": 1,
+        "hole_fraction": 0.00944012310955069,
+        "island_fraction": 7.759005295521115e-05,
+        "subject": "person",
+        "subject_recall": 0.9953560774812094,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.04719581094116026,
+            "mean_alpha": 0.3836977481842041
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9868881903906601,
+        "iou_with_s3od_float32_cpu": 0.9851961367869281,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.02594415381791483,
+        "soft": 0.005097914372246696,
+        "edge_width_px": 2.9848866498740554,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9681405141843972,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.06159095994629671,
+            "mean_alpha": 0.6467537879943848
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9453057708871663,
+        "iou_with_s3od_float32_cpu": 0.9269668846234972,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.7227763543191801,
+        "soft": 0.04065674185578331,
+        "edge_width_px": 6.5639427516158815,
+        "parts": 1,
+        "hole_fraction": 0.003376827878711148,
+        "island_fraction": 0.0002354086218902323,
+        "subject": "person",
+        "subject_recall": 0.99308341461346,
+        "outside_box": 0.012189814521744636,
+        "regions": {
+          "hair": {
+            "soft": 0.045894189168289266,
+            "mean_alpha": 0.6870816349983215
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9251260040564765,
+        "iou_with_s3od_float32_cpu": 0.9241777525071809,
+        "iou_with_universal_matting_tensorflow": 0.9999980217762866
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.02222289142804699,
+        "soft": 0.0022542676211453746,
+        "edge_width_px": 1.5426889106967616,
+        "parts": 1,
+        "hole_fraction": 0.023746531586758726,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9916134442939165,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.03580784036810095,
+            "mean_alpha": 0.35283634066581726
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9889927044669141,
+        "iou_with_s3od_float32_cpu": 0.9776845317566278,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.14867146809895834,
+        "soft": 0.04864374796549479,
+        "edge_width_px": 4.563402123344865,
+        "parts": 2,
+        "hole_fraction": 0.09764796442011632,
+        "island_fraction": 0.4907543619568936,
+        "subject": "bassist",
+        "subject_recall": 0.9954602100765533,
+        "outside_box": 0.5378463906944919,
+        "regions": {
+          "hair": {
+            "soft": 0.06966961434536968,
+            "mean_alpha": 0.4006515443325043
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.4972043229921851,
+        "iou_with_s3od_float32_cpu": 0.39590238787796794,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.09692024835043989,
+        "soft": 0.029425746884164224,
+        "edge_width_px": 8.00233644859813,
+        "parts": 1,
+        "hole_fraction": 0.0012410247318500134,
+        "island_fraction": 0.0019945040333303786,
+        "subject": "squirrel",
+        "subject_recall": 0.9036516584100671,
+        "outside_box": 4.432231185178619e-05,
+        "regions": {
+          "fur": {
+            "soft": 0.12986602628918098,
+            "mean_alpha": 0.4300967752933502
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.8671364841274972,
+        "iou_with_s3od_float32_cpu": 0.8772035994316687,
+        "iou_with_universal_matting_tensorflow": 0.999926131662924
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.028954648552052785,
+        "soft": 0.007911301777859238,
+        "edge_width_px": 2.252344068487566,
+        "parts": 3,
+        "hole_fraction": 0.12754067553533455,
+        "island_fraction": 0.491765985856288,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.9963916680334591,
+        "outside_box": 0.6254883536917066,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.7987292277614858,
+        "iou_with_s3od_float32_cpu": 0.753640835809264,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.20358472679093567,
+        "soft": 0.14723107410453215,
+        "edge_width_px": 8.551538270171656,
+        "parts": 3,
+        "hole_fraction": 0.030828786624963182,
+        "island_fraction": 0.1003618665582002,
+        "subject": "boarder",
+        "subject_recall": 0.9996339677891655,
+        "outside_box": 0.9394294290082331,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.022377122180068862,
+        "iou_with_s3od_float32_cpu": 0.020462546107347723,
+        "iou_with_universal_matting_tensorflow": 0.9999859742627721
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.002550786969253294,
+        "soft": 0.0003974881039531479,
+        "edge_width_px": 1.287037037037037,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9806522940851299,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9801762114537445,
+        "iou_with_s3od_float32_cpu": 0.9686985172981878,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22437883751832843,
+        "soft": 0.01957277538489736,
+        "edge_width_px": 3.532041343669251,
+        "parts": 1,
+        "hole_fraction": 0.06495255234557974,
+        "island_fraction": 0.00021697649634011703,
+        "subject": "car_box",
+        "subject_recall": 0.9236083995685063,
+        "outside_box": 0.07998136554796138,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9216277406349939,
+        "iou_with_s3od_float32_cpu": 0.9201009599470374,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.5155004238453079,
+        "soft": 0.06365841504765396,
+        "edge_width_px": 6.3320039880358925,
+        "parts": 2,
+        "hole_fraction": 0.004924876878078048,
+        "island_fraction": 0.14430472571519046,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.0008741258741258741,
+        "outside_box": 0.9992277970828507,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.7018549802726067,
+        "iou_with_s3od_float32_cpu": 0.6960378669112055,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.26535762490849196,
+        "soft": 0.01769965913250366,
+        "edge_width_px": 5.347300215982721,
+        "parts": 1,
+        "hole_fraction": 1.0776500762437428e-05,
+        "island_fraction": 0.00043106003049749714,
+        "subject": "tram_box",
+        "subject_recall": 0.9860747628104054,
+        "outside_box": 0.0037340575141845693,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9577830654294947,
+        "iou_with_s3od_float32_cpu": 0.9629823688140211,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06482398964442815,
+        "soft": 0.003055695564516129,
+        "edge_width_px": 2.0094161958568737,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "car_box",
+        "subject_recall": 0.995610908118706,
+        "outside_box": 0.003865609330476464,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.986552299052299,
+        "iou_with_s3od_float32_cpu": 0.9821990902729181,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.004931426153001464,
+        "soft": 0.0060681277452415815,
+        "edge_width_px": 4.2739174219536755,
+        "parts": 9,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.18063206726587416,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_universal_matting_tensorflow": 1.0
+      }
+    ],
+    "universal_matting_float16_cpu": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.2214563095674487,
+        "soft": 0.012900075604838709,
+        "edge_width_px": 2.2865482233502537,
+        "parts": 1,
+        "hole_fraction": 0.009440184148249686,
+        "island_fraction": 7.759055464314811e-05,
+        "subject": "person",
+        "subject_recall": 0.9953560774812094,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.04719581094116026,
+            "mean_alpha": 0.38370388746261597
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9868945211015531,
+        "iou_with_s3od_float32_cpu": 0.9852024423650491,
+        "iou_with_universal_matting_tensorflow": 0.9999935341622538
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.02557274458516887,
+        "soft": 0.004706428964757709,
+        "edge_width_px": 2.829310344827586,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9634862588652482,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.05560528082345044,
+            "mean_alpha": 0.645501971244812
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9487778381314503,
+        "iou_with_s3od_float32_cpu": 0.9280514373771188,
+        "iou_with_universal_matting_tensorflow": 0.9805391697447489
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.7060904328330894,
+        "soft": 0.051210193997071746,
+        "edge_width_px": 7.2930156790877625,
+        "parts": 1,
+        "hole_fraction": 0.014628397396696056,
+        "island_fraction": 6.88490464407068e-05,
+        "subject": "person",
+        "subject_recall": 0.9930770535600696,
+        "outside_box": 0.009436369306285108,
+        "regions": {
+          "hair": {
+            "soft": 0.045878326664472356,
+            "mean_alpha": 0.687079668045044
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9467035318655572,
+        "iou_with_s3od_float32_cpu": 0.9456353378329575,
+        "iou_with_universal_matting_tensorflow": 0.9769004187874748
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.02222289142804699,
+        "soft": 0.0022542676211453746,
+        "edge_width_px": 1.5426889106967616,
+        "parts": 1,
+        "hole_fraction": 0.023746531586758726,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9916134442939165,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.03580784036810095,
+            "mean_alpha": 0.3528352975845337
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9889927044669141,
+        "iou_with_s3od_float32_cpu": 0.9776845317566278,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.1484807332356771,
+        "soft": 0.04920196533203125,
+        "edge_width_px": 4.591669633321467,
+        "parts": 2,
+        "hole_fraction": 0.09708829322599982,
+        "island_fraction": 0.49036567611544063,
+        "subject": "bassist",
+        "subject_recall": 0.9953415227582932,
+        "outside_box": 0.5374154320459023,
+        "regions": {
+          "hair": {
+            "soft": 0.06960820437239007,
+            "mean_alpha": 0.4006727337837219
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.49678680807491116,
+        "iou_with_s3od_float32_cpu": 0.396298773312564,
+        "iou_with_universal_matting_tensorflow": 0.9982214469555105
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.09693313553885631,
+        "soft": 0.029421451154692083,
+        "edge_width_px": 8.016777214202106,
+        "parts": 1,
+        "hole_fraction": 0.0011965433192998006,
+        "island_fraction": 0.0019942388654996678,
+        "subject": "squirrel",
+        "subject_recall": 0.9037751643314899,
+        "outside_box": 4.4316419233325945e-05,
+        "regions": {
+          "fur": {
+            "soft": 0.12984706774519716,
+            "mean_alpha": 0.43009960651397705
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.8672770062327049,
+        "iou_with_s3od_float32_cpu": 0.8773220017891912,
+        "iou_with_universal_matting_tensorflow": 0.9997045790251108
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.02895321664222874,
+        "soft": 0.007911301777859238,
+        "edge_width_px": 2.2532626427406197,
+        "parts": 3,
+        "hole_fraction": 0.12759643916913946,
+        "island_fraction": 0.4916913946587537,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.9963916680334591,
+        "outside_box": 0.6254698318496538,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.7987682682438046,
+        "iou_with_s3od_float32_cpu": 0.7536775450560156,
+        "iou_with_universal_matting_tensorflow": 0.9998516467213926
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.2034390990497076,
+        "soft": 0.14774790981359648,
+        "edge_width_px": 8.55460031412747,
+        "parts": 3,
+        "hole_fraction": 0.031166661988041435,
+        "island_fraction": 0.10040563680768043,
+        "subject": "boarder",
+        "subject_recall": 0.9996339677891655,
+        "outside_box": 0.9393229093563148,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.022393139600979654,
+        "iou_with_s3od_float32_cpu": 0.02047719298245614,
+        "iou_with_universal_matting_tensorflow": 0.9952827547592386
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.002550786969253294,
+        "soft": 0.0003974881039531479,
+        "edge_width_px": 1.287037037037037,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9806522940851299,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9801762114537445,
+        "iou_with_s3od_float32_cpu": 0.9686985172981878,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22438170133797655,
+        "soft": 0.019618596499266863,
+        "edge_width_px": 3.5384814049586777,
+        "parts": 1,
+        "hole_fraction": 0.06496448650614865,
+        "island_fraction": 0.00022335530724117906,
+        "subject": "car_box",
+        "subject_recall": 0.9235951635639266,
+        "outside_box": 0.07998034473296278,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9216282039156342,
+        "iou_with_s3od_float32_cpu": 0.9201127819548872,
+        "iou_with_universal_matting_tensorflow": 0.9999361858268722
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.5152484077162757,
+        "soft": 0.06362691303152493,
+        "edge_width_px": 6.3117897727272725,
+        "parts": 2,
+        "hole_fraction": 0.004210286438431161,
+        "island_fraction": 0.14428915635864414,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.0008741258741258741,
+        "outside_box": 0.9992274193862153,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.7021950131854943,
+        "iou_with_s3od_float32_cpu": 0.6963743692435317,
+        "iou_with_universal_matting_tensorflow": 0.998994729271151
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.2653704932284041,
+        "soft": 0.017706808199121522,
+        "edge_width_px": 5.335631193451099,
+        "parts": 1,
+        "hole_fraction": 1.0775978189420145e-05,
+        "island_fraction": 0.00045797907305035614,
+        "subject": "tram_box",
+        "subject_recall": 0.9861018547115525,
+        "outside_box": 0.00373387644263408,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9578196516055963,
+        "iou_with_s3od_float32_cpu": 0.9629780991302526,
+        "iou_with_universal_matting_tensorflow": 0.9998868558867265
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06482398964442815,
+        "soft": 0.0030599912939882697,
+        "edge_width_px": 2.012241054613936,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "car_box",
+        "subject_recall": 0.995610908118706,
+        "outside_box": 0.003865609330476464,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.986552299052299,
+        "iou_with_s3od_float32_cpu": 0.9821990902729181,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.004914268393118594,
+        "soft": 0.006043820918740849,
+        "edge_width_px": 4.282674772036474,
+        "parts": 9,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.18009892347977888,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_universal_matting_tensorflow": 0.9959420289855072
+      }
+    ],
+    "universal_matting_float32_directml": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22145774147727273,
+        "soft": 0.012897211785190616,
+        "edge_width_px": 2.2860406091370558,
+        "parts": 1,
+        "hole_fraction": 0.00944012310955069,
+        "island_fraction": 7.759005295521115e-05,
+        "subject": "person",
+        "subject_recall": 0.9953560774812094,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.04719581094116026,
+            "mean_alpha": 0.3836977481842041
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9868881903906601,
+        "iou_with_s3od_float32_cpu": 0.9851961367869281,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.02594415381791483,
+        "soft": 0.005097914372246696,
+        "edge_width_px": 2.9848866498740554,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9681405141843972,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.06159095994629671,
+            "mean_alpha": 0.64675372838974
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9453057708871663,
+        "iou_with_s3od_float32_cpu": 0.9269668846234972,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.7227763543191801,
+        "soft": 0.04065674185578331,
+        "edge_width_px": 6.5639427516158815,
+        "parts": 1,
+        "hole_fraction": 0.003376827878711148,
+        "island_fraction": 0.0002354086218902323,
+        "subject": "person",
+        "subject_recall": 0.99308341461346,
+        "outside_box": 0.012189814521744636,
+        "regions": {
+          "hair": {
+            "soft": 0.045894189168289266,
+            "mean_alpha": 0.6870816349983215
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9251260040564765,
+        "iou_with_s3od_float32_cpu": 0.9241777525071809,
+        "iou_with_universal_matting_tensorflow": 0.9999980217762866
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.02222289142804699,
+        "soft": 0.0022542676211453746,
+        "edge_width_px": 1.5426889106967616,
+        "parts": 1,
+        "hole_fraction": 0.023746531586758726,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9916134442939165,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.03580784036810095,
+            "mean_alpha": 0.35283634066581726
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9889927044669141,
+        "iou_with_s3od_float32_cpu": 0.9776845317566278,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.14867146809895834,
+        "soft": 0.04864501953125,
+        "edge_width_px": 4.563521412382202,
+        "parts": 2,
+        "hole_fraction": 0.09764796442011632,
+        "island_fraction": 0.4907543619568936,
+        "subject": "bassist",
+        "subject_recall": 0.9954602100765533,
+        "outside_box": 0.5378463906944919,
+        "regions": {
+          "hair": {
+            "soft": 0.06966961434536968,
+            "mean_alpha": 0.4006509482860565
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.4972043229921851,
+        "iou_with_s3od_float32_cpu": 0.39590238787796794,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.09692024835043989,
+        "soft": 0.029425746884164224,
+        "edge_width_px": 8.00233644859813,
+        "parts": 1,
+        "hole_fraction": 0.0012410247318500134,
+        "island_fraction": 0.0019945040333303786,
+        "subject": "squirrel",
+        "subject_recall": 0.9036516584100671,
+        "outside_box": 4.432231185178619e-05,
+        "regions": {
+          "fur": {
+            "soft": 0.12986602628918098,
+            "mean_alpha": 0.4300965368747711
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.8671364841274972,
+        "iou_with_s3od_float32_cpu": 0.8772035994316687,
+        "iou_with_universal_matting_tensorflow": 0.999926131662924
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.028954648552052785,
+        "soft": 0.007911301777859238,
+        "edge_width_px": 2.252344068487566,
+        "parts": 3,
+        "hole_fraction": 0.12754067553533455,
+        "island_fraction": 0.491765985856288,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.9963916680334591,
+        "outside_box": 0.6254883536917066,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.7987292277614858,
+        "iou_with_s3od_float32_cpu": 0.753640835809264,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.20358758223684212,
+        "soft": 0.14723107410453215,
+        "edge_width_px": 8.551538270171656,
+        "parts": 3,
+        "hole_fraction": 0.03082134141210132,
+        "island_fraction": 0.10036045891890376,
+        "subject": "boarder",
+        "subject_recall": 0.9996339677891655,
+        "outside_box": 0.9394302785491879,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.02237680834204049,
+        "iou_with_s3od_float32_cpu": 0.02046225912316625,
+        "iou_with_universal_matting_tensorflow": 0.9999719489189814
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.002550786969253294,
+        "soft": 0.0003974881039531479,
+        "edge_width_px": 1.287037037037037,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9806522940851299,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9801762114537445,
+        "iou_with_s3od_float32_cpu": 0.9686985172981878,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22437883751832843,
+        "soft": 0.01957277538489736,
+        "edge_width_px": 3.532041343669251,
+        "parts": 1,
+        "hole_fraction": 0.06495255234557974,
+        "island_fraction": 0.00021697649634011703,
+        "subject": "car_box",
+        "subject_recall": 0.9236083995685063,
+        "outside_box": 0.07998136554796138,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9216277406349939,
+        "iou_with_s3od_float32_cpu": 0.9201009599470374,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.5155004238453079,
+        "soft": 0.06365698313782991,
+        "edge_width_px": 6.331861558182595,
+        "parts": 2,
+        "hole_fraction": 0.004924876878078048,
+        "island_fraction": 0.14430472571519046,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.0008741258741258741,
+        "outside_box": 0.9992277970828507,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.7018549802726067,
+        "iou_with_s3od_float32_cpu": 0.6960378669112055,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.26535762490849196,
+        "soft": 0.01769965913250366,
+        "edge_width_px": 5.347300215982721,
+        "parts": 1,
+        "hole_fraction": 1.0776500762437428e-05,
+        "island_fraction": 0.00043106003049749714,
+        "subject": "tram_box",
+        "subject_recall": 0.9860747628104054,
+        "outside_box": 0.0037340575141845693,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9577830654294947,
+        "iou_with_s3od_float32_cpu": 0.9629823688140211,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06482398964442815,
+        "soft": 0.003055695564516129,
+        "edge_width_px": 2.0094161958568737,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "car_box",
+        "subject_recall": 0.995610908118706,
+        "outside_box": 0.003865609330476464,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.986552299052299,
+        "iou_with_s3od_float32_cpu": 0.9821990902729181,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.004932855966325036,
+        "soft": 0.0060681277452415815,
+        "edge_width_px": 4.269617706237424,
+        "parts": 9,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.1808695652173913,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_universal_matting_tensorflow": 0.9997101449275362
+      }
+    ],
+    "universal_matting_float16_directml": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22145058192815248,
+        "soft": 0.012915826612903226,
+        "edge_width_px": 2.2881785895484525,
+        "parts": 1,
+        "hole_fraction": 0.009440428310939258,
+        "island_fraction": 7.759256145977472e-05,
+        "subject": "person",
+        "subject_recall": 0.9953430510505816,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.0472302604381976,
+            "mean_alpha": 0.38367167115211487
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9868943529607985,
+        "iou_with_s3od_float32_cpu": 0.9851895469179025,
+        "iou_with_universal_matting_tensorflow": 0.9999547394284236
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.02556987656020558,
+        "soft": 0.004687786802496329,
+        "edge_width_px": 2.818103448275862,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9634862588652482,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.055493398970686954,
+            "mean_alpha": 0.6454742550849915
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9488809213385485,
+        "iou_with_s3od_float32_cpu": 0.9280476139866086,
+        "iou_with_universal_matting_tensorflow": 0.9804289100832461
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.716472307375549,
+        "soft": 0.044808919747437774,
+        "edge_width_px": 6.742469879518072,
+        "parts": 1,
+        "hole_fraction": 0.007872758658537803,
+        "island_fraction": 9.379458984823237e-05,
+        "subject": "person",
+        "subject_recall": 0.9931173402315423,
+        "outside_box": 0.011309232780211337,
+        "regions": {
+          "hair": {
+            "soft": 0.04597746731332807,
+            "mean_alpha": 0.6871523261070251
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9332084238629904,
+        "iou_with_s3od_float32_cpu": 0.9322479396704659,
+        "iou_with_universal_matting_tensorflow": 0.9910042664461908
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.022221457415565346,
+        "soft": 0.0022513995961820853,
+        "edge_width_px": 1.5422396856581533,
+        "parts": 1,
+        "hole_fraction": 0.023748064016520392,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9916134442939165,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.035762283319286575,
+            "mean_alpha": 0.35282325744628906
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.989056,
+        "iou_with_s3od_float32_cpu": 0.9777466937945066,
+        "iou_with_universal_matting_tensorflow": 0.9999354713815577
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.14792378743489584,
+        "soft": 0.049748738606770836,
+        "edge_width_px": 4.588249091122317,
+        "parts": 2,
+        "hole_fraction": 0.10023897122030052,
+        "island_fraction": 0.4895987346559846,
+        "subject": "bassist",
+        "subject_recall": 0.9953711945878583,
+        "outside_box": 0.536103565656913,
+        "regions": {
+          "hair": {
+            "soft": 0.0697003193318595,
+            "mean_alpha": 0.40096837282180786
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.4953601987559214,
+        "iou_with_s3od_float32_cpu": 0.397726210605919,
+        "iou_with_universal_matting_tensorflow": 0.9937942883518963
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.09695890991568915,
+        "soft": 0.029378493859970673,
+        "edge_width_px": 8.036427732079906,
+        "parts": 1,
+        "hole_fraction": 0.0011519206060874574,
+        "island_fraction": 0.0019346358897109862,
+        "subject": "squirrel",
+        "subject_recall": 0.9038163329719642,
+        "outside_box": 4.430463869567144e-05,
+        "regions": {
+          "fur": {
+            "soft": 0.12965748230535895,
+            "mean_alpha": 0.4302159249782562
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.8673165938300018,
+        "iou_with_s3od_float32_cpu": 0.877262443438914,
+        "iou_with_universal_matting_tensorflow": 0.9992321889996308
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.028933169904692083,
+        "soft": 0.007918461326979473,
+        "edge_width_px": 2.255301794453507,
+        "parts": 3,
+        "hole_fraction": 0.12773433633574185,
+        "island_fraction": 0.49163614767890723,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.9963916680334591,
+        "outside_box": 0.6252103335642878,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.7992272327105546,
+        "iou_with_s3od_float32_cpu": 0.7541063508310182,
+        "iou_with_universal_matting_tensorflow": 0.9988627935723114
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.2037260713633041,
+        "soft": 0.14722964638157895,
+        "edge_width_px": 8.666442558198169,
+        "parts": 3,
+        "hole_fraction": 0.03069526886392465,
+        "island_fraction": 0.09859628713391687,
+        "subject": "boarder",
+        "subject_recall": 0.9996339677891655,
+        "outside_box": 0.9384062287568417,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.022361597757533287,
+        "iou_with_s3od_float32_cpu": 0.020448350046600935,
+        "iou_with_universal_matting_tensorflow": 0.987356409917033
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.002550786969253294,
+        "soft": 0.0003974881039531479,
+        "edge_width_px": 1.287037037037037,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9806522940851299,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9801762114537445,
+        "iou_with_s3od_float32_cpu": 0.9686985172981878,
+        "iou_with_universal_matting_tensorflow": 1.0
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.2243473355021994,
+        "soft": 0.019635779417155424,
+        "edge_width_px": 3.523381294964029,
+        "parts": 1,
+        "hole_fraction": 0.06511485412664271,
+        "island_fraction": 0.0002170069633705011,
+        "subject": "car_box",
+        "subject_recall": 0.9234230955043911,
+        "outside_box": 0.07999897879076061,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9214636164804635,
+        "iou_with_s3od_float32_cpu": 0.9199595689721416,
+        "iou_with_universal_matting_tensorflow": 0.9994385320164357
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.5155763150659824,
+        "soft": 0.06402355205278593,
+        "edge_width_px": 6.363791631084543,
+        "parts": 2,
+        "hole_fraction": 0.00502413473235165,
+        "island_fraction": 0.14404463675700296,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.0008741258741258741,
+        "outside_box": 0.9992223561497742,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.7017526485047055,
+        "iou_with_s3od_float32_cpu": 0.6959365975249536,
+        "iou_with_universal_matting_tensorflow": 0.9987203899341043
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.26540051930819913,
+        "soft": 0.01760243182650073,
+        "edge_width_px": 5.274635818337618,
+        "parts": 1,
+        "hole_fraction": 1.0774759049450756e-05,
+        "island_fraction": 0.00043099036197803025,
+        "subject": "tram_box",
+        "subject_recall": 0.9861777120347643,
+        "outside_box": 0.0037388413901594127,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9578880651680374,
+        "iou_with_s3od_float32_cpu": 0.9629749935820529,
+        "iou_with_universal_matting_tensorflow": 0.9996660112586527
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.0648225577346041,
+        "soft": 0.003072878482404692,
+        "edge_width_px": 2.015023474178404,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "car_box",
+        "subject_recall": 0.9956331877729258,
+        "outside_box": 0.003865694720565496,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9865303615303616,
+        "iou_with_s3od_float32_cpu": 0.9822639198705332,
+        "iou_with_universal_matting_tensorflow": 0.9998012147984539
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.004902829886530014,
+        "soft": 0.0060638383052708635,
+        "edge_width_px": 4.236763236763236,
+        "parts": 9,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.18576844561096528,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_universal_matting_tensorflow": 0.9832756632064591
+      }
+    ]
+  }
+}

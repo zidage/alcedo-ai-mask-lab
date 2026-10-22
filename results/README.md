@@ -53,11 +53,14 @@ local; run the commands of the script README to make them again.
 
 ## `subject_alternatives/`
 
-Scripts: [`scripts/ai_models/s3od/`](../scripts/ai_models/s3od/README.md) and
-[`scripts/ai_models/isnet/`](../scripts/ai_models/isnet/README.md). `<graph>` is one of
-`s3od_float32`, `s3od_float16` (the export of `export_onnx.py`), `s3od_cpu_resize_float32`,
-`s3od_cpu_resize_float16` (`--keep-identity-resize`), `isnet_float32`, `isnet_float16` (the IS-Net
-general-use export), and `birefnet_lite_float16` (the MVP graph). The files with `_float16_overflow` (float16 attention scores in all layers: NaN output on
+Scripts: [`scripts/ai_models/s3od/`](../scripts/ai_models/s3od/README.md),
+[`scripts/ai_models/isnet/`](../scripts/ai_models/isnet/README.md), and
+[`scripts/ai_models/universal_matting/`](../scripts/ai_models/universal_matting/README.md).
+`<graph>` is one of `s3od_float32`, `s3od_float16` (the export of `export_onnx.py`),
+`s3od_cpu_resize_float32`, `s3od_cpu_resize_float16` (`--keep-identity-resize`), `isnet_float32`,
+`isnet_float16` (the IS-Net general-use export), `universal_matting_float32`,
+`universal_matting_float16` (the universal matting conversion), and `birefnet_lite_float16` (the
+MVP graph). The files with `_float16_overflow` (float16 attention scores in all layers: NaN output on
 DirectML) and `_float16_all_attention_float32` (all attention scores in float32) record the
 earlier float16 forms of report section 4.3; they are not candidates.
 
@@ -76,3 +79,10 @@ earlier float16 forms of report section 4.3; they are not candidates.
 | `quality_isnet.json` | The metrics of `quality.json` for the IS-Net alphas (PyTorch, ONNX CPU, DirectML), with the IoU with the BiRefNet lite, S3OD float32, and IS-Net PyTorch masks | `probe_subject_masks.py` |
 | `mvp_pipeline_isnet_float16_cost.json`, `..._gpu_memory.json` | The MVP pipeline with the IS-Net float16 graph as the Subject graph (report section 11.5) | `measure_pipeline_cost.py`, `run_with_gpu_memory.ps1` |
 | `birefnet_lite_float16_isnet_step_failed_runs.json`, `birefnet_lite_float16_isnet_step_attempt{1,2}_cost_gpu_memory.json` | The two BiRefNet reference cost runs of the IS-Net step: phases until the error, the `887A0006` error, the System events 153 and 4101 (report section 11.4) | log of `measure_directml_cost.py`, `Get-WinEvent` |
+| `universal_matting_comparison_cpu.json` | Universal matting ONNX Runtime CPU against TensorFlow, per graph and photo: alpha differences (also against TensorFlow with grappler off), IoU, branch tensors, the uint8 output check | `universal_matting/compare_onnx_outputs.py` |
+| `universal_matting_tensorflow_spread.json` | TensorFlow with six CPU settings against each other and against the ONNX float32 alpha | `universal_matting/measure_tensorflow_spread.py` |
+| `universal_matting_<precision>_export.json` | Universal matting conversion record: sources, hashes, graph rules, the rewrite check, operators, the float64 divisions; float16: activation maxima and float16 nodes per U-Net | `universal_matting/export_onnx.py` |
+| `quality_universal_matting.json` | The metrics of `quality.json` for the universal matting alphas (TensorFlow, ONNX CPU, DirectML), with the IoU with the BiRefNet lite, S3OD float32, and TensorFlow masks | `probe_subject_masks.py` |
+| `mvp_pipeline_universal_matting_float32_cost.json`, `..._gpu_memory.json` | The MVP pipeline with the universal matting float32 graph as the Subject graph (report section 12.5) | `measure_pipeline_cost.py`, `run_with_gpu_memory.ps1` |
+| `*_float32_divisions.json` | Quality, float32 cost, and float32 first runs of the first universal matting graph (scalar divisions in float32; DirectML IoU 0.936 on `DSC00674`, report section 12.3) | as above, graph of `export_onnx.py --scalar-divisions float32` |
+| `birefnet_lite_float16_universal_matting_step_failed_runs.json`, `..._cost_gpu_memory.json` | The BiRefNet reference cost run of the universal matting step: phases until the error, the `887A0006` error, the System events 153 and 4101 (report section 12.4) | log of `measure_directml_cost.py`, `Get-WinEvent` |

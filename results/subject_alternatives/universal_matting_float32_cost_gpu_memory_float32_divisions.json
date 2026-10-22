@@ -1,0 +1,65 @@
+{
+  "source": "Windows performance counters: GPU Process Memory (Dedicated Usage, Shared Usage)",
+  "exit_code": 0,
+  "interval_ms": 250,
+  "peak_dedicated_bytes": 2807328768.0,
+  "peak_shared_bytes": 935440384.0,
+  "sample_count": 11,
+  "samples": [
+    {
+      "seconds": 4.14,
+      "dedicated_bytes": 241774592.0,
+      "shared_bytes": 158494720.0
+    },
+    {
+      "seconds": 5.42,
+      "dedicated_bytes": 379629568.0,
+      "shared_bytes": 127315968.0
+    },
+    {
+      "seconds": 6.68,
+      "dedicated_bytes": 1997287424.0,
+      "shared_bytes": 666546176.0
+    },
+    {
+      "seconds": 7.96,
+      "dedicated_bytes": 1997287424.0,
+      "shared_bytes": 666546176.0
+    },
+    {
+      "seconds": 9.22,
+      "dedicated_bytes": 1997287424.0,
+      "shared_bytes": 666546176.0
+    },
+    {
+      "seconds": 10.47,
+      "dedicated_bytes": 1997287424.0,
+      "shared_bytes": 666546176.0
+    },
+    {
+      "seconds": 11.75,
+      "dedicated_bytes": 2807328768.0,
+      "shared_bytes": 935440384.0
+    },
+    {
+      "seconds": 13.03,
+      "dedicated_bytes": 2807328768.0,
+      "shared_bytes": 935440384.0
+    },
+    {
+      "seconds": 14.37,
+      "dedicated_bytes": 2807328768.0,
+      "shared_bytes": 935440384.0
+    },
+    {
+      "seconds": 15.64,
+      "dedicated_bytes": 79892480.0,
+      "shared_bytes": 43053056.0
+    },
+    {
+      "seconds": 16.91,
+      "dedicated_bytes": 79892480.0,
+      "shared_bytes": 43053056.0
+    }
+  ]
+}

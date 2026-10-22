@@ -1,0 +1,66 @@
+{
+  "model": "birefnet",
+  "graph": "build/tmp/explore/e2/onnx_fp16/lite/subject_matte.onnx",
+  "script": "scripts/ai_models/s3od/measure_directml_cost.py under run_with_gpu_memory.ps1",
+  "note": "Reference run of the universal matting step (one attempt). The run stopped in the warm runs with 887A0006 after a display driver reset (event 4101); the script wrote no cost JSON. The events come from Get-WinEvent (System, Id 153 and 4101) after the run. The error text after the code (a localized Windows message) is not kept.",
+  "attempts": [
+    {
+      "attempt": 1,
+      "log": "build/tmp/explore/universal_matting/directml/birefnet_lite_float16_universal_matting_step_cost.log",
+      "gpu_memory_record": "results/subject_alternatives/birefnet_lite_float16_universal_matting_step_cost_gpu_memory.json",
+      "phases": [
+        {
+          "phase": "before load",
+          "dedicated_mb": 0,
+          "shared_mb": 0,
+          "working_set_mb": 389,
+          "peak_working_set_mb": 462,
+          "time": "2026-10-22T13:09:22"
+        },
+        {
+          "phase": "session load",
+          "ms": 7431.5,
+          "dedicated_mb": 227,
+          "shared_mb": 180,
+          "working_set_mb": 1016,
+          "peak_working_set_mb": 1016,
+          "time": "2026-10-22T13:09:31"
+        },
+        {
+          "phase": "first run",
+          "ms": 64239.0,
+          "dedicated_mb": 3226,
+          "shared_mb": 289,
+          "working_set_mb": 1124,
+          "peak_working_set_mb": 1128,
+          "time": "2026-10-22T13:10:37"
+        }
+      ],
+      "failed_phase": "warm runs",
+      "failed_source_line": 100,
+      "error": "[ONNXRuntimeError] : 6 : RUNTIME_EXCEPTION : Non-zero status code returned while running DmlFusedNode_0_0 node. Name:'DmlFusedNode_0_0' Status Message: E:\\_work\\1\\s\\onnxruntime\\core\\providers\\dml\\DmlExecutionProvider\\src\\DmlGraphFusionHelper.cpp(1078)\\onnxruntime_pybind11_state.pyd!00007FF80B5AC038: (caller: 00007FF80B647C45) Exception(2) tid(7e60) 887A0006",
+      "system_events": [
+        {
+          "time": "2026-10-22T13:09:31",
+          "id": 153,
+          "provider": "nvlddmkm"
+        },
+        {
+          "time": "2026-10-22T13:10:32",
+          "id": 153,
+          "provider": "nvlddmkm"
+        },
+        {
+          "time": "2026-10-22T13:10:35",
+          "id": 153,
+          "provider": "nvlddmkm"
+        },
+        {
+          "time": "2026-10-22T13:10:36",
+          "id": 4101,
+          "provider": "Display"
+        }
+      ]
+    }
+  ]
+}

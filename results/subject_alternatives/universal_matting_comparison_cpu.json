@@ -1,0 +1,702 @@
+{
+  "check": "OnnxAlphaMatchesTensorflowWithinTolerance",
+  "tolerance": 0.001,
+  "onnxruntime": "1.31.0",
+  "tensorflow": "2.21.0",
+  "threads": 4,
+  "graph": "build/tmp/explore/weights/universal_matting/tf_graph.pb",
+  "graphs": {
+    "float32": "build/tmp/explore/universal_matting/onnx/float32/universal_matting.onnx",
+    "float16": "build/tmp/explore/universal_matting/onnx/float16/universal_matting.onnx"
+  },
+  "reference_spread": 0.006503641605377197,
+  "output_png_is_truncated_rgba": true,
+  "passed": false,
+  "summary": {
+    "float32": {
+      "required": true,
+      "max_abs_alpha_diff": 0.006338715553283691,
+      "max_abs_alpha_diff_grappler_off": 0.00344693660736084,
+      "minimum_iou": 0.9999107063130637,
+      "photos_above_tolerance": [
+        "DSC00674.jpg",
+        "DSC00936.jpg",
+        "DSC_1188.jpg",
+        "DSC00527.jpg",
+        "2088064441.jpg",
+        "5761824892.jpg",
+        "Nikon-D800e-raw-00007.jpg"
+      ],
+      "all_finite": true,
+      "passed": false
+    },
+    "float16": {
+      "required": false,
+      "max_abs_alpha_diff": 1.0,
+      "max_abs_alpha_diff_grappler_off": 1.0,
+      "minimum_iou": 0.9769256590932178,
+      "photos_above_tolerance": [
+        "DSC_1535.jpg",
+        "DSC00326.jpg",
+        "DSC00674.jpg",
+        "DSC00936.jpg",
+        "P1024439.jpg",
+        "DSC_1188.jpg",
+        "DSC00527.jpg",
+        "2088064441.jpg",
+        "5761824892.jpg",
+        "DSC00562.jpg",
+        "DSC00602.jpg",
+        "DSC_1456.jpg",
+        "Nikon-D800e-raw-00007.jpg"
+      ],
+      "all_finite": true
+    }
+  },
+  "results": [
+    {
+      "image": "DSC_1535.jpg",
+      "photo_size": [
+        2727,
+        4096
+      ],
+      "branch": "human",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.2421875,
+            1.0,
+            0.7890625
+          ]
+        ],
+        "person_rows_columns": 253.0,
+        "human_alpha_share": 0.221527561545372,
+        "human_result": true
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 6.735324859619141e-06,
+      "reference_foreground": 0.22146777666047854,
+      "tensorflow_cpu_seconds": 3.96,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 4.351139068603516e-06,
+          "mean_abs_alpha_diff": 3.709640150617588e-09,
+          "p999_abs_alpha_diff": 4.76837158203125e-07,
+          "iou": 1.0,
+          "max_abs_alpha_diff_grappler_off": 3.6954879760742188e-06,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.22,
+          "passed": true
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.009828329086303711,
+          "mean_abs_alpha_diff": 3.778635573326028e-06,
+          "p999_abs_alpha_diff": 0.0006718039512634277,
+          "iou": 0.9999878726825707,
+          "max_abs_alpha_diff_grappler_off": 0.009829461574554443,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.65
+        }
+      }
+    },
+    {
+      "image": "DSC00326.jpg",
+      "photo_size": [
+        2723,
+        4096
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.5104166865348816,
+            0.3229166865348816,
+            0.96875,
+            0.6979166865348816
+          ]
+        ],
+        "person_rows_columns": 80.0,
+        "human_alpha_share": 0.025504400953650475,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.0006597042083740234,
+      "reference_foreground": 0.025899438091030114,
+      "tensorflow_cpu_seconds": 1.38,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.0006544888019561768,
+          "mean_abs_alpha_diff": 1.5928664254261093e-07,
+          "p999_abs_alpha_diff": 4.1484832763671875e-05,
+          "iou": 0.9999965381992405,
+          "max_abs_alpha_diff_grappler_off": 1.940131187438965e-05,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.96,
+          "passed": true
+        },
+        "float16": {
+          "max_abs_alpha_diff": 1.0,
+          "mean_abs_alpha_diff": 0.0005797946942038834,
+          "p999_abs_alpha_diff": 0.12663938105106354,
+          "iou": 0.9798403799950292,
+          "max_abs_alpha_diff_grappler_off": 1.0,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 3.02
+        }
+      }
+    },
+    {
+      "image": "DSC00674.jpg",
+      "photo_size": [
+        2731,
+        4096
+      ],
+      "branch": "human",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "person_rows_columns": 368.0,
+        "human_alpha_share": 0.7234871983528137,
+        "human_result": true
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.0008980035781860352,
+      "reference_foreground": 0.7224947113294123,
+      "tensorflow_cpu_seconds": 0.62,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.0025489330291748047,
+          "mean_abs_alpha_diff": 3.0080273063504137e-06,
+          "p999_abs_alpha_diff": 0.0006252896273508668,
+          "iou": 0.9999961642934573,
+          "max_abs_alpha_diff_grappler_off": 0.00344693660736084,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.27,
+          "passed": false
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.9997748136520386,
+          "mean_abs_alpha_diff": 0.015740882605314255,
+          "p999_abs_alpha_diff": 0.9754090905189514,
+          "iou": 0.9769256590932178,
+          "max_abs_alpha_diff_grappler_off": 0.9997747540473938,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.76
+        }
+      }
+    },
+    {
+      "image": "DSC00936.jpg",
+      "photo_size": [
+        2723,
+        4096
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.53125,
+            0.4375,
+            1.0,
+            0.7083333730697632
+          ]
+        ],
+        "person_rows_columns": 76.0,
+        "human_alpha_share": 0.021970761939883232,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.0017370879650115967,
+      "reference_foreground": 0.02219151312316379,
+      "tensorflow_cpu_seconds": 1.48,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.0017239153385162354,
+          "mean_abs_alpha_diff": 5.652618995100056e-08,
+          "p999_abs_alpha_diff": 1.5854835510253906e-05,
+          "iou": 1.0,
+          "max_abs_alpha_diff_grappler_off": 1.817941665649414e-05,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.9,
+          "passed": false
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.02978426218032837,
+          "mean_abs_alpha_diff": 6.097556024542428e-07,
+          "p999_abs_alpha_diff": 0.00012202838115626946,
+          "iou": 0.9999838392979791,
+          "max_abs_alpha_diff_grappler_off": 0.030542373657226562,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 2.79
+        }
+      }
+    },
+    {
+      "image": "P1024439.jpg",
+      "photo_size": [
+        4096,
+        3074
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.0,
+            0.978515625,
+            0.990234375
+          ]
+        ],
+        "person_rows_columns": 294.0,
+        "human_alpha_share": 0.06178295984864235,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.00041943788528442383,
+      "reference_foreground": 0.14865749659442096,
+      "tensorflow_cpu_seconds": 1.44,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.00045669078826904297,
+          "mean_abs_alpha_diff": 3.236925749661168e-07,
+          "p999_abs_alpha_diff": 4.784609336638823e-05,
+          "iou": 0.9999989314880845,
+          "max_abs_alpha_diff_grappler_off": 9.98079776763916e-05,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 2.22,
+          "passed": true
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.41936105489730835,
+          "mean_abs_alpha_diff": 0.0004833626444451511,
+          "p999_abs_alpha_diff": 0.11553676426410675,
+          "iou": 0.9982951304396128,
+          "max_abs_alpha_diff_grappler_off": 0.41918301582336426,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 3.33
+        }
+      }
+    },
+    {
+      "image": "DSC_1188.jpg",
+      "photo_size": [
+        4096,
+        2727
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "person_rows_columns": 0.0,
+        "human_alpha_share": 0.0,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.003961443901062012,
+      "reference_foreground": 0.09692364907063623,
+      "tensorflow_cpu_seconds": 0.91,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.004039645195007324,
+          "mean_abs_alpha_diff": 1.838806269915949e-06,
+          "p999_abs_alpha_diff": 0.00026883496320806444,
+          "iou": 0.9999824499986607,
+          "max_abs_alpha_diff_grappler_off": 7.82012939453125e-05,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.29,
+          "passed": false
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.04340636730194092,
+          "mean_abs_alpha_diff": 2.0262483303667977e-05,
+          "p999_abs_alpha_diff": 0.0022240225225687027,
+          "iou": 0.9997838784399349,
+          "max_abs_alpha_diff_grappler_off": 0.044028252363204956,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.95
+        }
+      }
+    },
+    {
+      "image": "DSC00527.jpg",
+      "photo_size": [
+        4096,
+        2729
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.5182291865348816,
+            0.1744791716337204,
+            1.0,
+            0.6432291865348816
+          ]
+        ],
+        "person_rows_columns": 79.0,
+        "human_alpha_share": 0.014165647327899933,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.006503641605377197,
+      "reference_foreground": 0.028936165949065593,
+      "tensorflow_cpu_seconds": 1.37,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.006338715553283691,
+          "mean_abs_alpha_diff": 3.072479159982322e-07,
+          "p999_abs_alpha_diff": 6.413459777832031e-05,
+          "iou": 0.9999938166449734,
+          "max_abs_alpha_diff_grappler_off": 0.00024515483528375626,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 2.04,
+          "passed": false
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.04839634895324707,
+          "mean_abs_alpha_diff": 8.059432730078697e-06,
+          "p999_abs_alpha_diff": 0.001925083575770259,
+          "iou": 0.9997619702679226,
+          "max_abs_alpha_diff_grappler_off": 0.04840919375419617,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 3.17
+        }
+      }
+    },
+    {
+      "image": "2088064441.jpg",
+      "photo_size": [
+        4096,
+        2736
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "person_rows_columns": 0.0,
+        "human_alpha_share": 0.0,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.0005354881286621094,
+      "reference_foreground": 0.2036583437557109,
+      "tensorflow_cpu_seconds": 0.94,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.0011879205703735352,
+          "mean_abs_alpha_diff": 1.6273510254904977e-06,
+          "p999_abs_alpha_diff": 0.00013297796249389648,
+          "iou": 0.9999899226276879,
+          "max_abs_alpha_diff_grappler_off": 0.0007117390632629395,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.45,
+          "passed": false
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.48954951763153076,
+          "mean_abs_alpha_diff": 0.0008849087753333151,
+          "p999_abs_alpha_diff": 0.06737928092479706,
+          "iou": 0.9952779102829188,
+          "max_abs_alpha_diff_grappler_off": 0.4897194504737854,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 2.09
+        }
+      }
+    },
+    {
+      "image": "DSC00728.jpg",
+      "photo_size": [
+        4096,
+        2731
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "person_rows_columns": 0.0,
+        "human_alpha_share": 0.0,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 4.172325134277344e-07,
+      "reference_foreground": 0.002547340574652142,
+      "tensorflow_cpu_seconds": 0.91,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 4.76837158203125e-07,
+          "mean_abs_alpha_diff": 5.633374669522517e-11,
+          "p999_abs_alpha_diff": 9.079680118873057e-09,
+          "iou": 1.0,
+          "max_abs_alpha_diff_grappler_off": 4.76837158203125e-07,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.24,
+          "passed": true
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.0004532337188720703,
+          "mean_abs_alpha_diff": 2.1056091981108693e-08,
+          "p999_abs_alpha_diff": 5.0139284724082245e-08,
+          "iou": 1.0,
+          "max_abs_alpha_diff_grappler_off": 0.0004532337188720703,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.8
+        }
+      }
+    },
+    {
+      "image": "5761824892.jpg",
+      "photo_size": [
+        2729,
+        4096
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "person_rows_columns": 0.0,
+        "human_alpha_share": 0.0,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.0064754486083984375,
+      "reference_foreground": 0.22433750128824662,
+      "tensorflow_cpu_seconds": 0.88,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.0055773258209228516,
+          "mean_abs_alpha_diff": 1.8297796486876905e-06,
+          "p999_abs_alpha_diff": 0.00034555059392005205,
+          "iou": 0.9999916256155671,
+          "max_abs_alpha_diff_grappler_off": 0.0008981227874755859,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.3,
+          "passed": false
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.05076390504837036,
+          "mean_abs_alpha_diff": 2.6100457034772262e-05,
+          "p999_abs_alpha_diff": 0.004682541824877262,
+          "iou": 0.9998959214362363,
+          "max_abs_alpha_diff_grappler_off": 0.04855272173881531,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 2.01
+        }
+      }
+    },
+    {
+      "image": "DSC00562.jpg",
+      "photo_size": [
+        4096,
+        2729
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "person_rows_columns": 0.0,
+        "human_alpha_share": 0.0,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.00015163421630859375,
+      "reference_foreground": 0.5154055507683676,
+      "tensorflow_cpu_seconds": 0.9,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.00023180246353149414,
+          "mean_abs_alpha_diff": 2.6137752229260514e-07,
+          "p999_abs_alpha_diff": 2.5093555450439453e-05,
+          "iou": 0.9999989585504828,
+          "max_abs_alpha_diff_grappler_off": 0.00019609928131103516,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.33,
+          "passed": true
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.38512951135635376,
+          "mean_abs_alpha_diff": 0.0005849147564731538,
+          "p999_abs_alpha_diff": 0.06132763624191284,
+          "iou": 0.9989642275895134,
+          "max_abs_alpha_diff_grappler_off": 0.385126531124115,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 2.07
+        }
+      }
+    },
+    {
+      "image": "DSC00602.jpg",
+      "photo_size": [
+        4096,
+        2733
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "person_rows_columns": 0.0,
+        "human_alpha_share": 0.0,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.0008048415184020996,
+      "reference_foreground": 0.2653358367350439,
+      "tensorflow_cpu_seconds": 0.91,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.0007776021957397461,
+          "mean_abs_alpha_diff": 1.1329670002169223e-07,
+          "p999_abs_alpha_diff": 2.0116567611694336e-05,
+          "iou": 0.9999993266600858,
+          "max_abs_alpha_diff_grappler_off": 2.7239322662353516e-05,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.35,
+          "passed": true
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.045494139194488525,
+          "mean_abs_alpha_diff": 3.241140439058654e-05,
+          "p999_abs_alpha_diff": 0.006196933798491955,
+          "iou": 0.9999138174815853,
+          "max_abs_alpha_diff_grappler_off": 0.04554086923599243,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 2.05
+        }
+      }
+    },
+    {
+      "image": "DSC_1456.jpg",
+      "photo_size": [
+        2727,
+        4096
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "person_rows_columns": 0.0,
+        "human_alpha_share": 0.0,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.000826030969619751,
+      "reference_foreground": 0.06479288065525303,
+      "tensorflow_cpu_seconds": 0.91,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.0009559392929077148,
+          "mean_abs_alpha_diff": 3.9653009764606395e-08,
+          "p999_abs_alpha_diff": 6.139278411865234e-06,
+          "iou": 1.0,
+          "max_abs_alpha_diff_grappler_off": 0.00012990832328796387,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.25,
+          "passed": true
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.04989206790924072,
+          "mean_abs_alpha_diff": 4.205643108434742e-06,
+          "p999_abs_alpha_diff": 0.0007793090771883726,
+          "iou": 0.9999392068707289,
+          "max_abs_alpha_diff_grappler_off": 0.049839019775390625,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.97
+        }
+      }
+    },
+    {
+      "image": "Nikon-D800e-raw-00007.jpg",
+      "photo_size": [
+        4096,
+        2732
+      ],
+      "branch": "object",
+      "branch_tensors": {
+        "person_box": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "person_rows_columns": 0.0,
+        "human_alpha_share": 0.0,
+        "human_result": false
+      },
+      "output_png_is_truncated_rgba": true,
+      "reference_spread": 0.0009905695915222168,
+      "reference_foreground": 0.005003899815840044,
+      "tensorflow_cpu_seconds": 0.96,
+      "graphs": {
+        "float32": {
+          "max_abs_alpha_diff": 0.0010260939598083496,
+          "mean_abs_alpha_diff": 4.0407758206129074e-07,
+          "p999_abs_alpha_diff": 0.00011146068572998047,
+          "iou": 0.9999107063130637,
+          "max_abs_alpha_diff_grappler_off": 0.00013083219528198242,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.24,
+          "passed": false
+        },
+        "float16": {
+          "max_abs_alpha_diff": 0.08839944005012512,
+          "mean_abs_alpha_diff": 3.0299297577585094e-05,
+          "p999_abs_alpha_diff": 0.007952201180160046,
+          "iou": 0.9939158206505254,
+          "max_abs_alpha_diff_grappler_off": 0.08806249499320984,
+          "finite": true,
+          "onnxruntime_cpu_seconds": 1.94
+        }
+      }
+    }
+  ]
+}

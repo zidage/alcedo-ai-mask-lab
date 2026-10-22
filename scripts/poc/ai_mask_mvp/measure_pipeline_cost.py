@@ -12,9 +12,10 @@ Output: --out (JSON): graph load times, per stage the time of the first call, th
 
 Sequence per photo (all graphs stay loaded): read and scale the photo, encoder, head, Sky,
 People (one decoder run per listed person), the stroke sequence of E3 (one decoder run per
-interaction, the previous mask as mask_input), Subject (BiRefNet). Then --warm-runs repeated calls
-of each graph on the first photo: encoder, head, decoder with one box, decoder with 10 points and
-mask_input, BiRefNet.
+interaction, the previous mask as mask_input), Subject (BiRefNet, or S3OD with --subject-onnx).
+Then --warm-runs repeated calls of each graph on the first photo: encoder, head, decoder with one
+box, decoder with 10 points and mask_input, Subject. The Subject stage has the name of the graph
+kind (`birefnet` or `s3od`, mask_pipeline.SUBJECT_OUTPUTS).
 """
 
 from __future__ import annotations
@@ -138,7 +139,8 @@ def main() -> int:
 
     first = per_photo[0]["stage_ms"]
     stages = {}
-    for stage in ("read_photo", "encoder", "head", "decoder", "birefnet"):
+    subject = pipeline.subject_kind
+    for stage in ("read_photo", "encoder", "head", "decoder", subject):
         values = stage_values(per_photo, stage)
         other = stage_values(per_photo[1:], stage)
         stages[stage] = {"first_photo_first_call_ms": first[stage][0] if stage in first else None,
@@ -151,7 +153,7 @@ def main() -> int:
         "decoder_10_points_mask_input": spread([e["ms"] for e in warm_events
                                                 if e["stage"] == "decoder"
                                                 and e["purpose"] != "warm box"]),
-        "birefnet": spread([e["ms"] for e in warm_events if e["stage"] == "birefnet"]),
+        subject: spread([e["ms"] for e in warm_events if e["stage"] == subject]),
     }
     decoder_by_purpose = {}
     sky_ms, people_ms = [], []
@@ -175,7 +177,7 @@ def main() -> int:
         "per_photo": per_photo, "machine": fl.machine_description(),
     })
     print(f"[done] warm encoder {warm['encoder'].get('p50_ms')} ms, decoder box "
-          f"{warm['decoder_box'].get('p50_ms')} ms, BiRefNet {warm['birefnet'].get('p50_ms')} ms; "
+          f"{warm['decoder_box'].get('p50_ms')} ms, {subject} {warm[subject].get('p50_ms')} ms; "
           f"peak working set {memory_at_end['peak_working_set_bytes'] / 2**20:.0f} MB -> "
           f"{args.out}")
     return 0

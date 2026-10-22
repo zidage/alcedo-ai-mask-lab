@@ -3,8 +3,9 @@
 **Issue:** [#6](https://github.com/zidage/alcedo-ai-mask-lab/issues/6). **Date:** 2026-10-21.
 **Code:** [`scripts/ai_models/s3od/`](../../scripts/ai_models/s3od/README.md).
 **Results:** [`results/subject_alternatives/`](../../results/subject_alternatives/).
-**Status:** S3OD `s3od-synth` is measured (this report). IS-Net general-use and Alibaba universal
-matting are not measured yet (section 9). The check of the masks by eye is open: the user does it.
+**Status:** S3OD `s3od-synth` is measured (this report), also with the attention in query chunks
+(section 5.5, 2026-10-21). IS-Net general-use and Alibaba universal matting are not measured yet
+(section 9). The check of the masks by eye is open: the user does it.
 
 > **No images.** This report names photos and describes them in words. The comparison sheets are
 > local only; section 6.3 gives the command that makes them.
@@ -67,8 +68,19 @@ MVP settings on ONNX Runtime DirectML and compared with BiRefNet lite:
   0.922). The S3OD mask is almost binary: edge width 0.03 to 0.13 px (BiRefNet 0.99 to 5.44 px),
   so the edge at the 4096 px photo shows the 4 px steps of the 1024 grid. Hair and fur have no
   soft band. The user checks the sheets by eye.
-- **U6: not met.** S3OD (3.5 to 3.9 GB) plus SAM 2.1 tiny (1.4 GB) is more than 3 GB, as with
-  BiRefNet (3.2 GB). The "no driver reset" criterion is met.
+- **U6: not met with the exported attention.** S3OD (3.5 to 3.9 GB) plus SAM 2.1 tiny (1.4 GB)
+  is more than 3 GB, as with BiRefNet (3.2 GB). The "no driver reset" criterion is met.
+- **Attention in query chunks (section 5.5): U6 met.** `com.microsoft.MultiHeadAttention` alone
+  does not decrease the memory on DirectML: one layer uses 1,159 MB in both forms, and the float16
+  layer 0 overflows in both forms. An attention in 8 query chunks, where each chunk reads the
+  output of the chunk before it, gives the same output with a score tensor of 1/8 size. With
+  `MultiHeadAttention` per chunk and float16 (layer 0 in float32): **191 ms warm, 1,358 MB
+  dedicated GPU memory** (before: 895 ms and 3,916 MB; BiRefNet: 154 ms and 3,226 MB), 1.1 s
+  load, one DirectML partition, 0 driver resets in 18 first runs. **The MVP pipeline with S3OD in
+  place of BiRefNet (SAM 2.1 tiny, head, S3OD in one process) has a peak of 2,666 MB dedicated
+  GPU memory** (with BiRefNet: 4,528 MB). The masks are the same (IoU >= 0.998 against S3OD
+  float32 on the CPU); the float32 graph has the same CPU difference as before (1.06e-3 on
+  `P1024439`).
 - **License:** weights and code MIT; the encoder is DINOv3 (DINOv3 License, the license text must
   go with the weights). The training images come from FLUX.1 Krea [dev]. The FLUX.1 [dev]
   Non-Commercial License permits commercial use of outputs in section 2(d), but section 4(a)
@@ -257,10 +269,123 @@ profiling runs). Record:
 | SAM 2.1 tiny + S3OD float32, CPU Resize | 1,355 + 3,549 MB | over |
 | SAM 2.1 tiny + S3OD float16, one partition | 1,355 + 3,916 MB (+784 MB shared) | over |
 
-No S3OD form meets U6 at 1024 px. The S3OD session releases its memory when it is deleted (78 to
-88 MB left), and a new session takes about 1 s plus the first run (0.7 to 1.1 s). With the U6
-rule "unload when the user goes back to adjusting", a Subject call after an unload costs about
-2 s with S3OD and 9 to 10 s with BiRefNet (and a 4 in 9 reset rate).
+No S3OD form of the exported attention meets U6 at 1024 px. The S3OD session releases its memory
+when it is deleted (78 to 88 MB left), and a new session takes about 1 s plus the first run (0.7
+to 1.1 s). With the U6 rule "unload when the user goes back to adjusting", a Subject call after an
+unload costs about 2 s with S3OD and 9 to 10 s with BiRefNet (and a 4 in 9 reset rate). The
+attention in query chunks meets U6 (section 5.5).
+
+### 5.5 Attention in query chunks
+
+**Question.** The first version of this report (section 8, item 3) proposed to replace the
+materialized attention with `com.microsoft.MultiHeadAttention` (MHA), with the expectation that
+DirectML has a fused kernel without the [1, 12, 4101, 4101] score tensor. Does it decrease the
+cost?
+
+**One layer** (`probe_attention_layer.py`, record
+[`attention_layer0_probe.json`](../../results/subject_alternatives/attention_layer0_probe.json)):
+the query, key, and value of encoder layer 0 on `DSC_1535` (after RoPE, from PyTorch), one
+attention per graph, the MVP session settings, a new process per graph. Dedicated GPU memory of
+the process after the first run; warm p50 of 10 runs. All graphs run as one DirectML node.
+
+| Graph | Float32 memory | Float32 warm | Float16 memory | Float16 warm | Float16 output |
+| --- | ---: | ---: | ---: | ---: | --- |
+| q + k + v (inputs and device only) | 80 MB | 10.4 ms | | | |
+| MHA, one node | 1,159 MB | 29.8 ms | 621 MB | 16.0 ms | not finite |
+| MatMul, Mul, Softmax, MatMul | 1,159 MB | 36.6 ms | 621 MB | 25.1 ms | not finite |
+| MHA in 4 / 16 query chunks, independent | 1,159 / 2,183 MB | 32.6 / 33.0 ms | | | |
+| MatMul form in 4 / 16 query chunks, independent | 1,159 / 1,159 MB | 36.5 / 35.4 ms | | | |
+| MHA in 4 / 16 query chunks, chained | **391 / 263 MB** | 29.4 / 31.1 ms | | | |
+| MatMul form in 4 / 16 query chunks, chained | 391 / 263 MB | 37.5 / 37.2 ms | | | |
+
+- The DirectML MHA uses the same memory as the materialized attention, and its float16 output
+  is not finite on layer 0, as the MatMul form. So on this GPU and driver it does not keep the
+  scores out of memory, and it does not compute them in float32. It takes 19 to 36 % less time.
+- All float32 graphs have the same maximum difference to PyTorch (2.89e-3 at values up to 23.2).
+- Independent chunks do not help: DirectML keeps the score tensors of all chunks of one fused
+  graph at the same time. When chunk k + 1 reads the output of chunk k (it adds
+  0 x ReduceMax(output of chunk k) to its query, which is 0 for a finite output), DirectML uses
+  the memory of one chunk for all of them.
+
+**Graph change.** `s3od_graphs.use_query_chunked_attention` replaces the attention of each encoder
+layer of the PyTorch model with this chained form before the export (`export_onnx.py
+--query-chunks N --attention-kernel multi_head_attention|sdpa`). The kernel
+`multi_head_attention` writes one MHA node per chunk (a `torch.library` operator with an ONNX
+translation, `num_heads` 12, `scale` 0.125); `sdpa` writes the MatMul form per chunk. The PyTorch
+model with the change gives the same masks as the source within 6.5e-5 (`DSC_1535`). Float16:
+the same rule as section 4.3, per encoder layer (the layer of a node comes from the
+`pkg.torch.onnx.name_scopes` metadata): the 8 MHA nodes of layer 0 stay in float32. The float16
+converter writes one Cast per blocked node for the shared key and value with the same node name,
+which ONNX Runtime refuses ("two nodes with same node name"); the script merges these 14 Cast
+nodes. The 8 chunk graph with MHA: 1,243 nodes, 435.2 MB (float32); 1,265 nodes, 219.3 MB
+(float16), one DirectML partition and 0 CPU nodes (records `s3od_mha_chunk8_*_export.json`,
+`*_placement.json`). Two exports give the same file (SHA-256 `d85a33e3...` float32,
+`0f070b86...` float16).
+
+**Comparison with PyTorch on the CPU** (record
+[`s3od_chunk8_comparison_cpu.json`](../../results/subject_alternatives/s3od_chunk8_comparison_cpu.json)):
+the same result as section 4.4. The float32 MHA graph has a maximum mask difference of 1.06e-3 on
+`P1024439` (the MatMul chunk graph 1.09e-3); the other 13 photos are at most 6.7e-4. The selected
+mask is the same on 14 of 14 photos; the minimum IoU at the photo size is 0.999999.
+
+**Cost on DirectML** (`measure_directml_cost.py` under `run_with_gpu_memory.ps1`, records
+`results/subject_alternatives/s3od_{mha,sdpa}_chunk<N>_<precision>_cost*.json`). Times in ms;
+memory in MB (dedicated / shared) after the first run, which is also the peak of the sampling
+script in all rows.
+
+| Graph | File | Session load | First run | Warm p50 / p95 / maximum (20) | Photos p50 / maximum (14) | After load | After first run | Peak working set |
+| --- | ---: | ---: | ---: | --- | --- | --- | --- | ---: |
+| BiRefNet lite 1024 float16 (section 5.2) | 96.4 MB | 9,442 | 817 | 154 / 178 / 187 | 153 / 200 | 227 / 180 | 3,226 / 204 | 1,144 |
+| S3OD float16, exported attention (section 5.2) | 217.9 MB | 988 | 1,111 | 895 / 947 / 971 | 890 / 933 | 295 / 242 | 3,916 / 784 | 1,278 |
+| MHA, 4 chunks, float16 | 218.5 MB | 1,060 | 379 | 185 / 187 / 187 | 185 / 188 | 296 / 244 | 2,380 / 273 | 778 |
+| **MHA, 8 chunks, float16** | 219.3 MB | 1,111 | 234 | **191 / 193 / 198** | 192 / 213 | 297 / 245 | **1,358 / 274** | 800 |
+| MHA, 16 chunks, float16 | 221.0 MB | 1,402 | 283 | 224 / 243 / 243 | 220 / 222 | 300 / 244 | 1,360 / 273 | 806 |
+| MHA, 32 chunks, float16 | 224.4 MB | 1,742 | 578 | 278 / 281 / 282 | 280 / 296 | 303 / 246 | 1,363 / 275 | 835 |
+| MatMul form, 8 chunks, float16 | 219.6 MB | 1,381 | 449 | 296 / 312 / 328 | 293 / 311 | 296 / 243 | 1,356 / 272 | 792 |
+| MHA, 4 chunks, float32 | 434.4 MB | 1,200 | 1,113 | 420 / 435 / 444 | 420 / 432 | 698 / 450 | 2,779 / 479 | 956 |
+| MHA, 8 chunks, float32 | 435.2 MB | 1,450 | 1,028 | 413 / 500 / 937 | 410 / 412 | 699 / 450 | 2,780 / 479 | 962 |
+| MHA, 16 chunks, float32 | 436.9 MB | 1,401 | 632 | 420 / 423 / 424 | 423 / 435 | 700 / 451 | 2,781 / 480 | 975 |
+| MHA, 32 chunks, float32 | 440.3 MB | 1,729 | 631 | 442 / 447 / 448 | 443 / 447 | 703 / 453 | 2,784 / 482 | 1,013 |
+| MatMul form, 8 chunks, float32 | 435.5 MB | 1,350 | 608 | 510 / 566 / 619 | 502 / 538 | 699 / 450 | 2,780 / 479 | 975 |
+
+- From 8 chunks (float16) and 4 chunks (float32), more chunks do not decrease the memory: the
+  attention is then not the largest part of the working memory. More chunks add time (more nodes).
+- MHA takes 35 % less time than the MatMul form at 8 chunks in float16 (191 against 296 ms).
+- The float32 graphs no longer page to shared memory as the one-partition float32 graph of
+  section 5.2 did (4,013 ms, 1,504 MB shared); one partition and 0 CPU nodes.
+- The 8 chunk MHA float16 graph is 1.2 times slower than BiRefNet per call (191 against 154 ms),
+  uses 42 % of its GPU memory, and loads 8 times faster.
+
+**First runs** (`measure_first_runs.py`, 9 new processes per graph, records
+`s3od_mha_chunk8_*_first_runs.json`): 0 failed runs, 0 driver resets, and no event 153 or 4101 for
+the float16 graph (first runs 224 to 247 ms) and the float32 graph (616 to 674 ms).
+
+**The MVP pipeline with S3OD** (`scripts/poc/ai_mask_mvp/measure_pipeline_cost.py --subject-onnx
+<8 chunk MHA float16 graph>` under `run_with_gpu_memory.ps1`, records
+`mvp_pipeline_s3od_mha_chunk8_float16_cost*.json`): the same sequence as the MVP measurement
+(SAM 2.1 tiny encoder and decoder, people and sky head, Sky, People, the E3 strokes, Subject on 14
+photos, 20 warm runs), with S3OD as the Subject graph (`mask_pipeline.py` selects the S3OD
+processing by the graph outputs `masks` and `iou_scores`).
+
+| Item | MVP with BiRefNet lite float16 ([MVP report 5.2](mvp_ai_mask.md#52-memory)) | MVP with S3OD (8 chunk MHA float16) |
+| --- | ---: | ---: |
+| Peak dedicated GPU memory | 4,528 MB | **2,666 MB** |
+| Peak shared GPU memory | 486 MB | 459 MB |
+| Peak working set | 1,873 MB | 1,675 MB |
+| Subject graph load | 7,998 ms | 910 ms |
+| Subject first call / warm p50 | 417 ms / 155.8 ms | 250 ms / 191.1 ms |
+| SAM 2.1 tiny encoder warm p50, decoder box warm p50 | 73.7 ms, 23.2 ms | 70.5 ms, 23.2 ms |
+
+The dedicated memory samples (1.3 s apart) are 230 MB, 455 MB, 1,511 MB, then 2,665 to 2,666 MB
+until the end of the run. **2,666 MB is in the 3 GB budget of U6 (406 MB
+margin)**, with all graphs loaded.
+
+**Quality** (`probe_subject_masks.py`, record
+[`quality_chunked_attention.json`](../../results/subject_alternatives/quality_chunked_attention.json)):
+the DirectML alphas of the 8 chunk MHA graphs against S3OD float32 on the CPU: minimum IoU 0.99824
+(float16) and 0.99998 (float32), as the float16 and float32 graphs of section 6.1. The means of
+the E2 metrics are equal to S3OD float32 CPU within 0.001 (subject recall 0.986, edge width
+0.08 px, IoU with BiRefNet 0.845).
 
 ## 6. Quality
 
@@ -351,10 +476,10 @@ problem as BiRefNet (DIS5K) and adds the FLUX output terms. This is open decisio
   in 11 in the same period). This supports the user's suspicion that the BiRefNet graph causes the
   resets: S3OD has no deformable convolution and no GridSample, and its graph is one DirectML
   partition.
-- **The U6 criterion: S3OD does not meet it, and it is 4 to 6 times slower than BiRefNet per
-  call.** The best S3OD form now is float32 with the CPU Resize: 643 ms warm, 3,549 MB, 1.0 s
-  load. Float16 does not help on this GPU: the layer 0 attention must stay in float32, and the
-  graph then pages to shared memory.
+- **The U6 criterion: S3OD meets it with the attention in query chunks (section 5.5).** The
+  best form is MHA in 8 chained query chunks, float16 with layer 0 in float32: 191 ms warm,
+  1,358 MB, 1.1 s load; the MVP pipeline with this graph has a peak of 2,666 MB. With the
+  exported attention, S3OD did not meet U6 (643 to 895 ms, 3.5 to 3.9 GB).
 - **Quality: equal or better on the 14 photos**, with hard edges. Whether the hard edge on hair is
   acceptable is the user's check by eye (U3 forbids edge post-processing).
 - **Decisions for the user:**
@@ -363,23 +488,23 @@ problem as BiRefNet (DIS5K) and adds the FLUX output terms. This is open decisio
      example "same selected mask and IoU of alpha > 0.5 >= 0.999 at the photo size" (measured:
      1.00000).
   2. The training data rule U13 (FLUX output terms and teacher labels, section 7).
-  3. The next engineering step for the S3OD cost, if S3OD stays a candidate: replace the
-     materialized attention with `com.microsoft.MultiHeadAttention` (DirectML has a fused kernel
-     that does not keep the 4101 x 4101 score tensors). The ONNX Runtime transformer optimizer does
-     not fuse this graph (0 of 11 attention layers; the RoPE form of the DINOv3 graph does not match
-     its patterns), so this needs a graph rewrite, with layer 0 in float32. For scale: the
-     float16 graph with layer 0 in float16 (NaN output, not usable) took 266 ms and 2,379 MB
-     (section 5.2); that is the cost of the materialized attention without the float32 layer 0
-     tensors.
+  3. The S3OD graph for the Subject model: the 8 chunk MHA float16 graph of section 5.5 (or
+     the float32 graph: 413 ms, 2,780 MB, the same output as the CPU float32 graph). The
+     expectation of the first version of this item (a fused DirectML MHA kernel without the
+     score tensors) was not correct: the DirectML MHA keeps the full score tensor (section 5.5);
+     the decrease comes from the chained query chunks.
 
 ## 9. Open items
 
 - **IS-Net general-use and Alibaba universal matting** (issue #6) are not measured in this step.
 - Check of the masks by eye (sheets of section 6.3).
 - The tolerance decision (section 8, item 1) and U13.
-- Not measured: S3OD at another input size (the issue forbids a smaller input as a substitute),
-  the fused attention rewrite, the S3OD float32 graph with the same `MultiHeadAttention` change,
-  and the cost together with SAM 2.1 tiny in one process (the MVP pipeline does not load S3OD).
+- Not measured: S3OD at another input size (the issue forbids a smaller input as a substitute).
+  The part of the 1,358 MB working memory of the 8 chunk float16 graph that is not attention
+  (probably the DPT decoder at 512 and 1024 px) is not separated. The chained query chunks are
+  not measured with the CPU Resize form of section 4.2. `ai_mask_app.py` with `--subject-onnx`
+  and the S3OD graph uses the S3OD processing of `mask_pipeline.py`; the app is not tested with
+  it.
 - `P1024439` and `Nikon-D800e-raw-00007` show the largest differences between the models; the
   quality set has no photo without a subject, so the "not found" rule of F1 is not measured for
   S3OD (the largest IoU score of S3OD is 0.933 to 0.993 on the 14 photos; it could be the input
@@ -389,7 +514,8 @@ problem as BiRefNet (DIS5K) and adds the FLUX output terms. This is open decisio
 
 The commands are in [`scripts/ai_models/s3od/README.md`](../../scripts/ai_models/s3od/README.md#commands):
 sources and weights, export of both forms, the CPU comparison, the float32 spread, placement,
-first runs, cost with GPU memory, quality metrics. The investigation of section 4 used ad hoc
+first runs, cost with GPU memory, quality metrics, and the attention in query chunks of section
+5.5 (the one layer probe, the export, and the MVP pipeline cost). The investigation of section 4 used ad hoc
 scripts in `build/tmp/s3od_synth/` (single-node DirectML tests, graph cut bisection for the
 session error and for the first non-finite tensor, the intermediate tensor ranges); their results
 are in this report, and `export_onnx.py` records the attention score maxima in

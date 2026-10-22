@@ -26,8 +26,9 @@ TorchScript file. The scripts load it with `torch.load(..., weights_only=True)`.
 
 | File | Purpose |
 | --- | --- |
-| `s3od_graphs.py` | Model loading from the source checkout, the preprocessing and postprocessing of the source (letterbox to 1024, mask selection, unpadding), the export wrapper. |
-| `export_onnx.py` | Float32 graph (dynamo exporter, opset 18, Reshape `allowzero` change, Resize to the same size removed) and float16 graph (attention scores in float32), with `export_report.json`. |
+| `s3od_graphs.py` | Model loading from the source checkout, the preprocessing and postprocessing of the source (letterbox to 1024, mask selection, unpadding), the export wrapper, the attention in query chunks (`use_query_chunked_attention`, the `com.microsoft.MultiHeadAttention` operator), the attention score maxima per encoder layer. |
+| `export_onnx.py` | Float32 graph (dynamo exporter, opset 18, Reshape `allowzero` change, Resize to the same size removed, optional attention in query chunks) and float16 graph (attention of the layers with large scores in float32), with `export_report.json`. |
+| `probe_attention_layer.py` | One encoder attention on DirectML in different graph forms (MHA, MatMul form, query chunks, chained query chunks): GPU memory, time, float16 output. |
 | `compare_onnx_outputs.py` | `OnnxMasksMatchPytorchWithinTolerance`: ONNX Runtime CPU against the PyTorch model of the source on the quality photos; writes the reference and ONNX alphas. |
 | `measure_float32_spread.py` | Float32 differences of PyTorch against itself (threads, attention kernel) and of ONNX Runtime with and without graph optimizations. |
 | `subject_runtime.py` | Shared code of the DirectML scripts: preprocessing and stored alpha of S3OD and BiRefNet, MVP session settings, GPU memory and working set. |
@@ -72,7 +73,18 @@ Data rules (the rules of `s3od.predictor.BackgroundRemoval`):
   float16 maximum; with these nodes in float16 the DirectML output is NaN on every photo. The
   script removes the float32 -> float16 -> float32 Cast pairs that the converter puts between the
   blocked nodes. ONNX Runtime CPU does not show the overflow (it runs most float16 operators in
-  float32), so check a float16 graph on DirectML.
+  float32), so check a float16 graph on DirectML. The rule is per encoder layer: the attention
+  nodes of a layer stay in float32 when the largest absolute score of the layer on the
+  calibration photos (PyTorch) is above 65,504 / 16; only layer 0 is above it.
+- Attention in query chunks (`--query-chunks N`, `--attention-kernel`): each encoder attention is
+  computed in N query chunks; chunk k + 1 adds 0 x max(output of chunk k) to its query, so that the
+  chunks are a sequence and DirectML uses the memory of one score tensor for all chunks. The
+  output is the same attention. `--attention-kernel multi_head_attention` writes one
+  `com.microsoft.MultiHeadAttention` node per chunk; `sdpa` writes MatMul, Softmax, MatMul. The
+  selected form is 8 chunks with `multi_head_attention`, float16 (report section 5.5: 191 ms,
+  1,358 MB on DirectML). The DirectML `MultiHeadAttention` alone (1 chunk) uses the same memory as
+  the MatMul form. The float16 converter writes Cast nodes with the same name for the shared key
+  and value of the chunks; the script merges them.
 
 ## Commands
 
@@ -106,6 +118,29 @@ cp $S/compare_cpu/compare.json $R/s3od_comparison_cpu.json
 $PY $X/measure_float32_spread.py --source $E/src/s3od/s3od --checkpoint $W/s3od.pt \
   --graph $S/onnx/float32/subject_masks.onnx --photo $P/P1024439.jpg --photo $P/DSC00562.jpg \
   --out $R/s3od_float32_spread.json
+
+# Attention in query chunks (report section 5.5). Graph directories onnx_mha_chunk<N> (N = 4, 8,
+# 16, 32) and onnx_sdpa_chunk8 (--attention-kernel sdpa).
+$PY $X/export_onnx.py --source $E/src/s3od/s3od --checkpoint $W/s3od.pt \
+  --revisions $W/revisions.json --out-root $S/onnx_mha_chunk8 \
+  --calibration-photos $P --calibration-prompts $Q \
+  --attention-kernel multi_head_attention --query-chunks 8
+cp $S/onnx_mha_chunk8/float32/export_report.json $R/s3od_mha_chunk8_float32_export.json
+cp $S/onnx_mha_chunk8/float16/export_report.json $R/s3od_mha_chunk8_float16_export.json
+$PY $X/compare_onnx_outputs.py --source $E/src/s3od/s3od --checkpoint $W/s3od.pt \
+  --graph mha_chunk8_float32=$S/onnx_mha_chunk8/float32/subject_masks.onnx \
+  --graph mha_chunk8_float16=$S/onnx_mha_chunk8/float16/subject_masks.onnx \
+  --graph sdpa_chunk8_float32=$S/onnx_sdpa_chunk8/float32/subject_masks.onnx \
+  --graph sdpa_chunk8_float16=$S/onnx_sdpa_chunk8/float16/subject_masks.onnx \
+  --required mha_chunk8_float32 --required sdpa_chunk8_float32 \
+  --photos $P --prompts $Q --out $S/compare_cpu_chunk8/compare.json
+cp $S/compare_cpu_chunk8/compare.json $R/s3od_chunk8_comparison_cpu.json
+# One encoder attention (capture and build in this environment, run in the MVP environment).
+$PY $X/probe_attention_layer.py capture --work-dir $S/attention_probe --source $E/src/s3od/s3od \
+  --checkpoint $W/s3od.pt --photo $P/DSC_1535.jpg
+$PY $X/probe_attention_layer.py build --work-dir $S/attention_probe
+$E/venv_ai_mask_mvp/Scripts/python -I $X/probe_attention_layer.py run \
+  --work-dir $S/attention_probe --out $R/attention_layer0_probe.json
 ```
 
 ```bash
@@ -115,6 +150,8 @@ $PY $X/measure_float32_spread.py --source $E/src/s3od/s3od --checkpoint $W/s3od.
 #   label s3od_cpu_resize_float32  --model s3od      $S/onnx_cpu_resize/float32/subject_masks.onnx
 #   label s3od_cpu_resize_float16  --model s3od      $S/onnx_cpu_resize/float16/subject_masks.onnx
 #   label birefnet_lite_float16    --model birefnet  $E/e2/onnx_fp16/lite/subject_matte.onnx (MVP)
+#   label s3od_mha_chunk<N>_<p>    --model s3od      $S/onnx_mha_chunk<N>/<p>/subject_masks.onnx
+#   label s3od_sdpa_chunk8_<p>     --model s3od      $S/onnx_sdpa_chunk8/<p>/subject_masks.onnx
 PY="$E/venv_ai_mask_mvp/Scripts/python -I"; L=s3od_float16; M=s3od
 G=$S/onnx/float16/subject_masks.onnx
 $PY $X/profile_operator_placement.py --model $M --graph $G --photo $P/DSC_1535.jpg \
@@ -133,6 +170,16 @@ $l = "s3od_float16"; $m = "s3od"; $g = "$e\s3od\onnx\float16\subject_masks.onnx"
                '--prompts', 'build\tmp\sm1\quality\prompts.json',
                '--alpha-dir', "$e\s3od\directml\$l\alpha", '--out', "$r\${l}_cost.json") `
   -Out "$r\${l}_cost_gpu_memory.json" -Log "$e\s3od\directml\${l}_cost.log"
+
+# The MVP pipeline with S3OD as the Subject graph (report section 5.5).
+.\scripts\ai_models\sam2\run_with_gpu_memory.ps1 -Exe $py `
+  -Arguments @('-I', 'scripts\poc\ai_mask_mvp\measure_pipeline_cost.py', '--provider', 'directml',
+               '--photos', "$e\e4\input_4096\photos",
+               '--strokes-report', "$e\e3\runtime\tiny_directml.json",
+               '--subject-onnx', "$e\s3od\onnx_mha_chunk8\float16\subject_masks.onnx",
+               '--out', "$r\mvp_pipeline_s3od_mha_chunk8_float16_cost.json") `
+  -Out "$r\mvp_pipeline_s3od_mha_chunk8_float16_cost_gpu_memory.json" `
+  -Log "$e\s3od\directml\mvp_pipeline_s3od_mha_chunk8_float16.log"
 ```
 
 ```bash
@@ -153,4 +200,9 @@ $PY $X/probe_subject_masks.py --photos $P --prompts $Q \
   --region "DSC00674.jpg:hair:0.15,0.0,0.95,0.45" --region "P1024439.jpg:hair:0.66,0.27,0.84,0.5" \
   --region "DSC_1535.jpg:hair:0.38,0.0,0.64,0.16" --region "DSC00326.jpg:hair:0.44,0.6,0.6,0.76" \
   --region "DSC_1188.jpg:fur:0.3,0.1,0.72,0.64" --region "DSC00936.jpg:person:0.47,0.63,0.68,0.93"
+# Attention in query chunks: the same command with
+#   --alpha "birefnet_lite_float16_cpu=..." --alpha "s3od_float32_cpu=..."
+#   --alpha "s3od_mha_chunk8_float16_directml=s3od:$D/s3od_mha_chunk8_float16/alpha"
+#   --alpha "s3od_mha_chunk8_float32_directml=s3od:$D/s3od_mha_chunk8_float32/alpha"
+#   --out $R/quality_chunked_attention.json
 ```

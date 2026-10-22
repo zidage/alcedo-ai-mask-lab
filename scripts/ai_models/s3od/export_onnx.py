@@ -35,19 +35,31 @@ inferred shape of its input and connects its consumers to its input.
 
 Float16: `onnxruntime.transformers.float16.convert_float_to_float16` with `keep_io_types=True`
 (float32 inputs and outputs, as the BiRefNet float16 graph of E2), the default operator block
-list of the converter, and a node block list: the attention score MatMul (the MatMul whose
-output goes to a Softmax) and its Softmax stay in float32 when the largest absolute score on the
-calibration photos is above 1/16 of the float16 maximum (65,504 / 16 = 4,094). On the 14 quality
-photos only encoder layer 0 is above it: 134,699 to 135,151; the other ten layers are at most 482
-(report section 4.3). With layer 0 in float16 the DirectML output is NaN on every photo. ONNX
-Runtime CPU does not show the overflow: it has no float16 kernel for many operators and runs them
-in float32. The converter puts a Cast to float16 and a Cast back to float32 between two blocked
-nodes, which overflows in the same way; the script removes each such pair.
+list of the converter, and a node block list per encoder layer: the attention nodes of a layer
+(each score MatMul, the MatMul whose output goes to a Softmax, and its Softmax; or each
+`com.microsoft.MultiHeadAttention`) stay in float32 when the largest absolute attention score of
+the layer on the calibration photos (PyTorch float32, `s3od_graphs.attention_score_maxima`) is
+above 1/16 of the float16 maximum (65,504 / 16 = 4,094). The nodes of a layer are found with the
+`pkg.torch.onnx.name_scopes` metadata of the exporter. On the 14 quality photos only encoder
+layer 0 is above it: 134,699 to 135,151; the other ten layers are at most 482 (report section
+4.3). With layer 0 in float16 the DirectML output is NaN on every photo. ONNX Runtime CPU does
+not show the overflow: it has no float16 kernel for many operators and runs them in float32. The
+converter puts a Cast to float16 and a Cast back to float32 between two blocked nodes, which
+overflows in the same way; the script removes each such pair. It also merges the Cast nodes of
+one tensor that the converter writes for each blocked node with the same name.
+
+Query chunked attention (`--query-chunks N`, `--attention-kernel`): each encoder attention is
+computed in N query chunks, one after the other (s3od_graphs.use_query_chunked_attention). The
+output is the same attention; the score tensor of one chunk is about 1/N of the
+[1, 12, 4101, 4101] tensor. Kernel `sdpa` writes MatMul, Softmax, MatMul per chunk; kernel
+`multi_head_attention` writes `com.microsoft.MultiHeadAttention` per chunk. The default
+(`--query-chunks 1 --attention-kernel sdpa`) exports the attention of the source.
 """
 
 from __future__ import annotations
 
 import argparse
+import ast
 import hashlib
 import json
 import os
@@ -170,6 +182,10 @@ def export_float32(args, out_dir: Path) -> dict:
     torch.set_num_threads(args.threads)
     torch.set_grad_enabled(False)
     model = graphs.load_model(args.source, Path(args.checkpoint))
+    export_settings: dict = {}
+    if args.query_chunks != 1 or args.attention_kernel != "sdpa":
+        export_settings = graphs.use_query_chunked_attention(model, args.query_chunks,
+                                                             args.attention_kernel)
     wrapper = graphs.subject_masks_module(model)
     pixels = torch.zeros(1, 3, graphs.IMAGE_SIZE, graphs.IMAGE_SIZE)
     report: dict = {
@@ -177,13 +193,17 @@ def export_float32(args, out_dir: Path) -> dict:
         "torch": torch.__version__,
         "exporter": "torch.onnx.export(dynamo=True)",
         "opset_requested": args.opset,
+        "attention": {"query_chunks": args.query_chunks, "kernel": args.attention_kernel,
+                      "chunk_sizes": graphs.query_chunk_sizes(graphs.ENCODER_TOKENS,
+                                                              args.query_chunks)},
     }
     path = out_dir / GRAPH_NAME
     started = time.perf_counter()
     try:
         program = torch.onnx.export(wrapper, (pixels,), input_names=["pixel_values"],
                                     output_names=["masks", "iou_scores"],
-                                    opset_version=args.opset, dynamo=True, external_data=False)
+                                    opset_version=args.opset, dynamo=True, external_data=False,
+                                    **export_settings)
         program.save(str(path))
     except Exception as error:  # noqa: BLE001 - the report records the real exporter error
         report["error"] = "".join(traceback.format_exception(error))[-4000:]
@@ -205,16 +225,20 @@ FLOAT16_MAX = 65504.0
 SCORE_LIMIT = FLOAT16_MAX / 16
 
 
-def convert_float16(source: Path, out_dir: Path, photos: list[Path]) -> dict:
+def convert_float16(source: Path, out_dir: Path, maxima: list[float],
+                   photos: list[Path]) -> dict:
     import onnx
     from onnxruntime.transformers.float16 import DEFAULT_OP_BLOCK_LIST, convert_float_to_float16
 
     model = onnx.load(str(source))
-    pairs = attention_score_nodes(model)
-    maxima = attention_score_maxima(source, model, pairs, photos)
-    blocked = [name for matmul, softmax in pairs if maxima[matmul] > SCORE_LIMIT
-               for name in (matmul, softmax)]
+    nodes = attention_nodes_by_layer(model)
+    if sorted(nodes) != list(range(len(nodes))) or len(nodes) > len(maxima):
+        raise ValueError(f"attention nodes in layers {sorted(nodes)}, score maxima of "
+                         f"{len(maxima)} layers")
+    blocked = [name for layer, names in sorted(nodes.items()) if maxima[layer] > SCORE_LIMIT
+               for name in names]
     converted = convert_float_to_float16(model, keep_io_types=True, node_block_list=blocked)
+    merged = merge_duplicate_casts(converted)
     removed = remove_float16_round_trips(converted, set(blocked))
     path = out_dir / GRAPH_NAME
     onnx.save(converted, str(path))
@@ -225,57 +249,93 @@ def convert_float16(source: Path, out_dir: Path, photos: list[Path]) -> dict:
         "op_block_list": sorted(DEFAULT_OP_BLOCK_LIST),
         "attention_score_limit": SCORE_LIMIT,
         "attention_score_photos": [photo.name for photo in photos],
-        "attention_score_maxima": {name: round(value, 1) for name, value in maxima.items()},
+        "attention_score_maxima_per_layer": [round(value, 1) for value in maxima],
+        "attention_nodes_per_layer": {layer: len(names) for layer, names in sorted(nodes.items())},
         "node_block_list": blocked,
+        "duplicate_casts_merged": merged,
         "float16_round_trips_removed": removed,
         "graph": describe_onnx(path),
     }
 
 
-def attention_score_nodes(model) -> list[tuple[str, str]]:
-    """(score MatMul, Softmax) name pairs: each MatMul whose output goes to a Softmax."""
+def encoder_layer_of(node) -> int | None:
+    """The encoder layer index of a node, from the `pkg.torch.onnx.name_scopes` metadata."""
+    for prop in node.metadata_props:
+        if prop.key != "pkg.torch.onnx.name_scopes":
+            continue
+        for scope in ast.literal_eval(prop.value):
+            parts = scope.split(".")
+            if parts[:4] == ["inner", "encoder", "model", "layer"] and len(parts) >= 5:
+                return int(parts[4])
+    return None
+
+
+def attention_nodes_by_layer(model) -> dict[int, list[str]]:
+    """The attention nodes of each encoder layer: each score MatMul (a MatMul whose output goes
+    to a Softmax) and its Softmax, and each `com.microsoft.MultiHeadAttention`."""
     consumers: dict[str, list] = {}
     for node in model.graph.node:
         for name in node.input:
             consumers.setdefault(name, []).append(node)
-    pairs = []
+    nodes: dict[int, list[str]] = {}
+    softmax_count = 0
     for node in model.graph.node:
-        if node.op_type != "MatMul":
+        names = []
+        if node.op_type == "MatMul":
+            softmax = [c for c in consumers.get(node.output[0], []) if c.op_type == "Softmax"]
+            if softmax:
+                names = [node.name, softmax[0].name]
+                softmax_count += 1
+        elif node.op_type == "MultiHeadAttention" and node.domain == "com.microsoft":
+            names = [node.name]
+        if not names:
             continue
-        softmax = [c for c in consumers.get(node.output[0], []) if c.op_type == "Softmax"]
-        if softmax:
-            pairs.append((node.name, softmax[0].name))
-    if len(pairs) != sum(n.op_type == "Softmax" for n in model.graph.node):
+        layer = encoder_layer_of(node)
+        if layer is None:
+            raise ValueError(f"{node.name}: no encoder layer in the name scopes")
+        nodes.setdefault(layer, []).extend(names)
+    if softmax_count != sum(n.op_type == "Softmax" for n in model.graph.node):
         raise ValueError("not every Softmax has a score MatMul input")
-    return pairs
+    return nodes
 
 
-def attention_score_maxima(source: Path, model, pairs: list[tuple[str, str]],
-                           photos: list[Path]) -> dict[str, float]:
-    """The largest absolute attention score of each score MatMul over the photos, from the
-    float32 graph on ONNX Runtime CPU (4 threads, CPU memory arena off)."""
-    import onnx
-    import onnxruntime as ort
+def calibration_score_maxima(args, photos: list[Path]) -> list[float]:
+    """`s3od_graphs.attention_score_maxima` of the source model on the calibration photos."""
+    import torch
 
-    inferred = onnx.shape_inference.infer_shapes(model)
-    value_info = {v.name: v for v in inferred.graph.value_info}
-    outputs = {n.name: n.output[0] for n in model.graph.node}
-    probe = onnx.ModelProto()
-    probe.CopyFrom(inferred)
-    del probe.graph.output[:]
-    probe.graph.output.extend([value_info[outputs[matmul]] for matmul, _ in pairs])
-    options = ort.SessionOptions()
-    options.intra_op_num_threads = 4
-    options.inter_op_num_threads = 1
-    options.enable_cpu_mem_arena = False
-    session = ort.InferenceSession(probe.SerializeToString(), options,
-                                   providers=["CPUExecutionProvider"])
-    maxima = {matmul: 0.0 for matmul, _ in pairs}
-    for photo in photos:
-        pixels, _ = graphs.letterbox(graphs.load_rgb(photo))
-        for (matmul, _), scores in zip(pairs, session.run(None, {"pixel_values": pixels})):
-            maxima[matmul] = max(maxima[matmul], float(abs(scores).max()))
-    return maxima
+    torch.set_num_threads(args.threads)
+    torch.set_grad_enabled(False)
+    model = graphs.load_model(args.source, Path(args.checkpoint))
+    return graphs.attention_score_maxima(
+        model, (graphs.letterbox(graphs.load_rgb(photo))[0] for photo in photos))
+
+
+def merge_duplicate_casts(model) -> int:
+    """Merge the Cast nodes with the same input and the same target type into the first one.
+
+    The converter writes one Cast per blocked node input, with a name and an output name made
+    from the input name. Blocked nodes that read the same tensor (the key and the value of the
+    query chunks of one layer) get Cast nodes with the same names, which is not a valid graph.
+    The merged Cast nodes compute the same tensor."""
+    graph = model.graph
+    first: dict[tuple[str, int], object] = {}
+    renamed: dict[str, str] = {}
+    merged = 0
+    for node in list(graph.node):
+        if node.op_type != "Cast":
+            continue
+        key = (node.input[0], next(a.i for a in node.attribute if a.name == "to"))
+        if key not in first:
+            first[key] = node
+            continue
+        renamed[node.output[0]] = first[key].output[0]
+        graph.node.remove(node)
+        merged += 1
+    for node in graph.node:
+        for index, name in enumerate(node.input):
+            if name in renamed:
+                node.input[index] = renamed[name]
+    return merged
 
 
 def remove_float16_round_trips(model, blocked: set[str]) -> int:
@@ -331,6 +391,11 @@ def main() -> int:
                         help="the quality set; only the photo list is used")
     parser.add_argument("--keep-identity-resize", action="store_true",
                         help="keep the Resize to the same size (DirectML runs it on the CPU)")
+    parser.add_argument("--query-chunks", type=int, default=1,
+                        help="encoder attention in this number of query chunks")
+    parser.add_argument("--attention-kernel", choices=graphs.ATTENTION_KERNELS, default="sdpa",
+                        help="attention of one chunk: MatMul-Softmax-MatMul or "
+                             "com.microsoft.MultiHeadAttention")
     args = parser.parse_args()
 
     import onnxruntime
@@ -363,8 +428,9 @@ def main() -> int:
     float16_dir.mkdir(parents=True, exist_ok=True)
     photos = [Path(args.calibration_photos) / entry["file"] for entry in
               json.loads(Path(args.calibration_prompts).read_text(encoding="utf-8"))["images"]]
+    maxima = calibration_score_maxima(args, photos)
     report16 = {**common, "float16": convert_float16(float32_dir / GRAPH_NAME, float16_dir,
-                                                     photos)}
+                                                     maxima, photos)}
     (float16_dir / "export_report.json").write_text(json.dumps(report16, indent=2) + "\n",
                                                     encoding="utf-8", newline="\n")
     print(f"[export] float16: {report16['float16']['graph']['nodes']} nodes, "

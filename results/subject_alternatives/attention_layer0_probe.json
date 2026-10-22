@@ -1,0 +1,247 @@
+{
+  "step": "issue #6: one S3OD encoder attention on DirectML in different graph forms",
+  "onnxruntime": "1.24.4",
+  "layer": 0,
+  "session_settings": {
+    "intra_op_threads": 4,
+    "inter_op_threads": 1,
+    "cpu_memory_arena": false,
+    "memory_pattern": false,
+    "execution_mode": "sequential"
+  },
+  "records": [
+    {
+      "form": "multi_head_attention",
+      "precision": "float32",
+      "query_chunks": 1,
+      "layer": 0,
+      "graph": "multi_head_attention_float32_chunks1_layer0.onnx",
+      "first_run_ms": 141.8,
+      "warm_p50_ms": 29.8,
+      "after_first_run": {
+        "dedicated_mb": 1159,
+        "shared_mb": 97
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true,
+      "max_abs_diff_to_pytorch": 0.0028858184814453125
+    },
+    {
+      "form": "matmul",
+      "precision": "float32",
+      "query_chunks": 1,
+      "layer": 0,
+      "graph": "matmul_float32_chunks1_layer0.onnx",
+      "first_run_ms": 76.2,
+      "warm_p50_ms": 36.6,
+      "after_first_run": {
+        "dedicated_mb": 1159,
+        "shared_mb": 97
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true,
+      "max_abs_diff_to_pytorch": 0.0028858184814453125
+    },
+    {
+      "form": "multi_head_attention",
+      "precision": "float16",
+      "query_chunks": 1,
+      "layer": 0,
+      "graph": "multi_head_attention_float16_chunks1_layer0.onnx",
+      "first_run_ms": 111.4,
+      "warm_p50_ms": 16.0,
+      "after_first_run": {
+        "dedicated_mb": 621,
+        "shared_mb": 66
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": false,
+      "max_abs_diff_to_pytorch": 2.199089765548706
+    },
+    {
+      "form": "matmul",
+      "precision": "float16",
+      "query_chunks": 1,
+      "layer": 0,
+      "graph": "matmul_float16_chunks1_layer0.onnx",
+      "first_run_ms": 49.4,
+      "warm_p50_ms": 25.1,
+      "after_first_run": {
+        "dedicated_mb": 621,
+        "shared_mb": 66
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": false,
+      "max_abs_diff_to_pytorch": 2.199089765548706
+    },
+    {
+      "form": "add",
+      "precision": "float32",
+      "query_chunks": 1,
+      "layer": 0,
+      "graph": "add_float32_chunks1_layer0.onnx",
+      "first_run_ms": 20.6,
+      "warm_p50_ms": 10.4,
+      "after_first_run": {
+        "dedicated_mb": 80,
+        "shared_mb": 90
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true
+    },
+    {
+      "form": "multi_head_attention",
+      "precision": "float32",
+      "query_chunks": 4,
+      "layer": 0,
+      "graph": "multi_head_attention_float32_chunks4_layer0.onnx",
+      "first_run_ms": 72.0,
+      "warm_p50_ms": 32.6,
+      "after_first_run": {
+        "dedicated_mb": 1159,
+        "shared_mb": 97
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true,
+      "max_abs_diff_to_pytorch": 0.0028858184814453125
+    },
+    {
+      "form": "matmul",
+      "precision": "float32",
+      "query_chunks": 4,
+      "layer": 0,
+      "graph": "matmul_float32_chunks4_layer0.onnx",
+      "first_run_ms": 80.5,
+      "warm_p50_ms": 36.5,
+      "after_first_run": {
+        "dedicated_mb": 1159,
+        "shared_mb": 98
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true,
+      "max_abs_diff_to_pytorch": 0.0028858184814453125
+    },
+    {
+      "form": "multi_head_attention_chained",
+      "precision": "float32",
+      "query_chunks": 4,
+      "layer": 0,
+      "graph": "multi_head_attention_chained_float32_chunks4_layer0.onnx",
+      "first_run_ms": 47.3,
+      "warm_p50_ms": 29.4,
+      "after_first_run": {
+        "dedicated_mb": 391,
+        "shared_mb": 97
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true,
+      "max_abs_diff_to_pytorch": 0.0028858184814453125
+    },
+    {
+      "form": "matmul_chained",
+      "precision": "float32",
+      "query_chunks": 4,
+      "layer": 0,
+      "graph": "matmul_chained_float32_chunks4_layer0.onnx",
+      "first_run_ms": 55.7,
+      "warm_p50_ms": 37.5,
+      "after_first_run": {
+        "dedicated_mb": 391,
+        "shared_mb": 98
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true,
+      "max_abs_diff_to_pytorch": 0.0028858184814453125
+    },
+    {
+      "form": "multi_head_attention",
+      "precision": "float32",
+      "query_chunks": 16,
+      "layer": 0,
+      "graph": "multi_head_attention_float32_chunks16_layer0.onnx",
+      "first_run_ms": 109.0,
+      "warm_p50_ms": 33.0,
+      "after_first_run": {
+        "dedicated_mb": 2183,
+        "shared_mb": 96
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true,
+      "max_abs_diff_to_pytorch": 0.0028858184814453125
+    },
+    {
+      "form": "matmul",
+      "precision": "float32",
+      "query_chunks": 16,
+      "layer": 0,
+      "graph": "matmul_float32_chunks16_layer0.onnx",
+      "first_run_ms": 76.1,
+      "warm_p50_ms": 35.4,
+      "after_first_run": {
+        "dedicated_mb": 1159,
+        "shared_mb": 98
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true,
+      "max_abs_diff_to_pytorch": 0.0028858184814453125
+    },
+    {
+      "form": "multi_head_attention_chained",
+      "precision": "float32",
+      "query_chunks": 16,
+      "layer": 0,
+      "graph": "multi_head_attention_chained_float32_chunks16_layer0.onnx",
+      "first_run_ms": 50.4,
+      "warm_p50_ms": 31.1,
+      "after_first_run": {
+        "dedicated_mb": 263,
+        "shared_mb": 97
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true,
+      "max_abs_diff_to_pytorch": 0.0028858184814453125
+    },
+    {
+      "form": "matmul_chained",
+      "precision": "float32",
+      "query_chunks": 16,
+      "layer": 0,
+      "graph": "matmul_chained_float32_chunks16_layer0.onnx",
+      "first_run_ms": 51.8,
+      "warm_p50_ms": 37.2,
+      "after_first_run": {
+        "dedicated_mb": 263,
+        "shared_mb": 97
+      },
+      "executed_nodes_per_provider_in_11_runs": {
+        "DmlExecutionProvider": 11
+      },
+      "finite": true,
+      "max_abs_diff_to_pytorch": 0.0028858184814453125
+    }
+  ]
+}

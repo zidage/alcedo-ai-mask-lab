@@ -3,7 +3,8 @@
 Input:  a photo (JPEG, PNG, or TIFF) and the ONNX graphs of the earlier steps (not committed):
           SAM 2.1 tiny `point_encoder.onnx` and `point_decoder.onnx` (E4, float32),
           `people_sky_head.onnx` and `people_sky_head.json` (P1 run 2, epoch 15),
-          BiRefNet lite `subject_matte.onnx` at 1024 px (E2; float16 by default).
+          BiRefNet lite `subject_matte.onnx` at 1024 px (E2; float16 by default), or the S3OD
+          `subject_masks.onnx` of issue #6 (scripts/ai_models/s3od, `--subject-onnx`).
 Output: per selection, the low-resolution logits or the alpha, the mask at the photo size, the
         prompts, and a timing record (stage, milliseconds, graph SHA-256) in an optional JSON log.
 
@@ -20,6 +21,8 @@ and the scripts compute the same prompts and masks:
   stroke combination       E3 section 9: all points of the selection in one decoder run with the
                            previous selected logits as mask_input
   BiRefNet preprocessing   birefnet_graphs.preprocess and alpha_to_photo
+  S3OD processing          s3od_graphs.letterbox, select_mask, unpad, and masks_to_photo (the
+                           rules of the source; the graph has the outputs `masks`, `iou_scores`)
 
 Data flow (issue #5):
 
@@ -28,7 +31,7 @@ Data flow (issue #5):
   Sky      sky regions -> 3 points per region -> decoder per region -> union
   People   decode_people -> one box per person above the list threshold -> decoder per person
   Stroke, box, click     decoder (E3 rules)
-  Subject  BiRefNet lite 1024 -> alpha;  Background = 1 - alpha
+  Subject  BiRefNet lite 1024 (or S3OD 1024) -> alpha;  Background = 1 - alpha
 
 Runtime: ONNX Runtime with DirectML (`directml`) or the CPU (`cpu`). The selected provider is the
 only provider of every session; if it fails, the error stops the pipeline. CPU threads are
@@ -60,6 +63,8 @@ DEFAULT_EXPLORE = REPOSITORY / "build" / "tmp" / "explore"
 MAX_EDGE = 4096
 STROKE_POINT_COUNT = 4
 PROVIDERS = {"directml": "DmlExecutionProvider", "cpu": "CPUExecutionProvider"}
+# Subject graph kinds, by the output names of the graph.
+SUBJECT_OUTPUTS = {("alpha",): "birefnet", ("masks", "iou_scores"): "s3od"}
 ORT_ERROR_LOG_LEVEL = 3
 
 
@@ -69,6 +74,16 @@ def _load_birefnet_graphs():
     module of the same name."""
     path = SCRIPTS / "ai_models" / "birefnet" / "birefnet_graphs.py"
     spec = importlib.util.spec_from_file_location("birefnet_graphs", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _load_s3od_graphs():
+    """`scripts/ai_models/s3od/s3od_graphs.py` by its file path. The S3OD directory is not put on
+    `sys.path`: its `compare_onnx_outputs.py` has the name of the SAM 2 module."""
+    path = SCRIPTS / "ai_models" / "s3od" / "s3od_graphs.py"
+    spec = importlib.util.spec_from_file_location("s3od_graphs", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -232,6 +247,8 @@ class PhotoState:
     features: tuple[np.ndarray, np.ndarray, np.ndarray]
     head_outputs: dict[str, np.ndarray]
     subject_alpha: np.ndarray | None = None
+    # S3OD: the alpha is on the unpadded letterbox grid (long edge 1024).
+    subject_pad_info: dict | None = None
 
 
 @dataclass
@@ -321,8 +338,16 @@ class MaskPipeline:
         subject_input = self.sessions["subject_matte"].get_inputs()[0].shape
         self.subject_size = int(subject_input[-1])
         if self.subject_size != 1024:
-            raise ValueError(f"{paths.subject_onnx}: input {subject_input}, the MVP uses BiRefNet "
-                             f"lite at 1024 px")
+            raise ValueError(f"{paths.subject_onnx}: input {subject_input}, the MVP uses a "
+                             f"Subject graph at 1024 px")
+        outputs = tuple(o.name for o in self.sessions["subject_matte"].get_outputs())
+        if outputs not in SUBJECT_OUTPUTS:
+            raise ValueError(f"{paths.subject_onnx}: outputs {outputs}, not one of "
+                             f"{sorted(SUBJECT_OUTPUTS)}")
+        self.subject_kind = SUBJECT_OUTPUTS[outputs]
+        self.s3od = None
+        if self.subject_kind == "s3od":
+            self.s3od = _load_s3od_graphs()
 
     # Records.
 
@@ -460,19 +485,32 @@ class MaskPipeline:
         return result
 
     def select_subject(self, state: PhotoState) -> np.ndarray:
-        """BiRefNet lite alpha [1024, 1024] in [0, 1] (no prompt). Background is 1 - alpha."""
+        """Subject alpha in [0, 1] (no prompt). Background is 1 - alpha. BiRefNet lite: the
+        [1024, 1024] alpha. S3OD: the mask with the largest IoU score, unpadded (the photo aspect
+        with the long edge 1024). The stage name of the record is the graph kind."""
         if state.subject_alpha is None:
-            pixels = self.birefnet.preprocess(state.photo.image, self.subject_size).numpy()
-            (alpha,), _ = self._run("subject_matte", {"pixel_values": pixels}, "birefnet",
-                                    photo=state.photo.path.name)
-            state.subject_alpha = alpha[0, 0]
+            if self.subject_kind == "s3od":
+                pixels, info = self.s3od.letterbox(np.asarray(state.photo.image),
+                                                   self.subject_size)
+                (masks, iou_scores), _ = self._run("subject_matte", {"pixel_values": pixels},
+                                                   "s3od", photo=state.photo.path.name)
+                alpha, _ = self.s3od.select_mask(masks, iou_scores)
+                state.subject_alpha = self.s3od.unpad(alpha[None], info)[0]
+                state.subject_pad_info = info
+            else:
+                pixels = self.birefnet.preprocess(state.photo.image, self.subject_size).numpy()
+                (alpha,), _ = self._run("subject_matte", {"pixel_values": pixels}, "birefnet",
+                                        photo=state.photo.path.name)
+                state.subject_alpha = alpha[0, 0]
         return state.subject_alpha
 
     def subject_alpha_at_photo(self, state: PhotoState, width: int | None = None,
                                height: int | None = None) -> np.ndarray:
         alpha = self.select_subject(state)
-        return self.birefnet.alpha_to_photo(alpha, width or state.photo.width,
-                                            height or state.photo.height)
+        width, height = width or state.photo.width, height or state.photo.height
+        if self.subject_kind == "s3od":
+            return self.s3od.masks_to_photo(alpha[None], height, width)[0].clip(0.0, 1.0)
+        return self.birefnet.alpha_to_photo(alpha, width, height)
 
     def new_selection(self, state: PhotoState,
                       stroke_point_count: int = STROKE_POINT_COUNT) -> "PromptSelection":

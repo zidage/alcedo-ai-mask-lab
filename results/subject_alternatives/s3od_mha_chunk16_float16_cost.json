@@ -1,0 +1,242 @@
+{
+  "model": "s3od",
+  "provider": "directml",
+  "onnxruntime": "1.24.4",
+  "graph": "build/tmp/explore/s3od/onnx_mha_chunk16/float16/subject_masks.onnx",
+  "graph_bytes": 220991281,
+  "graph_sha256": "39f561068a43054d48e67ee4bd913f40211ee8cc72b44a1c64cd5a9e81115a8f",
+  "warm_photo": "DSC_1535.jpg",
+  "session_settings": {
+    "intra_op_threads": 4,
+    "inter_op_threads": 1,
+    "cpu_memory_arena": false,
+    "memory_pattern": false,
+    "execution_mode": "sequential"
+  },
+  "phases": [
+    {
+      "phase": "before load",
+      "dedicated_mb": 0,
+      "shared_mb": 0,
+      "working_set_mb": 231,
+      "peak_working_set_mb": 325,
+      "time": "2026-10-21T21:33:03"
+    },
+    {
+      "phase": "session load",
+      "ms": 1401.6,
+      "dedicated_mb": 300,
+      "shared_mb": 244,
+      "working_set_mb": 750,
+      "peak_working_set_mb": 760,
+      "time": "2026-10-21T21:33:06"
+    },
+    {
+      "phase": "first run",
+      "ms": 282.6,
+      "dedicated_mb": 1360,
+      "shared_mb": 273,
+      "working_set_mb": 779,
+      "peak_working_set_mb": 791,
+      "time": "2026-10-21T21:33:08"
+    },
+    {
+      "phase": "warm runs",
+      "count": 20,
+      "p50": 223.5,
+      "p95": 242.9,
+      "max": 243.4,
+      "min": 219.6,
+      "dedicated_mb": 1360,
+      "shared_mb": 274,
+      "working_set_mb": 781,
+      "peak_working_set_mb": 791,
+      "time": "2026-10-21T21:33:14"
+    },
+    {
+      "phase": "photos",
+      "count": 14,
+      "p50": 219.5,
+      "p95": 221.9,
+      "max": 222.0,
+      "min": 217.2,
+      "dedicated_mb": 1360,
+      "shared_mb": 274,
+      "working_set_mb": 794,
+      "peak_working_set_mb": 806,
+      "time": "2026-10-21T21:33:19"
+    },
+    {
+      "phase": "session released",
+      "dedicated_mb": 91,
+      "shared_mb": 39,
+      "working_set_mb": 575,
+      "peak_working_set_mb": 806,
+      "time": "2026-10-21T21:33:20"
+    }
+  ],
+  "warm_runs_ms": [
+    228.3,
+    243.4,
+    242.9,
+    235.6,
+    227.9,
+    222.9,
+    230.1,
+    222.7,
+    227.5,
+    232.1,
+    230.4,
+    223.3,
+    223.6,
+    222.3,
+    221.7,
+    220.1,
+    223.3,
+    223.2,
+    222.3,
+    219.6
+  ],
+  "photos": [
+    {
+      "image": "DSC_1535.jpg",
+      "ms": 217.2,
+      "selected_mask": 0,
+      "iou_scores": [
+        0.99219,
+        0.99023,
+        0.99121
+      ]
+    },
+    {
+      "image": "DSC00326.jpg",
+      "ms": 217.8,
+      "selected_mask": 0,
+      "iou_scores": [
+        0.9751,
+        0.97168,
+        0.97314
+      ]
+    },
+    {
+      "image": "DSC00674.jpg",
+      "ms": 218.5,
+      "selected_mask": 1,
+      "iou_scores": [
+        0.9873,
+        0.99023,
+        0.98096
+      ]
+    },
+    {
+      "image": "DSC00936.jpg",
+      "ms": 220.9,
+      "selected_mask": 0,
+      "iou_scores": [
+        0.96973,
+        0.96533,
+        0.96143
+      ]
+    },
+    {
+      "image": "P1024439.jpg",
+      "ms": 221.0,
+      "selected_mask": 2,
+      "iou_scores": [
+        0.05679,
+        0.90283,
+        0.93262
+      ]
+    },
+    {
+      "image": "DSC_1188.jpg",
+      "ms": 218.7,
+      "selected_mask": 1,
+      "iou_scores": [
+        0.9707,
+        0.97607,
+        0.9707
+      ]
+    },
+    {
+      "image": "DSC00527.jpg",
+      "ms": 219.4,
+      "selected_mask": 1,
+      "iou_scores": [
+        0.91602,
+        0.95605,
+        0.94971
+      ]
+    },
+    {
+      "image": "2088064441.jpg",
+      "ms": 220.9,
+      "selected_mask": 1,
+      "iou_scores": [
+        0.90918,
+        0.96143,
+        0.96045
+      ]
+    },
+    {
+      "image": "DSC00728.jpg",
+      "ms": 222.0,
+      "selected_mask": 1,
+      "iou_scores": [
+        0.95068,
+        0.96143,
+        0.95898
+      ]
+    },
+    {
+      "image": "5761824892.jpg",
+      "ms": 218.7,
+      "selected_mask": 0,
+      "iou_scores": [
+        0.98535,
+        0.98291,
+        0.979
+      ]
+    },
+    {
+      "image": "DSC00562.jpg",
+      "ms": 219.0,
+      "selected_mask": 0,
+      "iou_scores": [
+        0.97998,
+        0.97705,
+        0.32373
+      ]
+    },
+    {
+      "image": "DSC00602.jpg",
+      "ms": 219.6,
+      "selected_mask": 1,
+      "iou_scores": [
+        0.98096,
+        0.98828,
+        0.98535
+      ]
+    },
+    {
+      "image": "DSC_1456.jpg",
+      "ms": 221.8,
+      "selected_mask": 0,
+      "iou_scores": [
+        0.98193,
+        0.97998,
+        0.97803
+      ]
+    },
+    {
+      "image": "Nikon-D800e-raw-00007.jpg",
+      "ms": 220.7,
+      "selected_mask": 1,
+      "iou_scores": [
+        0.93604,
+        0.94531,
+        0.93945
+      ]
+    }
+  ]
+}

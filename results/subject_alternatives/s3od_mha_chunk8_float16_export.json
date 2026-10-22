@@ -1,0 +1,207 @@
+{
+  "model": "S3OD s3od-synth",
+  "revisions": {
+    "huggingface": {
+      "repository": "okupyn/s3od-synth",
+      "revision": "4b40ce663c31fdfbb446a347282960033e624b4d",
+      "files": [
+        "s3od.pt",
+        "README.md"
+      ]
+    },
+    "github": {
+      "repository": "KupynOrest/s3od",
+      "commit": "11385423e8d04d78b19e71cb166971b79c49f4fe"
+    }
+  },
+  "checkpoint": {
+    "name": "s3od.pt",
+    "bytes": 464526126,
+    "sha256": "c67f26415ad5493edaac48c8f2a08fecb1d9933aed2ed473e8ad713b93b8e5f3"
+  },
+  "model_input": {
+    "size": 1024,
+    "resize": "long edge to size, OpenCV INTER_LINEAR, centered on a black size x size image",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "onnxruntime": "1.31.0",
+  "float16": {
+    "source": "build/tmp/explore/s3od/onnx_mha_chunk8_final/float32/subject_masks.onnx",
+    "converter": "onnxruntime.transformers.float16.convert_float_to_float16",
+    "keep_io_types": true,
+    "op_block_list": [
+      "ArrayFeatureExtractor",
+      "Binarizer",
+      "CastMap",
+      "CategoryMapper",
+      "CumSum",
+      "DictVectorizer",
+      "FeatureVectorizer",
+      "Imputer",
+      "LabelEncoder",
+      "LinearClassifier",
+      "LinearRegressor",
+      "Max",
+      "Min",
+      "NonMaxSuppression",
+      "Normalizer",
+      "OneHotEncoder",
+      "RandomUniformLike",
+      "Range",
+      "RoiAlign",
+      "SVMClassifier",
+      "SVMRegressor",
+      "Scaler",
+      "TopK",
+      "TreeEnsemble",
+      "TreeEnsembleClassifier",
+      "TreeEnsembleRegressor",
+      "Upsample",
+      "ZipMap"
+    ],
+    "attention_score_limit": 4094.0,
+    "attention_score_photos": [
+      "DSC_1535.jpg",
+      "DSC00326.jpg",
+      "DSC00674.jpg",
+      "DSC00936.jpg",
+      "P1024439.jpg",
+      "DSC_1188.jpg",
+      "DSC00527.jpg",
+      "2088064441.jpg",
+      "DSC00728.jpg",
+      "5761824892.jpg",
+      "DSC00562.jpg",
+      "DSC00602.jpg",
+      "DSC_1456.jpg",
+      "Nikon-D800e-raw-00007.jpg"
+    ],
+    "attention_score_maxima_per_layer": [
+      135150.7,
+      66.5,
+      482.3,
+      363.5,
+      149.2,
+      135.2,
+      67.0,
+      42.0,
+      43.1,
+      27.2,
+      34.1,
+      28.8
+    ],
+    "attention_nodes_per_layer": {
+      "0": 8,
+      "1": 8,
+      "2": 8,
+      "3": 8,
+      "4": 8,
+      "5": 8,
+      "6": 8,
+      "7": 8,
+      "8": 8,
+      "9": 8,
+      "10": 8
+    },
+    "node_block_list": [
+      "node_multi_head_attention",
+      "node_multi_head_attention_1",
+      "node_multi_head_attention_2",
+      "node_multi_head_attention_3",
+      "node_multi_head_attention_4",
+      "node_multi_head_attention_5",
+      "node_multi_head_attention_6",
+      "node_multi_head_attention_7"
+    ],
+    "duplicate_casts_merged": 14,
+    "float16_round_trips_removed": 0,
+    "graph": {
+      "opset": [
+        {
+          "domain": "ai.onnx",
+          "version": 18
+        },
+        {
+          "domain": "com.microsoft",
+          "version": 1
+        }
+      ],
+      "inputs": [
+        {
+          "name": "pixel_values",
+          "shape": [
+            1,
+            3,
+            1024,
+            1024
+          ],
+          "type": "float"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "masks",
+          "shape": [
+            1,
+            3,
+            1024,
+            1024
+          ],
+          "type": "float"
+        },
+        {
+          "name": "iou_scores",
+          "shape": [
+            1,
+            3
+          ],
+          "type": "float"
+        }
+      ],
+      "nodes": 1265,
+      "operators": {
+        "Reshape": 249,
+        "Add": 197,
+        "Mul": 165,
+        "Transpose": 126,
+        "MultiHeadAttention": 88,
+        "ReduceMax": 77,
+        "MatMul": 66,
+        "Concat": 57,
+        "Slice": 48,
+        "Conv": 36,
+        "Split": 33,
+        "LayerNormalization": 22,
+        "Neg": 22,
+        "Cast": 22,
+        "Relu": 20,
+        "Div": 11,
+        "Erf": 11,
+        "Resize": 4,
+        "ConvTranspose": 3,
+        "Gemm": 2,
+        "Sigmoid": 2,
+        "Tile": 1,
+        "Cos": 1,
+        "Sin": 1,
+        "ReduceMean": 1
+      },
+      "files": [
+        {
+          "name": "subject_masks.onnx",
+          "bytes": 219301899,
+          "sha256": "0f070b8641676d68faaafc0b70816be1458fcc976d8d6d119e67038527cbc288"
+        }
+      ]
+    }
+  }
+}

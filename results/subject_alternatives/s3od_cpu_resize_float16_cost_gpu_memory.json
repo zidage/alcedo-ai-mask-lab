@@ -1,0 +1,220 @@
+{
+  "source": "Windows performance counters: GPU Process Memory (Dedicated Usage, Shared Usage)",
+  "exit_code": 0,
+  "interval_ms": 250,
+  "peak_dedicated_bytes": 4243402752.0,
+  "peak_shared_bytes": 2147700736.0,
+  "sample_count": 42,
+  "samples": [
+    {
+      "seconds": 4.41,
+      "dedicated_bytes": 308994048.0,
+      "shared_bytes": 254627840.0
+    },
+    {
+      "seconds": 5.68,
+      "dedicated_bytes": 4224249856.0,
+      "shared_bytes": 939347968.0
+    },
+    {
+      "seconds": 6.96,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 8.24,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 9.5,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 10.77,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 12.04,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 13.31,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 14.91,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 16.19,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 17.46,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 18.74,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 20.01,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 21.29,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 22.56,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 23.82,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 25.41,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 26.68,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 27.95,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 29.22,
+      "dedicated_bytes": 4243398656.0,
+      "shared_bytes": 2147307520.0
+    },
+    {
+      "seconds": 30.47,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 31.74,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 33.01,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 34.28,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 36.03,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 37.31,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 38.58,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 39.84,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 41.11,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 42.38,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 43.65,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 44.93,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 46.59,
+      "dedicated_bytes": 4242485248.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 47.85,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 49.11,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 50.39,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 51.66,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 52.94,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 54.21,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 55.48,
+      "dedicated_bytes": 4243402752.0,
+      "shared_bytes": 2147700736.0
+    },
+    {
+      "seconds": 57.03,
+      "dedicated_bytes": 90959872.0,
+      "shared_bytes": 39526400.0
+    },
+    {
+      "seconds": 58.31,
+      "dedicated_bytes": 90959872.0,
+      "shared_bytes": 39526400.0
+    }
+  ]
+}

@@ -13,6 +13,7 @@ local; run the commands of the script README to make them again.
 | [`p0_sam_feature_localization/`](p0_sam_feature_localization/) | P0, issue [#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1) | [P0 report](../docs/exploration/p0_sam_feature_localization.md) |
 | [`p1_people_sky_head/`](p1_people_sky_head/) | P1 (README section 5, step 1), issue [#1](https://github.com/zidage/alcedo-ai-mask-lab/issues/1) | [P1 report](../docs/exploration/p1_people_sky_head.md) |
 | [`ai_mask_mvp/`](ai_mask_mvp/) | AI Mask MVP, issue [#5](https://github.com/zidage/alcedo-ai-mask-lab/issues/5) | [MVP report](../docs/exploration/mvp_ai_mask.md) |
+| [`subject_alternatives/`](subject_alternatives/) | Subject models in place of BiRefNet lite, issue [#6](https://github.com/zidage/alcedo-ai-mask-lab/issues/6) | [Subject alternatives report](../docs/exploration/subject_alternatives.md) |
 
 ## `p0_sam_feature_localization/`
 
@@ -49,3 +50,23 @@ local; run the commands of the script README to make them again.
 | `birefnet_memory_phases.json` | GPU memory of the BiRefNet DirectML session per phase, and the refused arena shrinkage run options | `measure_birefnet_memory_phases.py` |
 | `birefnet_load_time.json` | BiRefNet session creation time per graph optimization level and with a saved optimized graph | `measure_birefnet_load_time.py` |
 | `gpu_reset_events.json` | Windows System events 4101 and `nvlddmkm` 153 (display driver resets) of 2026-10-21 | `Get-WinEvent` (MVP report, section 9) |
+
+## `subject_alternatives/`
+
+Scripts: [`scripts/ai_models/s3od/`](../scripts/ai_models/s3od/README.md). `<graph>` is one of
+`s3od_float32`, `s3od_float16` (the export of `export_onnx.py`), `s3od_cpu_resize_float32`,
+`s3od_cpu_resize_float16` (`--keep-identity-resize`), and `birefnet_lite_float16` (the MVP
+graph). The files with `_float16_overflow` (float16 attention scores in all layers: NaN output on
+DirectML) and `_float16_all_attention_float32` (all attention scores in float32) record the
+earlier float16 forms of report section 4.3; they are not candidates.
+
+| File | Content | Script |
+| --- | --- | --- |
+| `s3od_comparison_cpu.json` | ONNX Runtime CPU against the PyTorch model of the source, per graph and photo: mask and IoU score differences, selected mask, photo-size IoU | `compare_onnx_outputs.py` |
+| `s3od_float32_spread.json` | Float32 differences of PyTorch against itself and of ONNX Runtime with and without graph optimizations | `measure_float32_spread.py` |
+| `<graph>_placement.json` | DirectML partitions and CPU nodes from an ONNX Runtime profile | `profile_operator_placement.py` |
+| `<graph>_cost.json` | Session load, first run, warm and per-photo times, GPU memory and working set per phase, graph hash | `measure_directml_cost.py` |
+| `<graph>_cost_gpu_memory.json` | Peak dedicated and shared GPU memory and the samples of that run | `run_with_gpu_memory.ps1` |
+| `<graph>_first_runs.json` | First runs in new processes, with the System events 153 and 4101 of each run | `measure_first_runs.py` |
+| `quality.json` | Per alpha and photo: foreground, soft share, edge width, parts, holes, islands, subject recall, outside box, IoU with the BiRefNet lite and the S3OD float32 masks; means | `probe_subject_masks.py` |
+| `gpu_reset_events.json` | Windows System events 4101 and `nvlddmkm` 153 of 2026-10-21 17:50 to the end of the runs | `Get-WinEvent` (report section 5.4) |

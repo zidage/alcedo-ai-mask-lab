@@ -1,0 +1,21 @@
+{
+  "model": "s3od",
+  "graph": "build/tmp/explore/s3od/onnx/float16/subject_masks.onnx",
+  "onnxruntime": "1.24.4",
+  "photo": "DSC_1535.jpg",
+  "runs": 2,
+  "graph_operators": {},
+  "executed_nodes": {
+    "CPUExecutionProvider": 3,
+    "DmlExecutionProvider": 4
+  },
+  "kernel_ms_per_run": {
+    "CPUExecutionProvider": 77.0,
+    "DmlExecutionProvider": 329.5
+  },
+  "cpu_nodes_per_operator": {
+    "Cast": 2,
+    "Resize": 1
+  },
+  "profile": "build/tmp/explore/s3od/placement/profiles_s3od_float16/s3od_float16_2026-10-21_18-30-35.json"
+}

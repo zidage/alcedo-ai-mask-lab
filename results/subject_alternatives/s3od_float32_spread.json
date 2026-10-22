@@ -1,0 +1,97 @@
+{
+  "onnxruntime": "1.31.0",
+  "torch": "2.14.1+cpu",
+  "graph": "build/tmp/explore/s3od/onnx/float32/subject_masks.onnx",
+  "results": [
+    {
+      "image": "P1024439.jpg",
+      "pairs": {
+        "torch_4_threads vs torch_1_thread": {
+          "max_abs_masks_diff": 0.00010406970977783203,
+          "max_abs_iou_diff": 1.1920928955078125e-07
+        },
+        "torch_4_threads vs torch_eager_attention": {
+          "max_abs_masks_diff": 0.00011801719665527344,
+          "max_abs_iou_diff": 4.172325134277344e-07
+        },
+        "torch_4_threads vs onnx_all": {
+          "max_abs_masks_diff": 0.0010896623134613037,
+          "max_abs_iou_diff": 1.3709068298339844e-06
+        },
+        "torch_4_threads vs onnx_disabled": {
+          "max_abs_masks_diff": 0.0010981559753417969,
+          "max_abs_iou_diff": 7.152557373046875e-07
+        },
+        "torch_1_thread vs torch_eager_attention": {
+          "max_abs_masks_diff": 0.00022208690643310547,
+          "max_abs_iou_diff": 4.172325134277344e-07
+        },
+        "torch_1_thread vs onnx_all": {
+          "max_abs_masks_diff": 0.0010705888271331787,
+          "max_abs_iou_diff": 1.3709068298339844e-06
+        },
+        "torch_1_thread vs onnx_disabled": {
+          "max_abs_masks_diff": 0.0011172294616699219,
+          "max_abs_iou_diff": 7.152557373046875e-07
+        },
+        "torch_eager_attention vs onnx_all": {
+          "max_abs_masks_diff": 0.0010537207126617432,
+          "max_abs_iou_diff": 1.7881393432617188e-06
+        },
+        "torch_eager_attention vs onnx_disabled": {
+          "max_abs_masks_diff": 0.0011340975761413574,
+          "max_abs_iou_diff": 1.1324882507324219e-06
+        },
+        "onnx_all vs onnx_disabled": {
+          "max_abs_masks_diff": 0.0021878182888031006,
+          "max_abs_iou_diff": 6.556510925292969e-07
+        }
+      }
+    },
+    {
+      "image": "DSC00562.jpg",
+      "pairs": {
+        "torch_4_threads vs torch_1_thread": {
+          "max_abs_masks_diff": 0.00015658140182495117,
+          "max_abs_iou_diff": 6.854534149169922e-07
+        },
+        "torch_4_threads vs torch_eager_attention": {
+          "max_abs_masks_diff": 0.0010906457901000977,
+          "max_abs_iou_diff": 8.046627044677734e-06
+        },
+        "torch_4_threads vs onnx_all": {
+          "max_abs_masks_diff": 0.0009294748306274414,
+          "max_abs_iou_diff": 5.0961971282958984e-06
+        },
+        "torch_4_threads vs onnx_disabled": {
+          "max_abs_masks_diff": 0.0016383528709411621,
+          "max_abs_iou_diff": 1.0311603546142578e-05
+        },
+        "torch_1_thread vs torch_eager_attention": {
+          "max_abs_masks_diff": 0.0012363791465759277,
+          "max_abs_iou_diff": 8.732080459594727e-06
+        },
+        "torch_1_thread vs onnx_all": {
+          "max_abs_masks_diff": 0.0010796189308166504,
+          "max_abs_iou_diff": 5.781650543212891e-06
+        },
+        "torch_1_thread vs onnx_disabled": {
+          "max_abs_masks_diff": 0.0017949342727661133,
+          "max_abs_iou_diff": 1.099705696105957e-05
+        },
+        "torch_eager_attention vs onnx_all": {
+          "max_abs_masks_diff": 0.000662386417388916,
+          "max_abs_iou_diff": 2.950429916381836e-06
+        },
+        "torch_eager_attention vs onnx_disabled": {
+          "max_abs_masks_diff": 0.0010923147201538086,
+          "max_abs_iou_diff": 2.2649765014648438e-06
+        },
+        "onnx_all vs onnx_disabled": {
+          "max_abs_masks_diff": 0.0007278919219970703,
+          "max_abs_iou_diff": 5.21540641784668e-06
+        }
+      }
+    }
+  ]
+}

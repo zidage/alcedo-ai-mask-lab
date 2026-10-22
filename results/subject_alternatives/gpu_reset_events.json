@@ -1,0 +1,126 @@
+{
+  "source": "Windows System event log: Display event 4101 (display driver stopped responding and recovered) and nvlddmkm event 153, 2026-10-21 from 17:50 local time to the end of the issue #6 runs",
+  "read": "2026-10-21T20:17:54",
+  "events": [
+    {
+      "time": "2026-10-21T18:13:33",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T18:14:05",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T18:14:12",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T18:14:27",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T18:30:48",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T18:31:48",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T18:31:52",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T18:31:53",
+      "id": 4101,
+      "provider": "Display"
+    },
+    {
+      "time": "2026-10-21T19:00:07",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:01:08",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:01:11",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:01:12",
+      "id": 4101,
+      "provider": "Display"
+    },
+    {
+      "time": "2026-10-21T19:01:32",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:02:32",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:02:36",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:02:37",
+      "id": 4101,
+      "provider": "Display"
+    },
+    {
+      "time": "2026-10-21T19:03:15",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:04:15",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:04:19",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:04:20",
+      "id": 4101,
+      "provider": "Display"
+    },
+    {
+      "time": "2026-10-21T19:05:16",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:06:16",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:06:19",
+      "id": 153,
+      "provider": "nvlddmkm"
+    },
+    {
+      "time": "2026-10-21T19:06:20",
+      "id": 4101,
+      "provider": "Display"
+    }
+  ]
+}

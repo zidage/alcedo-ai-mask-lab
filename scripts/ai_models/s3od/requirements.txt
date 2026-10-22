@@ -1,0 +1,20 @@
+# Export and CPU comparison environment (Python 3.14): the BiRefNet environment of E2
+# (scripts/ai_models/birefnet/requirements.txt) has these packages. Install the CPU build of
+# PyTorch from its own index:
+#   python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+# The S3OD model code comes from the KupynOrest/s3od checkout (not a package install).
+# The DirectML measurements use the MVP environment (scripts/poc/ai_mask_mvp/requirements.txt,
+# onnxruntime-directml 1.24.4).
+torch==2.14.1+cpu
+torchvision==0.29.1+cpu
+onnx==1.23.2
+onnxruntime==1.31.0
+# The dynamo exporter of torch.onnx.export uses onnxscript and onnx-ir.
+onnxscript==0.7.2
+onnx-ir==1.0.0
+numpy==2.5.2
+pillow==12.3.0
+opencv-python==5.0.0.93
+# DINOv3ViTModel of the S3OD encoder; s3od.predictor imports huggingface_hub.
+transformers==5.20.2
+huggingface_hub==2.2.0

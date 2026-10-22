@@ -1,0 +1,15 @@
+# Export and CPU comparison environment (Python 3.14): the BiRefNet environment of E2
+# (scripts/ai_models/birefnet/README.md, build/tmp/explore/venv_birefnet) has these packages.
+# Install the CPU build of PyTorch from its own index:
+#   python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+# The IS-Net model code comes from the xuebinqin/DIS checkout (not a package install); its
+# models/isnet.py imports torchvision.
+# The DirectML measurements use the MVP environment (scripts/poc/ai_mask_mvp/requirements.txt,
+# onnxruntime-directml 1.24.4) with the scripts of scripts/ai_models/s3od/.
+torch==2.14.1+cpu
+torchvision==0.29.1+cpu
+onnx==1.23.2
+# onnxruntime.transformers.float16 converts the float16 graph.
+onnxruntime==1.31.0
+numpy==2.5.2
+pillow==12.3.0

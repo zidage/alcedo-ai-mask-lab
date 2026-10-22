@@ -1,0 +1,214 @@
+{
+  "model": "isnet",
+  "provider": "directml",
+  "onnxruntime": "1.24.4",
+  "graph": "build/tmp/explore/isnet/onnx/float32/subject_d1.onnx",
+  "graph_bytes": 176127344,
+  "graph_sha256": "f3622a65abdb5d089e1b363880a12e9ef2cd0a3aff32e19fad1872d83b3b58e7",
+  "warm_photo": "DSC_1535.jpg",
+  "session_settings": {
+    "intra_op_threads": 4,
+    "inter_op_threads": 1,
+    "cpu_memory_arena": false,
+    "memory_pattern": false,
+    "execution_mode": "sequential"
+  },
+  "phases": [
+    {
+      "phase": "before load",
+      "dedicated_mb": 0,
+      "shared_mb": 0,
+      "working_set_mb": 395,
+      "peak_working_set_mb": 594,
+      "time": "2026-10-21T22:23:34"
+    },
+    {
+      "phase": "session load",
+      "ms": 908.4,
+      "dedicated_mb": 467,
+      "shared_mb": 203,
+      "working_set_mb": 790,
+      "peak_working_set_mb": 790,
+      "time": "2026-10-21T22:23:36"
+    },
+    {
+      "phase": "first run",
+      "ms": 62.7,
+      "dedicated_mb": 1000,
+      "shared_mb": 220,
+      "working_set_mb": 807,
+      "peak_working_set_mb": 811,
+      "time": "2026-10-21T22:23:38"
+    },
+    {
+      "phase": "warm runs",
+      "count": 20,
+      "p50": 29.2,
+      "p95": 57.4,
+      "max": 58.6,
+      "min": 28.3,
+      "dedicated_mb": 1000,
+      "shared_mb": 222,
+      "working_set_mb": 809,
+      "peak_working_set_mb": 812,
+      "time": "2026-10-21T22:23:40"
+    },
+    {
+      "phase": "photos",
+      "count": 14,
+      "p50": 27.4,
+      "p95": 27.9,
+      "max": 28.2,
+      "min": 26.9,
+      "dedicated_mb": 1000,
+      "shared_mb": 222,
+      "working_set_mb": 815,
+      "peak_working_set_mb": 827,
+      "time": "2026-10-21T22:23:42"
+    },
+    {
+      "phase": "session released",
+      "dedicated_mb": 74,
+      "shared_mb": 36,
+      "working_set_mb": 815,
+      "peak_working_set_mb": 827,
+      "time": "2026-10-21T22:23:44"
+    }
+  ],
+  "warm_runs_ms": [
+    57.4,
+    58.6,
+    49.0,
+    46.0,
+    45.2,
+    45.8,
+    38.0,
+    29.4,
+    28.3,
+    28.7,
+    29.3,
+    28.6,
+    29.2,
+    29.0,
+    28.5,
+    29.2,
+    28.3,
+    29.0,
+    28.7,
+    29.4
+  ],
+  "photos": [
+    {
+      "image": "DSC_1535.jpg",
+      "ms": 27.4,
+      "d1_range": [
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "image": "DSC00326.jpg",
+      "ms": 27.1,
+      "d1_range": [
+        0.0,
+        0.999995
+      ]
+    },
+    {
+      "image": "DSC00674.jpg",
+      "ms": 27.5,
+      "d1_range": [
+        0.0,
+        0.999979
+      ]
+    },
+    {
+      "image": "DSC00936.jpg",
+      "ms": 27.2,
+      "d1_range": [
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "image": "P1024439.jpg",
+      "ms": 27.4,
+      "d1_range": [
+        0.0,
+        0.999994
+      ]
+    },
+    {
+      "image": "DSC_1188.jpg",
+      "ms": 28.2,
+      "d1_range": [
+        0.0,
+        0.999998
+      ]
+    },
+    {
+      "image": "DSC00527.jpg",
+      "ms": 27.3,
+      "d1_range": [
+        0.0,
+        0.999954
+      ]
+    },
+    {
+      "image": "2088064441.jpg",
+      "ms": 27.0,
+      "d1_range": [
+        0.0,
+        0.999998
+      ]
+    },
+    {
+      "image": "DSC00728.jpg",
+      "ms": 27.5,
+      "d1_range": [
+        0.0,
+        0.999664
+      ]
+    },
+    {
+      "image": "5761824892.jpg",
+      "ms": 27.6,
+      "d1_range": [
+        0.0,
+        0.999996
+      ]
+    },
+    {
+      "image": "DSC00562.jpg",
+      "ms": 26.9,
+      "d1_range": [
+        0.0,
+        0.988256
+      ]
+    },
+    {
+      "image": "DSC00602.jpg",
+      "ms": 27.7,
+      "d1_range": [
+        0.0,
+        0.999999
+      ]
+    },
+    {
+      "image": "DSC_1456.jpg",
+      "ms": 27.2,
+      "d1_range": [
+        0.0,
+        0.999999
+      ]
+    },
+    {
+      "image": "Nikon-D800e-raw-00007.jpg",
+      "ms": 27.6,
+      "d1_range": [
+        0.0,
+        0.046928
+      ]
+    }
+  ]
+}

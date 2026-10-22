@@ -4,7 +4,8 @@ Input:  a photo (JPEG, PNG, or TIFF) and the ONNX graphs of the earlier steps (n
           SAM 2.1 tiny `point_encoder.onnx` and `point_decoder.onnx` (E4, float32),
           `people_sky_head.onnx` and `people_sky_head.json` (P1 run 2, epoch 15),
           BiRefNet lite `subject_matte.onnx` at 1024 px (E2; float16 by default), or the S3OD
-          `subject_masks.onnx` of issue #6 (scripts/ai_models/s3od, `--subject-onnx`).
+          `subject_masks.onnx` or the IS-Net general-use `subject_d1.onnx` of issue #6
+          (scripts/ai_models/s3od, scripts/ai_models/isnet, `--subject-onnx`).
 Output: per selection, the low-resolution logits or the alpha, the mask at the photo size, the
         prompts, and a timing record (stage, milliseconds, graph SHA-256) in an optional JSON log.
 
@@ -23,6 +24,8 @@ and the scripts compute the same prompts and masks:
   BiRefNet preprocessing   birefnet_graphs.preprocess and alpha_to_photo
   S3OD processing          s3od_graphs.letterbox, select_mask, unpad, and masks_to_photo (the
                            rules of the source; the graph has the outputs `masks`, `iou_scores`)
+  IS-Net processing        isnet_graphs.preprocess, normalize_range, and alpha_to_photo (the
+                           rules of the DIS `Inference.py`; the graph has the output `d1`)
 
 Data flow (issue #5):
 
@@ -31,7 +34,7 @@ Data flow (issue #5):
   Sky      sky regions -> 3 points per region -> decoder per region -> union
   People   decode_people -> one box per person above the list threshold -> decoder per person
   Stroke, box, click     decoder (E3 rules)
-  Subject  BiRefNet lite 1024 (or S3OD 1024) -> alpha;  Background = 1 - alpha
+  Subject  BiRefNet lite 1024 (or S3OD 1024, or IS-Net 1024) -> alpha;  Background = 1 - alpha
 
 Runtime: ONNX Runtime with DirectML (`directml`) or the CPU (`cpu`). The selected provider is the
 only provider of every session; if it fails, the error stops the pipeline. CPU threads are
@@ -64,7 +67,7 @@ MAX_EDGE = 4096
 STROKE_POINT_COUNT = 4
 PROVIDERS = {"directml": "DmlExecutionProvider", "cpu": "CPUExecutionProvider"}
 # Subject graph kinds, by the output names of the graph.
-SUBJECT_OUTPUTS = {("alpha",): "birefnet", ("masks", "iou_scores"): "s3od"}
+SUBJECT_OUTPUTS = {("alpha",): "birefnet", ("masks", "iou_scores"): "s3od", ("d1",): "isnet"}
 ORT_ERROR_LOG_LEVEL = 3
 
 
@@ -84,6 +87,16 @@ def _load_s3od_graphs():
     `sys.path`: its `compare_onnx_outputs.py` has the name of the SAM 2 module."""
     path = SCRIPTS / "ai_models" / "s3od" / "s3od_graphs.py"
     spec = importlib.util.spec_from_file_location("s3od_graphs", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _load_isnet_graphs():
+    """`scripts/ai_models/isnet/isnet_graphs.py` by its file path. The IS-Net directory is not put
+    on `sys.path`: its `compare_onnx_outputs.py` has the name of the SAM 2 module."""
+    path = SCRIPTS / "ai_models" / "isnet" / "isnet_graphs.py"
+    spec = importlib.util.spec_from_file_location("isnet_graphs", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -346,8 +359,11 @@ class MaskPipeline:
                              f"{sorted(SUBJECT_OUTPUTS)}")
         self.subject_kind = SUBJECT_OUTPUTS[outputs]
         self.s3od = None
+        self.isnet = None
         if self.subject_kind == "s3od":
             self.s3od = _load_s3od_graphs()
+        elif self.subject_kind == "isnet":
+            self.isnet = _load_isnet_graphs()
 
     # Records.
 
@@ -487,7 +503,8 @@ class MaskPipeline:
     def select_subject(self, state: PhotoState) -> np.ndarray:
         """Subject alpha in [0, 1] (no prompt). Background is 1 - alpha. BiRefNet lite: the
         [1024, 1024] alpha. S3OD: the mask with the largest IoU score, unpadded (the photo aspect
-        with the long edge 1024). The stage name of the record is the graph kind."""
+        with the long edge 1024). IS-Net: the [1024, 1024] d1 output scaled with its minimum and
+        maximum. The stage name of the record is the graph kind."""
         if state.subject_alpha is None:
             if self.subject_kind == "s3od":
                 pixels, info = self.s3od.letterbox(np.asarray(state.photo.image),
@@ -497,6 +514,11 @@ class MaskPipeline:
                 alpha, _ = self.s3od.select_mask(masks, iou_scores)
                 state.subject_alpha = self.s3od.unpad(alpha[None], info)[0]
                 state.subject_pad_info = info
+            elif self.subject_kind == "isnet":
+                pixels = self.isnet.preprocess(np.asarray(state.photo.image), self.subject_size)
+                (d1,), _ = self._run("subject_matte", {"pixel_values": pixels}, "isnet",
+                                     photo=state.photo.path.name)
+                state.subject_alpha = self.isnet.normalize_range(d1[0, 0])
             else:
                 pixels = self.birefnet.preprocess(state.photo.image, self.subject_size).numpy()
                 (alpha,), _ = self._run("subject_matte", {"pixel_values": pixels}, "birefnet",
@@ -510,6 +532,8 @@ class MaskPipeline:
         width, height = width or state.photo.width, height or state.photo.height
         if self.subject_kind == "s3od":
             return self.s3od.masks_to_photo(alpha[None], height, width)[0].clip(0.0, 1.0)
+        if self.subject_kind == "isnet":
+            return self.isnet.alpha_to_photo(alpha, height, width).clip(0.0, 1.0)
         return self.birefnet.alpha_to_photo(alpha, width, height)
 
     def new_selection(self, state: PhotoState,

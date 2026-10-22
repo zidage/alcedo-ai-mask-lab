@@ -1,0 +1,124 @@
+{
+  "model": "birefnet",
+  "graph": "build/tmp/explore/e2/onnx_fp16/lite/subject_matte.onnx",
+  "script": "scripts/ai_models/s3od/measure_directml_cost.py under run_with_gpu_memory.ps1",
+  "note": "Reference runs of the IS-Net step. Both runs stopped in the warm runs with 887A0006 after a display driver reset (event 4101); the script wrote no cost JSON. The events come from Get-WinEvent (System, Id 153 and 4101) after each run.",
+  "attempts": [
+    {
+      "attempt": 1,
+      "log": "build/tmp/explore/isnet/directml/birefnet_lite_float16_isnet_step_attempt1_cost.log",
+      "gpu_memory_record": "results/subject_alternatives/birefnet_lite_float16_isnet_step_attempt1_cost_gpu_memory.json",
+      "phases": [
+        {
+          "phase": "before load",
+          "dedicated_mb": 0,
+          "shared_mb": 0,
+          "working_set_mb": 389,
+          "peak_working_set_mb": 462,
+          "time": "2026-10-21T22:27:50"
+        },
+        {
+          "phase": "session load",
+          "ms": 8270.6,
+          "dedicated_mb": 227,
+          "shared_mb": 180,
+          "working_set_mb": 1010,
+          "peak_working_set_mb": 1010,
+          "time": "2026-10-21T22:28:00"
+        },
+        {
+          "phase": "first run",
+          "ms": 63905.6,
+          "dedicated_mb": 3226,
+          "shared_mb": 428,
+          "working_set_mb": 1257,
+          "peak_working_set_mb": 1261,
+          "time": "2026-10-21T22:29:05"
+        }
+      ],
+      "failed_phase": "warm runs",
+      "failed_source_line": 100,
+      "error": "[ONNXRuntimeError] : 6 : RUNTIME_EXCEPTION : Non-zero status code returned while running DmlFusedNode_0_0 node. Name:'DmlFusedNode_0_0' Status Message: E:\\_work\\1\\s\\onnxruntime\\core\\providers\\dml\\DmlExecutionProvider\\src\\DmlGraphFusionHelper.cpp(1078)\\onnxruntime_pybind11_state.pyd!00007FFDA765C038: (caller: 00007FFDA76F7C45) Exception(2) tid(85a4) 887A0006",
+      "system_events": [
+        {
+          "time": "2026-10-21T22:28:00",
+          "id": 153,
+          "provider": "nvlddmkm"
+        },
+        {
+          "time": "2026-10-21T22:29:00",
+          "id": 153,
+          "provider": "nvlddmkm"
+        },
+        {
+          "time": "2026-10-21T22:29:04",
+          "id": 153,
+          "provider": "nvlddmkm"
+        },
+        {
+          "time": "2026-10-21T22:29:05",
+          "id": 4101,
+          "provider": "Display"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "log": "build/tmp/explore/isnet/directml/birefnet_lite_float16_isnet_step_attempt2_cost.log",
+      "gpu_memory_record": "results/subject_alternatives/birefnet_lite_float16_isnet_step_attempt2_cost_gpu_memory.json",
+      "phases": [
+        {
+          "phase": "before load",
+          "dedicated_mb": 0,
+          "shared_mb": 0,
+          "working_set_mb": 389,
+          "peak_working_set_mb": 462,
+          "time": "2026-10-21T22:30:08"
+        },
+        {
+          "phase": "session load",
+          "ms": 8055.9,
+          "dedicated_mb": 227,
+          "shared_mb": 180,
+          "working_set_mb": 1017,
+          "peak_working_set_mb": 1017,
+          "time": "2026-10-21T22:30:18"
+        },
+        {
+          "phase": "first run",
+          "ms": 551.0,
+          "dedicated_mb": 3226,
+          "shared_mb": 205,
+          "working_set_mb": 1041,
+          "peak_working_set_mb": 1045,
+          "time": "2026-10-21T22:30:20"
+        }
+      ],
+      "failed_phase": "warm runs",
+      "failed_source_line": 100,
+      "error": "[ONNXRuntimeError] : 6 : RUNTIME_EXCEPTION : Non-zero status code returned while running DmlFusedNode_0_0 node. Name:'DmlFusedNode_0_0' Status Message: E:\\_work\\1\\s\\onnxruntime\\core\\providers\\dml\\DmlExecutionProvider\\src\\DmlGraphFusionHelper.cpp(1078)\\onnxruntime_pybind11_state.pyd!00007FFDA765C038: (caller: 00007FFDA76F7C45) Exception(2) tid(8968) 887A0006",
+      "system_events": [
+        {
+          "time": "2026-10-21T22:30:21",
+          "id": 153,
+          "provider": "nvlddmkm"
+        },
+        {
+          "time": "2026-10-21T22:31:21",
+          "id": 153,
+          "provider": "nvlddmkm"
+        },
+        {
+          "time": "2026-10-21T22:31:25",
+          "id": 153,
+          "provider": "nvlddmkm"
+        },
+        {
+          "time": "2026-10-21T22:31:26",
+          "id": 4101,
+          "provider": "Display"
+        }
+      ]
+    }
+  ]
+}

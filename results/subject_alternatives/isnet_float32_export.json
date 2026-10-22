@@ -1,0 +1,98 @@
+{
+  "model": "IS-Net general-use",
+  "revisions": {
+    "github": {
+      "repository": "xuebinqin/DIS",
+      "commit": "b6764e20381f6f42a70f83fa3324181529ed1403"
+    },
+    "weights": {
+      "file": "isnet-general-use.pth",
+      "url": "https://drive.usercontent.google.com/download?id=1XHIzgTzY5BQHw140EDIgwIb53K659ENH&export=download&confirm=t",
+      "google_drive_id": "1XHIzgTzY5BQHw140EDIgwIb53K659ENH",
+      "content_disposition_filename": "isnet-general-use.pth",
+      "bytes": 176579397,
+      "sha256": "9e1aafea58f0b55d0c35077e0ceade6ba1ba2bce372fd4f8f77215391f3fac13",
+      "downloaded": "2026-10-21",
+      "note": "README line 145 links this Drive ID as isnet.pth and ID 1klUkUnQFAxPdFu9XE3Vhnn-e72CVz6oM as isnet-general-use.pth; the server file names are the reverse. README line 28 links this ID as isnet-general-use.pth. 1klUk... is isnet.pth, 176597693 bytes, SHA-256 ea0889743a78391b48d6b7c40b4def963ee329cb10934c75aa32481dc5af9c61 (not kept)."
+    }
+  },
+  "checkpoint": {
+    "name": "isnet-general-use.pth",
+    "bytes": 176579397,
+    "sha256": "9e1aafea58f0b55d0c35077e0ceade6ba1ba2bce372fd4f8f77215391f3fac13"
+  },
+  "model_input": {
+    "size": 1024,
+    "resize": "stretch to size x size, torch bilinear, align_corners=False, no antialias, then truncation to uint8",
+    "mean": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "std": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "model_output": "d1: sigmoid of side output d1; the alpha is (d1 - min) / (max - min)",
+  "onnxruntime": "1.31.0",
+  "parameters": 44046790,
+  "parameters_in_graph": 44004737,
+  "torch": "2.14.1+cpu",
+  "exporter": "torch.onnx.export(dynamo=False)",
+  "opset": 17,
+  "export_seconds": 3.2,
+  "graph": {
+    "opset": [
+      {
+        "domain": "ai.onnx",
+        "version": 17
+      }
+    ],
+    "inputs": [
+      {
+        "name": "pixel_values",
+        "shape": [
+          1,
+          3,
+          1024,
+          1024
+        ],
+        "type": "float"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "d1",
+        "shape": [
+          1,
+          1,
+          1024,
+          1024
+        ],
+        "type": "float"
+      }
+    ],
+    "nodes": 593,
+    "operators": {
+      "Constant": 136,
+      "Conv": 114,
+      "Relu": 112,
+      "Concat": 84,
+      "Shape": 34,
+      "Slice": 34,
+      "Resize": 34,
+      "MaxPool": 33,
+      "Add": 11,
+      "Sigmoid": 1
+    },
+    "files": [
+      {
+        "name": "subject_d1.onnx",
+        "bytes": 176127344,
+        "sha256": "f3622a65abdb5d089e1b363880a12e9ef2cd0a3aff32e19fad1872d83b3b58e7"
+      }
+    ]
+  }
+}

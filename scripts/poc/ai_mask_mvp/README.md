@@ -16,7 +16,7 @@ Weights, ONNX files, photos, logs, and exported masks are not committed. Keep th
 | `mask_pipeline.py` | Pipeline without UI: graph loading on one provider, photo reading and scaling, encoder and head once per photo, one function per selection (Sky, People, stroke, click, box, Subject), Feather and Edge, mask and JSON export, the timing record. |
 | `ai_mask_app.py` | PySide6 UI: canvas with the photo and the overlay, one-click buttons, People list, stroke and box tools with Alt for subtract, level change of a click, Feather and Edge, overlay color and opacity, export, stage times. |
 | `compare_with_measurement_scripts.py` | The comparison of the pipeline with `evaluate_quality_photos.py` (run 2), `compare_stroke_outputs.py` (E3 sequences), and the E2 BiRefNet CPU output. |
-| `measure_pipeline_cost.py` | Stage times and memory with all models loaded together (run it under `run_with_gpu_memory.ps1`). `--subject-onnx` selects another Subject graph, for example S3OD (issue #6). |
+| `measure_pipeline_cost.py` | Stage times and memory with all models loaded together (run it under `run_with_gpu_memory.ps1`). `--subject-onnx` selects another Subject graph, for example S3OD or IS-Net general-use (issue #6). |
 | `measure_birefnet_memory_phases.py` | GPU memory of the BiRefNet DirectML session per phase (load, runs, the arena shrinkage run option, release, load again). |
 | `measure_birefnet_load_time.py` | BiRefNet session creation time per graph optimization level, and with a saved optimized graph (no inference). |
 | `requirements.txt` | Packages of the MVP environment (onnxruntime-directml, PySide6). |
@@ -36,10 +36,13 @@ The graphs are the ONNX files of the earlier steps under `build/tmp/explore/`
 `--subject-onnx` selects another BiRefNet lite 1024 graph, for example the float32 graph
 `e2/onnx/lite/subject_matte.onnx` (183,439,077 bytes, SHA-256 `dcb89537...`), or an S3OD graph of
 issue #6, for example `s3od/onnx_mha_chunk8/float16/subject_masks.onnx` (219,301,899 bytes,
-SHA-256 `0f070b86...`, [Subject alternatives report, section 5.5](../../../docs/exploration/subject_alternatives.md#55-attention-in-query-chunks)).
+SHA-256 `0f070b86...`, [Subject alternatives report, section 5.5](../../../docs/exploration/subject_alternatives.md#55-attention-in-query-chunks)),
+or the IS-Net general-use graph `isnet/onnx/float16/subject_d1.onnx` (88,155,011 bytes, SHA-256
+`31cf8b2d...`, [report, section 11](../../../docs/exploration/subject_alternatives.md#11-is-net-general-use)).
 The pipeline selects the Subject processing by the graph outputs: `alpha` is BiRefNet, `masks` and
 `iou_scores` are S3OD (letterbox, mask with the largest IoU score, unpadding, and the resize of the
-source). The pipeline refuses a graph with an input size other than 1024.
+source), `d1` is IS-Net (stretch to 1024 x 1024 with truncation to uint8, the scaling of d1 with
+its minimum and maximum, and the bilinear resize). The pipeline refuses a graph with an input size other than 1024.
 
 UI toolkit: PySide6 6.12 (LGPL-3.0). ONNX Runtime: onnxruntime-directml 1.24.4 (MIT).
 

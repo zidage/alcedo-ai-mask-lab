@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Operator placement of one Subject graph on ONNX Runtime DirectML (issue #6).
 
-Input:  --model (s3od or birefnet), --graph, --photo (the model input), --runs (default 2).
+Input:  --model (s3od, birefnet, or isnet), --graph, --photo (the model input), --runs
+        (default 2).
 Output: --out (JSON): the node counts of the graph file per operator type; from the ONNX Runtime
         profile of the session: the number of executed nodes per execution provider (a DirectML
         node is one fused partition after the DirectML graph fusion), the kernel time per

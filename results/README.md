@@ -53,10 +53,11 @@ local; run the commands of the script README to make them again.
 
 ## `subject_alternatives/`
 
-Scripts: [`scripts/ai_models/s3od/`](../scripts/ai_models/s3od/README.md). `<graph>` is one of
+Scripts: [`scripts/ai_models/s3od/`](../scripts/ai_models/s3od/README.md) and
+[`scripts/ai_models/isnet/`](../scripts/ai_models/isnet/README.md). `<graph>` is one of
 `s3od_float32`, `s3od_float16` (the export of `export_onnx.py`), `s3od_cpu_resize_float32`,
-`s3od_cpu_resize_float16` (`--keep-identity-resize`), and `birefnet_lite_float16` (the MVP
-graph). The files with `_float16_overflow` (float16 attention scores in all layers: NaN output on
+`s3od_cpu_resize_float16` (`--keep-identity-resize`), `isnet_float32`, `isnet_float16` (the IS-Net
+general-use export), and `birefnet_lite_float16` (the MVP graph). The files with `_float16_overflow` (float16 attention scores in all layers: NaN output on
 DirectML) and `_float16_all_attention_float32` (all attention scores in float32) record the
 earlier float16 forms of report section 4.3; they are not candidates.
 
@@ -70,3 +71,8 @@ earlier float16 forms of report section 4.3; they are not candidates.
 | `<graph>_first_runs.json` | First runs in new processes, with the System events 153 and 4101 of each run | `measure_first_runs.py` |
 | `quality.json` | Per alpha and photo: foreground, soft share, edge width, parts, holes, islands, subject recall, outside box, IoU with the BiRefNet lite and the S3OD float32 masks; means | `probe_subject_masks.py` |
 | `gpu_reset_events.json` | Windows System events 4101 and `nvlddmkm` 153 of 2026-10-21 17:50 to the end of the runs | `Get-WinEvent` (report section 5.4) |
+| `isnet_comparison_cpu.json` | IS-Net ONNX Runtime CPU against the PyTorch model, per graph and photo: d1 and alpha differences, photo-size IoU, preprocessing difference to `Inference.py` | `isnet/compare_onnx_outputs.py` |
+| `isnet_<precision>_export.json` | IS-Net export record: sources, hashes, operators; float16: activation maxima of the range check | `isnet/export_onnx.py` |
+| `quality_isnet.json` | The metrics of `quality.json` for the IS-Net alphas (PyTorch, ONNX CPU, DirectML), with the IoU with the BiRefNet lite, S3OD float32, and IS-Net PyTorch masks | `probe_subject_masks.py` |
+| `mvp_pipeline_isnet_float16_cost.json`, `..._gpu_memory.json` | The MVP pipeline with the IS-Net float16 graph as the Subject graph (report section 11.5) | `measure_pipeline_cost.py`, `run_with_gpu_memory.ps1` |
+| `birefnet_lite_float16_isnet_step_failed_runs.json`, `birefnet_lite_float16_isnet_step_attempt{1,2}_cost_gpu_memory.json` | The two BiRefNet reference cost runs of the IS-Net step: phases until the error, the `887A0006` error, the System events 153 and 4101 (report section 11.4) | log of `measure_directml_cost.py`, `Get-WinEvent` |

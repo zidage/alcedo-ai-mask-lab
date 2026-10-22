@@ -2,7 +2,7 @@
 """First DirectML runs of one Subject graph in new processes, and the display driver resets
 (issue #6, MVP report section 5.3).
 
-Input:  --model (s3od or birefnet), --graph, --photo, --count (default 9).
+Input:  --model (s3od, birefnet, or isnet), --graph, --photo, --count (default 9).
 Output: --out (JSON): per process the start and end time, the session load time, the first run
         time or the ONNX Runtime error, the exit code; and the Windows System events of the time
         window: `nvlddmkm` event 153 and `Display` event 4101 ("the display driver stopped
@@ -119,7 +119,7 @@ def parent(args) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--model", required=True, choices=("s3od", "birefnet"))
+    parser.add_argument("--model", required=True, choices=("s3od", "birefnet", "isnet"))
     parser.add_argument("--graph", required=True)
     parser.add_argument("--photo", required=True)
     parser.add_argument("--count", type=int, default=9)

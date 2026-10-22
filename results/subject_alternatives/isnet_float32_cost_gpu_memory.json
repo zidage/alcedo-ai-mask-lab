@@ -1,0 +1,50 @@
+{
+  "source": "Windows performance counters: GPU Process Memory (Dedicated Usage, Shared Usage)",
+  "exit_code": 0,
+  "interval_ms": 250,
+  "peak_dedicated_bytes": 1048604672.0,
+  "peak_shared_bytes": 232357888.0,
+  "sample_count": 8,
+  "samples": [
+    {
+      "seconds": 6.57,
+      "dedicated_bytes": 489537536.0,
+      "shared_bytes": 213090304.0
+    },
+    {
+      "seconds": 7.86,
+      "dedicated_bytes": 1048600576.0,
+      "shared_bytes": 230916096.0
+    },
+    {
+      "seconds": 9.12,
+      "dedicated_bytes": 1048600576.0,
+      "shared_bytes": 230916096.0
+    },
+    {
+      "seconds": 10.4,
+      "dedicated_bytes": 1048604672.0,
+      "shared_bytes": 232357888.0
+    },
+    {
+      "seconds": 11.67,
+      "dedicated_bytes": 1048604672.0,
+      "shared_bytes": 232357888.0
+    },
+    {
+      "seconds": 12.95,
+      "dedicated_bytes": 1048604672.0,
+      "shared_bytes": 232357888.0
+    },
+    {
+      "seconds": 14.2,
+      "dedicated_bytes": 77357056.0,
+      "shared_bytes": 37289984.0
+    },
+    {
+      "seconds": 15.48,
+      "dedicated_bytes": 77357056.0,
+      "shared_bytes": 37289984.0
+    }
+  ]
+}

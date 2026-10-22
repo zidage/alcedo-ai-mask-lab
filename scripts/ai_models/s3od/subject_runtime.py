@@ -1,13 +1,16 @@
 """Shared helpers of the DirectML measurements of issue #6 (MVP environment, onnxruntime-directml).
 
-The measurements run the S3OD graph and, as the reference, the BiRefNet lite 1024 float16 graph of
-the MVP with the same code. `SubjectModel` gives the preprocessing of each model and the alpha
-that the measurement stores:
+The measurements run the S3OD and IS-Net general-use graphs and, as the reference, the BiRefNet
+lite 1024 float16 graph of the MVP with the same code. `SubjectModel` gives the preprocessing of
+each model and the alpha that the measurement stores:
 
   s3od      s3od_graphs.letterbox; alpha = the mask with the largest IoU score, unpadded (long
             edge 1024 px), float16
   birefnet  birefnet_graphs.preprocess (stretch to 1024 x 1024); alpha = the `alpha` output at
             1024 x 1024, float16 (the format of the E2 compare_onnx_outputs.py)
+  isnet     isnet_graphs.preprocess (stretch to 1024 x 1024, the rule of the DIS `Inference.py`);
+            alpha = the `d1` output scaled with its minimum and maximum
+            (isnet_graphs.normalize_range) at 1024 x 1024, float16
 
 Sessions: `mask_pipeline.create_session` of the MVP (one execution provider only, 4 CPU threads,
 CPU memory arena off, sequential execution and no memory patterns on DirectML).
@@ -35,7 +38,7 @@ import mask_pipeline as mp  # noqa: E402
 import s3od_graphs  # noqa: E402
 from measure_birefnet_memory_phases import gpu_memory_mb  # noqa: E402,F401
 
-MODELS = ("s3od", "birefnet")
+MODELS = ("s3od", "birefnet", "isnet")
 
 
 def load_module(name: str, path: Path):
@@ -60,13 +63,18 @@ class SubjectModel:
         self.kind = kind
         self._birefnet = (load_module("birefnet_graphs", SCRIPTS / "ai_models" / "birefnet"
                                       / "birefnet_graphs.py") if kind == "birefnet" else None)
+        self._isnet = (load_module("isnet_graphs", SCRIPTS / "ai_models" / "isnet"
+                                   / "isnet_graphs.py") if kind == "isnet" else None)
 
     def prepare(self, photo_path: Path) -> Prepared:
         """The photo as the comparison scripts read it (s3od: s3od_graphs.load_rgb, as the
-        source; birefnet: birefnet_graphs.load_rgb, as E2) and the model input."""
+        source; birefnet: birefnet_graphs.load_rgb, as E2; isnet: isnet_graphs.load_rgb) and the
+        model input."""
         if self.kind == "s3od":
             pixels, info = s3od_graphs.letterbox(s3od_graphs.load_rgb(photo_path))
             return Prepared(pixels, info)
+        if self.kind == "isnet":
+            return Prepared(self._isnet.preprocess(self._isnet.load_rgb(photo_path)), None)
         image = self._birefnet.load_rgb(str(photo_path))
         return Prepared(self._birefnet.preprocess(image, 1024).numpy(), None)
 
@@ -79,6 +87,10 @@ class SubjectModel:
             return unpadded.astype(np.float16), {
                 "selected_mask": index,
                 "iou_scores": [round(float(v), 5) for v in iou_scores[0]]}
+        if self.kind == "isnet":
+            d1 = outputs[0][0, 0]
+            return self._isnet.normalize_range(d1).astype(np.float16), {
+                "d1_range": [round(float(d1.min()), 6), round(float(d1.max()), 6)]}
         return outputs[0][0, 0].astype(np.float16), {}
 
 

@@ -1,0 +1,713 @@
+{
+  "step": "issue #5: AI Mask MVP cost with all models loaded together",
+  "provider": "directml",
+  "threads": 4,
+  "warm_runs": 20,
+  "pipeline": {
+    "step": "issue #5: AI Mask MVP",
+    "provider": "directml",
+    "threads": 4,
+    "onnxruntime": "1.24.4",
+    "graphs": {
+      "point_encoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_encoder.onnx",
+        "bytes": 109381695,
+        "sha256": "17a554b420d3c51a109567f784ff3792b354c78dc8c2c09c585403329b412d61",
+        "load_ms": 2139.9
+      },
+      "point_decoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_decoder.onnx",
+        "bytes": 21188206,
+        "sha256": "6f9a0ef2c217a0abccc8b0c01e631c42c6a78a2038a7944cc7fcb4f536439278",
+        "load_ms": 236.9
+      },
+      "people_sky_head": {
+        "path": "build/tmp/explore/p1/colab_run2_coco_openimages/export/people_sky_head.onnx",
+        "bytes": 1119131,
+        "sha256": "e02f2a1eaace94e0efe2b3c8db0a0391be210b477a95e49063e80758f12abf35",
+        "load_ms": 104.2
+      },
+      "subject_matte": {
+        "path": "build/tmp/explore/isnet/onnx/float16/subject_d1.onnx",
+        "bytes": 88155011,
+        "sha256": "31cf8b2d8ca1f9920edde5e7fcd6d2ce0122651563ddc2de1ff64ccac4b44317",
+        "load_ms": 507.3
+      }
+    },
+    "thresholds": {
+      "sky_presence": 0.4231989085674286,
+      "person_presence": 0.533202052116394,
+      "people_list": 0.3132133185863495
+    },
+    "head_checkpoint_epoch": 15
+  },
+  "memory_before_load": {
+    "peak_working_set_bytes": 33939456,
+    "working_set_bytes": 33939456,
+    "private_bytes": 661835776
+  },
+  "memory_after_load": {
+    "peak_working_set_bytes": 804544512,
+    "working_set_bytes": 804544512,
+    "private_bytes": 1734320128
+  },
+  "memory_at_end": {
+    "peak_working_set_bytes": 1547948032,
+    "working_set_bytes": 1065848832,
+    "private_bytes": 3588456448
+  },
+  "stages": {
+    "read_photo": {
+      "first_photo_first_call_ms": 77.38,
+      "all_calls": {
+        "count": 14,
+        "p50_ms": 73.23,
+        "p95_ms": 78.68,
+        "max_ms": 78.76
+      },
+      "photos_after_the_first": {
+        "count": 13,
+        "p50_ms": 71.51,
+        "p95_ms": 78.68,
+        "max_ms": 78.76
+      }
+    },
+    "encoder": {
+      "first_photo_first_call_ms": 325.59,
+      "all_calls": {
+        "count": 14,
+        "p50_ms": 77.75,
+        "p95_ms": 85.12,
+        "max_ms": 325.59
+      },
+      "photos_after_the_first": {
+        "count": 13,
+        "p50_ms": 76.97,
+        "p95_ms": 84.81,
+        "max_ms": 85.12
+      }
+    },
+    "head": {
+      "first_photo_first_call_ms": 5.7,
+      "all_calls": {
+        "count": 14,
+        "p50_ms": 2.15,
+        "p95_ms": 2.38,
+        "max_ms": 5.7
+      },
+      "photos_after_the_first": {
+        "count": 13,
+        "p50_ms": 2.14,
+        "p95_ms": 2.36,
+        "max_ms": 2.38
+      }
+    },
+    "decoder": {
+      "first_photo_first_call_ms": 96.75,
+      "all_calls": {
+        "count": 104,
+        "p50_ms": 21.29,
+        "p95_ms": 33.47,
+        "max_ms": 96.75
+      },
+      "photos_after_the_first": {
+        "count": 99,
+        "p50_ms": 21.16,
+        "p95_ms": 31.63,
+        "max_ms": 37.25
+      }
+    },
+    "isnet": {
+      "first_photo_first_call_ms": 30.7,
+      "all_calls": {
+        "count": 14,
+        "p50_ms": 14.55,
+        "p95_ms": 16.24,
+        "max_ms": 30.7
+      },
+      "photos_after_the_first": {
+        "count": 13,
+        "p50_ms": 14.46,
+        "p95_ms": 15.95,
+        "max_ms": 16.24
+      }
+    }
+  },
+  "warm_first_photo": {
+    "encoder": {
+      "count": 20,
+      "p50_ms": 72.81,
+      "p95_ms": 76.33,
+      "max_ms": 77.55
+    },
+    "head": {
+      "count": 20,
+      "p50_ms": 2.04,
+      "p95_ms": 2.39,
+      "max_ms": 2.91
+    },
+    "decoder_box": {
+      "count": 20,
+      "p50_ms": 21.2,
+      "p95_ms": 30.29,
+      "max_ms": 34.36
+    },
+    "decoder_10_points_mask_input": {
+      "count": 20,
+      "p50_ms": 20.92,
+      "p95_ms": 27.61,
+      "max_ms": 34.65
+    },
+    "isnet": {
+      "count": 20,
+      "p50_ms": 13.89,
+      "p95_ms": 14.72,
+      "max_ms": 14.84
+    }
+  },
+  "decoder_sky_regions": {
+    "count": 17,
+    "p50_ms": 9.47,
+    "p95_ms": 15.04,
+    "max_ms": 96.75
+  },
+  "decoder_people": {
+    "count": 52,
+    "p50_ms": 21.36,
+    "p95_ms": 32.89,
+    "max_ms": 37.25
+  },
+  "decoder_strokes_and_clicks": {
+    "full_stroke": {
+      "count": 25,
+      "p50_ms": 22.09,
+      "p95_ms": 33.47,
+      "max_ms": 33.69
+    },
+    "stroke": {
+      "count": 10,
+      "p50_ms": 22.69,
+      "p95_ms": 26.92,
+      "max_ms": 26.92
+    }
+  },
+  "per_photo": [
+    {
+      "photo": "2088064441",
+      "size": [
+        4096,
+        2736
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 4,
+      "wall_ms": 4172.7,
+      "stage_ms": {
+        "read_photo": [
+          77.38
+        ],
+        "encoder": [
+          325.59
+        ],
+        "head": [
+          5.7
+        ],
+        "decoder": [
+          96.75,
+          33.47,
+          26.02,
+          24.68,
+          23.36
+        ],
+        "isnet": [
+          30.7
+        ]
+      }
+    },
+    {
+      "photo": "5761824892",
+      "size": [
+        2729,
+        4096
+      ],
+      "sky_found": false,
+      "sky_regions": 0,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 2,
+      "wall_ms": 405.8,
+      "stage_ms": {
+        "read_photo": [
+          78.76
+        ],
+        "encoder": [
+          79.9
+        ],
+        "head": [
+          1.9
+        ],
+        "decoder": [
+          24.49,
+          25.02
+        ],
+        "isnet": [
+          14.64
+        ]
+      }
+    },
+    {
+      "photo": "DSC00326",
+      "size": [
+        2723,
+        4096
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": true,
+      "people_listed": 1,
+      "stroke_calls": 2,
+      "wall_ms": 454.0,
+      "stage_ms": {
+        "read_photo": [
+          75.07
+        ],
+        "encoder": [
+          81.93
+        ],
+        "head": [
+          1.9
+        ],
+        "decoder": [
+          12.34,
+          30.47,
+          24.71,
+          25.42
+        ],
+        "isnet": [
+          14.27
+        ]
+      }
+    },
+    {
+      "photo": "DSC00527",
+      "size": [
+        4096,
+        2729
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": true,
+      "people_listed": 20,
+      "stroke_calls": 4,
+      "wall_ms": 980.9,
+      "stage_ms": {
+        "read_photo": [
+          78.68
+        ],
+        "encoder": [
+          85.12
+        ],
+        "head": [
+          2.15
+        ],
+        "decoder": [
+          9.01,
+          24.52,
+          24.04,
+          22.07,
+          21.21,
+          21.42,
+          37.25,
+          35.7,
+          32.89,
+          31.63,
+          29.11,
+          24.5,
+          23.78,
+          19.71,
+          21.4,
+          20.12,
+          19.42,
+          18.26,
+          19.48,
+          19.0,
+          22.28,
+          28.17,
+          25.2,
+          24.1,
+          22.82
+        ],
+        "isnet": [
+          15.34
+        ]
+      }
+    },
+    {
+      "photo": "DSC00562",
+      "size": [
+        4096,
+        2729
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": true,
+      "people_listed": 6,
+      "stroke_calls": 1,
+      "wall_ms": 525.1,
+      "stage_ms": {
+        "read_photo": [
+          65.33
+        ],
+        "encoder": [
+          75.4
+        ],
+        "head": [
+          2.09
+        ],
+        "decoder": [
+          10.0,
+          27.02,
+          25.39,
+          25.52,
+          22.38,
+          23.26,
+          22.93,
+          22.85
+        ],
+        "isnet": [
+          14.14
+        ]
+      }
+    },
+    {
+      "photo": "DSC00602",
+      "size": [
+        4096,
+        2733
+      ],
+      "sky_found": true,
+      "sky_regions": 3,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 1,
+      "wall_ms": 393.5,
+      "stage_ms": {
+        "read_photo": [
+          71.47
+        ],
+        "encoder": [
+          78.53
+        ],
+        "head": [
+          2.2
+        ],
+        "decoder": [
+          7.99,
+          8.79,
+          7.71,
+          21.04
+        ],
+        "isnet": [
+          13.89
+        ]
+      }
+    },
+    {
+      "photo": "DSC00674",
+      "size": [
+        2731,
+        4096
+      ],
+      "sky_found": true,
+      "sky_regions": 2,
+      "people_found": true,
+      "people_listed": 1,
+      "stroke_calls": 2,
+      "wall_ms": 428.3,
+      "stage_ms": {
+        "read_photo": [
+          74.96
+        ],
+        "encoder": [
+          75.38
+        ],
+        "head": [
+          2.29
+        ],
+        "decoder": [
+          8.77,
+          7.61,
+          20.61,
+          21.68,
+          20.24
+        ],
+        "isnet": [
+          14.41
+        ]
+      }
+    },
+    {
+      "photo": "DSC00728",
+      "size": [
+        4096,
+        2731
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 2,
+      "wall_ms": 377.8,
+      "stage_ms": {
+        "read_photo": [
+          62.72
+        ],
+        "encoder": [
+          74.48
+        ],
+        "head": [
+          2.11
+        ],
+        "decoder": [
+          8.69,
+          22.09,
+          20.95
+        ],
+        "isnet": [
+          14.72
+        ]
+      }
+    },
+    {
+      "photo": "DSC00936",
+      "size": [
+        2723,
+        4096
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": true,
+      "people_listed": 1,
+      "stroke_calls": 1,
+      "wall_ms": 441.7,
+      "stage_ms": {
+        "read_photo": [
+          69.19
+        ],
+        "encoder": [
+          69.26
+        ],
+        "head": [
+          2.38
+        ],
+        "decoder": [
+          14.05,
+          34.86,
+          33.69
+        ],
+        "isnet": [
+          14.11
+        ]
+      }
+    },
+    {
+      "photo": "DSC_1188",
+      "size": [
+        4096,
+        2727
+      ],
+      "sky_found": false,
+      "sky_regions": 0,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 2,
+      "wall_ms": 434.3,
+      "stage_ms": {
+        "read_photo": [
+          77.59
+        ],
+        "encoder": [
+          76.97
+        ],
+        "head": [
+          2.35
+        ],
+        "decoder": [
+          29.49,
+          26.42
+        ],
+        "isnet": [
+          14.46
+        ]
+      }
+    },
+    {
+      "photo": "DSC_1456",
+      "size": [
+        2727,
+        4096
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": true,
+      "people_listed": 12,
+      "stroke_calls": 1,
+      "wall_ms": 621.4,
+      "stage_ms": {
+        "read_photo": [
+          71.51
+        ],
+        "encoder": [
+          74.71
+        ],
+        "head": [
+          1.81
+        ],
+        "decoder": [
+          13.49,
+          25.77,
+          20.58,
+          19.38,
+          19.74,
+          19.72,
+          21.85,
+          19.14,
+          19.26,
+          20.76,
+          20.18,
+          20.11,
+          19.53,
+          19.58
+        ],
+        "isnet": [
+          14.15
+        ]
+      }
+    },
+    {
+      "photo": "DSC_1535",
+      "size": [
+        2727,
+        4096
+      ],
+      "sky_found": false,
+      "sky_regions": 0,
+      "people_found": true,
+      "people_listed": 9,
+      "stroke_calls": 2,
+      "wall_ms": 555.3,
+      "stage_ms": {
+        "read_photo": [
+          64.35
+        ],
+        "encoder": [
+          68.54
+        ],
+        "head": [
+          1.83
+        ],
+        "decoder": [
+          21.41,
+          21.32,
+          19.79,
+          20.65,
+          21.67,
+          20.23,
+          21.16,
+          20.04,
+          21.26,
+          21.45,
+          20.47
+        ],
+        "isnet": [
+          15.31
+        ]
+      }
+    },
+    {
+      "photo": "Nikon-D800e-raw-00007",
+      "size": [
+        4096,
+        2732
+      ],
+      "sky_found": true,
+      "sky_regions": 1,
+      "people_found": false,
+      "people_listed": 0,
+      "stroke_calls": 8,
+      "wall_ms": 531.1,
+      "stage_ms": {
+        "read_photo": [
+          69.03
+        ],
+        "encoder": [
+          83.37
+        ],
+        "head": [
+          2.14
+        ],
+        "decoder": [
+          11.25,
+          21.06,
+          20.01,
+          20.79,
+          21.13,
+          21.51,
+          20.88,
+          21.55,
+          26.92
+        ],
+        "isnet": [
+          15.95
+        ]
+      }
+    },
+    {
+      "photo": "P1024439",
+      "size": [
+        4096,
+        3074
+      ],
+      "sky_found": true,
+      "sky_regions": 4,
+      "people_found": true,
+      "people_listed": 2,
+      "stroke_calls": 3,
+      "wall_ms": 540.3,
+      "stage_ms": {
+        "read_photo": [
+          75.31
+        ],
+        "encoder": [
+          84.81
+        ],
+        "head": [
+          2.36
+        ],
+        "decoder": [
+          15.04,
+          9.55,
+          9.08,
+          9.47,
+          24.11,
+          20.99,
+          21.33,
+          22.02,
+          21.08
+        ],
+        "isnet": [
+          16.24
+        ]
+      }
+    }
+  ],
+  "machine": {
+    "platform": "Windows-11-10.0.22635-SP0",
+    "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "logical_cpus": 20,
+    "memory_bytes": 34121420800,
+    "python": "3.12.4"
+  }
+}

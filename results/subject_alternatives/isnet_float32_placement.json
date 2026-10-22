@@ -1,0 +1,16 @@
+{
+  "model": "isnet",
+  "graph": "build/tmp/explore/isnet/onnx/float32/subject_d1.onnx",
+  "onnxruntime": "1.24.4",
+  "photo": "DSC_1535.jpg",
+  "runs": 2,
+  "graph_operators": {},
+  "executed_nodes": {
+    "DmlExecutionProvider": 1
+  },
+  "kernel_ms_per_run": {
+    "DmlExecutionProvider": 10.4
+  },
+  "cpu_nodes_per_operator": {},
+  "profile": "build/tmp/explore/isnet/placement/profiles_isnet_float32/isnet_float32_2026-10-21_22-23-05.json"
+}

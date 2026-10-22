@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""Quality metrics of Subject alphas on the quality photo set, S3OD and BiRefNet (issue #6).
+"""Quality metrics of Subject alphas on the quality photo set, S3OD, IS-Net, and BiRefNet
+(issue #6).
 
 Input:  one or more --alpha LABEL=KIND:DIR (KIND s3od: the unpadded alpha of the long edge 1024 px
         of compare_onnx_outputs.py or measure_directml_cost.py; KIND birefnet: the 1024 x 1024
-        alpha of the E2 compare_onnx_outputs.py or of measure_directml_cost.py), the photos of
-        --prompts in --photos, the E1 SAM 2.1 box masks (--subject-masks).
+        alpha of the E2 compare_onnx_outputs.py or of measure_directml_cost.py; KIND isnet: the
+        1024 x 1024 alpha of the IS-Net compare_onnx_outputs.py or of measure_directml_cost.py),
+        the photos of --prompts in --photos, the E1 SAM 2.1 box masks (--subject-masks).
 Output: --out (JSON): per label and photo the metrics below, and the mean over the photos.
 
 All alphas are compared on one grid per photo: the photo aspect with the long edge 1024 px (the
-`resized_size` of s3od_graphs.pad_info, the S3OD model grid). A BiRefNet alpha is resized from
-1024 x 1024 to that grid (PyTorch bilinear, `antialias=True`). Metrics on the alpha > 0.5 mask,
-with the definitions of the E2 probe_mattes.py:
+`resized_size` of s3od_graphs.pad_info, the S3OD model grid). A BiRefNet or IS-Net alpha is
+resized from 1024 x 1024 to that grid (PyTorch bilinear, `antialias=True`). Metrics on the
+alpha > 0.5 mask, with the definitions of the E2 probe_mattes.py:
 
 - foreground: share of the grid pixels;
 - soft: share of pixels with 0.05 < alpha < 0.95;
@@ -41,7 +43,7 @@ from PIL import Image  # noqa: E402
 import s3od_graphs as graphs  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
-KINDS = ("s3od", "birefnet")
+KINDS = ("s3od", "birefnet", "isnet")
 
 
 def load_probe_mattes():

@@ -1,0 +1,2321 @@
+{
+  "grid": "photo aspect, long edge 1024 px",
+  "soft_range": [
+    0.05,
+    0.95
+  ],
+  "iou_references": [
+    "birefnet_lite_float16_cpu",
+    "s3od_float32_cpu",
+    "isnet_pytorch"
+  ],
+  "alphas": {
+    "birefnet_lite_float16_cpu": {
+      "kind": "birefnet",
+      "dir": "build/tmp/ai_mask_mvp/e2_reference/lite_fp16/alpha"
+    },
+    "s3od_float32_cpu": {
+      "kind": "s3od",
+      "dir": "build/tmp/explore/s3od/compare_cpu/float32/alpha"
+    },
+    "isnet_pytorch": {
+      "kind": "isnet",
+      "dir": "build/tmp/explore/isnet/compare_cpu/reference_d1"
+    },
+    "isnet_float32_cpu": {
+      "kind": "isnet",
+      "dir": "build/tmp/explore/isnet/compare_cpu/float32/alpha"
+    },
+    "isnet_float16_cpu": {
+      "kind": "isnet",
+      "dir": "build/tmp/explore/isnet/compare_cpu/float16/alpha"
+    },
+    "isnet_float32_directml": {
+      "kind": "isnet",
+      "dir": "build/tmp/explore/isnet/directml/isnet_float32/alpha"
+    },
+    "isnet_float16_directml": {
+      "kind": "isnet",
+      "dir": "build/tmp/explore/isnet/directml/isnet_float16/alpha"
+    }
+  },
+  "means": {
+    "birefnet_lite_float16_cpu": {
+      "foreground": 0.16443171461186248,
+      "soft": 0.006005934844366879,
+      "edge_width_px": 1.640055233713566,
+      "parts": 1.1428571428571428,
+      "hole_fraction": 0.004418410867110223,
+      "island_fraction": 0.0540944507239577,
+      "subject_recall": 0.9222920791271788,
+      "outside_box": 0.17184449748587355,
+      "iou_with_birefnet_lite_float16_cpu": 1.0,
+      "iou_with_s3od_float32_cpu": 0.8447576971827743,
+      "iou_with_isnet_pytorch": 0.7172403311231735
+    },
+    "s3od_float32_cpu": {
+      "foreground": 0.15074921165347668,
+      "soft": 0.00020476763581460373,
+      "edge_width_px": 0.08049425318742627,
+      "parts": 1.0714285714285714,
+      "hole_fraction": 0.007798923711559885,
+      "island_fraction": 0.034402356441667954,
+      "subject_recall": 0.9860823562562763,
+      "outside_box": 0.11861104352998768,
+      "iou_with_birefnet_lite_float16_cpu": 0.8447576971827743,
+      "iou_with_s3od_float32_cpu": 1.0,
+      "iou_with_isnet_pytorch": 0.673630860550774
+    },
+    "isnet_pytorch": {
+      "foreground": 0.15270570840610825,
+      "soft": 0.09637850498749341,
+      "edge_width_px": 87.97544676401854,
+      "parts": 1.4285714285714286,
+      "hole_fraction": 0.019925072822480128,
+      "island_fraction": 0.07199593065804277,
+      "subject_recall": 0.8016848483095264,
+      "outside_box": 0.3139632422315393,
+      "iou_with_birefnet_lite_float16_cpu": 0.7172403311231735,
+      "iou_with_s3od_float32_cpu": 0.673630860550774,
+      "iou_with_isnet_pytorch": 1.0
+    },
+    "isnet_float32_cpu": {
+      "foreground": 0.15270588990860895,
+      "soft": 0.0963784028579703,
+      "edge_width_px": 87.97625550458761,
+      "parts": 1.4285714285714286,
+      "hole_fraction": 0.019925183724976064,
+      "island_fraction": 0.07199561614778269,
+      "subject_recall": 0.8016849997631785,
+      "outside_box": 0.3139633547604417,
+      "iou_with_birefnet_lite_float16_cpu": 0.7172411847029053,
+      "iou_with_s3od_float32_cpu": 0.6736309087201402,
+      "iou_with_isnet_pytorch": 0.9999988130001903
+    },
+    "isnet_float16_cpu": {
+      "foreground": 0.15268648193656723,
+      "soft": 0.09643211003563774,
+      "edge_width_px": 87.92600154447891,
+      "parts": 1.4285714285714286,
+      "hole_fraction": 0.019845732159214285,
+      "island_fraction": 0.0720971618827053,
+      "subject_recall": 0.8019713469802364,
+      "outside_box": 0.31386882538489286,
+      "iou_with_birefnet_lite_float16_cpu": 0.7173110052312536,
+      "iou_with_s3od_float32_cpu": 0.6737177202944012,
+      "iou_with_isnet_pytorch": 0.9970816703864189
+    },
+    "isnet_float32_directml": {
+      "foreground": 0.1527056969529605,
+      "soft": 0.09637849368409568,
+      "edge_width_px": 87.9750296009121,
+      "parts": 1.4285714285714286,
+      "hole_fraction": 0.01992535246927144,
+      "island_fraction": 0.07199614759829395,
+      "subject_recall": 0.8016848483095264,
+      "outside_box": 0.3139632526064994,
+      "iou_with_birefnet_lite_float16_cpu": 0.7172401922191466,
+      "iou_with_s3od_float32_cpu": 0.6736308529205696,
+      "iou_with_isnet_pytorch": 0.9999993413552327
+    },
+    "isnet_float16_directml": {
+      "foreground": 0.152869573211679,
+      "soft": 0.09639619370258719,
+      "edge_width_px": 89.39646547589145,
+      "parts": 1.4285714285714286,
+      "hole_fraction": 0.01936635926421242,
+      "island_fraction": 0.07056405484467236,
+      "subject_recall": 0.797853504268944,
+      "outside_box": 0.3156241143641885,
+      "iou_with_birefnet_lite_float16_cpu": 0.7159505453189831,
+      "iou_with_s3od_float32_cpu": 0.6720761886150272,
+      "iou_with_isnet_pytorch": 0.9937840710024929
+    }
+  },
+  "results": {
+    "birefnet_lite_float16_cpu": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22205627978372433,
+        "soft": 0.008688828812316715,
+        "edge_width_px": 1.5691750711145591,
+        "parts": 1,
+        "hole_fraction": 0.009040670118715219,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9983261036643349,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.035620779936612924,
+            "mean_alpha": 0.3948151767253876
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9920150335432727,
+        "iou_with_isnet_pytorch": 0.9947298824012736
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.025875321218795887,
+        "soft": 0.0023732906571218796,
+        "edge_width_px": 1.3187250996015936,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.989029255319149,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.023830834638621616,
+            "mean_alpha": 0.6392733454704285
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.956626635213382,
+        "iou_with_isnet_pytorch": 0.9788600922468702
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.6791327324304539,
+        "soft": 0.026281398700585653,
+        "edge_width_px": 5.441385435168739,
+        "parts": 1,
+        "hole_fraction": 3.579098067287044e-05,
+        "island_fraction": 1.8948166238578467e-05,
+        "subject": "person",
+        "subject_recall": 0.9987638352911242,
+        "outside_box": 0.004840203798054655,
+        "regions": {
+          "hair": {
+            "soft": 0.038847271847624786,
+            "mean_alpha": 0.6964094042778015
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9954461703761841,
+        "iou_with_isnet_pytorch": 0.9441281264185084
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.022346216501468428,
+        "soft": 0.0017624013399412629,
+        "edge_width_px": 1.2339357429718876,
+        "parts": 1,
+        "hole_fraction": 0.023102098440608357,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.995935746080898,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.02799480649643516,
+            "mean_alpha": 0.35500651597976685
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9823959326342548,
+        "iou_with_isnet_pytorch": 0.99232
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.262298583984375,
+        "soft": 0.016530354817708332,
+        "edge_width_px": 1.670307079532314,
+        "parts": 3,
+        "hole_fraction": 0.0027244522008919914,
+        "island_fraction": 0.2896984681016095,
+        "subject": "bassist",
+        "subject_recall": 0.9963800367930686,
+        "outside_box": 0.7531462090362614,
+        "regions": {
+          "hair": {
+            "soft": 0.0309813313682142,
+            "mean_alpha": 0.41387832164764404
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.22987427919588954,
+        "iou_with_isnet_pytorch": 0.7239608876235282
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.10984037069281524,
+        "soft": 0.006340496700879765,
+        "edge_width_px": 2.0452655889145497,
+        "parts": 1,
+        "hole_fraction": 0.0030765620722470635,
+        "island_fraction": 0.00016947163957293146,
+        "subject": "squirrel",
+        "subject_recall": 0.9959791961136804,
+        "outside_box": 0.002789763912969795,
+        "regions": {
+          "fur": {
+            "soft": 0.027982810920121334,
+            "mean_alpha": 0.48424386978149414
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.969838219636968,
+        "iou_with_isnet_pytorch": 0.3014936279551872
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.023742496792521994,
+        "soft": 0.0021349775476539588,
+        "edge_width_px": 0.9906976744186047,
+        "parts": 2,
+        "hole_fraction": 0.022616247512212775,
+        "island_fraction": 0.45950183945479767,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.9972117434804002,
+        "outside_box": 0.5579277486279477,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9281501340482574,
+        "iou_with_isnet_pytorch": 0.6056005198794825
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.004565858004385965,
+        "soft": 0.0010350991410818713,
+        "edge_width_px": 1.383587786259542,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.007817385866166354,
+        "subject": "boarder",
+        "subject_recall": 0.9813323572474377,
+        "outside_box": 0.0009380863039399625,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.8625304136253041,
+        "iou_with_isnet_pytorch": 0.6727107887579329
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.0025908217423133238,
+        "soft": 0.0002988309846266471,
+        "edge_width_px": 0.9858490566037735,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.992260917634052,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9593275488069414,
+        "iou_with_isnet_pytorch": 0.9856906989543203
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.24110068044354838,
+        "soft": 0.0063218818731671554,
+        "edge_width_px": 1.4480157428665137,
+        "parts": 1,
+        "hole_fraction": 0.0007126864120396492,
+        "island_fraction": 5.3451480902973687e-05,
+        "subject": "car_box",
+        "subject_recall": 0.9998014599313051,
+        "outside_box": 0.07485582947789782,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.991154055525313,
+        "iou_with_isnet_pytorch": 0.9029878338644647
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.37020167017961875,
+        "soft": 0.004168289497800587,
+        "edge_width_px": 1.9445557782231129,
+        "parts": 1,
+        "hole_fraction": 0.000549244402155204,
+        "island_fraction": 0.0,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.9702797202797203,
+        "outside_box": 0.9947899140161757,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9883762579869897,
+        "iou_with_isnet_pytorch": 3.6896692949410947e-05
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.27345036831991215,
+        "soft": 0.006083855691800879,
+        "edge_width_px": 1.5800222799851467,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 6.274542611987514e-05,
+        "subject": "tram_box",
+        "subject_recall": 0.9999078875360999,
+        "outside_box": 0.014128178447991885,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9846107281333006,
+        "iou_with_isnet_pytorch": 0.9550678617157491
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06484260447214077,
+        "soft": 0.002063382056451613,
+        "edge_width_px": 1.349250936329588,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "car_box",
+        "subject_recall": 0.9968808484092326,
+        "outside_box": 0.0024070311809910785,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.9862623518327819,
+        "iou_with_isnet_pytorch": 0.9837774192141643
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.0,
+        "soft": 0.0,
+        "edge_width_px": 0.0,
+        "parts": 0,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 1.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 0.0
+      }
+    ],
+    "s3od_float32_cpu": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22268202437683285,
+        "soft": 0.0002949734237536657,
+        "edge_width_px": 0.05455508474576271,
+        "parts": 1,
+        "hole_fraction": 0.008584436127937035,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9991532820091966,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.001067934408157641,
+            "mean_alpha": 0.40208959579467773
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9920150335432727,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.9921130799959029
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.026458964298825258,
+        "soft": 0.00013766519823788548,
+        "edge_width_px": 0.07704654895666131,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9910239361702128,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.0011747594540165586,
+            "mean_alpha": 0.6404429078102112
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.956626635213382,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.9530571780719147
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.6804395818081991,
+        "soft": 0.0003960582906295754,
+        "edge_width_px": 0.08363526570048309,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9995314024002375,
+        "outside_box": 0.004730044925970909,
+        "regions": {
+          "hair": {
+            "soft": 0.0004917376183243644,
+            "mean_alpha": 0.6943653225898743
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9954461703761841,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.9427247144512498
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.022384934838472835,
+        "soft": 5.879451174743025e-05,
+        "edge_width_px": 0.04175152749490835,
+        "parts": 1,
+        "hole_fraction": 0.0216527866752082,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9920005160957358,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.000933919500694745,
+            "mean_alpha": 0.35559001564979553
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9823959326342548,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.9779710512950737
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.061244964599609375,
+        "soft": 0.0003649393717447917,
+        "edge_width_px": 0.12527280663465734,
+        "parts": 1,
+        "hole_fraction": 0.008284023668639054,
+        "island_fraction": 2.076196408180214e-05,
+        "subject": "bassist",
+        "subject_recall": 0.9849563824105394,
+        "outside_box": 0.019495484272812207,
+        "regions": {
+          "hair": {
+            "soft": 0.00227216900024564,
+            "mean_alpha": 0.364230751991272
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.22987427919588954,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.24697783572359844
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.10739896444281524,
+        "soft": 0.00021765029325513196,
+        "edge_width_px": 0.08141403320835565,
+        "parts": 1,
+        "hole_fraction": 0.003413151298597408,
+        "island_fraction": 0.0,
+        "subject": "squirrel",
+        "subject_recall": 0.9935228005653827,
+        "outside_box": 0.0007999573356087676,
+        "regions": {
+          "fur": {
+            "soft": 0.0009605662285136501,
+            "mean_alpha": 0.4739970266819
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.969838219636968,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.29692174272802496
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.02259983275293255,
+        "soft": 0.00019473973607038122,
+        "edge_width_px": 0.09334248455730954,
+        "parts": 2,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.48127732370271814,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.9929473511563064,
+        "outside_box": 0.5382373439776975,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9281501340482574,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.6196966906121446
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.004177517361111111,
+        "soft": 5.9964364035087716e-05,
+        "edge_width_px": 0.08450704225352113,
+        "parts": 1,
+        "hole_fraction": 0.06664388243335612,
+        "island_fraction": 0.0,
+        "subject": "boarder",
+        "subject_recall": 0.9571742313323572,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.8625304136253041,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.6070540357223604
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.0025750937957540266,
+        "soft": 8.578879941434847e-06,
+        "edge_width_px": 0.02857142857142857,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9773355444997236,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9593275488069414,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.9623567921440261
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.24075559017595308,
+        "soft": 0.00035224981671554253,
+        "edge_width_px": 0.08568443051201671,
+        "parts": 1,
+        "hole_fraction": 0.0006066517581005853,
+        "island_fraction": 0.00023790265023552361,
+        "subject": "car_box",
+        "subject_recall": 0.9999669099885509,
+        "outside_box": 0.07329780653756483,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.991154055525313,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.8999566074025426
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.36904182322214074,
+        "soft": 0.00023053748167155426,
+        "edge_width_px": 0.1081262592343855,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 9.700186631590791e-05,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.9519230769230769,
+        "outside_box": 0.99480458004012,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9883762579869897,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.0
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.2703147877013177,
+        "soft": 0.0003460148243045388,
+        "edge_width_px": 0.09201520912547528,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "tram_box",
+        "subject_recall": 0.9975021267142401,
+        "outside_box": 0.0122291807718348,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9846107281333006,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.9584201944312576
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06496718062683285,
+        "soft": 8.018695014662756e-05,
+        "edge_width_px": 0.053588516746411484,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "car_box",
+        "subject_recall": 0.998952856251671,
+        "outside_box": 2.2040510458222213e-05,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9862623518327819,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.9735821251327396
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.015447703147877013,
+        "soft": 0.00012439375915080527,
+        "edge_width_px": 0.11740890688259109,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "rock_box",
+        "subject_recall": 0.969162571070637,
+        "outside_box": 0.01693817104776009,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 1.0,
+        "iou_with_isnet_pytorch": 0.0
+      }
+    ],
+    "isnet_pytorch": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22290540230938416,
+        "soft": 0.009472083486070381,
+        "edge_width_px": 1.7186282151208105,
+        "parts": 1,
+        "hole_fraction": 0.00884563499710927,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9991532820091966,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.03221027972991594,
+            "mean_alpha": 0.40261316299438477
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9947298824012736,
+        "iou_with_s3od_float32_cpu": 0.9921130799959029,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.025805054607195302,
+        "soft": 0.005234145558002937,
+        "edge_width_px": 2.903739061256961,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9855385638297872,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.037088834191094204,
+            "mean_alpha": 0.6427229642868042
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9788600922468702,
+        "iou_with_s3od_float32_cpu": 0.9530571780719147,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.6619835514275256,
+        "soft": 0.280283446193265,
+        "edge_width_px": 31.314376996805112,
+        "parts": 1,
+        "hole_fraction": 0.015114927881188633,
+        "island_fraction": 0.00039526033184588734,
+        "subject": "person",
+        "subject_recall": 0.9619333361604682,
+        "outside_box": 0.00493751430928797,
+        "regions": {
+          "hair": {
+            "soft": 0.17703347384867965,
+            "mean_alpha": 0.6683627367019653
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9441281264185084,
+        "iou_with_s3od_float32_cpu": 0.9427247144512498,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.022294592052129223,
+        "soft": 0.002116602422907489,
+        "edge_width_px": 1.4671968190854872,
+        "parts": 1,
+        "hole_fraction": 0.02309127162796681,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9938713631378621,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.03362110202501082,
+            "mean_alpha": 0.3543267846107483
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.99232,
+        "iou_with_s3od_float32_cpu": 0.9779710512950737,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.24279657999674478,
+        "soft": 0.28931935628255206,
+        "edge_width_px": 16.006331340133663,
+        "parts": 4,
+        "hole_fraction": 0.032439000120454795,
+        "island_fraction": 0.4205234022718822,
+        "subject": "bassist",
+        "subject_recall": 0.9956975847130735,
+        "outside_box": 0.7248812472832207,
+        "regions": {
+          "hair": {
+            "soft": 0.07792925571112749,
+            "mean_alpha": 0.42937564849853516
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.7239608876235282,
+        "iou_with_s3od_float32_cpu": 0.24697783572359844,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.35942511684384165,
+        "soft": 0.28241700650659823,
+        "edge_width_px": 32.58400792995209,
+        "parts": 1,
+        "hole_fraction": 0.025361438343339534,
+        "island_fraction": 0.0005935994836879659,
+        "subject": "squirrel",
+        "subject_recall": 0.9978317849350221,
+        "outside_box": 0.6747951285003446,
+        "regions": {
+          "fur": {
+            "soft": 0.1646865520728008,
+            "mean_alpha": 0.5406823754310608
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.3014936279551872,
+        "iou_with_s3od_float32_cpu": 0.29692174272802496,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.01517394840542522,
+        "soft": 0.021598927785923754,
+        "edge_width_px": 6.287619841600667,
+        "parts": 4,
+        "hole_fraction": 0.018590167028404266,
+        "island_fraction": 0.5498726054543739,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.4738395932425783,
+        "outside_box": 0.6437671038973294,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.6056005198794825,
+        "iou_with_s3od_float32_cpu": 0.6196966906121446,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.005970737390350877,
+        "soft": 0.011348969755116959,
+        "edge_width_px": 8.34102833158447,
+        "parts": 1,
+        "hole_fraction": 0.06121472979435677,
+        "island_fraction": 0.02462936394069823,
+        "subject": "boarder",
+        "subject_recall": 0.9304538799414348,
+        "outside_box": 0.23194643711142993,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.6727107887579329,
+        "iou_with_s3od_float32_cpu": 0.6070540357223604,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.002567944729136164,
+        "soft": 0.24446519262445096,
+        "edge_width_px": 818.0717703349283,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9856274184632393,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9856906989543203,
+        "iou_with_s3od_float32_cpu": 0.9623567921440261,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.2231989438233138,
+        "soft": 0.03481688737170088,
+        "edge_width_px": 4.641152891773239,
+        "parts": 1,
+        "hole_fraction": 0.088757016840417,
+        "island_fraction": 0.0019310344827586207,
+        "subject": "car_box",
+        "subject_recall": 0.910974633197223,
+        "outside_box": 0.0859149959903769,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9029878338644647,
+        "iou_with_s3od_float32_cpu": 0.8999566074025426,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.01789887280058651,
+        "soft": 0.05492519703079179,
+        "edge_width_px": 69.23826714801444,
+        "parts": 1,
+        "hole_fraction": 0.00016,
+        "island_fraction": 0.0,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 3.6896692949410947e-05,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.2723479822474378,
+        "soft": 0.08563437957540264,
+        "edge_width_px": 13.996728207525123,
+        "parts": 1,
+        "hole_fraction": 0.005354949127983284,
+        "island_fraction": 0.0033232184294249203,
+        "subject": "tram_box",
+        "subject_recall": 0.9925876558461614,
+        "outside_box": 0.016747340900261448,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9550678617157491,
+        "iou_with_s3od_float32_cpu": 0.9584201944312576,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06543255131964809,
+        "soft": 0.010733596041055718,
+        "edge_width_px": 5.770592763664357,
+        "parts": 1,
+        "hole_fraction": 2.188375350140056e-05,
+        "island_fraction": 0.006674544817927171,
+        "subject": "car_box",
+        "subject_recall": 0.996078780857321,
+        "outside_box": 0.01249562324929972,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9837774192141643,
+        "iou_with_s3od_float32_cpu": 0.9735821251327396,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 7.863973279648609e-05,
+        "soft": 0.016933279191068813,
+        "edge_width_px": 219.3148148148148,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 1.0
+      }
+    ],
+    "isnet_float32_cpu": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22290540230938416,
+        "soft": 0.009472083486070381,
+        "edge_width_px": 1.7186282151208105,
+        "parts": 1,
+        "hole_fraction": 0.00884563499710927,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9991532820091966,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.03221027972991594,
+            "mean_alpha": 0.40261316299438477
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9947298824012736,
+        "iou_with_s3od_float32_cpu": 0.9921130799959029,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.025805054607195302,
+        "soft": 0.005234145558002937,
+        "edge_width_px": 2.903739061256961,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9855385638297872,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.037088834191094204,
+            "mean_alpha": 0.6427229642868042
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9788600922468702,
+        "iou_with_s3od_float32_cpu": 0.9530571780719147,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.6619849812408491,
+        "soft": 0.28028201637994143,
+        "edge_width_px": 31.314217252396165,
+        "parts": 1,
+        "hole_fraction": 0.015112735346780795,
+        "island_fraction": 0.0003952594781278956,
+        "subject": "person",
+        "subject_recall": 0.9619354565115983,
+        "outside_box": 0.004937503644810761,
+        "regions": {
+          "hair": {
+            "soft": 0.17702950822272542,
+            "mean_alpha": 0.6683627963066101
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9441301991249034,
+        "iou_with_s3od_float32_cpu": 0.9427267836450919,
+        "iou_with_isnet_pytorch": 0.9999978401121413
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.022294592052129223,
+        "soft": 0.002116602422907489,
+        "edge_width_px": 1.4671968190854872,
+        "parts": 1,
+        "hole_fraction": 0.02309127162796681,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9938713631378621,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.03362110202501082,
+            "mean_alpha": 0.3543268144130707
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.99232,
+        "iou_with_s3od_float32_cpu": 0.9779710512950737,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.24279912312825522,
+        "soft": 0.28931935628255206,
+        "edge_width_px": 16.004079622986566,
+        "parts": 4,
+        "hole_fraction": 0.032438660347220406,
+        "island_fraction": 0.42051899761711486,
+        "subject": "bassist",
+        "subject_recall": 0.9956975847130735,
+        "outside_box": 0.7248841289376522,
+        "regions": {
+          "hair": {
+            "soft": 0.07792925571112749,
+            "mean_alpha": 0.42937570810317993
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.7239695676893231,
+        "iou_with_s3od_float32_cpu": 0.24697525971045933,
+        "iou_with_isnet_pytorch": 0.9999895257796748
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.3594236849340176,
+        "soft": 0.28241700650659823,
+        "edge_width_px": 32.58400792995209,
+        "parts": 1,
+        "hole_fraction": 0.025365523285924865,
+        "island_fraction": 0.000593601848531931,
+        "subject": "squirrel",
+        "subject_recall": 0.9978317849350221,
+        "outside_box": 0.6747938329150233,
+        "regions": {
+          "fur": {
+            "soft": 0.1646865520728008,
+            "mean_alpha": 0.5406824350357056
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.30149482529924304,
+        "iou_with_s3od_float32_cpu": 0.29692292391844854,
+        "iou_with_isnet_pytorch": 0.9999960161108478
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.01517394840542522,
+        "soft": 0.021598927785923754,
+        "edge_width_px": 6.287619841600667,
+        "parts": 4,
+        "hole_fraction": 0.018590167028404266,
+        "island_fraction": 0.5498726054543739,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.4738395932425783,
+        "outside_box": 0.6437671038973294,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.6056005198794825,
+        "iou_with_s3od_float32_cpu": 0.6196966906121446,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.005970737390350877,
+        "soft": 0.011348969755116959,
+        "edge_width_px": 8.34102833158447,
+        "parts": 1,
+        "hole_fraction": 0.06121472979435677,
+        "island_fraction": 0.02462936394069823,
+        "subject": "boarder",
+        "subject_recall": 0.9304538799414348,
+        "outside_box": 0.23194643711142993,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.6727107887579329,
+        "iou_with_s3od_float32_cpu": 0.6070540357223604,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.002567944729136164,
+        "soft": 0.2444637628111274,
+        "edge_width_px": 818.066985645933,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9856274184632393,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9856906989543203,
+        "iou_with_s3od_float32_cpu": 0.9623567921440261,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.2231989438233138,
+        "soft": 0.03481688737170088,
+        "edge_width_px": 4.641152891773239,
+        "parts": 1,
+        "hole_fraction": 0.088757016840417,
+        "island_fraction": 0.0019310344827586207,
+        "subject": "car_box",
+        "subject_recall": 0.910974633197223,
+        "outside_box": 0.0859149959903769,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9029878338644647,
+        "iou_with_s3od_float32_cpu": 0.8999566074025426,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.01789887280058651,
+        "soft": 0.05492519703079179,
+        "edge_width_px": 69.23826714801444,
+        "parts": 1,
+        "hole_fraction": 0.00016,
+        "island_fraction": 0.0,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 3.6896692949410947e-05,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.2723479822474378,
+        "soft": 0.08563437957540264,
+        "edge_width_px": 13.996728207525123,
+        "parts": 1,
+        "hole_fraction": 0.005354949127983284,
+        "island_fraction": 0.0033232184294249203,
+        "subject": "tram_box",
+        "subject_recall": 0.9925876558461614,
+        "outside_box": 0.016747340900261448,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9550678617157491,
+        "iou_with_s3od_float32_cpu": 0.9584201944312576,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06543255131964809,
+        "soft": 0.010733596041055718,
+        "edge_width_px": 5.770592763664357,
+        "parts": 1,
+        "hole_fraction": 2.188375350140056e-05,
+        "island_fraction": 0.006674544817927171,
+        "subject": "car_box",
+        "subject_recall": 0.996078780857321,
+        "outside_box": 0.01249562324929972,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9837774192141643,
+        "iou_with_s3od_float32_cpu": 0.9735821251327396,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 7.863973279648609e-05,
+        "soft": 0.016934709004392385,
+        "edge_width_px": 219.33333333333334,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 1.0
+      }
+    ],
+    "isnet_float16_cpu": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22290540230938416,
+        "soft": 0.009473515395894428,
+        "edge_width_px": 1.7188880228630814,
+        "parts": 1,
+        "hole_fraction": 0.00884563499710927,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9991532820091966,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.03221027972991594,
+            "mean_alpha": 0.40261712670326233
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9947298824012736,
+        "iou_with_s3od_float32_cpu": 0.9921130799959029,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.025805054607195302,
+        "soft": 0.005234145558002937,
+        "edge_width_px": 2.903739061256961,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9855385638297872,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.037088834191094204,
+            "mean_alpha": 0.6427248120307922
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9788600922468702,
+        "iou_with_s3od_float32_cpu": 0.9530571780719147,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.6613615826317716,
+        "soft": 0.28033920891288433,
+        "edge_width_px": 31.24573705179283,
+        "parts": 1,
+        "hole_fraction": 0.01567827115280261,
+        "island_fraction": 0.00038914627792394784,
+        "subject": "person",
+        "subject_recall": 0.9611318434332725,
+        "outside_box": 0.004939995805867893,
+        "regions": {
+          "hair": {
+            "soft": 0.1771524426273065,
+            "mean_alpha": 0.6682954430580139
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.943439992703272,
+        "iou_with_s3od_float32_cpu": 0.9420335742134148,
+        "iou_with_isnet_pytorch": 0.999030222919137
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.022294592052129223,
+        "soft": 0.002116602422907489,
+        "edge_width_px": 1.4671968190854872,
+        "parts": 1,
+        "hole_fraction": 0.02309127162796681,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9938713631378621,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.03362110202501082,
+            "mean_alpha": 0.3543294072151184
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.99232,
+        "iou_with_s3od_float32_cpu": 0.9779710512950737,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.2428716023763021,
+        "soft": 0.28929392496744794,
+        "edge_width_px": 15.98805340829234,
+        "parts": 4,
+        "hole_fraction": 0.032355682139454035,
+        "island_fraction": 0.4204039748274887,
+        "subject": "bassist",
+        "subject_recall": 0.9956975847130735,
+        "outside_box": 0.7249662307200971,
+        "regions": {
+          "hair": {
+            "soft": 0.07792925571112749,
+            "mean_alpha": 0.4293644428253174
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.7242094664386712,
+        "iou_with_s3od_float32_cpu": 0.24690186591870036,
+        "iou_with_isnet_pytorch": 0.9996178190556466
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.35962987994868034,
+        "soft": 0.28240125549853373,
+        "edge_width_px": 32.70646766169154,
+        "parts": 1,
+        "hole_fraction": 0.02480947944289161,
+        "island_fraction": 0.0006410409549519418,
+        "subject": "squirrel",
+        "subject_recall": 0.9978317849350221,
+        "outside_box": 0.6749763093560126,
+        "regions": {
+          "fur": {
+            "soft": 0.1646612740141557,
+            "mean_alpha": 0.5407357811927795
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.3013225056162829,
+        "iou_with_s3od_float32_cpu": 0.2967529292021676,
+        "iou_with_isnet_pytorch": 0.9994306282201358
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.015221201429618768,
+        "soft": 0.0216003596957478,
+        "edge_width_px": 6.2645348837209305,
+        "parts": 4,
+        "hole_fraction": 0.01768579492003763,
+        "island_fraction": 0.5512699905926622,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.47826800065606034,
+        "outside_box": 0.6421448730009407,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.6072652096869462,
+        "iou_with_s3od_float32_cpu": 0.6215237276689791,
+        "iou_with_isnet_pytorch": 0.99689557855127
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.00597359283625731,
+        "soft": 0.011289005391081871,
+        "edge_width_px": 8.279581151832462,
+        "parts": 1,
+        "hole_fraction": 0.06118546845124283,
+        "island_fraction": 0.024617590822179732,
+        "subject": "boarder",
+        "subject_recall": 0.9308199121522694,
+        "outside_box": 0.23183556405353728,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.6727849535463404,
+        "iou_with_s3od_float32_cpu": 0.6075062174994348,
+        "iou_with_isnet_pytorch": 0.9995219885277247
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.002567944729136164,
+        "soft": 0.24443802617130309,
+        "edge_width_px": 817.9808612440191,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9856274184632393,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9856906989543203,
+        "iou_with_s3od_float32_cpu": 0.9623567921440261,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22321039910190615,
+        "soft": 0.034825478830645164,
+        "edge_width_px": 4.646732900267482,
+        "parts": 1,
+        "hole_fraction": 0.08869472617283475,
+        "island_fraction": 0.0019373504487339864,
+        "subject": "car_box",
+        "subject_recall": 0.911014341210962,
+        "outside_box": 0.08592341692166561,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9030012793877719,
+        "iou_with_s3od_float32_cpu": 0.8999700948170213,
+        "iou_with_isnet_pytorch": 0.9999230201751291
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.01789887280058651,
+        "soft": 0.055509416239002934,
+        "edge_width_px": 69.97472924187726,
+        "parts": 1,
+        "hole_fraction": 0.00016,
+        "island_fraction": 0.0,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 3.6896692949410947e-05,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.27234941206076135,
+        "soft": 0.08564724789531479,
+        "edge_width_px": 13.99229152067274,
+        "parts": 1,
+        "hole_fraction": 0.005333921324660461,
+        "island_fraction": 0.0033179510602218618,
+        "subject": "tram_box",
+        "subject_recall": 0.9925659823252437,
+        "outside_box": 0.016773502590836785,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9550229187472792,
+        "iou_with_s3od_float32_cpu": 0.9583849329205366,
+        "iou_with_isnet_pytorch": 0.9999212540554161
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06543971086876833,
+        "soft": 0.01073789177052786,
+        "edge_width_px": 5.795208655332303,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.006783221373711735,
+        "subject": "car_box",
+        "subject_recall": 0.996078780857321,
+        "outside_box": 0.012603662939541804,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9836701768155754,
+        "iou_with_s3od_float32_cpu": 0.9734766403744475,
+        "iou_with_isnet_pytorch": 0.9998905932036498
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 8.149935944363104e-05,
+        "soft": 0.017143461749633968,
+        "edge_width_px": 218.0,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 0.9649122807017544
+      }
+    ],
+    "isnet_float32_directml": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22290540230938416,
+        "soft": 0.009472083486070381,
+        "edge_width_px": 1.7186282151208105,
+        "parts": 1,
+        "hole_fraction": 0.00884563499710927,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9991532820091966,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.03221027972991594,
+            "mean_alpha": 0.40261316299438477
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9947298824012736,
+        "iou_with_s3od_float32_cpu": 0.9921130799959029,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.025805054607195302,
+        "soft": 0.005234145558002937,
+        "edge_width_px": 2.903739061256961,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9855385638297872,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.037088834191094204,
+            "mean_alpha": 0.6427229642868042
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9788600922468702,
+        "iou_with_s3od_float32_cpu": 0.9530571780719147,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.6619835514275256,
+        "soft": 0.280283446193265,
+        "edge_width_px": 31.314376996805112,
+        "parts": 1,
+        "hole_fraction": 0.015114927881188633,
+        "island_fraction": 0.00039526033184588734,
+        "subject": "person",
+        "subject_recall": 0.9619333361604682,
+        "outside_box": 0.00493751430928797,
+        "regions": {
+          "hair": {
+            "soft": 0.17703347384867965,
+            "mean_alpha": 0.6683627963066101
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9441281264185084,
+        "iou_with_s3od_float32_cpu": 0.9427247144512498,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.022294592052129223,
+        "soft": 0.002116602422907489,
+        "edge_width_px": 1.4671968190854872,
+        "parts": 1,
+        "hole_fraction": 0.02309127162796681,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9938713631378621,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.03362110202501082,
+            "mean_alpha": 0.3543267846107483
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.99232,
+        "iou_with_s3od_float32_cpu": 0.9779710512950737,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.2427978515625,
+        "soft": 0.2893206278483073,
+        "edge_width_px": 16.005275745638716,
+        "parts": 4,
+        "hole_fraction": 0.03243883023294788,
+        "island_fraction": 0.4205264370705547,
+        "subject": "bassist",
+        "subject_recall": 0.9956975847130735,
+        "outside_box": 0.7248826881179823,
+        "regions": {
+          "hair": {
+            "soft": 0.07792925571112749,
+            "mean_alpha": 0.4293755888938904
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.7239577456230958,
+        "iou_with_s3od_float32_cpu": 0.2469765477103118,
+        "iou_with_isnet_pytorch": 0.99999476286241
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.3594236849340176,
+        "soft": 0.28241700650659823,
+        "edge_width_px": 32.58400792995209,
+        "parts": 1,
+        "hole_fraction": 0.025365523285924865,
+        "island_fraction": 0.000593601848531931,
+        "subject": "squirrel",
+        "subject_recall": 0.9978317849350221,
+        "outside_box": 0.6747938329150233,
+        "regions": {
+          "fur": {
+            "soft": 0.1646865520728008,
+            "mean_alpha": 0.5406821966171265
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.30149482529924304,
+        "iou_with_s3od_float32_cpu": 0.29692292391844854,
+        "iou_with_isnet_pytorch": 0.9999960161108478
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.01517394840542522,
+        "soft": 0.021598927785923754,
+        "edge_width_px": 6.287619841600667,
+        "parts": 4,
+        "hole_fraction": 0.018590167028404266,
+        "island_fraction": 0.5498726054543739,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.4738395932425783,
+        "outside_box": 0.6437671038973294,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.6056005198794825,
+        "iou_with_s3od_float32_cpu": 0.6196966906121446,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.005970737390350877,
+        "soft": 0.011348969755116959,
+        "edge_width_px": 8.34102833158447,
+        "parts": 1,
+        "hole_fraction": 0.06121472979435677,
+        "island_fraction": 0.02462936394069823,
+        "subject": "boarder",
+        "subject_recall": 0.9304538799414348,
+        "outside_box": 0.23194643711142993,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.6727107887579329,
+        "iou_with_s3od_float32_cpu": 0.6070540357223604,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.002567944729136164,
+        "soft": 0.2444637628111274,
+        "edge_width_px": 818.066985645933,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9856274184632393,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9856906989543203,
+        "iou_with_s3od_float32_cpu": 0.9623567921440261,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.2231989438233138,
+        "soft": 0.03481688737170088,
+        "edge_width_px": 4.641152891773239,
+        "parts": 1,
+        "hole_fraction": 0.088757016840417,
+        "island_fraction": 0.0019310344827586207,
+        "subject": "car_box",
+        "subject_recall": 0.910974633197223,
+        "outside_box": 0.0859149959903769,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9029878338644647,
+        "iou_with_s3od_float32_cpu": 0.8999566074025426,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.01789887280058651,
+        "soft": 0.05492519703079179,
+        "edge_width_px": 69.23826714801444,
+        "parts": 1,
+        "hole_fraction": 0.00016,
+        "island_fraction": 0.0,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 3.6896692949410947e-05,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.2723479822474378,
+        "soft": 0.08563437957540264,
+        "edge_width_px": 13.996728207525123,
+        "parts": 1,
+        "hole_fraction": 0.005354949127983284,
+        "island_fraction": 0.0033232184294249203,
+        "subject": "tram_box",
+        "subject_recall": 0.9925876558461614,
+        "outside_box": 0.016747340900261448,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9550678617157491,
+        "iou_with_s3od_float32_cpu": 0.9584201944312576,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06543255131964809,
+        "soft": 0.010733596041055718,
+        "edge_width_px": 5.770592763664357,
+        "parts": 1,
+        "hole_fraction": 2.188375350140056e-05,
+        "island_fraction": 0.006674544817927171,
+        "subject": "car_box",
+        "subject_recall": 0.996078780857321,
+        "outside_box": 0.01249562324929972,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9837774192141643,
+        "iou_with_s3od_float32_cpu": 0.9735821251327396,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 7.863973279648609e-05,
+        "soft": 0.016933279191068813,
+        "edge_width_px": 219.3148148148148,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 1.0
+      }
+    ],
+    "isnet_float16_directml": [
+      {
+        "image": "DSC_1535.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22289967467008798,
+        "soft": 0.009474947305718476,
+        "edge_width_px": 1.719147830605352,
+        "parts": 1,
+        "hole_fraction": 0.008845862294913468,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9991467687938828,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.03221027972991594,
+            "mean_alpha": 0.40262219309806824
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9947170102000861,
+        "iou_with_s3od_float32_cpu": 0.9921257322108767,
+        "iou_with_isnet_pytorch": 0.9999614571757103
+      },
+      {
+        "image": "DSC00326.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.025810790657121878,
+        "soft": 0.00524131562041116,
+        "edge_width_px": 2.9077167859984088,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9857047872340425,
+        "outside_box": 0.0,
+        "regions": {
+          "hair": {
+            "soft": 0.03720071604385768,
+            "mean_alpha": 0.6427507400512695
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9790797276520975,
+        "iou_with_s3od_float32_cpu": 0.9531668631443575,
+        "iou_with_isnet_pytorch": 0.9997777654314128
+      },
+      {
+        "image": "DSC00674.jpg",
+        "grid": [
+          1024,
+          683
+        ],
+        "foreground": 0.6641668763726208,
+        "soft": 0.2802677182467057,
+        "edge_width_px": 31.367738838214116,
+        "parts": 1,
+        "hole_fraction": 0.014593778860871494,
+        "island_fraction": 0.0005554204080402486,
+        "subject": "person",
+        "subject_recall": 0.9634387854628726,
+        "outside_box": 0.0049277415271477875,
+        "regions": {
+          "hair": {
+            "soft": 0.1768074331692886,
+            "mean_alpha": 0.6688088178634644
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.9440655379483592,
+        "iou_with_s3od_float32_cpu": 0.9426846197704493,
+        "iou_with_isnet_pytorch": 0.9966740003702731
+      },
+      {
+        "image": "DSC00936.jpg",
+        "grid": [
+          1024,
+          681
+        ],
+        "foreground": 0.022294592052129223,
+        "soft": 0.002118036435389134,
+        "edge_width_px": 1.4681908548707754,
+        "parts": 1,
+        "hole_fraction": 0.02309127162796681,
+        "island_fraction": 0.0,
+        "subject": "person",
+        "subject_recall": 0.9938713631378621,
+        "outside_box": 0.0,
+        "regions": {
+          "person": {
+            "soft": 0.03364388054941801,
+            "mean_alpha": 0.35433557629585266
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.99232,
+        "iou_with_s3od_float32_cpu": 0.9779710512950737,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "P1024439.jpg",
+        "grid": [
+          768,
+          1024
+        ],
+        "foreground": 0.24356587727864584,
+        "soft": 0.2907981872558594,
+        "edge_width_px": 16.09380717804363,
+        "parts": 4,
+        "hole_fraction": 0.031913671768956084,
+        "island_fraction": 0.419362248626976,
+        "subject": "bassist",
+        "subject_recall": 0.9956679128835084,
+        "outside_box": 0.725760644851421,
+        "regions": {
+          "hair": {
+            "soft": 0.07832842053549496,
+            "mean_alpha": 0.4293079078197479
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.7266915220986202,
+        "iou_with_s3od_float32_cpu": 0.246194555927551,
+        "iou_with_isnet_pytorch": 0.9957371095828942
+      },
+      {
+        "image": "DSC_1188.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.3595768992851906,
+        "soft": 0.2823525705645161,
+        "edge_width_px": 32.76059146037548,
+        "parts": 1,
+        "hole_fraction": 0.02511976489046938,
+        "island_fraction": 0.0006092777470262865,
+        "subject": "squirrel",
+        "subject_recall": 0.9978455078151802,
+        "outside_box": 0.6748965621602679,
+        "regions": {
+          "fur": {
+            "soft": 0.16455384226491404,
+            "mean_alpha": 0.5406855344772339
+          }
+        },
+        "iou_with_birefnet_lite_float16_cpu": 0.30135643143808727,
+        "iou_with_s3od_float32_cpu": 0.29678627666173596,
+        "iou_with_isnet_pytorch": 0.9994504903776087
+      },
+      {
+        "image": "DSC00527.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.01458256964809384,
+        "soft": 0.021603223515395894,
+        "edge_width_px": 6.409090909090909,
+        "parts": 4,
+        "hole_fraction": 0.011979575805184604,
+        "island_fraction": 0.5319128043990573,
+        "subject": "kneeling_woman_box",
+        "subject_recall": 0.4182384779399705,
+        "outside_box": 0.6678122545168892,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.5832593907128069,
+        "iou_with_s3od_float32_cpu": 0.5967900627229124,
+        "iou_with_isnet_pytorch": 0.9601018675721562
+      },
+      {
+        "image": "2088064441.jpg",
+        "grid": [
+          684,
+          1024
+        ],
+        "foreground": 0.005975020559210526,
+        "soft": 0.011296144005847953,
+        "edge_width_px": 8.276150627615063,
+        "parts": 1,
+        "hole_fraction": 0.06117084826762246,
+        "island_fraction": 0.024850657108721624,
+        "subject": "boarder",
+        "subject_recall": 0.9308199121522694,
+        "outside_box": 0.23201911589008364,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.6726325328500227,
+        "iou_with_s3od_float32_cpu": 0.6073688969258589,
+        "iou_with_isnet_pytorch": 0.9992831541218637
+      },
+      {
+        "image": "DSC00728.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.002567944729136164,
+        "soft": 0.24411631817349927,
+        "edge_width_px": 816.9043062200957,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "balloon_box",
+        "subject_recall": 0.9856274184632393,
+        "outside_box": 0.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9856906989543203,
+        "iou_with_s3od_float32_cpu": 0.9623567921440261,
+        "iou_with_isnet_pytorch": 1.0
+      },
+      {
+        "image": "5761824892.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.22319035236436952,
+        "soft": 0.03481831928152493,
+        "edge_width_px": 4.649330783938814,
+        "parts": 1,
+        "hole_fraction": 0.0887796803726206,
+        "island_fraction": 0.00191827752792409,
+        "subject": "car_box",
+        "subject_recall": 0.9109216891789045,
+        "outside_box": 0.08593755012221801,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9029191168703123,
+        "iou_with_s3od_float32_cpu": 0.8998768617333177,
+        "iou_with_isnet_pytorch": 0.9998203815608843
+      },
+      {
+        "image": "DSC00562.jpg",
+        "grid": [
+          682,
+          1024
+        ],
+        "foreground": 0.017897440890762464,
+        "soft": 0.052891885080645164,
+        "edge_width_px": 66.43525179856115,
+        "parts": 1,
+        "hole_fraction": 0.00016001280102408193,
+        "island_fraction": 0.0,
+        "subject": "duck_on_wall",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 3.68968290865083e-05,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 0.99992
+      },
+      {
+        "image": "DSC00602.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 0.272233597181552,
+        "soft": 0.08546566160322108,
+        "edge_width_px": 13.96262555477692,
+        "parts": 1,
+        "hole_fraction": 0.005430729314383554,
+        "island_fraction": 0.00334037122238679,
+        "subject": "tram_box",
+        "subject_recall": 0.9925876558461614,
+        "outside_box": 0.01638147459532138,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9552790130540811,
+        "iou_with_s3od_float32_cpu": 0.958704775276549,
+        "iou_with_isnet_pytorch": 0.999475032547982
+      },
+      {
+        "image": "DSC_1456.jpg",
+        "grid": [
+          1024,
+          682
+        ],
+        "foreground": 0.06533374954178886,
+        "soft": 0.010717845032991202,
+        "edge_width_px": 5.992794235388311,
+        "parts": 1,
+        "hole_fraction": 4.3833694961316764e-05,
+        "island_fraction": 0.0053477107852806455,
+        "subject": "car_box",
+        "subject_recall": 0.996078780857321,
+        "outside_box": 0.011002257435290508,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.9852597558578822,
+        "iou_with_s3od_float32_cpu": 0.9750401527976733,
+        "iou_with_isnet_pytorch": 0.9984900210084033
+      },
+      {
+        "image": "Nikon-D800e-raw-00007.jpg",
+        "grid": [
+          683,
+          1024
+        ],
+        "foreground": 7.863973279648609e-05,
+        "soft": 0.018384539714494875,
+        "edge_width_px": 242.60377358490567,
+        "parts": 1,
+        "hole_fraction": 0.0,
+        "island_fraction": 0.0,
+        "subject": "rock_box",
+        "subject_recall": 0.0,
+        "outside_box": 1.0,
+        "regions": {},
+        "iou_with_birefnet_lite_float16_cpu": 0.0,
+        "iou_with_s3od_float32_cpu": 0.0,
+        "iou_with_isnet_pytorch": 0.9642857142857143
+      }
+    ]
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "model": "IS-Net general-use",
+  "revisions": {
+    "github": {
+      "repository": "xuebinqin/DIS",
+      "commit": "b6764e20381f6f42a70f83fa3324181529ed1403"
+    },
+    "weights": {
+      "file": "isnet-general-use.pth",
+      "url": "https://drive.usercontent.google.com/download?id=1XHIzgTzY5BQHw140EDIgwIb53K659ENH&export=download&confirm=t",
+      "google_drive_id": "1XHIzgTzY5BQHw140EDIgwIb53K659ENH",
+      "content_disposition_filename": "isnet-general-use.pth",
+      "bytes": 176579397,
+      "sha256": "9e1aafea58f0b55d0c35077e0ceade6ba1ba2bce372fd4f8f77215391f3fac13",
+      "downloaded": "2026-10-21",
+      "note": "README line 145 links this Drive ID as isnet.pth and ID 1klUkUnQFAxPdFu9XE3Vhnn-e72CVz6oM as isnet-general-use.pth; the server file names are the reverse. README line 28 links this ID as isnet-general-use.pth. 1klUk... is isnet.pth, 176597693 bytes, SHA-256 ea0889743a78391b48d6b7c40b4def963ee329cb10934c75aa32481dc5af9c61 (not kept)."
+    }
+  },
+  "checkpoint": {
+    "name": "isnet-general-use.pth",
+    "bytes": 176579397,
+    "sha256": "9e1aafea58f0b55d0c35077e0ceade6ba1ba2bce372fd4f8f77215391f3fac13"
+  },
+  "model_input": {
+    "size": 1024,
+    "resize": "stretch to size x size, torch bilinear, align_corners=False, no antialias, then truncation to uint8",
+    "mean": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "std": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "model_output": "d1: sigmoid of side output d1; the alpha is (d1 - min) / (max - min)",
+  "onnxruntime": "1.31.0",
+  "float16": {
+    "source": "build/tmp/explore/isnet/onnx/float32/subject_d1.onnx",
+    "converter": "onnxruntime.transformers.float16.convert_float_to_float16",
+    "keep_io_types": true,
+    "op_block_list": [
+      "ArrayFeatureExtractor",
+      "Binarizer",
+      "CastMap",
+      "CategoryMapper",
+      "CumSum",
+      "DictVectorizer",
+      "FeatureVectorizer",
+      "Imputer",
+      "LabelEncoder",
+      "LinearClassifier",
+      "LinearRegressor",
+      "Max",
+      "Min",
+      "NonMaxSuppression",
+      "Normalizer",
+      "OneHotEncoder",
+      "RandomUniformLike",
+      "Range",
+      "RoiAlign",
+      "SVMClassifier",
+      "SVMRegressor",
+      "Scaler",
+      "TopK",
+      "TreeEnsemble",
+      "TreeEnsembleClassifier",
+      "TreeEnsembleRegressor",
+      "Upsample",
+      "ZipMap"
+    ],
+    "node_block_list": [],
+    "activation_limit": 4094.0,
+    "activation_photos": [
+      "DSC_1535.jpg",
+      "DSC00326.jpg",
+      "DSC00674.jpg",
+      "DSC00936.jpg",
+      "P1024439.jpg",
+      "DSC_1188.jpg",
+      "DSC00527.jpg",
+      "2088064441.jpg",
+      "DSC00728.jpg",
+      "5761824892.jpg",
+      "DSC00562.jpg",
+      "DSC00602.jpg",
+      "DSC_1456.jpg",
+      "Nikon-D800e-raw-00007.jpg"
+    ],
+    "activation_maximum": 2402.4,
+    "modules_above_limit": {},
+    "largest_activations": {
+      "side2": 2402.4,
+      "side1": 1789.2,
+      "stage1d.rebnconv2.bn_s1": 680.8,
+      "stage1d.rebnconv2.relu_s1": 680.8,
+      "stage1d.rebnconv2": 680.8,
+      "stage1d.pool2": 680.8,
+      "stage2d.rebnconv1.bn_s1": 653.6,
+      "stage1d.rebnconv1.bn_s1": 610.1,
+      "stage1d.rebnconv1.relu_s1": 610.1,
+      "stage1d.rebnconv1": 610.1,
+      "stage1d.pool1": 610.1,
+      "side3": 529.8,
+      "stage2d.rebnconv1.relu_s1": 472.0,
+      "stage2d.rebnconv1": 472.0,
+      "stage2d.pool1": 472.0,
+      "side4": 461.2,
+      "stage2d": 416.4,
+      "stage2d.rebnconv1d.bn_s1": 409.4,
+      "stage2d.rebnconv1d.relu_s1": 409.4,
+      "stage2d.rebnconv1d": 409.4
+    },
+    "folded_convolutions": 112,
+    "folded_convolution_maximum": 29832.2,
+    "graph": {
+      "opset": [
+        {
+          "domain": "ai.onnx",
+          "version": 17
+        }
+      ],
+      "inputs": [
+        {
+          "name": "pixel_values",
+          "shape": [
+            1,
+            3,
+            1024,
+            1024
+          ],
+          "type": "float"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "d1",
+          "shape": [
+            1,
+            1,
+            1024,
+            1024
+          ],
+          "type": "float"
+        }
+      ],
+      "nodes": 595,
+      "operators": {
+        "Constant": 136,
+        "Conv": 114,
+        "Relu": 112,
+        "Concat": 84,
+        "Shape": 34,
+        "Slice": 34,
+        "Resize": 34,
+        "MaxPool": 33,
+        "Add": 11,
+        "Cast": 2,
+        "Sigmoid": 1
+      },
+      "files": [
+        {
+          "name": "subject_d1.onnx",
+          "bytes": 88155011,
+          "sha256": "31cf8b2d8ca1f9920edde5e7fcd6d2ce0122651563ddc2de1ff64ccac4b44317"
+        }
+      ]
+    }
+  }
+}

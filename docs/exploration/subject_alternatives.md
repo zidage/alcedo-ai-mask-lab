@@ -1,11 +1,13 @@
 # Subject models in place of BiRefNet lite
 
 **Issue:** [#6](https://github.com/zidage/alcedo-ai-mask-lab/issues/6). **Date:** 2026-10-21.
-**Code:** [`scripts/ai_models/s3od/`](../../scripts/ai_models/s3od/README.md).
+**Code:** [`scripts/ai_models/s3od/`](../../scripts/ai_models/s3od/README.md),
+[`scripts/ai_models/isnet/`](../../scripts/ai_models/isnet/README.md).
 **Results:** [`results/subject_alternatives/`](../../results/subject_alternatives/).
-**Status:** S3OD `s3od-synth` is measured (this report), also with the attention in query chunks
-(section 5.5, 2026-10-21). IS-Net general-use and Alibaba universal matting are not measured yet
-(section 9). The check of the masks by eye is open: the user does it.
+**Status:** S3OD `s3od-synth` is measured (sections 2 to 8), also with the attention in query
+chunks (section 5.5, 2026-10-21). IS-Net general-use is measured (section 11, 2026-10-21).
+Alibaba universal matting is not measured yet (section 9). The check of the masks by eye is open:
+the user does it.
 
 > **No images.** This report names photos and describes them in words. The comparison sheets are
 > local only; section 6.3 gives the command that makes them.
@@ -81,6 +83,19 @@ MVP settings on ONNX Runtime DirectML and compared with BiRefNet lite:
   GPU memory** (with BiRefNet: 4,528 MB). The masks are the same (IoU >= 0.998 against S3OD
   float32 on the CPU); the float32 graph has the same CPU difference as before (1.06e-3 on
   `P1024439`).
+- **IS-Net general-use (section 11): the lowest cost, the lowest quality, and no weights
+  license.** The export is direct (TorchScript exporter, opset 17, no graph change); the float32
+  ONNX output is within 9.1e-6 of PyTorch (requirement 1e-3 met). On DirectML: one partition,
+  0 CPU nodes, float16 **14 ms per photo and 437 MB** dedicated GPU memory (float32: 27 ms,
+  1,000 MB), 0.8 to 1.0 s load, 0 driver resets in 18 first runs. The MVP pipeline with IS-Net
+  float16 has a peak of **1,748 MB** (U6 met). But the masks are worse than BiRefNet and S3OD on 7
+  of 14 photos: mean subject recall 0.80 (BiRefNet 0.92, S3OD 0.99), large soft areas on the
+  background (the rock under the squirrel, the cliff next to the balloon), the wall of
+  `DSC00562` not found, and the hair of `DSC00674` partly below 0.5. The source scales the output
+  with its minimum and maximum, so a photo without a detected subject (`Nikon-D800e-raw-00007`,
+  d1 maximum 0.047) gets a soft mask of noise. The weights have no license statement
+  ([DIS#150](https://github.com/xuebinqin/DIS/issues/150), no answer). In the same period the
+  BiRefNet reference run reset the display driver in 2 of 2 sessions.
 - **License:** weights and code MIT; the encoder is DINOv3 (DINOv3 License, the license text must
   go with the weights). The training images come from FLUX.1 Krea [dev]. The FLUX.1 [dev]
   Non-Commercial License permits commercial use of outputs in section 2(d), but section 4(a)
@@ -482,6 +497,10 @@ problem as BiRefNet (DIS5K) and adds the FLUX output terms. This is open decisio
   exported attention, S3OD did not meet U6 (643 to 895 ms, 3.5 to 3.9 GB).
 - **Quality: equal or better on the 14 photos**, with hard edges. Whether the hard edge on hair is
   acceptable is the user's check by eye (U3 forbids edge post-processing).
+- **IS-Net general-use is not a replacement for BiRefNet lite** (section 11.8): it meets the
+  cost and reset criteria with the largest margin (437 MB, 14 ms, MVP pipeline 1,748 MB), but its
+  masks are worse on 7 of 14 photos, and its weights have no license. Of the measured candidates,
+  S3OD (8 chunk MHA float16) stays the recommendation.
 - **Decisions for the user:**
   1. The float32 tolerance: accept 1.09e-3 on `P1024439` with the cause of section 4.4 (the
      rounding of the reference is larger than 1e-3), or set a tolerance for this model, for
@@ -496,7 +515,8 @@ problem as BiRefNet (DIS5K) and adds the FLUX output terms. This is open decisio
 
 ## 9. Open items
 
-- **IS-Net general-use and Alibaba universal matting** (issue #6) are not measured in this step.
+- **Alibaba universal matting** (issue #6) is not measured. IS-Net general-use is measured
+  (section 11); its open items are in section 11.9.
 - Check of the masks by eye (sheets of section 6.3).
 - The tolerance decision (section 8, item 1) and U13.
 - Not measured: S3OD at another input size (the issue forbids a smaller input as a substitute).
@@ -512,7 +532,9 @@ problem as BiRefNet (DIS5K) and adds the FLUX output terms. This is open decisio
 
 ## 10. Commands
 
-The commands are in [`scripts/ai_models/s3od/README.md`](../../scripts/ai_models/s3od/README.md#commands):
+The IS-Net commands are in
+[`scripts/ai_models/isnet/README.md`](../../scripts/ai_models/isnet/README.md#commands). The S3OD
+commands are in [`scripts/ai_models/s3od/README.md`](../../scripts/ai_models/s3od/README.md#commands):
 sources and weights, export of both forms, the CPU comparison, the float32 spread, placement,
 first runs, cost with GPU memory, quality metrics, and the attention in query chunks of section
 5.5 (the one layer probe, the export, and the MVP pipeline cost). The investigation of section 4 used ad hoc
@@ -520,3 +542,251 @@ scripts in `build/tmp/s3od_synth/` (single-node DirectML tests, graph cut bisect
 session error and for the first non-finite tensor, the intermediate tensor ranges); their results
 are in this report, and `export_onnx.py` records the attention score maxima in
 `export_report.json`.
+
+## 11. IS-Net general-use
+
+**Date:** 2026-10-21. **Code:** [`scripts/ai_models/isnet/`](../../scripts/ai_models/isnet/README.md)
+(export, CPU comparison) and the shared DirectML and quality scripts of
+[`scripts/ai_models/s3od/`](../../scripts/ai_models/s3od/README.md) with `--model isnet`. The
+questions are the questions of section 1, with the same photos, machine, and settings (sections 3
+and 5.1).
+
+### 11.1 Result summary
+
+| Item | IS-Net general-use float16 | IS-Net float32 | S3OD 8 chunk MHA float16 (section 5.5) | BiRefNet lite float16 (section 5.2) |
+| --- | ---: | ---: | ---: | ---: |
+| Float32 ONNX against PyTorch, maximum difference (14 photos) | | 9.1e-6 (passes 1e-3) | 1.06e-3 (fails on 1 photo) | |
+| DirectML partitions, CPU nodes | 1, 0 | 1, 0 | 1, 0 | 601, 724 (E2) |
+| Session load | 834 ms | 908 ms | 1,111 ms | 9,442 ms |
+| Per photo, p50 (14 photos) | **13.8 ms** | 27.4 ms | 192 ms | 153 ms |
+| Dedicated GPU memory after the first run (peak) | **437 MB** | 1,000 MB | 1,358 MB | 3,226 MB |
+| Driver resets in 9 first runs | 0 | 0 | 0 | 4 |
+| MVP pipeline peak dedicated GPU memory | **1,748 MB** | | 2,666 MB | 4,528 MB |
+| Mean subject recall (14 photos) | 0.802 (PyTorch) | | 0.986 (S3OD float32) | 0.922 |
+| Weights license | **none stated** | | MIT | MIT |
+
+- IS-Net meets U6 with the largest margin of the measured models (1,748 MB with SAM 2.1 tiny and
+  the head) and has no driver reset in 23 sessions.
+- Its masks are worse than both BiRefNet lite and S3OD on 7 of the 14 photos (section 11.6).
+- The weights have no license statement (section 11.7).
+
+### 11.2 Sources
+
+| Item | Value |
+| --- | --- |
+| Weights | `isnet-general-use.pth`, 176,579,397 bytes, SHA-256 `9e1aafea58f0b55d0c35077e0ceade6ba1ba2bce372fd4f8f77215391f3fac13`, Google Drive file `1XHIzgTzY5BQHw140EDIgwIb53K659ENH` (server file name `isnet-general-use.pth`), downloaded 2026-10-21 |
+| Code | `xuebinqin/DIS` at `b6764e20381f6f42a70f83fa3324181529ed1403`: `IS-Net/models/isnet.py` (SHA-256 `83505426...`), `IS-Net/Inference.py` (`e4d4c3b7...`), `LICENSE.md` Apache-2.0 (`c71d239d...`) |
+| Model | `ISNetDIS()`: RSU U-Net (U2-Net family), 6 encoder and 5 decoder stages, 6 side outputs; 44,046,790 parameters; plain convolutions, max pooling, bilinear upsampling |
+
+The DIS README links the two weight files in a way that is not consistent: line 145 names file
+`1XHIzgTz...` `isnet.pth` and file `1klUkUnQ...` `isnet-general-use.pth`, but the server sends
+`isnet-general-use.pth` for `1XHIzgTz...` and `isnet.pth` (176,597,693 bytes, SHA-256
+`ea088974...`) for `1klUkUnQ...`. Line 28 names `1XHIzgTz...` `isnet-general-use.pth`. This step
+uses the file that the server names `isnet-general-use.pth`.
+
+**Processing of the source** (`Inference.py`): stretch the RGB photo to 1024 x 1024 with
+`F.upsample(mode="bilinear")` (no antialias, so a 4096 px photo is sampled without a low-pass
+filter), truncate to uint8, `value / 255 - 0.5`. The output is `result[0][0]`, the sigmoid of side
+output d1. The source resizes it to the photo size and scales it to [0, 1] with its minimum and
+maximum. `isnet_graphs.preprocess` gives the same tensor as the statements of `Inference.py`
+(difference 0.0 on 14 photos). The stored alpha of this step is d1 scaled at 1024 x 1024 and
+resized after that; the source order (resize, then scale) differs by at most 3e-4 on 13 photos
+and by 3.1e-2 on `Nikon-D800e-raw-00007`, where the d1 maximum is 0.047 (record
+`isnet_comparison_cpu.json`, `source_pipeline_max_abs_diff`).
+
+### 11.3 Export and comparison with PyTorch
+
+- TorchScript exporter (`torch.onnx.export(..., dynamo=False)`, torch 2.14.1, opset 17), 3.2 s,
+  no graph change: 593 nodes (Conv 114, Relu 112, Concat 84, Resize 34, MaxPool 33, Shape 34,
+  Slice 34, Add 11, Sigmoid 1, Constant 136), no GridSample. The exporter folds the BatchNorm
+  layers into the convolutions and removes the side outputs d2 to d6 (44,004,737 parameters in the
+  graph). Float32 176.1 MB (SHA-256 `f3622a65...`), float16 88.2 MB (`31cf8b2d...`). Records:
+  [`isnet_float32_export.json`](../../results/subject_alternatives/isnet_float32_export.json),
+  [`isnet_float16_export.json`](../../results/subject_alternatives/isnet_float16_export.json).
+- **Float16 range.** `convert_float_to_float16` with `keep_io_types=True` and the default block
+  list; no node block list. The largest PyTorch module output on the 14 photos that is a graph
+  tensor is the d1 logit, 1,789 (limit of the S3OD rule: 4,094). The convolutions before their
+  BatchNorm reach 29,832, but these tensors are not in the graph (folded). The DirectML float16
+  output is finite on all photos (section 11.5).
+- **`OnnxD1MatchesPytorchWithinTolerance`** (`compare_onnx_outputs.py`, ONNX Runtime 1.31.0 CPU
+  against PyTorch CPU, 4 threads, same pixels; record
+  [`isnet_comparison_cpu.json`](../../results/subject_alternatives/isnet_comparison_cpu.json)):
+
+  | Graph | Maximum d1 difference | Maximum alpha difference at the photo size | Minimum IoU of alpha > 0.5 at the photo size | Result |
+  | --- | ---: | ---: | ---: | --- |
+  | float32 | 9.1e-6 (`P1024439`); 13 photos 3.6e-7 to 5.0e-6 | 8.9e-6 | 0.999997 | **passes** (1e-3) |
+  | float16 (CPU) | 6.2e-3 | 6.1e-3 | 0.99682 (`DSC00527`) | no requirement |
+
+### 11.4 Cost on DirectML
+
+`profile_operator_placement.py`, `measure_directml_cost.py` under `run_with_gpu_memory.ps1`, and
+`measure_first_runs.py` (section 5.1). Records
+`results/subject_alternatives/isnet_<precision>_*.json`. Times in ms; memory in MB (dedicated /
+shared) of the process.
+
+| Graph | File | Placement | Session load | First run | Warm p50 / p95 / maximum (20) | Photos p50 / maximum (14) | After load | After first run | After release | Peak working set |
+| --- | ---: | --- | ---: | ---: | --- | --- | --- | --- | --- | ---: |
+| BiRefNet lite 1024 float16 (section 5.2) | 96.4 MB | 601, 724 (E2) | 9,442 | 817 | 154 / 178 / 187 | 153 / 200 | 227 / 180 | 3,226 / 204 | 107 / 232 | 1,144 |
+| S3OD 8 chunk MHA float16 (section 5.5) | 219.3 MB | 1, 0 | 1,111 | 234 | 191 / 193 / 198 | 192 / 213 | 297 / 245 | 1,358 / 274 | | 800 |
+| IS-Net float32 | 176.1 MB | 1, 0 | 908 | 63 | 29.2 / 57.4 / 58.6 | 27.4 / 28.2 | 467 / 203 | 1,000 / 220 | 74 / 36 | 827 |
+| **IS-Net float16** | 88.2 MB | 1, 0 | 834 | 32 | 23.9 / 38.9 / 39.0 | **13.8 / 14.6** | 161 / 120 | **437 / 137** | 77 / 36 | 763 |
+
+- The peak dedicated memory of the sampling script is equal to the value after the first run.
+- The warm runs on `DSC_1535` get faster during the 20 runs (float16: 37 to 39 ms for the first 5
+  runs, then 23 to 25 ms, then 13.4 to 14.4 ms from run 14; float32: 58 ms, then 28 to 29 ms from
+  run 8). The per-photo runs after them are 13.2 to 14.6 ms (float16) and 26.9 to 28.2 ms
+  (float32). The cause is probably the GPU clock; it was not measured.
+- The profiled kernel time is 5.6 ms (float16) and 10.4 ms (float32) per run; it is not used
+  (section 5.1).
+
+**First runs** (9 new processes per graph): 0 failed runs, 0 driver resets, and no event 153 or
+4101. Load 856 to 988 ms and first run 24.8 to 26.1 ms (float16); load 848 to 985 ms and first run
+49.0 to 54.7 ms (float32). In total in this step: 0 resets in 23 IS-Net sessions (18 first runs,
+2 cost runs, 2 profiling runs, 1 pipeline run).
+
+**BiRefNet reference in the same period.** Two runs of `measure_directml_cost.py` with the
+BiRefNet lite float16 graph (the issue asks for the reference in the same runs) both stopped in
+the warm runs with `DmlFusedNode_0_0 ... 887A0006` after a display driver reset (event 4101):
+
+- run 1 (22:27:50): first run 63,906 ms with events 153 at 22:28:00, 22:29:00, and 22:29:04,
+  event 4101 at 22:29:05, then the error on the first warm run;
+- run 2 (22:30:08): first run 551 ms, then a warm run hung (event 153 at 22:30:21, event 4101 at
+  22:31:26) and stopped with the same error.
+
+The script wrote no cost JSON. Record:
+[`birefnet_lite_float16_isnet_step_failed_runs.json`](../../results/subject_alternatives/birefnet_lite_float16_isnet_step_failed_runs.json)
+and the GPU memory records `birefnet_lite_float16_isnet_step_attempt{1,2}_cost_gpu_memory.json`
+(peak 3,226 and 3,227 MB). The BiRefNet values of the tables are from section 5.2 (same day, same
+machine). Run 2 shows that a reset can also occur after a first run that passed. Issue #6 in
+total: BiRefNet 7 resets in 13 sessions; S3OD 0 in 88; IS-Net 0 in 23.
+
+### 11.5 MVP pipeline with IS-Net and DirectML output
+
+`measure_pipeline_cost.py --subject-onnx <IS-Net float16 graph>` under `run_with_gpu_memory.ps1`
+(the sequence of section 5.5; `mask_pipeline.py` selects the IS-Net processing by the graph output
+`d1`). Records `mvp_pipeline_isnet_float16_cost*.json`.
+
+| Item | MVP with BiRefNet lite float16 | MVP with S3OD (8 chunk MHA float16) | MVP with IS-Net float16 |
+| --- | ---: | ---: | ---: |
+| Peak dedicated GPU memory | 4,528 MB | 2,666 MB | **1,748 MB** |
+| Peak shared GPU memory | 486 MB | 459 MB | 325 MB |
+| Peak working set | 1,873 MB | 1,675 MB | 1,476 MB |
+| Subject graph load | 7,998 ms | 910 ms | 507 ms |
+| Subject first call / warm p50 | 417 ms / 155.8 ms | 250 ms / 191.1 ms | 30.7 ms / 13.9 ms |
+| SAM 2.1 tiny encoder warm p50, decoder box warm p50 | 73.7 ms, 23.2 ms | 70.5 ms, 23.2 ms | 72.8 ms, 21.2 ms |
+
+1,748 MB is in the 3 GB budget of U6 with a margin of 1,324 MB. No event 153 or 4101 occurred
+during the run.
+
+**DirectML output against PyTorch** (stored alphas, float16): float32 maximum alpha difference
+4.9e-4 (the float16 storage step), minimum IoU of alpha > 0.5 on the 1024 grid 0.99999. Float16:
+maximum alpha difference 2.9e-2, minimum IoU 0.9601 (`DSC00527`, where most of the alpha is near
+0.5) and 0.9643 (`Nikon-D800e-raw-00007`, foreground 0.008 %); the other 12 photos 0.9957 or more.
+The means of the E2 metrics of float16 DirectML are equal to PyTorch within 0.004 (the edge width
+within 1.5 px of 88 px).
+
+### 11.6 Quality
+
+`probe_subject_masks.py` (section 6.1; kind `isnet`: the 1024 x 1024 alpha resized to the 1024
+grid of the photo aspect). Record
+[`quality_isnet.json`](../../results/subject_alternatives/quality_isnet.json). The IS-Net values
+are the PyTorch alpha; the ONNX float32 alphas (CPU and DirectML) give the same values within
+0.001. B: BiRefNet lite float16 CPU; S: S3OD float32 CPU; I: IS-Net.
+
+| Photo (subject box) | Foreground B / S / I | Subject recall B / S / I | Outside box B / S / I | Edge width px B / S / I | Parts B / S / I | IoU I with B / S |
+| --- | --- | --- | --- | --- | --- | --- |
+| `DSC_1535` (person) | 0.222 / 0.223 / 0.223 | 0.998 / 0.999 / 0.999 | 0.000 / 0.000 / 0.000 | 1.57 / 0.05 / 1.72 | 1 / 1 / 1 | 0.995 / 0.992 |
+| `DSC00326` (person) | 0.026 / 0.026 / 0.026 | 0.989 / 0.991 / 0.986 | 0.000 / 0.000 / 0.000 | 1.32 / 0.08 / 2.90 | 1 / 1 / 1 | 0.979 / 0.953 |
+| `DSC00674` (person) | 0.679 / 0.680 / 0.662 | 0.999 / 1.000 / **0.962** | 0.005 / 0.005 / 0.005 | 5.44 / 0.08 / 31.31 | 1 / 1 / 1 | 0.944 / 0.943 |
+| `DSC00936` (person) | 0.022 / 0.022 / 0.022 | 0.996 / 0.992 / 0.994 | 0.000 / 0.000 / 0.000 | 1.23 / 0.04 / 1.47 | 1 / 1 / 1 | 0.992 / 0.978 |
+| `P1024439` (bassist) | 0.262 / 0.061 / 0.243 | 0.996 / 0.985 / 0.996 | 0.753 / 0.019 / 0.725 | 1.67 / 0.13 / 16.01 | 3 / 1 / 4 | 0.724 / 0.247 |
+| `DSC_1188` (squirrel) | 0.110 / 0.107 / **0.359** | 0.996 / 0.994 / 0.998 | 0.003 / 0.001 / **0.675** | 2.05 / 0.08 / 32.58 | 1 / 1 / 1 | 0.301 / 0.297 |
+| `DSC00527` (kneeling woman) | 0.024 / 0.023 / 0.015 | 0.997 / 0.993 / **0.474** | 0.558 / 0.538 / 0.644 | 0.99 / 0.09 / 6.29 | 2 / 2 / 4 | 0.606 / 0.620 |
+| `2088064441` (boarder) | 0.005 / 0.004 / 0.006 | 0.981 / 0.957 / 0.930 | 0.001 / 0.000 / **0.232** | 1.38 / 0.08 / 8.34 | 1 / 1 / 1 | 0.673 / 0.607 |
+| `DSC00728` (balloon) | 0.003 / 0.003 / 0.003 | 0.992 / 0.977 / 0.986 | 0.000 / 0.000 / 0.000 | 0.99 / 0.03 / **818** | 1 / 1 / 1 | 0.986 / 0.962 |
+| `5761824892` (car) | 0.241 / 0.241 / 0.223 | 1.000 / 1.000 / **0.911** | 0.075 / 0.073 / 0.086 | 1.45 / 0.09 / 4.64 | 1 / 1 / 1 | 0.903 / 0.900 |
+| `DSC00562` (duck on the wall) | 0.370 / 0.369 / **0.018** | 0.970 / 0.952 / **0.000** | 0.995 / 0.995 / 1.000 | 1.94 / 0.11 / 69.24 | 1 / 1 / 1 | 0.000 / 0.000 |
+| `DSC00602` (tram) | 0.273 / 0.270 / 0.272 | 1.000 / 0.998 / 0.993 | 0.014 / 0.012 / 0.017 | 1.58 / 0.09 / 14.00 | 1 / 1 / 1 | 0.955 / 0.958 |
+| `DSC_1456` (car) | 0.065 / 0.065 / 0.065 | 0.997 / 0.999 / 0.996 | 0.002 / 0.000 / 0.012 | 1.35 / 0.05 / 5.77 | 1 / 1 / 1 | 0.984 / 0.974 |
+| `Nikon-D800e-raw-00007` (rock) | 0.000 / 0.015 / 0.000 | 0.000 / 0.969 / 0.000 | 0.000 / 0.017 / 1.000 | — / 0.12 / 219 | 0 / 1 / 1 | 0.000 / 0.000 |
+| Mean | 0.164 / 0.151 / 0.153 | 0.922 / 0.986 / **0.802** | 0.172 / 0.119 / **0.314** | 1.64 / 0.08 / 88.0 | 1.14 / 1.07 / 1.43 | 0.717 / 0.674 |
+
+Soft share (0.05 < alpha < 0.95), mean: B 0.006, S 0.0002, I **0.096**. Mean hole fraction: B
+0.004, S 0.008, I 0.020.
+
+What the local sheets show (section 11.10), in words:
+
+- **Soft areas on the background.** `DSC_1188`: IS-Net takes the squirrel and also the tree
+  stump under it, most of the stump with an alpha of 0.05 to 0.95 and a part above 0.5.
+  `DSC00728`: the balloon is correct, but the cliff on the left has an alpha between 0.05 and 0.5
+  over its full area (24 % of the photo is soft; hence the edge width of 818 px). `2088064441`:
+  the reflection of the boarder in the water is in the mask, the boarder is partly soft, and dry
+  grass stems on the left have a soft alpha.
+- **Missed or partial subjects.** `DSC00562`: BiRefNet and S3OD take the wall with the waterfall
+  and the ducks; IS-Net takes a part of a tower in the background and soft spots on the water,
+  not the wall. `DSC00527`: the alpha of the three people is mostly between 0.05 and 0.95, so the
+  mask > 0.5 has half of the kneeling woman. `5761824892`: the background seen through the car
+  windows and an area next to the kayak are soft; holes 8.9 %.
+- **Hair.** `DSC_1535`, `DSC00326`, `DSC00936`: the same outline as BiRefNet with a soft edge of
+  1.5 to 2.9 px. `DSC00674`: the left side of the hair and the ear are below 0.5 (soft share 0.177
+  in the hair region; BiRefNet 0.039).
+- **No subject.** `Nikon-D800e-raw-00007`: the d1 maximum is 0.047 (BiRefNet also finds
+  nothing). The scaling with the minimum and maximum of the source multiplies the output by 21,
+  so the mountains and the clouds get soft areas, and 0.008 % of the photo is above 0.5. A "not
+  found" rule of F1 must use d1 before the scaling (the d1 maximum is 0.988 to 1.0 on the other 13
+  photos).
+- `P1024439`: IS-Net adds the background as BiRefNet does (72.5 % outside the box; S3OD 1.9 %).
+
+IS-Net is equal to BiRefNet on 5 photos (`DSC_1535`, `DSC00326`, `DSC00936`, `DSC00602`,
+`DSC_1456`: IoU 0.955 to 0.995), similar to BiRefNet on 2 (`P1024439`, `Nikon-D800e-raw-00007`),
+and worse than both models on 7 (`DSC00674`, `DSC_1188`, `DSC00527`, `2088064441`, `DSC00728`,
+`5761824892`, `DSC00562`).
+
+### 11.7 License
+
+| Item | License | Commercial use | Evidence |
+| --- | --- | --- | --- |
+| IS-Net code | Apache-2.0 ("Our code and evaluation metric use Apache License 2.0", README line 170) | yes | `LICENSE.md` 11,357 bytes, SHA-256 `c71d239d...` |
+| `isnet-general-use.pth` | **No statement.** The Apache-2.0 statement names the code and the evaluation metric only | **unknown** | [DIS#150](https://github.com/xuebinqin/DIS/issues/150) (opened 2026-08-20, open): two requests for the commercial use of these weights, no answer from the author on 2026-10-21 |
+| Training data of the general-use weights | Not stated ("for general use, this is NOT DIS V2.0") | unknown | README line 28 |
+| DIS5K (training data of the academic `isnet.pth`) | DIS5K Terms of Use, non-commercial | no | `DIS5K-Dataset-Terms-of-Use.pdf` SHA-256 `d509ad22...` |
+
+Without a weights license, the weights are not a candidate under the license rule of README
+section 2. The weights license is an open decision of issue #6; this step does not change it.
+
+### 11.8 Recommendation
+
+- **IS-Net general-use is not a replacement for BiRefNet lite.** It meets U6 and the "no driver
+  reset" criterion with the largest margin of the measured models (437 MB, 14 ms, 0.8 s load, MVP
+  pipeline 1,748 MB, 0 resets in 23 sessions). But:
+  1. the masks are worse than BiRefNet and S3OD on 7 of 14 photos (mean subject recall 0.80,
+     soft background areas, one subject not found). The soft alpha is not a matte of the edge but
+     a low confidence over large areas, and U3 (no edge post-processing) does not permit a
+     correction;
+  2. the weights have no license statement.
+- **S3OD (8 chunk MHA float16) stays the recommended alternative** of the measured candidates
+  (section 8).
+- The low cost of IS-Net comes from its plain convolutions at 1024 px (one DirectML partition, no
+  attention). This supports section 8: the BiRefNet cost and resets come from its graph
+  (deformable convolution as GridSample, 724 CPU nodes), not from the 1024 px input.
+
+### 11.9 Open items
+
+- The weights license of `isnet-general-use.pth` (DIS#150).
+- The check of the masks by eye (sheets of section 11.10).
+- Not measured: IS-Net with an antialiased downscaling of the photo (the source has none, and the
+  issue requires the preprocessing of the source); the academic `isnet.pth`; the rembg ONNX file
+  `isnet-general-use.onnx` (the issue asks for the export from the official checkpoint). The
+  cause of the faster warm runs (section 11.4) is not measured. `ai_mask_app.py` with the IS-Net
+  graph is not tested (its labels name BiRefNet); the pipeline code is tested through
+  `measure_pipeline_cost.py`.
+- The BiRefNet first runs were not repeated in this step (section 5.3 has 9 runs of the same
+  day); its two cost runs of this step reset the driver (section 11.4).
+
+### 11.10 Sheets for the check by eye (local only)
+
+The command is in
+[`scripts/ai_models/isnet/README.md`](../../scripts/ai_models/isnet/README.md#commands) (last
+block). The sheets (14 photos and 6 detail crops; panels: BiRefNet lite float16 CPU, S3OD 8 chunk
+MHA float16 DirectML, IS-Net float16 DirectML; red: alpha > 0.5, yellow: 0.05 to 0.95) are in
+`docs/exploration/images/subject_alternatives_isnet/` (in `.gitignore`).

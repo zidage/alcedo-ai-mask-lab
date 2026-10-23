@@ -19,7 +19,11 @@ and the scripts compute the same prompts and masks:
   mask selection           compare_onnx_outputs.select_single_mask (box or several points);
                            best predicted IoU of tokens 1 to 3 for one point (E4 default)
   sky prompts              evaluate_quality_photos.sky_regions and region_points (P1 3.3)
-  people prompts           head_model.decode_people with nms_iou = 0.5, box clipped to the photo
+  people list              head_model.decode_people with nms_iou = 0.5, box clipped to the photo;
+                           the AlcedoStudio SM3.C list rules C2 (best box when no box reaches the
+                           list threshold) and C3 (left to right)
+  people masks             AlcedoStudio SM3.D: S3OD on the photo (the Subject alpha) and S3OD on
+                           the crop of one person (person_crop_rect, person_crop_image)
   stroke combination       E3 section 9: all points of the selection in one decoder run with the
                            previous selected logits as mask_input
   BiRefNet preprocessing   birefnet_graphs.preprocess and alpha_to_photo
@@ -35,8 +39,11 @@ Data flow (issue #5):
 
   open photo -> SAM 2.1 tiny encoder (once) -> image_embed, high_res_feats_0, high_res_feats_1
              -> head(image_embed) (once) -> presence, sky map, person centers and boxes
+             -> People list, and one crop image per listed person (at the photo open)
   Sky      sky regions -> 3 points per region -> decoder per region -> union
-  People   decode_people -> one box per person above the list threshold -> decoder per person
+  People   the Subject alpha (S3OD on the photo) and the People list with subject_fraction;
+           a click on a person box adds or subtracts the S3OD alpha of that person crop
+           (PeopleSteps; one S3OD run per person)
   Stroke, box, click     decoder (E3 rules)
   Subject  BiRefNet lite 1024 (or S3OD 1024, IS-Net 1024, or universal matting at the photo
            size) -> alpha;  Background = 1 - alpha
@@ -104,6 +111,22 @@ NATIVE_DECODER_COMPUTE_UNITS = "CPU_ONLY"
 SUBJECT_OUTPUTS = {("alpha",): "birefnet", ("masks", "iou_scores"): "s3od", ("d1",): "isnet",
                    ("rgba",): "universal_matting"}
 ORT_ERROR_LOG_LEVEL = 3
+# An alpha value of at least this value is inside a mask.
+ALPHA_INSIDE = 0.5
+# AlcedoStudio SM3.D decision E3: the crop of a person is the clipped person box widened by this
+# share of the box width on the left and on the right, and of the box height on the top and on the
+# bottom.
+PERSON_CROP_MARGIN = 0.1
+# A person crop with a long edge of at most this value is stored as it is; a larger crop is resized
+# with the S3OD resize (decision E4).
+PERSON_CROP_MAX_EDGE = 1024
+# Decision E8: a person is included in the Subject alpha when at least this share of its box pixels
+# on the Subject grid has a Subject alpha >= 0.5 (check_people_from_s3od.py sets the value).
+PERSON_IN_SUBJECT_FRACTION = 0.15
+# Pixel edges: floor(v * size + PIXEL_EDGE_TOLERANCE) and ceil(v * size - PIXEL_EDGE_TOLERANCE).
+# The box corners are float32 values (an error of about 1e-8), so a corner that is a whole pixel in
+# decimal gives that pixel, and not the next one.
+PIXEL_EDGE_TOLERANCE = 1e-4
 
 
 def _load_birefnet_graphs():
@@ -361,6 +384,95 @@ def logits_to_mask(logits: np.ndarray, width: int, height: int) -> np.ndarray:
                       interpolation=cv2.INTER_LINEAR) > 0
 
 
+def clipped_box(box_cells: list[float]) -> list[float]:
+    """A person box in head grid cells, clipped to the grid, in normalized photo coordinates (the
+    box prompt of the person, AlcedoStudio `PersonBox::prompt_box`)."""
+    return [min(max(float(v), 0.0), float(fl.GRID)) / fl.GRID for v in box_cells]
+
+
+def pixel_span(start: float, end: float, size: int) -> tuple[int, int]:
+    """The pixels [first, end) of the normalized span start-end on an axis of `size` pixels:
+    floor(start * size), ceil(end * size), at least one pixel, inside the axis
+    (PIXEL_EDGE_TOLERANCE)."""
+    import math
+
+    first = min(max(math.floor(start * size + PIXEL_EDGE_TOLERANCE), 0), size - 1)
+    last = min(max(math.ceil(end * size - PIXEL_EDGE_TOLERANCE), first + 1), size)
+    return first, last
+
+
+def person_crop_rect(box_cells: list[float], width: int,
+                     height: int) -> tuple[int, int, int, int]:
+    """Decision E3: the pixel rectangle (x0, y0, x1, y1), end exclusive, of the crop of a person on
+    the photo of width x height: the clipped box widened by PERSON_CROP_MARGIN of the box width on
+    the left and on the right and of the box height on the top and on the bottom, clipped to the
+    photo."""
+    x0, y0, x1, y1 = clipped_box(box_cells)
+    margin_x = PERSON_CROP_MARGIN * (x1 - x0)
+    margin_y = PERSON_CROP_MARGIN * (y1 - y0)
+    left, right = pixel_span(max(x0 - margin_x, 0.0), min(x1 + margin_x, 1.0), width)
+    top, bottom = pixel_span(max(y0 - margin_y, 0.0), min(y1 + margin_y, 1.0), height)
+    return left, top, right, bottom
+
+
+def person_crop_image(rgb8: np.ndarray, rect: tuple[int, int, int, int], s3od) -> np.ndarray:
+    """Decision E4: the stored crop image of `rect` (RGB8 H x W x 3). The crop pixels when the long
+    edge is at most PERSON_CROP_MAX_EDGE; else the crop resized as the S3OD letterbox resizes it
+    (`s3od_graphs.pad_info`, OpenCV INTER_LINEAR). The letterbox of the stored crop gives the same
+    S3OD input as the letterbox of the crop pixels."""
+    import cv2
+
+    x0, y0, x1, y1 = rect
+    crop = np.ascontiguousarray(rgb8[y0:y1, x0:x1])
+    if max(crop.shape[:2]) <= PERSON_CROP_MAX_EDGE:
+        return crop
+    info = s3od.pad_info(crop.shape[0], crop.shape[1], s3od.IMAGE_SIZE)
+    return cv2.resize(crop, info["resized_size"][::-1], interpolation=cv2.INTER_LINEAR)
+
+
+def mask_box_of_rect(rect: tuple[int, int, int, int], width: int, height: int) -> list[float]:
+    """The normalized rectangle of the photo of a pixel rectangle (decision E10)."""
+    x0, y0, x1, y1 = rect
+    return [x0 / width, y0 / height, x1 / width, y1 / height]
+
+
+def alpha_on_image(alpha: np.ndarray, mask_box: list[float], width: int,
+                   height: int) -> tuple[np.ndarray, tuple[slice, slice]]:
+    """AlcedoStudio SM3.D section 2.5: the alpha grid `alpha` that covers the normalized rectangle
+    `mask_box` of the photo, on an image of width x height: bilinear sampling with half-pixel
+    centers. Returns the values of the image pixels whose centers are inside `mask_box`, and the
+    (rows, columns) slices of these pixels."""
+    import cv2
+
+    bx0, by0, bx1, by1 = mask_box
+    grid_height, grid_width = alpha.shape
+    columns = np.arange(width, dtype=np.float64)
+    rows = np.arange(height, dtype=np.float64)
+    inside_x = np.flatnonzero(((columns + 0.5) / width >= bx0) & ((columns + 0.5) / width < bx1))
+    inside_y = np.flatnonzero(((rows + 0.5) / height >= by0) & ((rows + 0.5) / height < by1))
+    if inside_x.size == 0 or inside_y.size == 0:
+        return np.zeros((0, 0), np.float32), (slice(0, 0), slice(0, 0))
+    grid_x = ((inside_x + 0.5) / width - bx0) / (bx1 - bx0) * grid_width - 0.5
+    grid_y = ((inside_y + 0.5) / height - by0) / (by1 - by0) * grid_height - 0.5
+    map_x = np.broadcast_to(grid_x[None, :], (inside_y.size, inside_x.size)).astype(np.float32)
+    map_y = np.broadcast_to(grid_y[:, None], (inside_y.size, inside_x.size)).astype(np.float32)
+    values = cv2.remap(np.ascontiguousarray(alpha, np.float32), map_x, map_y,
+                       interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+    return values, (slice(inside_y[0], inside_y[-1] + 1), slice(inside_x[0], inside_x[-1] + 1))
+
+
+def subject_fraction(subject_alpha: np.ndarray, box_cells: list[float]) -> float:
+    """Decision E8: the share of the Subject grid pixels inside the clipped person box (not
+    widened) whose Subject alpha is >= ALPHA_INSIDE. The box pixels are the columns
+    floor(x0 * w) to ceil(x1 * w) - 1 and the rows floor(y0 * h) to ceil(y1 * h) - 1, at least one
+    pixel on each axis."""
+    height, width = subject_alpha.shape
+    x0, y0, x1, y1 = clipped_box(box_cells)
+    left, right = pixel_span(x0, x1, width)
+    top, bottom = pixel_span(y0, y1, height)
+    return float((subject_alpha[top:bottom, left:right] >= ALPHA_INSIDE).mean())
+
+
 def stroke_points(polyline: list[list[float]], count: int, width: int,
                   height: int) -> list[list[float]]:
     """`count` points at equal spacing along a stroke, both ends included (E3 section 3.1).
@@ -393,15 +505,62 @@ class DecoderRun:
 
 
 @dataclass
+class PersonCrop:
+    """One entry of the People list (AlcedoStudio SM3.D section 2.3) and its crop.
+
+    `index` is the position in the People list (left to right, decision C3). `image` is the stored
+    crop image of decision E4. `alpha` is the S3OD alpha of the crop on the unpadded grid of the
+    crop (computed once, at the first request for the person)."""
+
+    index: int
+    score: float
+    box_cells: list[float]
+    rect: tuple[int, int, int, int]
+    image: np.ndarray
+    alpha: np.ndarray | None = None
+    alpha_score: float | None = None
+    s3od_ms: float | None = None
+
+    @property
+    def box(self) -> list[float]:
+        return clipped_box(self.box_cells)
+
+    def mask_box(self, width: int, height: int) -> list[float]:
+        return mask_box_of_rect(self.rect, width, height)
+
+    @property
+    def found(self) -> bool:
+        """Decision E9: the crop alpha has a value >= ALPHA_INSIDE."""
+        return self.alpha is not None and bool((self.alpha >= ALPHA_INSIDE).any())
+
+
+@dataclass
+class PeopleList:
+    """The head result of the people at the photo open (decision E5): presence, the People list
+    with the crops, and the "not found" message (empty when the list has people)."""
+
+    presence: float
+    threshold: float
+    list_threshold: float
+    people: list[PersonCrop]
+    all_boxes: list[dict]
+    message: str
+    crop_ms: float = 0.0
+
+
+@dataclass
 class PhotoState:
-    """Per photo: the encoder outputs and the head outputs (computed once)."""
+    """Per photo: the encoder outputs, the head outputs, and the People list with the crops
+    (computed once at the open)."""
 
     photo: Photo
     features: tuple[np.ndarray, np.ndarray, np.ndarray]
     head_outputs: dict[str, np.ndarray]
+    people: PeopleList | None = None
     subject_alpha: np.ndarray | None = None
     # S3OD: the alpha is on the unpadded letterbox grid (long edge 1024).
     subject_pad_info: dict | None = None
+    subject_score: float | None = None
 
 
 @dataclass
@@ -425,8 +584,25 @@ class SkyResult:
 
 @dataclass
 class PeopleResult:
-    """`present`: presence >= threshold. `found`: present and at least one box in the People
-    list (score >= list threshold)."""
+    """AlcedoStudio SM3.D section 2.3. `found`: the People list has people (decisions E6, E7).
+    `subject_alpha` is the Subject alpha of the photo (None when not found); `subject_fractions`
+    and `in_subject` follow the People list (decision E8)."""
+
+    found: bool
+    presence: float
+    threshold: float
+    message: str
+    people: list[PersonCrop] = field(default_factory=list)
+    subject_alpha: np.ndarray | None = None
+    subject_fractions: list[float] = field(default_factory=list)
+    in_subject: list[bool] = field(default_factory=list)
+
+
+@dataclass
+class SamBoxPeople:
+    """The People result of issue #5 (one SAM 2.1 box prompt per person). Only the measurement
+    scripts of issues #5 and #8 use it, to reproduce their records. `present`: presence >=
+    threshold. `found`: present and at least one box with a score >= the list threshold."""
 
     present: bool
     found: bool
@@ -444,6 +620,54 @@ class PeopleResult:
             if ranks is None or person["rank"] in ranks:
                 union |= logits_to_mask(person["logits"], width, height)
         return union
+
+
+@dataclass
+class PeopleSteps:
+    """The ordered Add and Subtract steps of person crop alphas on the Subject alpha (AlcedoStudio
+    SM3.D section 2.5, the session rule of SM5.2). A click on an included person subtracts the
+    person; a click on another person adds it. A person is included at the start when
+    `in_subject` (decision E8), and after its last step by that step."""
+
+    result: PeopleResult
+    steps: list[tuple[int, bool]] = field(default_factory=list)
+
+    def included(self, index: int) -> bool:
+        for person, add in reversed(self.steps):
+            if person == index:
+                return add
+        return self.result.in_subject[index]
+
+    def click(self, index: int) -> tuple[int, bool]:
+        """The step of a click on the box of person `index` (appended)."""
+        step = (index, not self.included(index))
+        self.steps.append(step)
+        return step
+
+    def undo(self) -> bool:
+        if not self.steps:
+            return False
+        self.steps.pop()
+        return True
+
+    def mask(self, pipeline: "MaskPipeline", state: PhotoState, width: int,
+             height: int) -> np.ndarray:
+        """The composed alpha at width x height: the Subject alpha, then each step in order: Add
+        is the maximum with the person alpha, Subtract the minimum with 1 - person alpha, inside
+        the crop rectangle of the person (pixels outside it do not change). A person without an
+        alpha >= 0.5 (E9) makes no change."""
+        values, _ = alpha_on_image(self.result.subject_alpha, [0.0, 0.0, 1.0, 1.0], width, height)
+        photo = state.photo
+        for index, add in self.steps:
+            person = pipeline.person_alpha(state, index)
+            if not person.found:
+                continue
+            pasted, (rows, columns) = alpha_on_image(
+                person.alpha, person.mask_box(photo.width, photo.height), width, height)
+            region = values[rows, columns]
+            values[rows, columns] = (np.maximum(region, pasted) if add
+                                     else np.minimum(region, 1.0 - pasted))
+        return values
 
 
 class MaskPipeline:
@@ -564,8 +788,53 @@ class MaskPipeline:
                                 photo=photo.path.name)
         head, _ = self._run("people_sky_head", {"image_embed": features[0]}, "head",
                             photo=photo.path.name)
-        return PhotoState(photo=photo, features=tuple(features),
-                          head_outputs=dict(zip(self.hm.OUTPUT_NAMES, head)))
+        state = PhotoState(photo=photo, features=tuple(features),
+                           head_outputs=dict(zip(self.hm.OUTPUT_NAMES, head)))
+        state.people = self.people_list(state)
+        return state
+
+    def people_list(self, state: PhotoState) -> PeopleList:
+        """AlcedoStudio SM3.D section 2.3, steps 1 and 2: presence; decode_people with nms_iou =
+        0.5; the People list (the boxes with a score >= the list threshold; else the best box when
+        the presence passed, decision C2; left to right by the box center, equal centers by the
+        score, decision C3); and the crop of each listed person (E3, E4)."""
+        import torch
+        from evaluate_quality_photos import sigmoid
+
+        presence = float(sigmoid(state.head_outputs["presence_logits"][0])[1])
+        threshold = self.thresholds["person_presence"]
+        list_threshold = self.thresholds["people_list"]
+        torch_outputs = {k: torch.from_numpy(v) for k, v in state.head_outputs.items()}
+        decoded = self.hm.decode_people(torch_outputs, nms_iou=0.5)[0]
+        all_boxes = [{"score": float(score), "box_cells": [float(v) for v in box]}
+                     for box, score in zip(decoded["boxes"].tolist(), decoded["scores"].tolist())]
+        result = PeopleList(presence, threshold, list_threshold, [], all_boxes, "")
+        if presence < threshold:
+            result.message = (f"No people found: person presence {presence:.3f} is below "
+                              f"{threshold:.3f}.")
+            return result
+        listed = [entry for entry in all_boxes if entry["score"] >= list_threshold]
+        if not listed and all_boxes:
+            listed = [all_boxes[0]]
+        if not listed:
+            result.message = (f"No people found: presence {presence:.3f}, but the head found no "
+                              f"person box.")
+            return result
+        listed.sort(key=lambda entry: ((entry["box_cells"][0] + entry["box_cells"][2]) / 2,
+                                       -entry["score"]))
+        started = time.perf_counter()
+        rgb8 = np.asarray(state.photo.image)
+        s3od = self.s3od or _load_s3od_graphs()
+        for index, entry in enumerate(listed):
+            rect = person_crop_rect(entry["box_cells"], state.photo.width, state.photo.height)
+            result.people.append(PersonCrop(index=index, score=entry["score"],
+                                            box_cells=entry["box_cells"], rect=rect,
+                                            image=person_crop_image(rgb8, rect, s3od)))
+        result.crop_ms = (time.perf_counter() - started) * 1000
+        self._record("person_crops", result.crop_ms, photo=state.photo.path.name,
+                     people=len(result.people),
+                     bytes=int(sum(person.image.nbytes for person in result.people)))
+        return result
 
     # Decoder.
 
@@ -626,31 +895,65 @@ class MaskPipeline:
         return result
 
     def select_people(self, state: PhotoState) -> PeopleResult:
-        """P1 section 3.3: found when presence >= the run 2 threshold; decode_people with
-        nms_iou = 0.5; the People list holds the boxes with a score >= the list threshold (run 2
-        COCO `val` best F1); one box prompt per person, clipped to the photo."""
-        import torch
-        from evaluate_quality_photos import sigmoid
+        """AlcedoStudio SM3.D section 2.3, step 3: not found when the People list is empty (E6),
+        with no S3OD run. Else the Subject alpha (S3OD on the photo, computed once), and per person
+        `subject_fraction` and `in_subject` (E8); found also when no Subject value reaches 0.5
+        (E7). No decoder run."""
+        if self.subject_kind != "s3od":
+            raise ValueError(f"People uses S3OD; the Subject graph is {self.subject_kind} "
+                             f"(--subject-onnx subject_masks.onnx)")
+        people = state.people
+        if not people.people:
+            return PeopleResult(False, people.presence, people.threshold, people.message)
+        alpha = self.select_subject(state)
+        fractions = [subject_fraction(alpha, person.box_cells) for person in people.people]
+        return PeopleResult(True, people.presence, people.threshold,
+                            f"People: {len(people.people)} person(s), presence "
+                            f"{people.presence:.3f}.", people.people, alpha, fractions,
+                            [fraction >= PERSON_IN_SUBJECT_FRACTION for fraction in fractions])
 
-        presence = float(sigmoid(state.head_outputs["presence_logits"][0])[1])
-        threshold = self.thresholds["person_presence"]
-        list_threshold = self.thresholds["people_list"]
-        torch_outputs = {k: torch.from_numpy(v) for k, v in state.head_outputs.items()}
-        decoded = self.hm.decode_people(torch_outputs, nms_iou=0.5)[0]
-        all_boxes = [{"rank": rank, "score": float(score), "box_cells": [float(v) for v in box]}
-                     for rank, (box, score) in enumerate(zip(decoded["boxes"].tolist(),
-                                                             decoded["scores"].tolist()), start=1)]
-        if presence < threshold:
-            return PeopleResult(False, False, presence, threshold, list_threshold,
-                                f"No people found: person presence {presence:.3f} is below "
-                                f"{threshold:.3f}.", all_boxes=all_boxes)
-        listed = [entry for entry in all_boxes if entry["score"] >= list_threshold]
+    def run_s3od(self, rgb8: np.ndarray, stage: str, **details) -> tuple[np.ndarray, float, float]:
+        """One S3OD run on an RGB8 image: the letterbox to 1024, the mask with the largest IoU
+        score, unpadded. Returns the alpha, its score, and the run time."""
+        pixels, info = self.s3od.letterbox(np.ascontiguousarray(rgb8), self.subject_size)
+        (masks, iou_scores), milliseconds = self._run("subject_matte", {"pixel_values": pixels},
+                                                      stage, **details)
+        alpha, index = self.s3od.select_mask(masks, iou_scores)
+        return (np.ascontiguousarray(self.s3od.unpad(alpha[None], info)[0], np.float32),
+                float(iou_scores[0, index]), milliseconds)
+
+    def person_alpha(self, state: PhotoState, index: int) -> PersonCrop:
+        """AlcedoStudio SM3.D section 2.4: S3OD on the stored crop image of person `index`, once
+        per person."""
+        if self.subject_kind != "s3od":
+            raise ValueError(f"Person crops use S3OD; the Subject graph is {self.subject_kind}")
+        person = state.people.people[index]
+        if person.alpha is None:
+            person.alpha, person.alpha_score, person.s3od_ms = self.run_s3od(
+                person.image, "s3od_person", photo=state.photo.path.name, person=index)
+        return person
+
+    def select_people_sam_boxes(self, state: PhotoState) -> SamBoxPeople:
+        """The People rule of issue #5 (P1 section 3.3), for the measurement scripts of issues #5
+        and #8: found when presence >= the run 2 threshold; decode_people with nms_iou = 0.5; the
+        boxes with a score >= the list threshold, ranked by score; one box prompt per person,
+        clipped to the photo."""
+        people = state.people
+        all_boxes = [{"rank": rank, **entry}
+                     for rank, entry in enumerate(people.all_boxes, start=1)]
+        if people.presence < people.threshold:
+            return SamBoxPeople(False, False, people.presence, people.threshold,
+                                people.list_threshold, people.message, all_boxes=all_boxes)
+        listed = [entry for entry in all_boxes if entry["score"] >= people.list_threshold]
         if not listed:
-            return PeopleResult(True, False, presence, threshold, list_threshold,
-                                f"No people found: presence {presence:.3f}, but no person box "
-                                f"has a score >= {list_threshold:.3f}.", all_boxes=all_boxes)
-        result = PeopleResult(True, True, presence, threshold, list_threshold,
-                              f"People: {len(listed)} person(s), presence {presence:.3f}.",
+            return SamBoxPeople(True, False, people.presence, people.threshold,
+                                people.list_threshold,
+                                f"No people found: presence {people.presence:.3f}, but no person "
+                                f"box has a score >= {people.list_threshold:.3f}.",
+                                all_boxes=all_boxes)
+        result = SamBoxPeople(True, True, people.presence, people.threshold,
+                              people.list_threshold,
+                              f"People: {len(listed)} person(s), presence {people.presence:.3f}.",
                               all_boxes=all_boxes)
         for entry in listed:
             model_box = [min(max(v, 0.0), float(fl.GRID)) * fl.CELL_MODEL_PIXELS
@@ -661,6 +964,14 @@ class MaskPipeline:
                                   "logits": self.single_mask(run)})
         return result
 
+    def sam_box_logits(self, state: PhotoState, person: PersonCrop) -> np.ndarray:
+        """The SM3.C People mask of one person, for comparison only: one SAM 2.1 box prompt (the
+        clipped box), the selected logits."""
+        model_box = [v * 1024.0 for v in person.box]
+        run = self.decode(state, [model_box[:2], model_box[2:]], [2.0, 3.0], None,
+                          f"person {person.index} box")
+        return self.single_mask(run)
+
     def select_subject(self, state: PhotoState) -> np.ndarray:
         """Subject alpha in [0, 1] (no prompt). Background is 1 - alpha. BiRefNet lite: the
         [1024, 1024] alpha. S3OD: the mask with the largest IoU score, unpadded (the photo aspect
@@ -669,13 +980,11 @@ class MaskPipeline:
         stage name of the record is the graph kind."""
         if state.subject_alpha is None:
             if self.subject_kind == "s3od":
-                pixels, info = self.s3od.letterbox(np.asarray(state.photo.image),
-                                                   self.subject_size)
-                (masks, iou_scores), _ = self._run("subject_matte", {"pixel_values": pixels},
-                                                   "s3od", photo=state.photo.path.name)
-                alpha, _ = self.s3od.select_mask(masks, iou_scores)
-                state.subject_alpha = self.s3od.unpad(alpha[None], info)[0]
-                state.subject_pad_info = info
+                rgb8 = np.asarray(state.photo.image)
+                state.subject_alpha, state.subject_score, _ = self.run_s3od(
+                    rgb8, "s3od", photo=state.photo.path.name)
+                state.subject_pad_info = self.s3od.pad_info(rgb8.shape[0], rgb8.shape[1],
+                                                            self.subject_size)
             elif self.subject_kind == "isnet":
                 pixels = self.isnet.preprocess(np.asarray(state.photo.image), self.subject_size)
                 (d1,), _ = self._run("subject_matte", {"pixel_values": pixels}, "isnet",

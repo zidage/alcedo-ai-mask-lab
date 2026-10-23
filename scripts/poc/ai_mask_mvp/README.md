@@ -20,6 +20,7 @@ Weights, ONNX files, photos, logs, and exported masks are not committed. Keep th
 | `coreml_native.py` | The `coreml_native` provider (issue #8): a compiled Core ML model (`scripts/ai_models/coreml/convert_models.py`) with the `InferenceSession` methods that the pipeline uses. |
 | `provider_placement.py` | Operator placement of a graph on an ONNX Runtime provider: the Core ML capability log (partitions, supported nodes) and the ONNX Runtime profile. |
 | `measure_graph_cost.py` | Issue #8: placement, cost, and first runs of the SAM 2.1 encoder, the decoder, or the head on one provider (the S3OD graph has the scripts of `scripts/ai_models/s3od/`). |
+| `check_people_from_s3od.py` | AlcedoStudio SM3.D: the check pages of People from S3OD (Subject alpha, person crop alphas, SM3.C box masks) and the value of `PERSON_IN_SUBJECT_FRACTION` ([report](../../../docs/exploration/sm3d_people_from_s3od.md)). |
 | `compare_providers.py` | Issue #8: the MVP outputs of two providers on the quality photos (decisions, People list, masks per stroke step, Subject alpha) against the acceptance criteria. |
 | `measure_birefnet_memory_phases.py` | GPU memory of the BiRefNet DirectML session per phase (load, runs, the arena shrinkage run option, release, load again). |
 | `measure_birefnet_load_time.py` | BiRefNet session creation time per graph optimization level, and with a saved optimized graph (no inference). |
@@ -62,8 +63,12 @@ Open a photo -> long edge at most 4096 px (make_input_set.scaled_size, Lanczos; 
   -> head(image_embed) (once)    -> presence, sky map, person centers and boxes
 Sky      found when presence >= 0.423; the 3 most probable cells of each 8-connected region of
          >= 3 cells -> decoder per region -> union
-People   found when presence >= 0.533; decode_people (nms_iou 0.5); the People list holds the
-         boxes with score >= 0.313; one box per person, clipped to the photo -> decoder
+People   (AlcedoStudio SM3.D) found when presence >= 0.533 and the People list has a box;
+         decode_people (nms_iou 0.5); the People list holds the boxes with score >= 0.313, else
+         the best box; left to right. At the photo open: one crop per person (box + 10 % per
+         side, long edge at most 1024). The result is the S3OD Subject alpha; a box is green when
+         subject_fraction >= 0.15. A click on a box subtracts (green) or adds (white) the S3OD
+         alpha of the person crop (check_people_from_s3od.py, report sm3d_people_from_s3od.md)
 Stroke   4 points at equal spacing along the stroke (both ends); a click is one point
 Add, subtract   all points of the selection (labels 1 and 0) and the box in one decoder run, with
          the previous selected logits as mask_input

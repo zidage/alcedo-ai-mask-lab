@@ -78,7 +78,7 @@ def compare_sky_people(pipeline, state, expected: dict, logit_dir: Path) -> dict
     stem = state.photo.path.stem
     width, height = state.photo.width, state.photo.height
     sky = pipeline.select_sky(state)
-    people = pipeline.select_people(state)
+    people = pipeline.select_people_sam_boxes(state)
     record = {"photo": stem, "size": [width, height]}
 
     # Sky.

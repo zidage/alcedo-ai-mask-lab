@@ -83,7 +83,7 @@ def run(args) -> int:
         arrays = dict(zip(FEATURE_NAMES, state.features))
         arrays.update({f"head__{name}": value for name, value in state.head_outputs.items()})
         sky = pipeline.select_sky(state)
-        people = pipeline.select_people(state)
+        people = pipeline.select_people_sam_boxes(state)
         record = {"photo": stem, "size": [state.photo.width, state.photo.height],
                   "sky": {"present": sky.present, "found": sky.found, "presence": sky.presence,
                           "regions": [{"cells": r["cells"], "points": r["points"]}

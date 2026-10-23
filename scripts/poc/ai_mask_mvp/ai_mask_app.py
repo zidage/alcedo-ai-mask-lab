@@ -10,8 +10,12 @@ Tools:
 
   Subject, Background   BiRefNet lite 1024, or the --subject-onnx graph (the accepted S3OD graph,
                         issue #6) (F1, F2); Background is the inverted Subject alpha
-  Sky, People           head run 2 + SAM 2.1 tiny decoder (F3, F4a); the People list selects one
-                        person or all people; "not found" is a message, not an empty mask
+  Sky                   head run 2 + SAM 2.1 tiny decoder (F3); "not found" is a message, not an
+                        empty mask
+  People                AlcedoStudio SM3.D: the Subject alpha (S3OD on the photo) and the person
+                        boxes (green: included by subject_fraction, white: not included). A click
+                        in a box subtracts an included person or adds another person (S3OD on the
+                        crop of the person, once per person); Undo removes the last step
   Stroke tool           drag a stroke: 4 points at equal spacing, one decoder run when the stroke
                         ends; a click (no drag) is one point (F5). Alt subtracts (F6). All points
                         of the selection go into one decoder run with the previous mask
@@ -132,6 +136,8 @@ class Canvas(QWidget):
         self.drag_subtract = False
         self.prompt_points: list[tuple[list[float], int]] = []
         self.prompt_boxes: list[list[float]] = []
+        # One color per prompt box; empty: all boxes dashed yellow.
+        self.prompt_box_colors: list[QColor] = []
 
     def set_photo(self, image: QImage | None) -> None:
         self.photo = QPixmap.fromImage(image) if image is not None else None
@@ -168,8 +174,12 @@ class Canvas(QWidget):
         if self.overlay is not None and self.overlay_visible:
             painter.drawImage(rect, self.overlay, QRectF(self.overlay.rect()))
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        for box in self.prompt_boxes:
-            painter.setPen(QPen(QColor(255, 220, 0), 1.5, Qt.PenStyle.DashLine))
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        for index, box in enumerate(self.prompt_boxes):
+            if index < len(self.prompt_box_colors):
+                painter.setPen(QPen(self.prompt_box_colors[index], 2))
+            else:
+                painter.setPen(QPen(QColor(255, 220, 0), 1.5, Qt.PenStyle.DashLine))
             painter.drawRect(QRectF(self.to_screen(box[:2]), self.to_screen(box[2:])))
         for point, label in self.prompt_points:
             painter.setPen(QPen(QColor(0, 0, 0), 1))
@@ -232,9 +242,9 @@ class MainWindow(QMainWindow):
         self.display_size = (0, 0)
         self.sky: mp.SkyResult | None = None
         self.people: mp.PeopleResult | None = None
+        self.people_steps: mp.PeopleSteps | None = None
         self.selection: mp.PromptSelection | None = None
         self.mask_kind: str | None = None
-        self.people_ranks: list[int] | None = None
         self.busy = False
         self.event_count = 0
         self.overlay_color = QColor(255, 40, 80)
@@ -275,9 +285,12 @@ class MainWindow(QMainWindow):
 
         self.people_list = QListWidget()
         self.people_list.setMaximumHeight(140)
-        self.people_list.currentItemChanged.connect(self.person_chosen)
-        panel.addWidget(QLabel("People list"))
+        self.people_list.itemDoubleClicked.connect(self.person_double_clicked)
+        panel.addWidget(QLabel("People (click a box or double-click a row)"))
         panel.addWidget(self.people_list)
+        undo_person = QPushButton("Undo person step")
+        undo_person.clicked.connect(self.undo_person_step)
+        panel.addWidget(undo_person)
 
         tools = QGroupBox("Selection (Alt subtracts)")
         tool_layout = QVBoxLayout(tools)
@@ -299,7 +312,7 @@ class MainWindow(QMainWindow):
         new_selection = QPushButton("New selection")
         new_selection.clicked.connect(self.clear_selection)
         tool_layout.addWidget(new_selection)
-        self.model_buttons += [smaller, larger, new_selection]
+        self.model_buttons += [smaller, larger, new_selection, undo_person]
         panel.addWidget(tools)
 
         adjust = QGroupBox("Feather and Edge (photo px)")
@@ -458,7 +471,7 @@ class MainWindow(QMainWindow):
     def after_open(self, result) -> None:
         self.state, display = result
         self.display_size = (display.shape[1], display.shape[0])
-        self.sky = self.people = self.selection = None
+        self.sky = self.people = self.people_steps = self.selection = None
         self.mask_kind = None
         self.people_list.clear()
         self.canvas.set_photo(rgb_qimage(display))
@@ -506,31 +519,61 @@ class MainWindow(QMainWindow):
         self.run_job("people", lambda: self.pipeline.select_people(self.state), "People ...")
 
     def after_people(self, result: mp.PeopleResult) -> None:
-        self.people = result
+        if self.people is not result:
+            self.people = result
+            self.people_steps = mp.PeopleSteps(result) if result.found else None
         if not result.found:
             self.statusBar().showMessage(result.message)
             QMessageBox.information(self, "People", result.message)
             return
-        self.people_list.blockSignals(True)
-        self.people_list.clear()
-        item = QListWidgetItem(f"All people ({len(result.people)})")
-        item.setData(Qt.ItemDataRole.UserRole, None)
-        self.people_list.addItem(item)
-        for person in result.people:
-            item = QListWidgetItem(f"Person {person['rank']} (score {person['score']:.2f})")
-            item.setData(Qt.ItemDataRole.UserRole, person["rank"])
-            self.people_list.addItem(item)
-        self.people_list.setCurrentRow(0)
-        self.people_list.blockSignals(False)
-        self.people_ranks = None
+        self.refresh_people_list()
         self.show_mask("people", result.message)
 
-    def person_chosen(self, item: QListWidgetItem | None, _previous) -> None:
-        if item is None or self.people is None:
+    def refresh_people_list(self) -> None:
+        self.people_list.clear()
+        for person, fraction in zip(self.people.people, self.people.subject_fractions):
+            included = self.people_steps.included(person.index)
+            item = QListWidgetItem(f"Person {person.index} (score {person.score:.2f}, in Subject "
+                                   f"{fraction:.2f}): {'included' if included else 'not'}")
+            item.setData(Qt.ItemDataRole.UserRole, person.index)
+            self.people_list.addItem(item)
+
+    def person_double_clicked(self, item: QListWidgetItem) -> None:
+        self.click_person(item.data(Qt.ItemDataRole.UserRole))
+
+    def person_at(self, point: list[float]) -> int | None:
+        """The listed person with the smallest box that contains `point`."""
+        boxes = [(p.box, p.index) for p in self.people.people
+                 if p.box[0] <= point[0] <= p.box[2] and p.box[1] <= point[1] <= p.box[3]]
+        if not boxes:
+            return None
+        return min(boxes, key=lambda b: (b[0][2] - b[0][0]) * (b[0][3] - b[0][1]))[1]
+
+    def click_person(self, index: int) -> None:
+        """Add or subtract person `index` (PeopleSteps.click) after its crop alpha exists."""
+        if self.people_steps is None or self.mask_kind != "people":
             return
-        rank = item.data(Qt.ItemDataRole.UserRole)
-        self.people_ranks = None if rank is None else [rank]
-        self.show_mask("people", item.text())
+        pipeline, state = self.pipeline, self.state
+        self.run_job("person", lambda: (index, pipeline.person_alpha(state, index)),
+                     f"Person {index} (S3OD on the crop) ...")
+
+    def after_person(self, result) -> None:
+        index, person = result
+        if not person.found:
+            message = (f"No person found in the crop of person {index}: no alpha value reaches "
+                       f"0.5 (S3OD score {person.alpha_score:.3f}).")
+            self.statusBar().showMessage(message)
+            return
+        _, add = self.people_steps.click(index)
+        self.refresh_people_list()
+        self.show_mask("people", f"{'Add' if add else 'Subtract'} person {index} "
+                                 f"(crop S3OD {person.s3od_ms:.0f} ms)")
+
+    def undo_person_step(self) -> None:
+        if self.people_steps is not None and self.mask_kind == "people" \
+                and self.people_steps.undo():
+            self.refresh_people_list()
+            self.show_mask("people", "Undo person step")
 
     # Prompt selection.
 
@@ -545,6 +588,11 @@ class MainWindow(QMainWindow):
     def stroke_finished(self, polyline: list, subtract: bool) -> None:
         if self.pipeline is None or self.state is None:
             return
+        if self.mask_kind == "people" and self.people_steps is not None and len(polyline) == 1:
+            index = self.person_at(polyline[0])
+            if index is not None:
+                self.click_person(index)
+                return
         selection = self.active_selection()
         kind = "click" if len(polyline) == 1 else "stroke"
         self.run_job("selection", lambda: selection.add_stroke(polyline, subtract),
@@ -595,7 +643,7 @@ class MainWindow(QMainWindow):
         if self.mask_kind == "sky":
             return self.sky.mask(width, height).astype(np.float32)
         if self.mask_kind == "people":
-            return self.people.mask(width, height, self.people_ranks).astype(np.float32)
+            return self.people_steps.mask(self.pipeline, self.state, width, height)
         if self.mask_kind == "selection" and self.selection is not None:
             return mp.logits_to_mask(self.selection.logits, width, height).astype(np.float32)
         return None
@@ -636,7 +684,7 @@ class MainWindow(QMainWindow):
             self.update_overlay()
 
     def refresh_prompts(self) -> None:
-        points, boxes = [], []
+        points, boxes, colors = [], [], []
         if self.prompts_visible.isChecked():
             if self.mask_kind == "selection" and self.selection is not None:
                 points = list(zip(self.selection.points, self.selection.labels))
@@ -644,11 +692,13 @@ class MainWindow(QMainWindow):
             elif self.mask_kind == "sky" and self.sky is not None:
                 points = [([x / 1024, y / 1024], 1) for region in self.sky.regions
                           for x, y in region["points"]]
-            elif self.mask_kind == "people" and self.people is not None:
-                boxes = [[v / 1024 for v in person["box_model"]] for person in self.people.people
-                         if self.people_ranks is None or person["rank"] in self.people_ranks]
+            elif self.mask_kind == "people" and self.people_steps is not None:
+                boxes = [person.box for person in self.people.people]
+                colors = [QColor(0, 230, 0) if self.people_steps.included(person.index)
+                          else QColor(255, 255, 255) for person in self.people.people]
         self.canvas.prompt_points = points
         self.canvas.prompt_boxes = boxes
+        self.canvas.prompt_box_colors = colors
         self.canvas.update()
 
     # Export.
@@ -672,8 +722,14 @@ class MainWindow(QMainWindow):
         if self.mask_kind == "sky":
             prompts["sky"] = mp.to_jsonable(self.sky.__dict__)
         elif self.mask_kind == "people":
-            prompts["people"] = mp.to_jsonable(self.people.__dict__)
-            prompts["people_ranks"] = self.people_ranks
+            prompts["people"] = {
+                "presence": self.people.presence, "message": self.people.message,
+                "persons": [{"index": p.index, "score": p.score, "box": p.box,
+                             "rect": list(p.rect), "subject_fraction": fraction}
+                            for p, fraction in zip(self.people.people,
+                                                   self.people.subject_fractions)],
+                "steps": [{"person": index, "add": add}
+                          for index, add in self.people_steps.steps]}
         elif self.mask_kind == "selection":
             prompts["selection"] = self.selection.record()
         prompts["pipeline"] = {k: v for k, v in self.pipeline.log().items() if k != "events"}

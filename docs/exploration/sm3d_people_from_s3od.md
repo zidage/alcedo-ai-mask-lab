@@ -95,6 +95,7 @@ persons 4 and 5 (section 3.2).
    `subject_fraction` of 0.186 because the arm of the subject is inside its box, so it is shown as
    included; a click on it subtracts the alpha of the arm from the Subject. Persons 4 and 5 have a
    `subject_fraction` of 0.03 and 0 and are shown as not included (correct by eye).
+   Issue: [AlcedoStudio #475](https://github.com/zidage/AlcedoStudio/issues/475).
 3. **Not found (E9):** `DSC_1456` person 6 and `DSC_1535` persons 7 and 8 (small blurred people):
    no crop alpha value reaches 0.5. The click gives the message and no step.
 4. Overlapping neighbors are in the crops of the group photos (`DSC00527`, `DSC_1456`). S3OD

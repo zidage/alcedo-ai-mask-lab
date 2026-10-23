@@ -1,7 +1,7 @@
 # People masks from S3OD on person crops (AlcedoStudio SM3.D)
 
 **Issue:** [AlcedoStudio #469](https://github.com/zidage/AlcedoStudio/issues/469). **Date:**
-2026-10-23. **Plan:** [SM3.D phase plan](https://github.com/zidage/AlcedoStudio/blob/main/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask/phase_sm3d_people_from_s3od_plan.md).
+2026-10-23. **Plan:** [SM3.D phase plan](https://github.com/zidage/AlcedoStudio/blob/main/docs/roadmap/alcedo_studio/edit/ai_segmentation_mask/phase_sm3d_people_masks_from_s3od_plan.md).
 **Code:** [`scripts/poc/ai_mask_mvp/`](../../scripts/poc/ai_mask_mvp/README.md)
 (`mask_pipeline.py`, `ai_mask_app.py`, `check_people_from_s3od.py`).
 **Results:** [`results/sm3d_people_from_s3od/summary.json`](../../results/sm3d_people_from_s3od/summary.json).

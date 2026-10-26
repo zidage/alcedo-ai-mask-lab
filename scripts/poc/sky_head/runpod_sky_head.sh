@@ -81,18 +81,28 @@ stage_setup() {
 }
 
 stage_download() {
+  # Tries every file; a file that fails (for example the Drive quota) does not stop the others.
+  # The stage fails at the end when a file is missing.
   mkdir -p "$DOWNLOAD"
+  local failed=()
   for name in "${DOWNLOAD_ORDER[@]}"; do
     if [ -f "$DOWNLOAD/$name.done" ]; then
       log "download: $name already done"
       continue
     fi
     log "download: $name"
-    "$WORK/venv/bin/gdown" -c "${DRIVE_FILE_IDS[$name]}" -O "$DOWNLOAD/$name"
-    sha256sum "$DOWNLOAD/$name" | tee "$DOWNLOAD/$name.done"
+    if "$WORK/venv/bin/gdown" -c "${DRIVE_FILE_IDS[$name]}" -O "$DOWNLOAD/$name"; then
+      sha256sum "$DOWNLOAD/$name" | tee "$DOWNLOAD/$name.done"
+    else
+      failed+=("$name")
+    fi
   done
-  cat "$DOWNLOAD"/*.done > "$DOWNLOAD/sha256.txt"
   ls -la "$DOWNLOAD"
+  if [ ${#failed[@]} -gt 0 ]; then
+    echo "download failed: ${failed[*]} (run the download stage again later)" >&2
+    return 1
+  fi
+  cat "$DOWNLOAD"/*.done > "$DOWNLOAD/sha256.txt"
 }
 
 stage_inspect() {

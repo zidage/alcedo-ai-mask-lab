@@ -54,7 +54,9 @@ plan and track all work.
 - Write the title and the body in English with ASD-STE100 wording. Use the sections Why, Changes,
   and Verification.
 - Do not commit photos or images made from the evaluation photos (see [AGENTS.md](AGENTS.md)).
-- Do not add a model whose license does not permit commercial use.
+- Do not add a model whose license does not permit commercial use. Exception: the Sky head of
+  [README U18](README.md) (training data with an uncertain license; Alcedo Studio tells the user
+  that the model may not permit commercial use).
 
 ## For AI agents and LLMs
 

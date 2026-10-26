@@ -20,6 +20,7 @@ output (U3).
 | `evaluate_sky_head.py` | The measurements of a checkpoint on a split (encoder in float32). |
 | `evaluate_mvp_sky.py` | The baseline: the MVP Sky selection (P1 head and SAM 2.1 points, `ai_mask_mvp/mask_pipeline.py`) on a prepared split, with the same target and measurements. |
 | `make_sky_head_sheets.py` | Local sheets (photo, target, MVP Sky, sky head) of selected photos, the head time on DirectML, and DirectML against the CPU. |
+| `measure_sky_found_rule.py` | The sky share of the head alpha on a split, and the "sky found" rule of Alcedo Studio (report section 10). |
 | `export_sky_head_onnx.py` | `sky_head.onnx` and the ONNX Runtime against PyTorch comparison (tolerance 1e-3, report section 6). |
 | `runpod_sky_head.sh` | All stages on a RunPod GPU pod. |
 | `requirements_runpod.txt` | The packages that the RunPod PyTorch image does not have. |

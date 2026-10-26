@@ -15,6 +15,8 @@ local; run the commands of the script README to make them again.
 | [`ai_mask_mvp/`](ai_mask_mvp/) | AI Mask MVP, issue [#5](https://github.com/zidage/alcedo-ai-mask-lab/issues/5) | [MVP report](../docs/exploration/mvp_ai_mask.md) |
 | [`subject_alternatives/`](subject_alternatives/) | Subject models in place of BiRefNet lite, issue [#6](https://github.com/zidage/alcedo-ai-mask-lab/issues/6) | [Subject alternatives report](../docs/exploration/subject_alternatives.md) |
 | [`macos_coreml/`](macos_coreml/) | macOS Core ML verification of the accepted set, issue [#8](https://github.com/zidage/alcedo-ai-mask-lab/issues/8) | [macOS Core ML report](../docs/exploration/macos_coreml_verification.md) |
+| [`box_s3od_poc/`](box_s3od_poc/) | S3OD on the crop of a box (Sky and objects) | [Box S3OD report](../docs/exploration/box_s3od_poc.md) |
+| [`mam_poc/`](mam_poc/) | Matting Anything (MAM) for Sky and object boxes | [MAM report](../docs/exploration/mam_poc.md) |
 
 ## `p0_sam_feature_localization/`
 

@@ -1,0 +1,1513 @@
+{
+  "step": "PoC: S3OD on box crops (Sky and objects)",
+  "provider": "directml",
+  "pipeline": {
+    "step": "issue #5: AI Mask MVP",
+    "provider": "directml",
+    "provider_settings": [
+      "DmlExecutionProvider"
+    ],
+    "coreml_decoder_compute_units": null,
+    "threads": 4,
+    "onnxruntime": "1.24.4",
+    "graphs": {
+      "point_encoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_encoder.onnx",
+        "bytes": 109381695,
+        "sha256": "17a554b420d3c51a109567f784ff3792b354c78dc8c2c09c585403329b412d61",
+        "load_ms": 2957.3
+      },
+      "point_decoder": {
+        "path": "build/tmp/explore/e4/onnx_float32_batch16/tiny/point_decoder.onnx",
+        "bytes": 21188206,
+        "sha256": "6f9a0ef2c217a0abccc8b0c01e631c42c6a78a2038a7944cc7fcb4f536439278",
+        "load_ms": 328.3
+      },
+      "people_sky_head": {
+        "path": "build/tmp/explore/p1/colab_run2_coco_openimages/export/people_sky_head.onnx",
+        "bytes": 1119131,
+        "sha256": "e02f2a1eaace94e0efe2b3c8db0a0391be210b477a95e49063e80758f12abf35",
+        "load_ms": 120.5
+      },
+      "subject_matte": {
+        "path": "build/tmp/explore/s3od/onnx_mha_chunk8_final/float16/subject_masks.onnx",
+        "bytes": 219301899,
+        "sha256": "0f070b8641676d68faaafc0b70816be1458fcc976d8d6d119e67038527cbc288",
+        "load_ms": 1310.3
+      }
+    },
+    "thresholds": {
+      "sky_presence": 0.4231989085674286,
+      "person_presence": 0.533202052116394,
+      "people_list": 0.3132133185863495
+    },
+    "head_checkpoint_epoch": 15
+  },
+  "object_margin": 0.1,
+  "sky_margin": 0.0,
+  "photos": [
+    {
+      "photo": "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AAcacia_in_Ein_Khadra_Desert_Oasis_00_%2887%29.jpg",
+      "size": [
+        3840,
+        2560
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.78
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            1997
+          ],
+          "crop_size": [
+            1024,
+            533
+          ],
+          "iou_scores": [
+            0.8965,
+            0.9102,
+            0.8735
+          ],
+          "selected": 1,
+          "s3od_ms": 206.3,
+          "area_result": 0.6283,
+          "area_sam": 0.4374,
+          "panels": [
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_s3od0.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_s3od1.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_s3od2.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_sky.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_sam.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_skyp1.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.19,
+            0.17,
+            0.8,
+            0.93
+          ],
+          "margin": 0.1,
+          "rect": [
+            495,
+            240,
+            3307,
+            2560
+          ],
+          "crop_size": [
+            1024,
+            845
+          ],
+          "iou_scores": [
+            0.9312,
+            0.9224,
+            0.9209
+          ],
+          "selected": 0,
+          "s3od_ms": 356.2,
+          "area_result": 0.1565,
+          "area_sam": 0.1707,
+          "panels": [
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_s3od0.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_s3od1.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_s3od2.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "area": 0.3844
+      },
+      "background_area": 0.8502
+    },
+    {
+      "photo": "c011_Altenburg_310053_PSD.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AAltenburg-310053-PSD.jpg",
+      "size": [
+        3840,
+        2880
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.82
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            2362
+          ],
+          "crop_size": [
+            1024,
+            630
+          ],
+          "iou_scores": [
+            0.916,
+            0.9199,
+            0.9126
+          ],
+          "selected": 1,
+          "s3od_ms": 189.9,
+          "area_result": 0.7156,
+          "area_sam": 0.5282,
+          "panels": [
+            "c011_Altenburg_310053_PSD_b0_s3od0.jpg",
+            "c011_Altenburg_310053_PSD_b0_s3od1.jpg",
+            "c011_Altenburg_310053_PSD_b0_s3od2.jpg",
+            "c011_Altenburg_310053_PSD_b0_sky.jpg",
+            "c011_Altenburg_310053_PSD_b0_sam.jpg",
+            "c011_Altenburg_310053_PSD_b0_skyp1.jpg",
+            "c011_Altenburg_310053_PSD_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.07,
+            0.08,
+            0.94,
+            0.92
+          ],
+          "margin": 0.1,
+          "rect": [
+            0,
+            0,
+            3840,
+            2880
+          ],
+          "crop_size": [
+            1024,
+            768
+          ],
+          "iou_scores": [
+            0.9312,
+            0.9243,
+            0.9268
+          ],
+          "selected": 0,
+          "s3od_ms": 328.0,
+          "area_result": 0.1146,
+          "area_sam": 0.2088,
+          "panels": [
+            "c011_Altenburg_310053_PSD_b1_s3od0.jpg",
+            "c011_Altenburg_310053_PSD_b1_s3od1.jpg",
+            "c011_Altenburg_310053_PSD_b1_s3od2.jpg",
+            "c011_Altenburg_310053_PSD_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 5 region(s), presence 1.000.",
+        "area": 0.7523
+      },
+      "background_area": 0.8856
+    },
+    {
+      "photo": "c013_Backlit_Margarita_Island_Sunset_in_Las_G.jpg",
+      "license": "CC0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ABacklit_Margarita_Island_Sunset_in_Las_Guevaras%2C_Venezuela_CaptureNX2.jpg",
+      "size": [
+        2500,
+        1683
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.62
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            2500,
+            1044
+          ],
+          "crop_size": [
+            1024,
+            428
+          ],
+          "iou_scores": [
+            0.8442,
+            0.8813,
+            0.8252
+          ],
+          "selected": 1,
+          "s3od_ms": 194.6,
+          "area_result": 0.5131,
+          "area_sam": 0.4477,
+          "panels": [
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_s3od0.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_s3od1.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_s3od2.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_sky.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_sam.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_skyp1.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.11,
+            0.25,
+            0.68,
+            0.75
+          ],
+          "margin": 0.1,
+          "rect": [
+            132,
+            336,
+            1843,
+            1347
+          ],
+          "crop_size": [
+            1024,
+            605
+          ],
+          "iou_scores": [
+            0.8462,
+            0.8716,
+            0.8364
+          ],
+          "selected": 1,
+          "s3od_ms": 189.4,
+          "area_result": 0.107,
+          "area_sam": 0.1377,
+          "panels": [
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_s3od0.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_s3od1.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_s3od2.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "area": 0.4482
+      },
+      "background_area": 0.8887
+    },
+    {
+      "photo": "c017_Baum_in_K_rnten_037.jpg",
+      "license": "Public domain",
+      "page": "https://commons.wikimedia.org/wiki/File%3ABaum_in_K%C3%A4rnten_037.jpg",
+      "size": [
+        3840,
+        2543
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.8
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            2035
+          ],
+          "crop_size": [
+            1024,
+            543
+          ],
+          "iou_scores": [
+            0.8926,
+            0.9028,
+            0.8633
+          ],
+          "selected": 1,
+          "s3od_ms": 198.3,
+          "area_result": 0.6809,
+          "area_sam": 0.5919,
+          "panels": [
+            "c017_Baum_in_K_rnten_037_b0_s3od0.jpg",
+            "c017_Baum_in_K_rnten_037_b0_s3od1.jpg",
+            "c017_Baum_in_K_rnten_037_b0_s3od2.jpg",
+            "c017_Baum_in_K_rnten_037_b0_sky.jpg",
+            "c017_Baum_in_K_rnten_037_b0_sam.jpg",
+            "c017_Baum_in_K_rnten_037_b0_skyp1.jpg",
+            "c017_Baum_in_K_rnten_037_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.38,
+            0.12,
+            0.89,
+            0.86
+          ],
+          "margin": 0.1,
+          "rect": [
+            1263,
+            116,
+            3614,
+            2376
+          ],
+          "crop_size": [
+            1024,
+            984
+          ],
+          "iou_scores": [
+            0.856,
+            0.8589,
+            0.8604
+          ],
+          "selected": 2,
+          "s3od_ms": 315.5,
+          "area_result": 0.0953,
+          "area_sam": 0.1785,
+          "panels": [
+            "c017_Baum_in_K_rnten_037_b1_s3od0.jpg",
+            "c017_Baum_in_K_rnten_037_b1_s3od1.jpg",
+            "c017_Baum_in_K_rnten_037_b1_s3od2.jpg",
+            "c017_Baum_in_K_rnten_037_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 2 region(s), presence 0.999.",
+        "area": 0.7602
+      },
+      "background_area": 0.884
+    },
+    {
+      "photo": "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ABeilstein_-_Kaisersbach_-_Oberes_H%C3%B6llw%C3%A4ldle_-_Birnbaum_mit_Blick_%C3%BCber_Schmidbachtal_%281%29.jpg",
+      "size": [
+        3840,
+        2595
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.62
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            1609
+          ],
+          "crop_size": [
+            1024,
+            429
+          ],
+          "iou_scores": [
+            0.8477,
+            0.8813,
+            0.8311
+          ],
+          "selected": 1,
+          "s3od_ms": 200.9,
+          "area_result": 0.4813,
+          "area_sam": 0.3606,
+          "panels": [
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_s3od0.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_s3od1.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_s3od2.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_sky.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_sam.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_skyp1.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.41,
+            0.12,
+            0.95,
+            0.78
+          ],
+          "margin": 0.1,
+          "rect": [
+            1367,
+            140,
+            3840,
+            2196
+          ],
+          "crop_size": [
+            1024,
+            851
+          ],
+          "iou_scores": [
+            0.896,
+            0.8896,
+            0.8813
+          ],
+          "selected": 0,
+          "s3od_ms": 239.5,
+          "area_result": 0.145,
+          "area_sam": 0.211,
+          "panels": [
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_s3od0.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_s3od1.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_s3od2.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "area": 0.351
+      },
+      "background_area": 0.8524
+    },
+    {
+      "photo": "c038_Cuolm_Sura_1585m_21_09_2022_actm_02.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ACuolm_Sura_1585m._21-09-2022._%28actm.%29_02.jpg",
+      "size": [
+        3840,
+        2880
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.6
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            1728
+          ],
+          "crop_size": [
+            1024,
+            461
+          ],
+          "iou_scores": [
+            0.9141,
+            0.9336,
+            0.9062
+          ],
+          "selected": 1,
+          "s3od_ms": 196.3,
+          "area_result": 0.434,
+          "area_sam": 0.35,
+          "panels": [
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_s3od0.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_s3od1.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_s3od2.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_sky.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_sam.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_skyp1.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.31,
+            0.12,
+            0.92,
+            0.86
+          ],
+          "margin": 0.1,
+          "rect": [
+            956,
+            132,
+            3768,
+            2690
+          ],
+          "crop_size": [
+            1024,
+            932
+          ],
+          "iou_scores": [
+            0.9282,
+            0.9199,
+            0.9209
+          ],
+          "selected": 0,
+          "s3od_ms": 388.4,
+          "area_result": 0.2021,
+          "area_sam": 0.2258,
+          "panels": [
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_s3od0.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_s3od1.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_s3od2.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "area": 0.3456
+      },
+      "background_area": 0.7973
+    },
+    {
+      "photo": "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AD%C3%BClmen%2C_Merfeld%2C_Feldweg_am_M%C3%BChlenbach_--_2021_--_4278-80.jpg",
+      "size": [
+        3840,
+        2560
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.64
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            1639
+          ],
+          "crop_size": [
+            1024,
+            437
+          ],
+          "iou_scores": [
+            0.8037,
+            0.8857,
+            0.8442
+          ],
+          "selected": 1,
+          "s3od_ms": 191.6,
+          "area_result": 0.4926,
+          "area_sam": 0.4284,
+          "panels": [
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_s3od0.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_s3od1.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_s3od2.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_sky.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_sam.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_skyp1.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.49,
+            0.03,
+            0.95,
+            0.8
+          ],
+          "margin": 0.1,
+          "rect": [
+            1704,
+            0,
+            3825,
+            2246
+          ],
+          "crop_size": [
+            967,
+            1024
+          ],
+          "iou_scores": [
+            0.6235,
+            0.7441,
+            0.7563
+          ],
+          "selected": 2,
+          "s3od_ms": 370.8,
+          "area_result": 0.0993,
+          "area_sam": 0.1189,
+          "panels": [
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_s3od0.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_s3od1.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_s3od2.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 2 region(s), presence 1.000.",
+        "area": 0.4104
+      },
+      "background_area": 0.7621
+    },
+    {
+      "photo": "c077_Haltern_am_See_Westruper_Heide_2015_7965.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AHaltern_am_See%2C_Westruper_Heide_--_2015_--_7965-9.jpg",
+      "size": [
+        3840,
+        2564
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.62
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            1590
+          ],
+          "crop_size": [
+            1024,
+            424
+          ],
+          "iou_scores": [
+            0.8936,
+            0.9224,
+            0.8936
+          ],
+          "selected": 1,
+          "s3od_ms": 193.6,
+          "area_result": 0.4685,
+          "area_sam": 0.384,
+          "panels": [
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_s3od0.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_s3od1.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_s3od2.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_sky.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_sam.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_skyp1.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.31,
+            0.06,
+            0.84,
+            0.68
+          ],
+          "margin": 0.1,
+          "rect": [
+            986,
+            0,
+            3430,
+            1903
+          ],
+          "crop_size": [
+            1024,
+            797
+          ],
+          "iou_scores": [
+            0.9023,
+            0.916,
+            0.8984
+          ],
+          "selected": 1,
+          "s3od_ms": 372.6,
+          "area_result": 0.1591,
+          "area_sam": 0.1806,
+          "panels": [
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_s3od0.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_s3od1.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_s3od2.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 2 region(s), presence 1.000.",
+        "area": 0.3863
+      },
+      "background_area": 0.8345
+    },
+    {
+      "photo": "c056_Coesfeld_Lette_Windm_hle_2015_5768.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ACoesfeld%2C_Lette%2C_Windm%C3%BChle_--_2015_--_5768.jpg",
+      "size": [
+        2967,
+        4096
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.8
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            2967,
+            3277
+          ],
+          "crop_size": [
+            927,
+            1024
+          ],
+          "iou_scores": [
+            0.9678,
+            0.9697,
+            0.9644
+          ],
+          "selected": 1,
+          "s3od_ms": 198.0,
+          "area_result": 0.6524,
+          "area_sam": 0.5872,
+          "panels": [
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_s3od0.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_s3od1.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_s3od2.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_sky.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_sam.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_skyp1.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "windmill",
+          "box": [
+            0.2,
+            0.07,
+            0.83,
+            0.86
+          ],
+          "margin": 0.1,
+          "rect": [
+            406,
+            0,
+            2650,
+            3847
+          ],
+          "crop_size": [
+            597,
+            1024
+          ],
+          "iou_scores": [
+            0.9507,
+            0.9595,
+            0.9492
+          ],
+          "selected": 1,
+          "s3od_ms": 391.1,
+          "area_result": 0.1663,
+          "area_sam": 0.1754,
+          "panels": [
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_s3od0.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_s3od1.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_s3od2.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_sam.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.03,
+            0.6,
+            0.2,
+            0.84
+          ],
+          "margin": 0.1,
+          "rect": [
+            38,
+            2359,
+            644,
+            3539
+          ],
+          "crop_size": [
+            526,
+            1024
+          ],
+          "iou_scores": [
+            0.875,
+            0.9141,
+            0.873
+          ],
+          "selected": 1,
+          "s3od_ms": 369.5,
+          "area_result": 0.0079,
+          "area_sam": 0.0133,
+          "panels": [
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_s3od0.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_s3od1.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_s3od2.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 2 region(s), presence 1.000.",
+        "area": 0.5899
+      },
+      "background_area": 0.8275
+    },
+    {
+      "photo": "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ADe_Cocksdorp_%28NL%29%2C_Leuchtturm_--_2026_--_0305.jpg",
+      "size": [
+        3071,
+        4096
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.62
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3071,
+            2540
+          ],
+          "crop_size": [
+            1024,
+            847
+          ],
+          "iou_scores": [
+            0.9658,
+            0.9727,
+            0.9741
+          ],
+          "selected": 2,
+          "s3od_ms": 192.7,
+          "area_result": 0.5803,
+          "area_sam": 0.5168,
+          "panels": [
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_s3od0.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_s3od1.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_s3od2.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_sky.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_sam.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_skyp1.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "lighthouse",
+          "box": [
+            0.52,
+            0.17,
+            0.67,
+            0.58
+          ],
+          "margin": 0.1,
+          "rect": [
+            1550,
+            528,
+            2104,
+            2544
+          ],
+          "crop_size": [
+            281,
+            1024
+          ],
+          "iou_scores": [
+            0.9688,
+            0.9717,
+            0.959
+          ],
+          "selected": 1,
+          "s3od_ms": 351.8,
+          "area_result": 0.0393,
+          "area_sam": 0.0405,
+          "panels": [
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_s3od0.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_s3od1.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_s3od2.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "area": 0.1031
+      },
+      "background_area": 0.96
+    },
+    {
+      "photo": "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AD%C3%BClmen%2C_Dernekamp%2C_Mini_Hatch_Cooper_--_2018_--_1545-51.jpg",
+      "size": [
+        3840,
+        2560
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.55
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            1408
+          ],
+          "crop_size": [
+            1024,
+            375
+          ],
+          "iou_scores": [
+            0.9707,
+            0.9731,
+            0.958
+          ],
+          "selected": 1,
+          "s3od_ms": 190.8,
+          "area_result": 0.4012,
+          "area_sam": 0.3399,
+          "panels": [
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_s3od0.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_s3od1.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_s3od2.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_sky.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_sam.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_skyp1.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "car",
+          "box": [
+            0.2,
+            0.19,
+            0.85,
+            0.95
+          ],
+          "margin": 0.1,
+          "rect": [
+            518,
+            291,
+            3514,
+            2560
+          ],
+          "crop_size": [
+            1024,
+            776
+          ],
+          "iou_scores": [
+            0.9902,
+            0.9932,
+            0.9883
+          ],
+          "selected": 1,
+          "s3od_ms": 376.5,
+          "area_result": 0.3166,
+          "area_sam": 0.3139,
+          "panels": [
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_s3od0.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_s3od1.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_s3od2.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 2 region(s), presence 0.999.",
+        "area": 0.3376
+      },
+      "background_area": 0.6832
+    },
+    {
+      "photo": "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AD%C3%BClmen%2C_Merfeld%2C_Volvo_PV_544_B18_--_2021_--_0075-9.jpg",
+      "size": [
+        3840,
+        2400
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.67
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            1608
+          ],
+          "crop_size": [
+            1024,
+            429
+          ],
+          "iou_scores": [
+            0.9551,
+            0.9561,
+            0.9453
+          ],
+          "selected": 1,
+          "s3od_ms": 192.8,
+          "area_result": 0.6396,
+          "area_sam": 0.5633,
+          "panels": [
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_s3od0.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_s3od1.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_s3od2.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_sky.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_sam.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_skyp1.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "car",
+          "box": [
+            0.22,
+            0.49,
+            0.59,
+            0.92
+          ],
+          "margin": 0.1,
+          "rect": [
+            702,
+            1072,
+            2408,
+            2312
+          ],
+          "crop_size": [
+            1024,
+            744
+          ],
+          "iou_scores": [
+            0.9873,
+            0.9902,
+            0.9854
+          ],
+          "selected": 1,
+          "s3od_ms": 368.7,
+          "area_result": 0.0865,
+          "area_sam": 0.0876,
+          "panels": [
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_s3od0.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_s3od1.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_s3od2.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_sam.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.58,
+            0.0,
+            1.0,
+            0.67
+          ],
+          "margin": 0.1,
+          "rect": [
+            2065,
+            0,
+            3840,
+            1769
+          ],
+          "crop_size": [
+            1024,
+            1021
+          ],
+          "iou_scores": [
+            0.9141,
+            0.9292,
+            0.9053
+          ],
+          "selected": 1,
+          "s3od_ms": 189.6,
+          "area_result": 0.0064,
+          "area_sam": 0.2439,
+          "panels": [
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_s3od0.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_s3od1.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_s3od2.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "area": 0.3037
+      },
+      "background_area": 0.9122
+    },
+    {
+      "photo": "c084_13_08_08_hongkong_by_RalfR_Panorama2.jpg",
+      "license": "CC BY 3.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3A13-08-08-hongkong-by-RalfR-Panorama2.jpg",
+      "size": [
+        3840,
+        2013
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            1007
+          ],
+          "crop_size": [
+            1024,
+            269
+          ],
+          "iou_scores": [
+            0.8052,
+            0.877,
+            0.8135
+          ],
+          "selected": 1,
+          "s3od_ms": 188.9,
+          "area_result": 0.4702,
+          "area_sam": 0.4257,
+          "panels": [
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_s3od0.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_s3od1.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_s3od2.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_sky.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_sam.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_skyp1.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "building",
+          "box": [
+            0.23,
+            0.07,
+            0.33,
+            0.75
+          ],
+          "margin": 0.1,
+          "rect": [
+            844,
+            4,
+            1306,
+            1647
+          ],
+          "crop_size": [
+            288,
+            1024
+          ],
+          "iou_scores": [
+            0.7568,
+            0.9463,
+            0.9375
+          ],
+          "selected": 1,
+          "s3od_ms": 190.0,
+          "area_result": 0.0487,
+          "area_sam": 0.0495,
+          "panels": [
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_s3od0.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_s3od1.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_s3od2.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "area": 0.0354
+      },
+      "background_area": 0.9882
+    },
+    {
+      "photo": "c099_2014_Bystrzyca_K_odzka_stare_miasto_11.jpg",
+      "license": "CC BY-SA 3.0 pl",
+      "page": "https://commons.wikimedia.org/wiki/File%3A2014_Bystrzyca_K%C5%82odzka%2C_stare_miasto_11.jpg",
+      "size": [
+        3840,
+        1948
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.6
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            1169
+          ],
+          "crop_size": [
+            1024,
+            312
+          ],
+          "iou_scores": [
+            0.8091,
+            0.9111,
+            0.8604
+          ],
+          "selected": 1,
+          "s3od_ms": 190.2,
+          "area_result": 0.5836,
+          "area_sam": 0.4801,
+          "panels": [
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_s3od0.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_s3od1.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_s3od2.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_sky.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_sam.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_skyp1.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_bg.jpg"
+          ]
+        },
+        {
+          "label": "church tower",
+          "box": [
+            0.25,
+            0.05,
+            0.33,
+            0.55
+          ],
+          "margin": 0.1,
+          "rect": [
+            929,
+            0,
+            1298,
+            1169
+          ],
+          "crop_size": [
+            323,
+            1024
+          ],
+          "iou_scores": [
+            0.9541,
+            0.957,
+            0.9277
+          ],
+          "selected": 1,
+          "s3od_ms": 270.9,
+          "area_result": 0.0164,
+          "area_sam": 0.0167,
+          "panels": [
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_s3od0.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_s3od1.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_s3od2.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_sam.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "area": 0.4745
+      },
+      "background_area": 0.9837
+    },
+    {
+      "photo": "c059_Colorful_sky_with_orange_clouds_reflecti.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AColorful_sky_with_orange_clouds_reflecting_in_the_water_of_a_paddy_field%2C_at_sunset%2C_Vang_Vieng%2C_Laos.jpg",
+      "size": [
+        3840,
+        2560
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.45
+          ],
+          "margin": 0.0,
+          "rect": [
+            0,
+            0,
+            3840,
+            1152
+          ],
+          "crop_size": [
+            1024,
+            307
+          ],
+          "iou_scores": [
+            0.6348,
+            0.7671,
+            0.6802
+          ],
+          "selected": 1,
+          "s3od_ms": 191.4,
+          "area_result": 0.45,
+          "area_sam": 0.3648,
+          "panels": [
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_s3od0.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_s3od1.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_s3od2.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_sky.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_sam.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_skyp1.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_bg.jpg"
+          ]
+        }
+      ],
+      "sky_p1": {
+        "message": "Sky: 1 region(s), presence 0.998.",
+        "area": 0.3598
+      },
+      "background_area": 1.0
+    },
+    {
+      "photo": "c123_Fawn_and_white_Welsh_Corgi_puppy_standin.jpg",
+      "license": "CC0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AFawn_and_white_Welsh_Corgi_puppy_standing_on_rear_legs_and_sticking_out_the_tongue.jpg",
+      "size": [
+        2735,
+        4096
+      ],
+      "boxes": [
+        {
+          "label": "dog",
+          "box": [
+            0.3,
+            0.24,
+            0.72,
+            0.92
+          ],
+          "margin": 0.1,
+          "rect": [
+            705,
+            704,
+            2085,
+            4047
+          ],
+          "crop_size": [
+            423,
+            1024
+          ],
+          "iou_scores": [
+            0.9893,
+            0.9844,
+            0.9819
+          ],
+          "selected": 0,
+          "s3od_ms": 196.8,
+          "area_result": 0.1804,
+          "area_sam": 0.1783,
+          "panels": [
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_s3od0.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_s3od1.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_s3od2.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_sam.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c131_Sara_Perro_Pastor_01.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ASara_-_Perro_Pastor_01.jpg",
+      "size": [
+        3840,
+        2650
+      ],
+      "boxes": [
+        {
+          "label": "dog",
+          "box": [
+            0.1,
+            0.47,
+            0.55,
+            0.88
+          ],
+          "margin": 0.1,
+          "rect": [
+            211,
+            1136,
+            2285,
+            2441
+          ],
+          "crop_size": [
+            1024,
+            644
+          ],
+          "iou_scores": [
+            0.9873,
+            0.9883,
+            0.9863
+          ],
+          "selected": 1,
+          "s3od_ms": 196.4,
+          "area_result": 0.0993,
+          "area_sam": 0.0985,
+          "panels": [
+            "c131_Sara_Perro_Pastor_01_b0_s3od0.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_s3od1.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_s3od2.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_sam.jpg"
+          ]
+        }
+      ]
+    }
+  ],
+  "seconds": 99.4
+}

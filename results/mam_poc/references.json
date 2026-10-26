@@ -1,0 +1,1064 @@
+{
+  "step": "MAM PoC: reference masks of the accepted model set",
+  "provider": "directml",
+  "subject_onnx": "D:\\Projects\\alcedo-ai-mask-lab\\build\\tmp\\explore\\s3od\\onnx_mha_chunk8_final\\float16\\subject_masks.onnx",
+  "photos": {
+    "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87.jpg": {
+      "size": [
+        3840,
+        2560
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            1997
+          ],
+          "s3od_iou_scores": [
+            0.8965,
+            0.9102,
+            0.8735
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "tree",
+          "rect": [
+            495,
+            240,
+            3307,
+            2560
+          ],
+          "s3od_iou_scores": [
+            0.9312,
+            0.9224,
+            0.9209
+          ],
+          "s3od_selected": 0
+        }
+      ],
+      "sky": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.6171875,
+              0.0390625
+            ],
+            [
+              0.7890625,
+              0.0390625
+            ],
+            [
+              0.7421875,
+              0.0390625
+            ]
+          ]
+        ]
+      }
+    },
+    "c011_Altenburg_310053_PSD.jpg": {
+      "size": [
+        3840,
+        2880
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            2362
+          ],
+          "s3od_iou_scores": [
+            0.916,
+            0.9199,
+            0.9126
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "tree",
+          "rect": [
+            0,
+            0,
+            3840,
+            2880
+          ],
+          "s3od_iou_scores": [
+            0.9312,
+            0.9243,
+            0.9268
+          ],
+          "s3od_selected": 0
+        }
+      ],
+      "sky": {
+        "message": "Sky: 5 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.2890625,
+              0.0390625
+            ],
+            [
+              0.2578125,
+              0.0390625
+            ],
+            [
+              0.3203125,
+              0.0390625
+            ]
+          ],
+          [
+            [
+              0.5390625,
+              0.6328125
+            ],
+            [
+              0.5546875,
+              0.5859375
+            ],
+            [
+              0.5703125,
+              0.6171875
+            ]
+          ],
+          [
+            [
+              0.4453125,
+              0.6015625
+            ],
+            [
+              0.4296875,
+              0.6015625
+            ],
+            [
+              0.4453125,
+              0.5859375
+            ]
+          ],
+          [
+            [
+              0.5390625,
+              0.3515625
+            ],
+            [
+              0.6015625,
+              0.3515625
+            ],
+            [
+              0.5546875,
+              0.3515625
+            ]
+          ],
+          [
+            [
+              0.5234375,
+              0.4765625
+            ],
+            [
+              0.5078125,
+              0.4765625
+            ],
+            [
+              0.4921875,
+              0.4609375
+            ]
+          ]
+        ]
+      }
+    },
+    "c013_Backlit_Margarita_Island_Sunset_in_Las_G.jpg": {
+      "size": [
+        2500,
+        1683
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            2500,
+            1044
+          ],
+          "s3od_iou_scores": [
+            0.8442,
+            0.8813,
+            0.8252
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "tree",
+          "rect": [
+            132,
+            336,
+            1843,
+            1347
+          ],
+          "s3od_iou_scores": [
+            0.8462,
+            0.8716,
+            0.8364
+          ],
+          "s3od_selected": 1
+        }
+      ],
+      "sky": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.2734375,
+              0.1328125
+            ],
+            [
+              0.3046875,
+              0.0859375
+            ],
+            [
+              0.5703125,
+              0.0703125
+            ]
+          ]
+        ]
+      }
+    },
+    "c017_Baum_in_K_rnten_037.jpg": {
+      "size": [
+        3840,
+        2543
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            2035
+          ],
+          "s3od_iou_scores": [
+            0.8926,
+            0.9028,
+            0.8633
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "tree",
+          "rect": [
+            1263,
+            116,
+            3614,
+            2376
+          ],
+          "s3od_iou_scores": [
+            0.856,
+            0.8589,
+            0.8604
+          ],
+          "s3od_selected": 2
+        }
+      ],
+      "sky": {
+        "message": "Sky: 2 region(s), presence 0.999.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.9140625,
+              0.0390625
+            ],
+            [
+              0.2578125,
+              0.2421875
+            ],
+            [
+              0.0703125,
+              0.2578125
+            ]
+          ],
+          [
+            [
+              0.6796875,
+              0.6640625
+            ],
+            [
+              0.6796875,
+              0.6484375
+            ],
+            [
+              0.6953125,
+              0.6484375
+            ]
+          ]
+        ]
+      }
+    },
+    "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle.jpg": {
+      "size": [
+        3840,
+        2595
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            1609
+          ],
+          "s3od_iou_scores": [
+            0.8477,
+            0.8813,
+            0.8311
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "tree",
+          "rect": [
+            1367,
+            140,
+            3840,
+            2196
+          ],
+          "s3od_iou_scores": [
+            0.896,
+            0.8896,
+            0.8813
+          ],
+          "s3od_selected": 0
+        }
+      ],
+      "sky": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.2578125,
+              0.2578125
+            ],
+            [
+              0.1640625,
+              0.2265625
+            ],
+            [
+              0.2578125,
+              0.2265625
+            ]
+          ]
+        ]
+      }
+    },
+    "c038_Cuolm_Sura_1585m_21_09_2022_actm_02.jpg": {
+      "size": [
+        3840,
+        2880
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            1728
+          ],
+          "s3od_iou_scores": [
+            0.9141,
+            0.9336,
+            0.9062
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "tree",
+          "rect": [
+            956,
+            132,
+            3768,
+            2690
+          ],
+          "s3od_iou_scores": [
+            0.9282,
+            0.9199,
+            0.9209
+          ],
+          "s3od_selected": 0
+        }
+      ],
+      "sky": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.1015625,
+              0.3828125
+            ],
+            [
+              0.2578125,
+              0.0390625
+            ],
+            [
+              0.1171875,
+              0.3828125
+            ]
+          ]
+        ]
+      }
+    },
+    "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202.jpg": {
+      "size": [
+        3840,
+        2560
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            1639
+          ],
+          "s3od_iou_scores": [
+            0.8037,
+            0.8857,
+            0.8442
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "tree",
+          "rect": [
+            1704,
+            0,
+            3825,
+            2246
+          ],
+          "s3od_iou_scores": [
+            0.6235,
+            0.7441,
+            0.7563
+          ],
+          "s3od_selected": 2
+        }
+      ],
+      "sky": {
+        "message": "Sky: 2 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.4609375,
+              0.3203125
+            ],
+            [
+              0.4609375,
+              0.2578125
+            ],
+            [
+              0.3671875,
+              0.1796875
+            ]
+          ],
+          [
+            [
+              0.7421875,
+              0.6171875
+            ],
+            [
+              0.7109375,
+              0.6171875
+            ],
+            [
+              0.7265625,
+              0.6171875
+            ]
+          ]
+        ]
+      }
+    },
+    "c077_Haltern_am_See_Westruper_Heide_2015_7965.jpg": {
+      "size": [
+        3840,
+        2564
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            1590
+          ],
+          "s3od_iou_scores": [
+            0.8936,
+            0.9224,
+            0.8936
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "tree",
+          "rect": [
+            986,
+            0,
+            3430,
+            1903
+          ],
+          "s3od_iou_scores": [
+            0.9023,
+            0.916,
+            0.8984
+          ],
+          "s3od_selected": 1
+        }
+      ],
+      "sky": {
+        "message": "Sky: 2 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.1328125,
+              0.2890625
+            ],
+            [
+              0.9453125,
+              0.0390625
+            ],
+            [
+              0.1640625,
+              0.2265625
+            ]
+          ],
+          [
+            [
+              0.3828125,
+              0.5390625
+            ],
+            [
+              0.3984375,
+              0.4921875
+            ],
+            [
+              0.3828125,
+              0.5234375
+            ]
+          ]
+        ]
+      }
+    },
+    "c056_Coesfeld_Lette_Windm_hle_2015_5768.jpg": {
+      "size": [
+        2967,
+        4096
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            2967,
+            3277
+          ],
+          "s3od_iou_scores": [
+            0.9678,
+            0.9697,
+            0.9644
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "windmill",
+          "rect": [
+            406,
+            0,
+            2650,
+            3847
+          ],
+          "s3od_iou_scores": [
+            0.9507,
+            0.9595,
+            0.9492
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "tree",
+          "rect": [
+            38,
+            2359,
+            644,
+            3539
+          ],
+          "s3od_iou_scores": [
+            0.875,
+            0.9141,
+            0.873
+          ],
+          "s3od_selected": 1
+        }
+      ],
+      "sky": {
+        "message": "Sky: 2 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.8203125,
+              0.2109375
+            ],
+            [
+              0.8046875,
+              0.2265625
+            ],
+            [
+              0.8046875,
+              0.2109375
+            ]
+          ],
+          [
+            [
+              0.4296875,
+              0.4140625
+            ],
+            [
+              0.4453125,
+              0.3984375
+            ],
+            [
+              0.4296875,
+              0.3984375
+            ]
+          ]
+        ]
+      }
+    },
+    "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305.jpg": {
+      "size": [
+        3071,
+        4096
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3071,
+            2540
+          ],
+          "s3od_iou_scores": [
+            0.9658,
+            0.9727,
+            0.9741
+          ],
+          "s3od_selected": 2
+        },
+        {
+          "label": "lighthouse",
+          "rect": [
+            1550,
+            528,
+            2104,
+            2544
+          ],
+          "s3od_iou_scores": [
+            0.9688,
+            0.9717,
+            0.959
+          ],
+          "s3od_selected": 1
+        }
+      ],
+      "sky": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.3203125,
+              0.0703125
+            ],
+            [
+              0.3359375,
+              0.0703125
+            ],
+            [
+              0.3359375,
+              0.0859375
+            ]
+          ]
+        ]
+      }
+    },
+    "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018.jpg": {
+      "size": [
+        3840,
+        2560
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            1408
+          ],
+          "s3od_iou_scores": [
+            0.9707,
+            0.9731,
+            0.958
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "car",
+          "rect": [
+            518,
+            291,
+            3514,
+            2560
+          ],
+          "s3od_iou_scores": [
+            0.9902,
+            0.9932,
+            0.9883
+          ],
+          "s3od_selected": 1
+        }
+      ],
+      "sky": {
+        "message": "Sky: 2 region(s), presence 0.999.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.6796875,
+              0.1328125
+            ],
+            [
+              0.7734375,
+              0.0390625
+            ],
+            [
+              0.7265625,
+              0.1640625
+            ]
+          ],
+          [
+            [
+              0.8359375,
+              0.4609375
+            ],
+            [
+              0.8359375,
+              0.4453125
+            ],
+            [
+              0.8515625,
+              0.4609375
+            ]
+          ]
+        ]
+      }
+    },
+    "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007.jpg": {
+      "size": [
+        3840,
+        2400
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            1608
+          ],
+          "s3od_iou_scores": [
+            0.9551,
+            0.9561,
+            0.9453
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "car",
+          "rect": [
+            702,
+            1072,
+            2408,
+            2312
+          ],
+          "s3od_iou_scores": [
+            0.9873,
+            0.9902,
+            0.9854
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "tree",
+          "rect": [
+            2065,
+            0,
+            3840,
+            1769
+          ],
+          "s3od_iou_scores": [
+            0.9141,
+            0.9292,
+            0.9053
+          ],
+          "s3od_selected": 1
+        }
+      ],
+      "sky": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.3828125,
+              0.1640625
+            ],
+            [
+              0.1640625,
+              0.3359375
+            ],
+            [
+              0.2265625,
+              0.3203125
+            ]
+          ]
+        ]
+      }
+    },
+    "c084_13_08_08_hongkong_by_RalfR_Panorama2.jpg": {
+      "size": [
+        3840,
+        2013
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            1007
+          ],
+          "s3od_iou_scores": [
+            0.8052,
+            0.877,
+            0.8135
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "building",
+          "rect": [
+            844,
+            4,
+            1306,
+            1647
+          ],
+          "s3od_iou_scores": [
+            0.7568,
+            0.9463,
+            0.9375
+          ],
+          "s3od_selected": 1
+        }
+      ],
+      "sky": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.1328125,
+              0.3828125
+            ],
+            [
+              0.0546875,
+              0.3203125
+            ],
+            [
+              0.1328125,
+              0.3671875
+            ]
+          ]
+        ]
+      }
+    },
+    "c099_2014_Bystrzyca_K_odzka_stare_miasto_11.jpg": {
+      "size": [
+        3840,
+        1948
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            1169
+          ],
+          "s3od_iou_scores": [
+            0.8091,
+            0.9111,
+            0.8604
+          ],
+          "s3od_selected": 1
+        },
+        {
+          "label": "church tower",
+          "rect": [
+            929,
+            0,
+            1298,
+            1169
+          ],
+          "s3od_iou_scores": [
+            0.9541,
+            0.957,
+            0.9277
+          ],
+          "s3od_selected": 1
+        }
+      ],
+      "sky": {
+        "message": "Sky: 1 region(s), presence 1.000.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.4609375,
+              0.2734375
+            ],
+            [
+              0.4921875,
+              0.3203125
+            ],
+            [
+              0.5078125,
+              0.3046875
+            ]
+          ]
+        ]
+      }
+    },
+    "c059_Colorful_sky_with_orange_clouds_reflecti.jpg": {
+      "size": [
+        3840,
+        2560
+      ],
+      "boxes": [
+        {
+          "label": "sky",
+          "rect": [
+            0,
+            0,
+            3840,
+            1152
+          ],
+          "s3od_iou_scores": [
+            0.6348,
+            0.7671,
+            0.6802
+          ],
+          "s3od_selected": 1
+        }
+      ],
+      "sky": {
+        "message": "Sky: 1 region(s), presence 0.998.",
+        "found": true,
+        "regions": [
+          [
+            [
+              0.4609375,
+              0.0859375
+            ],
+            [
+              0.5078125,
+              0.1171875
+            ],
+            [
+              0.5234375,
+              0.1328125
+            ]
+          ]
+        ]
+      }
+    },
+    "c123_Fawn_and_white_Welsh_Corgi_puppy_standin.jpg": {
+      "size": [
+        2735,
+        4096
+      ],
+      "boxes": [
+        {
+          "label": "dog",
+          "rect": [
+            705,
+            704,
+            2085,
+            4047
+          ],
+          "s3od_iou_scores": [
+            0.9893,
+            0.9844,
+            0.9819
+          ],
+          "s3od_selected": 0
+        }
+      ]
+    },
+    "c131_Sara_Perro_Pastor_01.jpg": {
+      "size": [
+        3840,
+        2650
+      ],
+      "boxes": [
+        {
+          "label": "dog",
+          "rect": [
+            211,
+            1136,
+            2285,
+            2441
+          ],
+          "s3od_iou_scores": [
+            0.9873,
+            0.9883,
+            0.9863
+          ],
+          "s3od_selected": 1
+        }
+      ]
+    }
+  }
+}

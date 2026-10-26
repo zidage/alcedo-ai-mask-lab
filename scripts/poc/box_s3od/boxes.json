@@ -1,0 +1,489 @@
+{
+ "note": "Boxes drawn by hand on a 0.1 grid (normalized x0, y0, x1, y1). Photos: Wikimedia Commons, the license of each photo is in `license`.",
+ "photos": [
+  {
+   "file": "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87.jpg",
+   "title": "File:Acacia in Ein Khadra Desert Oasis 00 (87).jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3AAcacia_in_Ein_Khadra_Desert_Oasis_00_%2887%29.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Acacia_in_Ein_Khadra_Desert_Oasis_00_%2887%29.jpg/3840px-Acacia_in_Ein_Khadra_Desert_Oasis_00_%2887%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "لا روسا",
+   "sha256": "dcdbf3bf1890ad93a9caf64e490bc0b5fa586aa5f7d5cfb671d5267cf605da48",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.78
+     ]
+    },
+    {
+     "label": "tree",
+     "box": [
+      0.19,
+      0.17,
+      0.8,
+      0.93
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c011_Altenburg_310053_PSD.jpg",
+   "title": "File:Altenburg-310053-PSD.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3AAltenburg-310053-PSD.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/Altenburg-310053-PSD.jpg/3840px-Altenburg-310053-PSD.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "Ermell",
+   "sha256": "903cebf8907cfd859475b3eefb9914979bdfa2003062b3a5953ef1471332b240",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.82
+     ]
+    },
+    {
+     "label": "tree",
+     "box": [
+      0.07,
+      0.08,
+      0.94,
+      0.92
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c013_Backlit_Margarita_Island_Sunset_in_Las_G.jpg",
+   "title": "File:Backlit Margarita Island Sunset in Las Guevaras, Venezuela CaptureNX2.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3ABacklit_Margarita_Island_Sunset_in_Las_Guevaras%2C_Venezuela_CaptureNX2.jpg",
+   "download_url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Backlit_Margarita_Island_Sunset_in_Las_Guevaras%2C_Venezuela_CaptureNX2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "license": "CC0",
+   "artist": "Wilfredor",
+   "sha256": "14ff185d321f40304a71d8be15cb88970b3c354e89049471cd0701f111f420da",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.62
+     ]
+    },
+    {
+     "label": "tree",
+     "box": [
+      0.11,
+      0.25,
+      0.68,
+      0.75
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c017_Baum_in_K_rnten_037.jpg",
+   "title": "File:Baum in Kärnten 037.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3ABaum_in_K%C3%A4rnten_037.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Baum_in_K%C3%A4rnten_037.jpg/3840px-Baum_in_K%C3%A4rnten_037.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "Public domain",
+   "artist": "zause01",
+   "sha256": "cadcdb793dd86cb055737184430efb9bfa72a3d7c720a4afdc92932443b069c8",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.8
+     ]
+    },
+    {
+     "label": "tree",
+     "box": [
+      0.38,
+      0.12,
+      0.89,
+      0.86
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle.jpg",
+   "title": "File:Beilstein - Kaisersbach - Oberes Höllwäldle - Birnbaum mit Blick über Schmidbachtal (1).jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3ABeilstein_-_Kaisersbach_-_Oberes_H%C3%B6llw%C3%A4ldle_-_Birnbaum_mit_Blick_%C3%BCber_Schmidbachtal_%281%29.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Beilstein_-_Kaisersbach_-_Oberes_H%C3%B6llw%C3%A4ldle_-_Birnbaum_mit_Blick_%C3%BCber_Schmidbachtal_%281%29.jpg/3840px-Beilstein_-_Kaisersbach_-_Oberes_H%C3%B6llw%C3%A4ldle_-_Birnbaum_mit_Blick_%C3%BCber_Schmidbachtal_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "Roman Eisele",
+   "sha256": "c39b6fa67e1a70f7d5d060894c5ef75889ecea225742fa04f8a381af431a8606",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.62
+     ]
+    },
+    {
+     "label": "tree",
+     "box": [
+      0.41,
+      0.12,
+      0.95,
+      0.78
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c038_Cuolm_Sura_1585m_21_09_2022_actm_02.jpg",
+   "title": "File:Cuolm Sura 1585m. 21-09-2022. (actm.) 02.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3ACuolm_Sura_1585m._21-09-2022._%28actm.%29_02.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/Cuolm_Sura_1585m._21-09-2022._%28actm.%29_02.jpg/3840px-Cuolm_Sura_1585m._21-09-2022._%28actm.%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "Agnes Monkelbaan",
+   "sha256": "a67fab1e67081d0d54c3d57627aefba9ca34019504d89f84dee3478b309acd77",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.6
+     ]
+    },
+    {
+     "label": "tree",
+     "box": [
+      0.31,
+      0.12,
+      0.92,
+      0.86
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202.jpg",
+   "title": "File:Dülmen, Merfeld, Feldweg am Mühlenbach -- 2021 -- 4278-80.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3AD%C3%BClmen%2C_Merfeld%2C_Feldweg_am_M%C3%BChlenbach_--_2021_--_4278-80.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/D%C3%BClmen%2C_Merfeld%2C_Feldweg_am_M%C3%BChlenbach_--_2021_--_4278-80.jpg/3840px-D%C3%BClmen%2C_Merfeld%2C_Feldweg_am_M%C3%BChlenbach_--_2021_--_4278-80.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "Dietmar Rabich",
+   "sha256": "1894eb2e5f6071b1db3be5fd616f6f762a9df1b2ac37fa865629007ad4a59767",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.64
+     ]
+    },
+    {
+     "label": "tree",
+     "box": [
+      0.49,
+      0.03,
+      0.95,
+      0.8
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c077_Haltern_am_See_Westruper_Heide_2015_7965.jpg",
+   "title": "File:Haltern am See, Westruper Heide -- 2015 -- 7965-9.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3AHaltern_am_See%2C_Westruper_Heide_--_2015_--_7965-9.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Haltern_am_See%2C_Westruper_Heide_--_2015_--_7965-9.jpg/3840px-Haltern_am_See%2C_Westruper_Heide_--_2015_--_7965-9.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "Dietmar Rabich",
+   "sha256": "29c7c129d4f75ae91b1d0da2102e6c829fb4a4c86565f4fce6acc46bcff43a4c",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.62
+     ]
+    },
+    {
+     "label": "tree",
+     "box": [
+      0.31,
+      0.06,
+      0.84,
+      0.68
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c056_Coesfeld_Lette_Windm_hle_2015_5768.jpg",
+   "title": "File:Coesfeld, Lette, Windmühle -- 2015 -- 5768.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3ACoesfeld%2C_Lette%2C_Windm%C3%BChle_--_2015_--_5768.jpg",
+   "download_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Coesfeld%2C_Lette%2C_Windm%C3%BChle_--_2015_--_5768.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "license": "CC BY-SA 4.0",
+   "artist": "Dietmar Rabich",
+   "sha256": "6f0cd81f0ad332a08e62f3a420ecc2b369b3b8487578014f26059b0ec5b24800",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.8
+     ]
+    },
+    {
+     "label": "windmill",
+     "box": [
+      0.2,
+      0.07,
+      0.83,
+      0.86
+     ]
+    },
+    {
+     "label": "tree",
+     "box": [
+      0.03,
+      0.6,
+      0.2,
+      0.84
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305.jpg",
+   "title": "File:De Cocksdorp (NL), Leuchtturm -- 2026 -- 0305.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3ADe_Cocksdorp_%28NL%29%2C_Leuchtturm_--_2026_--_0305.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/De_Cocksdorp_%28NL%29%2C_Leuchtturm_--_2026_--_0305.jpg/3840px-De_Cocksdorp_%28NL%29%2C_Leuchtturm_--_2026_--_0305.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "Dietmar Rabich",
+   "sha256": "00a12584711b55f7fc99c80b7bf27aa2d5b55dec27486f04ea632b3ac38d7383",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.62
+     ]
+    },
+    {
+     "label": "lighthouse",
+     "box": [
+      0.52,
+      0.17,
+      0.67,
+      0.58
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018.jpg",
+   "title": "File:Dülmen, Dernekamp, Mini Hatch Cooper -- 2018 -- 1545-51.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3AD%C3%BClmen%2C_Dernekamp%2C_Mini_Hatch_Cooper_--_2018_--_1545-51.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/D%C3%BClmen%2C_Dernekamp%2C_Mini_Hatch_Cooper_--_2018_--_1545-51.jpg/3840px-D%C3%BClmen%2C_Dernekamp%2C_Mini_Hatch_Cooper_--_2018_--_1545-51.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "Dietmar Rabich",
+   "sha256": "57e51bae0272949d907be1caccd8a457b71b391061f37f540e6dc5028d87fad4",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.55
+     ]
+    },
+    {
+     "label": "car",
+     "box": [
+      0.2,
+      0.19,
+      0.85,
+      0.95
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007.jpg",
+   "title": "File:Dülmen, Merfeld, Volvo PV 544 B18 -- 2021 -- 0075-9.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3AD%C3%BClmen%2C_Merfeld%2C_Volvo_PV_544_B18_--_2021_--_0075-9.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/D%C3%BClmen%2C_Merfeld%2C_Volvo_PV_544_B18_--_2021_--_0075-9.jpg/3840px-D%C3%BClmen%2C_Merfeld%2C_Volvo_PV_544_B18_--_2021_--_0075-9.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "Dietmar Rabich",
+   "sha256": "72fae7d509806101fd7d2e931d99f5eb9519312b9eee4866bcaa1df4eb73bd89",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.67
+     ]
+    },
+    {
+     "label": "car",
+     "box": [
+      0.22,
+      0.49,
+      0.59,
+      0.92
+     ]
+    },
+    {
+     "label": "tree",
+     "box": [
+      0.58,
+      0.0,
+      1.0,
+      0.67
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c084_13_08_08_hongkong_by_RalfR_Panorama2.jpg",
+   "title": "File:13-08-08-hongkong-by-RalfR-Panorama2.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3A13-08-08-hongkong-by-RalfR-Panorama2.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/13-08-08-hongkong-by-RalfR-Panorama2.jpg/3840px-13-08-08-hongkong-by-RalfR-Panorama2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY 3.0",
+   "artist": "Ralf Roletschek",
+   "sha256": "9a319ff53cc3f98752b3855f03be39a5d910f6f2023d7e97659021a65105aa2c",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.5
+     ]
+    },
+    {
+     "label": "building",
+     "box": [
+      0.23,
+      0.07,
+      0.33,
+      0.75
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c099_2014_Bystrzyca_K_odzka_stare_miasto_11.jpg",
+   "title": "File:2014 Bystrzyca Kłodzka, stare miasto 11.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3A2014_Bystrzyca_K%C5%82odzka%2C_stare_miasto_11.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/2014_Bystrzyca_K%C5%82odzka%2C_stare_miasto_11.jpg/3840px-2014_Bystrzyca_K%C5%82odzka%2C_stare_miasto_11.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 3.0 pl",
+   "artist": "Jacek Halicki",
+   "sha256": "1364ed459b2f4f2cdd4a1883cbc49aeae216e6510e8b9149a7c94d2fa679e822",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.6
+     ]
+    },
+    {
+     "label": "church tower",
+     "box": [
+      0.25,
+      0.05,
+      0.33,
+      0.55
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c059_Colorful_sky_with_orange_clouds_reflecti.jpg",
+   "title": "File:Colorful sky with orange clouds reflecting in the water of a paddy field, at sunset, Vang Vieng, Laos.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3AColorful_sky_with_orange_clouds_reflecting_in_the_water_of_a_paddy_field%2C_at_sunset%2C_Vang_Vieng%2C_Laos.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Colorful_sky_with_orange_clouds_reflecting_in_the_water_of_a_paddy_field%2C_at_sunset%2C_Vang_Vieng%2C_Laos.jpg/3840px-Colorful_sky_with_orange_clouds_reflecting_in_the_water_of_a_paddy_field%2C_at_sunset%2C_Vang_Vieng%2C_Laos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "Basile Morin",
+   "sha256": "41c7c81bd718d6659562d5bad930dc3158785b2c35f7a3e0f29aaec0071b6977",
+   "boxes": [
+    {
+     "label": "sky",
+     "box": [
+      0,
+      0,
+      1,
+      0.45
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c123_Fawn_and_white_Welsh_Corgi_puppy_standin.jpg",
+   "title": "File:Fawn and white Welsh Corgi puppy standing on rear legs and sticking out the tongue.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3AFawn_and_white_Welsh_Corgi_puppy_standing_on_rear_legs_and_sticking_out_the_tongue.jpg",
+   "download_url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Fawn_and_white_Welsh_Corgi_puppy_standing_on_rear_legs_and_sticking_out_the_tongue.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "license": "CC0",
+   "artist": "Huoadg5888Minor edits made by Subsidiary account",
+   "sha256": "771679dc103ec7496394d375b3b12fab9fd4adc5e6dc1fa5d9578713fe054c4e",
+   "boxes": [
+    {
+     "label": "dog",
+     "box": [
+      0.3,
+      0.24,
+      0.72,
+      0.92
+     ]
+    }
+   ]
+  },
+  {
+   "file": "c131_Sara_Perro_Pastor_01.jpg",
+   "title": "File:Sara - Perro Pastor 01.jpg",
+   "page": "https://commons.wikimedia.org/wiki/File%3ASara_-_Perro_Pastor_01.jpg",
+   "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/22/Sara_-_Perro_Pastor_01.jpg/3840px-Sara_-_Perro_Pastor_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "license": "CC BY-SA 4.0",
+   "artist": "Basotxerri",
+   "sha256": "dff2cdcbcec1865cef60d06fe12e2f65b79f9d0655562d95ab4a0f6619a22680",
+   "boxes": [
+    {
+     "label": "dog",
+     "box": [
+      0.1,
+      0.47,
+      0.55,
+      0.88
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,3484 @@
+{
+  "step": "PoC: Matting Anything (MAM ViT-B) for Sky and object boxes",
+  "runtime": "PyTorch 2.14.1+cpu CPU, 4 threads",
+  "checkpoint": "mam_sam_vitb.pth",
+  "sam_weights_max_abs_difference": 0.0,
+  "object_margin": 0.1,
+  "sky_margin": 0.0,
+  "zoom": 384,
+  "soft_range": [
+    0.02,
+    0.98
+  ],
+  "photos": [
+    {
+      "photo": "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AAcacia_in_Ein_Khadra_Desert_Oasis_00_%2887%29.jpg",
+      "size": [
+        3840,
+        2560
+      ],
+      "encoder_ms_photo": 7728.7,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.78
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            1997
+          ],
+          "zoom_corner": [
+            921,
+            1570
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0085,
+                  0.9866,
+                  0.9598
+                ]
+              ],
+              "ms": 1657.6,
+              "area": 0.1003,
+              "soft_share": 0.5206,
+              "iou_mvp_sky": 0.1911,
+              "iou_s3od": 0.1278,
+              "iou_sam21_box": 0.1691
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  1.0085,
+                  0.9866,
+                  0.9598
+                ]
+              ],
+              "ms": 1366.7,
+              "area": 0.4397,
+              "soft_share": 0.011,
+              "iou_mvp_sky": 0.8733,
+              "iou_s3od": 0.6998,
+              "iou_sam21_box": 0.9897
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0085,
+                  0.9866,
+                  0.9598
+                ]
+              ],
+              "ms": 1451.4,
+              "area": 0.789,
+              "soft_share": 0.3924,
+              "iou_mvp_sky": 0.4872,
+              "iou_s3od": 0.6571,
+              "iou_sam21_box": 0.5543
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                0.972,
+                1.0065,
+                0.9652
+              ],
+              "ms": 1478.9,
+              "area": 0.0993,
+              "soft_share": 0.5148,
+              "iou_mvp_sky": 0.1913,
+              "iou_s3od": 0.1274,
+              "iou_sam21_box": 0.1692
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.3844,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.6283,
+              "soft_share": 0.0146
+            },
+            "sam21_box": {
+              "area": 0.4374,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_p0.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_p1.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_p2.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_p3.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_p4.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_p5.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_z0.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_z1.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_z2.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_z3.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.19,
+            0.17,
+            0.8,
+            0.93
+          ],
+          "rect": [
+            495,
+            240,
+            3307,
+            2560
+          ],
+          "zoom_corner": [
+            1727,
+            742
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9638,
+                0.9609,
+                0.9437
+              ],
+              "ms": 1105.2,
+              "encoder_ms": 6679.9,
+              "area": 0.1322,
+              "soft_share": 0.2929,
+              "iou_s3od": 0.7683,
+              "iou_sam21_box": 0.6585
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9638,
+                0.9609,
+                0.9437
+              ],
+              "ms": 1157.6,
+              "encoder_ms": 6679.9,
+              "area": 0.1902,
+              "soft_share": 0.0144,
+              "iou_s3od": 0.7812,
+              "iou_sam21_box": 0.8865
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9658,
+                0.9667,
+                0.9678
+              ],
+              "ms": 1186.1,
+              "area": 0.1258,
+              "soft_share": 0.2464,
+              "iou_s3od": 0.7751,
+              "iou_sam21_box": 0.7333
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.1565,
+              "soft_share": 0.0198
+            },
+            "sam21_box": {
+              "area": 0.1707,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_p0.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_p1.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_p2.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_p3.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_p4.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_z0.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_z1.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_z2.jpg",
+            "c005_Acacia_in_Ein_Khadra_Desert_Oasis_00_87_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c011_Altenburg_310053_PSD.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AAltenburg-310053-PSD.jpg",
+      "size": [
+        3840,
+        2880
+      ],
+      "encoder_ms_photo": 6179.8,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.82
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            2362
+          ],
+          "zoom_corner": [
+            2325,
+            1978
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.9978,
+                  0.9938,
+                  0.9488
+                ],
+                [
+                  0.9667,
+                  1.0007,
+                  0.9375
+                ],
+                [
+                  0.9886,
+                  0.9633,
+                  0.7443
+                ],
+                [
+                  0.9766,
+                  0.9776,
+                  0.8099
+                ],
+                [
+                  0.9741,
+                  0.9677,
+                  0.6771
+                ]
+              ],
+              "ms": 6295.2,
+              "area": 0.1068,
+              "soft_share": 0.206,
+              "iou_mvp_sky": 0.1369,
+              "iou_s3od": 0.0095,
+              "iou_sam21_box": 0.0004
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  0.9978,
+                  0.9938,
+                  0.9488
+                ],
+                [
+                  0.9667,
+                  1.0007,
+                  0.9375
+                ],
+                [
+                  0.9886,
+                  0.9633,
+                  0.7443
+                ],
+                [
+                  0.9766,
+                  0.9776,
+                  0.8099
+                ],
+                [
+                  0.9741,
+                  0.9677,
+                  0.6771
+                ]
+              ],
+              "ms": 6262.5,
+              "area": 0.7605,
+              "soft_share": 0.0057,
+              "iou_mvp_sky": 0.9859,
+              "iou_s3od": 0.7826,
+              "iou_sam21_box": 0.694
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.9978,
+                  0.9938,
+                  0.9488
+                ],
+                [
+                  0.9667,
+                  1.0007,
+                  0.9375
+                ],
+                [
+                  0.9886,
+                  0.9633,
+                  0.7443
+                ],
+                [
+                  0.9766,
+                  0.9776,
+                  0.8099
+                ],
+                [
+                  0.9741,
+                  0.9677,
+                  0.6771
+                ]
+              ],
+              "ms": 6541.3,
+              "area": 0.8951,
+              "soft_share": 0.157,
+              "iou_mvp_sky": 0.7337,
+              "iou_s3od": 0.7912,
+              "iou_sam21_box": 0.5901
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                0.9883,
+                0.9986,
+                0.9858
+              ],
+              "ms": 1283.0,
+              "area": 0.0689,
+              "soft_share": 0.1812,
+              "iou_mvp_sky": 0.0898,
+              "iou_s3od": 0.0047,
+              "iou_sam21_box": 0.0004
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.7523,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.7156,
+              "soft_share": 0.0397
+            },
+            "sam21_box": {
+              "area": 0.5282,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c011_Altenburg_310053_PSD_b0_p0.jpg",
+            "c011_Altenburg_310053_PSD_b0_p1.jpg",
+            "c011_Altenburg_310053_PSD_b0_p2.jpg",
+            "c011_Altenburg_310053_PSD_b0_p3.jpg",
+            "c011_Altenburg_310053_PSD_b0_p4.jpg",
+            "c011_Altenburg_310053_PSD_b0_p5.jpg",
+            "c011_Altenburg_310053_PSD_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c011_Altenburg_310053_PSD_b0_z0.jpg",
+            "c011_Altenburg_310053_PSD_b0_z1.jpg",
+            "c011_Altenburg_310053_PSD_b0_z2.jpg",
+            "c011_Altenburg_310053_PSD_b0_z3.jpg",
+            "c011_Altenburg_310053_PSD_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.07,
+            0.08,
+            0.94,
+            0.92
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            2880
+          ],
+          "zoom_corner": [
+            471,
+            1005
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9678,
+                0.9711,
+                0.8984
+              ],
+              "ms": 1242.2,
+              "encoder_ms": 6139.7,
+              "area": 0.1029,
+              "soft_share": 0.1257,
+              "iou_s3od": 0.8006,
+              "iou_sam21_box": 0.4695
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9678,
+                0.9711,
+                0.8984
+              ],
+              "ms": 1187.6,
+              "encoder_ms": 6139.7,
+              "area": 0.2141,
+              "soft_share": 0.0056,
+              "iou_s3od": 0.5219,
+              "iou_sam21_box": 0.9467
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9678,
+                0.9711,
+                0.8984
+              ],
+              "ms": 1267.4,
+              "area": 0.1029,
+              "soft_share": 0.1257,
+              "iou_s3od": 0.8006,
+              "iou_sam21_box": 0.4695
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.1146,
+              "soft_share": 0.0339
+            },
+            "sam21_box": {
+              "area": 0.2088,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c011_Altenburg_310053_PSD_b1_p0.jpg",
+            "c011_Altenburg_310053_PSD_b1_p1.jpg",
+            "c011_Altenburg_310053_PSD_b1_p2.jpg",
+            "c011_Altenburg_310053_PSD_b1_p3.jpg",
+            "c011_Altenburg_310053_PSD_b1_p4.jpg",
+            "c011_Altenburg_310053_PSD_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c011_Altenburg_310053_PSD_b1_z0.jpg",
+            "c011_Altenburg_310053_PSD_b1_z1.jpg",
+            "c011_Altenburg_310053_PSD_b1_z2.jpg",
+            "c011_Altenburg_310053_PSD_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c013_Backlit_Margarita_Island_Sunset_in_Las_G.jpg",
+      "license": "CC0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ABacklit_Margarita_Island_Sunset_in_Las_Guevaras%2C_Venezuela_CaptureNX2.jpg",
+      "size": [
+        2500,
+        1683
+      ],
+      "encoder_ms_photo": 6233.1,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.62
+          ],
+          "rect": [
+            0,
+            0,
+            2500,
+            1044
+          ],
+          "zoom_corner": [
+            1076,
+            660
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.9972,
+                  1.002,
+                  0.6813
+                ]
+              ],
+              "ms": 1103.3,
+              "area": 0.0442,
+              "soft_share": 0.4663,
+              "iou_mvp_sky": 0.0764,
+              "iou_s3od": 0.0699,
+              "iou_sam21_box": 0.0764
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  0.9972,
+                  1.002,
+                  0.6813
+                ]
+              ],
+              "ms": 1113.8,
+              "area": 0.4499,
+              "soft_share": 0.012,
+              "iou_mvp_sky": 0.9898,
+              "iou_s3od": 0.8613,
+              "iou_sam21_box": 0.989
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.9972,
+                  1.002,
+                  0.6813
+                ]
+              ],
+              "ms": 1137.3,
+              "area": 0.8553,
+              "soft_share": 0.2375,
+              "iou_mvp_sky": 0.5241,
+              "iou_s3od": 0.566,
+              "iou_sam21_box": 0.5234
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                1.0138,
+                1.0002,
+                0.8739
+              ],
+              "ms": 1080.6,
+              "area": 0.045,
+              "soft_share": 0.4674,
+              "iou_mvp_sky": 0.0769,
+              "iou_s3od": 0.0706,
+              "iou_sam21_box": 0.0769
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.4482,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.5131,
+              "soft_share": 0.0215
+            },
+            "sam21_box": {
+              "area": 0.4477,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_p0.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_p1.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_p2.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_p3.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_p4.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_p5.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_z0.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_z1.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_z2.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_z3.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.11,
+            0.25,
+            0.68,
+            0.75
+          ],
+          "rect": [
+            132,
+            336,
+            1843,
+            1347
+          ],
+          "zoom_corner": [
+            1092,
+            610
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9746,
+                0.9493,
+                0.8586
+              ],
+              "ms": 1033.1,
+              "encoder_ms": 6268.3,
+              "area": 0.1167,
+              "soft_share": 0.3209,
+              "iou_s3od": 0.8223,
+              "iou_sam21_box": 0.7538
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9746,
+                0.9493,
+                0.8586
+              ],
+              "ms": 1101.7,
+              "encoder_ms": 6268.3,
+              "area": 0.1509,
+              "soft_share": 0.0189,
+              "iou_s3od": 0.6679,
+              "iou_sam21_box": 0.8973
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9547,
+                0.9616,
+                0.9519
+              ],
+              "ms": 1080.5,
+              "area": 0.1198,
+              "soft_share": 0.3742,
+              "iou_s3od": 0.7952,
+              "iou_sam21_box": 0.7889
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.107,
+              "soft_share": 0.0375
+            },
+            "sam21_box": {
+              "area": 0.1377,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_p0.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_p1.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_p2.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_p3.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_p4.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_z0.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_z1.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_z2.jpg",
+            "c013_Backlit_Margarita_Island_Sunset_in_Las_G_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c017_Baum_in_K_rnten_037.jpg",
+      "license": "Public domain",
+      "page": "https://commons.wikimedia.org/wiki/File%3ABaum_in_K%C3%A4rnten_037.jpg",
+      "size": [
+        3840,
+        2543
+      ],
+      "encoder_ms_photo": 6292.1,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.8
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            2035
+          ],
+          "zoom_corner": [
+            2758,
+            1252
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0008,
+                  1.0,
+                  1.0135
+                ],
+                [
+                  0.9831,
+                  0.99,
+                  0.8227
+                ]
+              ],
+              "ms": 2504.9,
+              "area": 0.0677,
+              "soft_share": 0.3267,
+              "iou_mvp_sky": 0.0878,
+              "iou_s3od": 0.0019,
+              "iou_sam21_box": 0.0003
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  1.0008,
+                  1.0,
+                  1.0135
+                ],
+                [
+                  0.9831,
+                  0.99,
+                  0.8227
+                ]
+              ],
+              "ms": 2448.3,
+              "area": 0.7574,
+              "soft_share": 0.0174,
+              "iou_mvp_sky": 0.9805,
+              "iou_s3od": 0.798,
+              "iou_sam21_box": 0.7556
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0008,
+                  1.0,
+                  1.0135
+                ],
+                [
+                  0.9831,
+                  0.99,
+                  0.8227
+                ]
+              ],
+              "ms": 2746.8,
+              "area": 0.9855,
+              "soft_share": 0.1859,
+              "iou_mvp_sky": 0.749,
+              "iou_s3od": 0.6905,
+              "iou_sam21_box": 0.6006
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                0.9935,
+                1.0017,
+                1.0063
+              ],
+              "ms": 1228.5,
+              "area": 0.0108,
+              "soft_share": 0.2098,
+              "iou_mvp_sky": 0.0142,
+              "iou_s3od": 0.0006,
+              "iou_sam21_box": 0.0003
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.7602,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.6809,
+              "soft_share": 0.0247
+            },
+            "sam21_box": {
+              "area": 0.5919,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c017_Baum_in_K_rnten_037_b0_p0.jpg",
+            "c017_Baum_in_K_rnten_037_b0_p1.jpg",
+            "c017_Baum_in_K_rnten_037_b0_p2.jpg",
+            "c017_Baum_in_K_rnten_037_b0_p3.jpg",
+            "c017_Baum_in_K_rnten_037_b0_p4.jpg",
+            "c017_Baum_in_K_rnten_037_b0_p5.jpg",
+            "c017_Baum_in_K_rnten_037_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c017_Baum_in_K_rnten_037_b0_z0.jpg",
+            "c017_Baum_in_K_rnten_037_b0_z1.jpg",
+            "c017_Baum_in_K_rnten_037_b0_z2.jpg",
+            "c017_Baum_in_K_rnten_037_b0_z3.jpg",
+            "c017_Baum_in_K_rnten_037_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.38,
+            0.12,
+            0.89,
+            0.86
+          ],
+          "rect": [
+            1263,
+            116,
+            3614,
+            2376
+          ],
+          "zoom_corner": [
+            1646,
+            861
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9863,
+                0.9722,
+                0.88
+              ],
+              "ms": 1089.2,
+              "encoder_ms": 6117.1,
+              "area": 0.0662,
+              "soft_share": 0.3479,
+              "iou_s3od": 0.6437,
+              "iou_sam21_box": 0.3706
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9863,
+                0.9722,
+                0.88
+              ],
+              "ms": 1031.7,
+              "encoder_ms": 6117.1,
+              "area": 0.1868,
+              "soft_share": 0.0127,
+              "iou_s3od": 0.5083,
+              "iou_sam21_box": 0.9496
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9866,
+                0.983,
+                0.9655
+              ],
+              "ms": 1203.3,
+              "area": 0.0667,
+              "soft_share": 0.357,
+              "iou_s3od": 0.5856,
+              "iou_sam21_box": 0.3654
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.0953,
+              "soft_share": 0.0361
+            },
+            "sam21_box": {
+              "area": 0.1785,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c017_Baum_in_K_rnten_037_b1_p0.jpg",
+            "c017_Baum_in_K_rnten_037_b1_p1.jpg",
+            "c017_Baum_in_K_rnten_037_b1_p2.jpg",
+            "c017_Baum_in_K_rnten_037_b1_p3.jpg",
+            "c017_Baum_in_K_rnten_037_b1_p4.jpg",
+            "c017_Baum_in_K_rnten_037_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c017_Baum_in_K_rnten_037_b1_z0.jpg",
+            "c017_Baum_in_K_rnten_037_b1_z1.jpg",
+            "c017_Baum_in_K_rnten_037_b1_z2.jpg",
+            "c017_Baum_in_K_rnten_037_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ABeilstein_-_Kaisersbach_-_Oberes_H%C3%B6llw%C3%A4ldle_-_Birnbaum_mit_Blick_%C3%BCber_Schmidbachtal_%281%29.jpg",
+      "size": [
+        3840,
+        2595
+      ],
+      "encoder_ms_photo": 6250.2,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.62
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            1609
+          ],
+          "zoom_corner": [
+            3017,
+            885
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0047,
+                  1.0121,
+                  0.8267
+                ]
+              ],
+              "ms": 1155.1,
+              "area": 0.0033,
+              "soft_share": 0.0673,
+              "iou_mvp_sky": 0.0003,
+              "iou_s3od": 0.0006,
+              "iou_sam21_box": 0.0004
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  1.0047,
+                  1.0121,
+                  0.8267
+                ]
+              ],
+              "ms": 1172.2,
+              "area": 0.357,
+              "soft_share": 0.0029,
+              "iou_mvp_sky": 0.9806,
+              "iou_s3od": 0.7416,
+              "iou_sam21_box": 0.9876
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0047,
+                  1.0121,
+                  0.8267
+                ]
+              ],
+              "ms": 1196.2,
+              "area": 0.8341,
+              "soft_share": 0.3081,
+              "iou_mvp_sky": 0.4208,
+              "iou_s3od": 0.5555,
+              "iou_sam21_box": 0.4323
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                0.9862,
+                1.004,
+                0.9973
+              ],
+              "ms": 1154.0,
+              "area": 0.0036,
+              "soft_share": 0.0673,
+              "iou_mvp_sky": 0.0003,
+              "iou_s3od": 0.0008,
+              "iou_sam21_box": 0.0004
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.351,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.4813,
+              "soft_share": 0.0289
+            },
+            "sam21_box": {
+              "area": 0.3606,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_p0.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_p1.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_p2.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_p3.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_p4.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_p5.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_z0.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_z1.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_z2.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_z3.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.41,
+            0.12,
+            0.95,
+            0.78
+          ],
+          "rect": [
+            1367,
+            140,
+            3840,
+            2196
+          ],
+          "zoom_corner": [
+            3141,
+            885
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9767,
+                0.971,
+                0.9617
+              ],
+              "ms": 1536.7,
+              "encoder_ms": 6627.6,
+              "area": 0.1441,
+              "soft_share": 0.3802,
+              "iou_s3od": 0.8378,
+              "iou_sam21_box": 0.6655
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9767,
+                0.971,
+                0.9617
+              ],
+              "ms": 1527.6,
+              "encoder_ms": 6627.6,
+              "area": 0.2201,
+              "soft_share": 0.0142,
+              "iou_s3od": 0.656,
+              "iou_sam21_box": 0.953
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9744,
+                0.9656,
+                0.9605
+              ],
+              "ms": 1803.1,
+              "area": 0.146,
+              "soft_share": 0.4151,
+              "iou_s3od": 0.8287,
+              "iou_sam21_box": 0.6805
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.145,
+              "soft_share": 0.0491
+            },
+            "sam21_box": {
+              "area": 0.211,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_p0.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_p1.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_p2.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_p3.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_p4.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_z0.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_z1.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_z2.jpg",
+            "c018_Beilstein_Kaisersbach_Oberes_H_llw_ldle_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c038_Cuolm_Sura_1585m_21_09_2022_actm_02.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ACuolm_Sura_1585m._21-09-2022._%28actm.%29_02.jpg",
+      "size": [
+        3840,
+        2880
+      ],
+      "encoder_ms_photo": 7325.6,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.6
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            1728
+          ],
+          "zoom_corner": [
+            0,
+            1344
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0012,
+                  1.004,
+                  0.912
+                ]
+              ],
+              "ms": 1393.9,
+              "area": 0.0397,
+              "soft_share": 0.1857,
+              "iou_mvp_sky": 0.0555,
+              "iou_s3od": 0.046,
+              "iou_sam21_box": 0.0546
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  1.0012,
+                  1.004,
+                  0.912
+                ]
+              ],
+              "ms": 1362.1,
+              "area": 0.3552,
+              "soft_share": 0.0081,
+              "iou_mvp_sky": 0.972,
+              "iou_s3od": 0.8177,
+              "iou_sam21_box": 0.9807
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0012,
+                  1.004,
+                  0.912
+                ]
+              ],
+              "ms": 1258.4,
+              "area": 0.7582,
+              "soft_share": 0.2105,
+              "iou_mvp_sky": 0.4558,
+              "iou_s3od": 0.5633,
+              "iou_sam21_box": 0.4616
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                1.004,
+                0.9973,
+                0.9842
+              ],
+              "ms": 1296.4,
+              "area": 0.0397,
+              "soft_share": 0.1858,
+              "iou_mvp_sky": 0.0555,
+              "iou_s3od": 0.046,
+              "iou_sam21_box": 0.0546
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.3456,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.434,
+              "soft_share": 0.0165
+            },
+            "sam21_box": {
+              "area": 0.35,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_p0.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_p1.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_p2.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_p3.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_p4.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_p5.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_z0.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_z1.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_z2.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_z3.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.31,
+            0.12,
+            0.92,
+            0.86
+          ],
+          "rect": [
+            956,
+            132,
+            3768,
+            2690
+          ],
+          "zoom_corner": [
+            1941,
+            2014
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9658,
+                0.972,
+                0.9685
+              ],
+              "ms": 1158.4,
+              "encoder_ms": 6295.9,
+              "area": 0.2013,
+              "soft_share": 0.2136,
+              "iou_s3od": 0.9066,
+              "iou_sam21_box": 0.8429
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9658,
+                0.972,
+                0.9685
+              ],
+              "ms": 1182.0,
+              "encoder_ms": 6295.9,
+              "area": 0.2303,
+              "soft_share": 0.0136,
+              "iou_s3od": 0.8713,
+              "iou_sam21_box": 0.9686
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9673,
+                0.9703,
+                0.9669
+              ],
+              "ms": 1213.8,
+              "area": 0.2031,
+              "soft_share": 0.2292,
+              "iou_s3od": 0.9042,
+              "iou_sam21_box": 0.851
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.2021,
+              "soft_share": 0.0234
+            },
+            "sam21_box": {
+              "area": 0.2258,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_p0.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_p1.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_p2.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_p3.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_p4.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_z0.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_z1.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_z2.jpg",
+            "c038_Cuolm_Sura_1585m_21_09_2022_actm_02_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AD%C3%BClmen%2C_Merfeld%2C_Feldweg_am_M%C3%BChlenbach_--_2021_--_4278-80.jpg",
+      "size": [
+        3840,
+        2560
+      ],
+      "encoder_ms_photo": 6228.0,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.64
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            1639
+          ],
+          "zoom_corner": [
+            2693,
+            208
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.994,
+                  0.9901,
+                  0.7491
+                ],
+                [
+                  0.9529,
+                  0.9492,
+                  0.7965
+                ]
+              ],
+              "ms": 2602.7,
+              "area": 0.1238,
+              "soft_share": 0.6073,
+              "iou_mvp_sky": 0.2644,
+              "iou_s3od": 0.2281,
+              "iou_sam21_box": 0.2529
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  0.994,
+                  0.9901,
+                  0.7491
+                ],
+                [
+                  0.9529,
+                  0.9492,
+                  0.7965
+                ]
+              ],
+              "ms": 2307.7,
+              "area": 0.4317,
+              "soft_share": 0.0108,
+              "iou_mvp_sky": 0.9471,
+              "iou_s3od": 0.8759,
+              "iou_sam21_box": 0.9866
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.994,
+                  0.9901,
+                  0.7491
+                ],
+                [
+                  0.9529,
+                  0.9492,
+                  0.7965
+                ]
+              ],
+              "ms": 2499.7,
+              "area": 0.8245,
+              "soft_share": 0.2864,
+              "iou_mvp_sky": 0.4977,
+              "iou_s3od": 0.5874,
+              "iou_sam21_box": 0.5195
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                1.0064,
+                0.9952,
+                0.9113
+              ],
+              "ms": 1270.2,
+              "area": 0.1242,
+              "soft_share": 0.6061,
+              "iou_mvp_sky": 0.2642,
+              "iou_s3od": 0.228,
+              "iou_sam21_box": 0.2527
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.4104,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.4926,
+              "soft_share": 0.0192
+            },
+            "sam21_box": {
+              "area": 0.4284,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_p0.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_p1.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_p2.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_p3.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_p4.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_p5.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_z0.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_z1.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_z2.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_z3.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.49,
+            0.03,
+            0.95,
+            0.8
+          ],
+          "rect": [
+            1704,
+            0,
+            3825,
+            2246
+          ],
+          "zoom_corner": [
+            2905,
+            582
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9495,
+                0.9501,
+                0.9459
+              ],
+              "ms": 1179.9,
+              "encoder_ms": 6243.7,
+              "area": 0.0882,
+              "soft_share": 0.2863,
+              "iou_s3od": 0.6285,
+              "iou_sam21_box": 0.6532
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9495,
+                0.9501,
+                0.9459
+              ],
+              "ms": 1061.6,
+              "encoder_ms": 6243.7,
+              "area": 0.1361,
+              "soft_share": 0.013,
+              "iou_s3od": 0.5673,
+              "iou_sam21_box": 0.8582
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9422,
+                0.9487,
+                0.9464
+              ],
+              "ms": 1234.9,
+              "area": 0.0869,
+              "soft_share": 0.301,
+              "iou_s3od": 0.5642,
+              "iou_sam21_box": 0.6943
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.0993,
+              "soft_share": 0.0338
+            },
+            "sam21_box": {
+              "area": 0.1189,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_p0.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_p1.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_p2.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_p3.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_p4.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_z0.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_z1.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_z2.jpg",
+            "c070_D_lmen_Merfeld_Feldweg_am_M_hlenbach_202_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c077_Haltern_am_See_Westruper_Heide_2015_7965.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AHaltern_am_See%2C_Westruper_Heide_--_2015_--_7965-9.jpg",
+      "size": [
+        3840,
+        2564
+      ],
+      "encoder_ms_photo": 6320.3,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.62
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            1590
+          ],
+          "zoom_corner": [
+            2320,
+            898
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0044,
+                  1.0015,
+                  0.9038
+                ],
+                [
+                  0.9346,
+                  0.8535,
+                  0.7476
+                ]
+              ],
+              "ms": 2571.1,
+              "area": 0.0993,
+              "soft_share": 0.4241,
+              "iou_mvp_sky": 0.1017,
+              "iou_s3od": 0.0947,
+              "iou_sam21_box": 0.1021
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  1.0044,
+                  1.0015,
+                  0.9038
+                ],
+                [
+                  0.9346,
+                  0.8535,
+                  0.7476
+                ]
+              ],
+              "ms": 2355.7,
+              "area": 0.3891,
+              "soft_share": 0.0116,
+              "iou_mvp_sky": 0.9868,
+              "iou_s3od": 0.8293,
+              "iou_sam21_box": 0.9858
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0044,
+                  1.0015,
+                  0.9038
+                ],
+                [
+                  0.9346,
+                  0.8535,
+                  0.7476
+                ]
+              ],
+              "ms": 2473.4,
+              "area": 0.6477,
+              "soft_share": 0.2063,
+              "iou_mvp_sky": 0.5963,
+              "iou_s3od": 0.6797,
+              "iou_sam21_box": 0.5928
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                1.0041,
+                1.0031,
+                0.9563
+              ],
+              "ms": 1222.8,
+              "area": 0.0946,
+              "soft_share": 0.4192,
+              "iou_mvp_sky": 0.1028,
+              "iou_s3od": 0.0942,
+              "iou_sam21_box": 0.1032
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.3863,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.4685,
+              "soft_share": 0.0166
+            },
+            "sam21_box": {
+              "area": 0.384,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_p0.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_p1.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_p2.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_p3.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_p4.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_p5.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_z0.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_z1.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_z2.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_z3.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.31,
+            0.06,
+            0.84,
+            0.68
+          ],
+          "rect": [
+            986,
+            0,
+            3430,
+            1903
+          ],
+          "zoom_corner": [
+            2453,
+            895
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9852,
+                0.9642,
+                0.9148
+              ],
+              "ms": 1061.3,
+              "encoder_ms": 6281.2,
+              "area": 0.1657,
+              "soft_share": 0.2178,
+              "iou_s3od": 0.9106,
+              "iou_sam21_box": 0.856
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9852,
+                0.9642,
+                0.9148
+              ],
+              "ms": 1057.8,
+              "encoder_ms": 6281.2,
+              "area": 0.1864,
+              "soft_share": 0.0162,
+              "iou_s3od": 0.8511,
+              "iou_sam21_box": 0.9622
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9951,
+                0.9785,
+                0.9567
+              ],
+              "ms": 1239.5,
+              "area": 0.1689,
+              "soft_share": 0.2387,
+              "iou_s3od": 0.8948,
+              "iou_sam21_box": 0.8686
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.1591,
+              "soft_share": 0.0236
+            },
+            "sam21_box": {
+              "area": 0.1806,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_p0.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_p1.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_p2.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_p3.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_p4.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_z0.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_z1.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_z2.jpg",
+            "c077_Haltern_am_See_Westruper_Heide_2015_7965_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c056_Coesfeld_Lette_Windm_hle_2015_5768.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ACoesfeld%2C_Lette%2C_Windm%C3%BChle_--_2015_--_5768.jpg",
+      "size": [
+        2967,
+        4096
+      ],
+      "encoder_ms_photo": 6241.7,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.8
+          ],
+          "rect": [
+            0,
+            0,
+            2967,
+            3277
+          ],
+          "zoom_corner": [
+            1896,
+            2890
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0093,
+                  0.9358,
+                  0.9232
+                ],
+                [
+                  0.9819,
+                  0.9632,
+                  0.4509
+                ]
+              ],
+              "ms": 2625.3,
+              "area": 0.0862,
+              "soft_share": 0.264,
+              "iou_mvp_sky": 0.0915,
+              "iou_s3od": 0.0866,
+              "iou_sam21_box": 0.092
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  1.0093,
+                  0.9358,
+                  0.9232
+                ],
+                [
+                  0.9819,
+                  0.9632,
+                  0.4509
+                ]
+              ],
+              "ms": 2480.9,
+              "area": 0.5905,
+              "soft_share": 0.0081,
+              "iou_mvp_sky": 0.9837,
+              "iou_s3od": 0.9035,
+              "iou_sam21_box": 0.9897
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0093,
+                  0.9358,
+                  0.9232
+                ],
+                [
+                  0.9819,
+                  0.9632,
+                  0.4509
+                ]
+              ],
+              "ms": 2588.2,
+              "area": 0.9092,
+              "soft_share": 0.192,
+              "iou_mvp_sky": 0.6486,
+              "iou_s3od": 0.7107,
+              "iou_sam21_box": 0.6458
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                0.9727,
+                0.9993,
+                0.9899
+              ],
+              "ms": 1302.6,
+              "area": 0.086,
+              "soft_share": 0.2636,
+              "iou_mvp_sky": 0.0914,
+              "iou_s3od": 0.0865,
+              "iou_sam21_box": 0.092
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.5899,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.6524,
+              "soft_share": 0.0113
+            },
+            "sam21_box": {
+              "area": 0.5872,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_p0.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_p1.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_p2.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_p3.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_p4.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_p5.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_z0.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_z1.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_z2.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_z3.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "windmill",
+          "box": [
+            0.2,
+            0.07,
+            0.83,
+            0.86
+          ],
+          "rect": [
+            406,
+            0,
+            2650,
+            3847
+          ],
+          "zoom_corner": [
+            916,
+            2916
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9726,
+                0.9191,
+                0.675
+              ],
+              "ms": 1275.0,
+              "encoder_ms": 6081.2,
+              "area": 0.057,
+              "soft_share": 0.2034,
+              "iou_s3od": 0.3139,
+              "iou_sam21_box": 0.3087
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9726,
+                0.9191,
+                0.675
+              ],
+              "ms": 1210.0,
+              "encoder_ms": 6081.2,
+              "area": 0.1724,
+              "soft_share": 0.0118,
+              "iou_s3od": 0.9106,
+              "iou_sam21_box": 0.9531
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.969,
+                0.9388,
+                0.6814
+              ],
+              "ms": 1231.5,
+              "area": 0.0773,
+              "soft_share": 0.2374,
+              "iou_s3od": 0.4306,
+              "iou_sam21_box": 0.4194
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.1663,
+              "soft_share": 0.0155
+            },
+            "sam21_box": {
+              "area": 0.1754,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_p0.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_p1.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_p2.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_p3.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_p4.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_z0.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_z1.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_z2.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b1_z3.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.03,
+            0.6,
+            0.2,
+            0.84
+          ],
+          "rect": [
+            38,
+            2359,
+            644,
+            3539
+          ],
+          "zoom_corner": [
+            152,
+            2770
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.8989,
+                0.8907,
+                0.9165
+              ],
+              "ms": 938.1,
+              "encoder_ms": 6212.7,
+              "area": 0.0095,
+              "soft_share": 0.1992,
+              "iou_s3od": 0.7437,
+              "iou_sam21_box": 0.7082
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.8989,
+                0.8907,
+                0.9165
+              ],
+              "ms": 1063.1,
+              "encoder_ms": 6212.7,
+              "area": 0.0122,
+              "soft_share": 0.0216,
+              "iou_s3od": 0.641,
+              "iou_sam21_box": 0.905
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9023,
+                0.9303,
+                0.9374
+              ],
+              "ms": 1250.0,
+              "area": 0.0,
+              "soft_share": 0.0289,
+              "iou_s3od": 0.0,
+              "iou_sam21_box": 0.0
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.0079,
+              "soft_share": 0.014
+            },
+            "sam21_box": {
+              "area": 0.0133,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_p0.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_p1.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_p2.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_p3.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_p4.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_z0.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_z1.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_z2.jpg",
+            "c056_Coesfeld_Lette_Windm_hle_2015_5768_b2_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ADe_Cocksdorp_%28NL%29%2C_Leuchtturm_--_2026_--_0305.jpg",
+      "size": [
+        3071,
+        4096
+      ],
+      "encoder_ms_photo": 6448.2,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.62
+          ],
+          "rect": [
+            0,
+            0,
+            3071,
+            2540
+          ],
+          "zoom_corner": [
+            1815,
+            2156
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0361,
+                  0.9763,
+                  0.9413
+                ]
+              ],
+              "ms": 1325.6,
+              "area": 0.0615,
+              "soft_share": 0.4974,
+              "iou_mvp_sky": 0.5061,
+              "iou_s3od": 0.1031,
+              "iou_sam21_box": 0.1126
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  1.0361,
+                  0.9763,
+                  0.9413
+                ]
+              ],
+              "ms": 1206.8,
+              "area": 0.5119,
+              "soft_share": 0.0076,
+              "iou_mvp_sky": 0.2014,
+              "iou_s3od": 0.8821,
+              "iou_sam21_box": 0.9851
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0361,
+                  0.9763,
+                  0.9413
+                ]
+              ],
+              "ms": 1336.7,
+              "area": 0.6947,
+              "soft_share": 0.1159,
+              "iou_mvp_sky": 0.1484,
+              "iou_s3od": 0.7423,
+              "iou_sam21_box": 0.7439
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                1.0102,
+                1.0029,
+                0.9787
+              ],
+              "ms": 1300.2,
+              "area": 0.0643,
+              "soft_share": 0.5126,
+              "iou_mvp_sky": 0.4935,
+              "iou_s3od": 0.1052,
+              "iou_sam21_box": 0.1137
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.1031,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.5803,
+              "soft_share": 0.0025
+            },
+            "sam21_box": {
+              "area": 0.5168,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_p0.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_p1.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_p2.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_p3.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_p4.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_p5.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_z0.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_z1.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_z2.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_z3.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "lighthouse",
+          "box": [
+            0.52,
+            0.17,
+            0.67,
+            0.58
+          ],
+          "rect": [
+            1550,
+            528,
+            2104,
+            2544
+          ],
+          "zoom_corner": [
+            1632,
+            959
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                1.0182,
+                0.9858,
+                0.8765
+              ],
+              "ms": 1007.9,
+              "encoder_ms": 6110.4,
+              "area": 0.0328,
+              "soft_share": 0.2886,
+              "iou_s3od": 0.79,
+              "iou_sam21_box": 0.7695
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                1.0182,
+                0.9858,
+                0.8765
+              ],
+              "ms": 1004.0,
+              "encoder_ms": 6110.4,
+              "area": 0.0404,
+              "soft_share": 0.0166,
+              "iou_s3od": 0.9663,
+              "iou_sam21_box": 0.9751
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9924,
+                0.9849,
+                0.9483
+              ],
+              "ms": 1283.7,
+              "area": 0.0296,
+              "soft_share": 0.3592,
+              "iou_s3od": 0.7434,
+              "iou_sam21_box": 0.7251
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.0393,
+              "soft_share": 0.0132
+            },
+            "sam21_box": {
+              "area": 0.0405,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_p0.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_p1.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_p2.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_p3.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_p4.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_z0.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_z1.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_z2.jpg",
+            "c066_De_Cocksdorp_NL_Leuchtturm_2026_0305_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AD%C3%BClmen%2C_Dernekamp%2C_Mini_Hatch_Cooper_--_2018_--_1545-51.jpg",
+      "size": [
+        3840,
+        2560
+      ],
+      "encoder_ms_photo": 6353.8,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.55
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            1408
+          ],
+          "zoom_corner": [
+            2019,
+            596
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0022,
+                  0.9973,
+                  0.9309
+                ],
+                [
+                  0.9753,
+                  0.924,
+                  0.4767
+                ]
+              ],
+              "ms": 2589.3,
+              "area": 0.098,
+              "soft_share": 0.5697,
+              "iou_mvp_sky": 0.148,
+              "iou_s3od": 0.129,
+              "iou_sam21_box": 0.1471
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  1.0022,
+                  0.9973,
+                  0.9309
+                ],
+                [
+                  0.9753,
+                  0.924,
+                  0.4767
+                ]
+              ],
+              "ms": 2459.9,
+              "area": 0.3443,
+              "soft_share": 0.0107,
+              "iou_mvp_sky": 0.9752,
+              "iou_s3od": 0.8552,
+              "iou_sam21_box": 0.9842
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0022,
+                  0.9973,
+                  0.9309
+                ],
+                [
+                  0.9753,
+                  0.924,
+                  0.4767
+                ]
+              ],
+              "ms": 2572.2,
+              "area": 0.6472,
+              "soft_share": 0.1132,
+              "iou_mvp_sky": 0.5215,
+              "iou_s3od": 0.6002,
+              "iou_sam21_box": 0.5251
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                0.9918,
+                1.0032,
+                0.9998
+              ],
+              "ms": 1262.2,
+              "area": 0.0939,
+              "soft_share": 0.5496,
+              "iou_mvp_sky": 0.1489,
+              "iou_s3od": 0.1291,
+              "iou_sam21_box": 0.1481
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.3376,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.4012,
+              "soft_share": 0.0038
+            },
+            "sam21_box": {
+              "area": 0.3399,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_p0.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_p1.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_p2.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_p3.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_p4.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_p5.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_z0.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_z1.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_z2.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_z3.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "car",
+          "box": [
+            0.2,
+            0.19,
+            0.85,
+            0.95
+          ],
+          "rect": [
+            518,
+            291,
+            3514,
+            2560
+          ],
+          "zoom_corner": [
+            2745,
+            1214
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                1.0144,
+                0.9919,
+                0.9169
+              ],
+              "ms": 1134.2,
+              "encoder_ms": 6045.3,
+              "area": 0.3026,
+              "soft_share": 0.1197,
+              "iou_s3od": 0.951,
+              "iou_sam21_box": 0.9442
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                1.0144,
+                0.9919,
+                0.9169
+              ],
+              "ms": 1024.8,
+              "encoder_ms": 6045.3,
+              "area": 0.3165,
+              "soft_share": 0.0083,
+              "iou_s3od": 0.996,
+              "iou_sam21_box": 0.9893
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                1.0133,
+                0.9942,
+                0.913
+              ],
+              "ms": 1234.1,
+              "area": 0.3162,
+              "soft_share": 0.0864,
+              "iou_s3od": 0.9937,
+              "iou_sam21_box": 0.9868
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.3166,
+              "soft_share": 0.0039
+            },
+            "sam21_box": {
+              "area": 0.3139,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_p0.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_p1.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_p2.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_p3.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_p4.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_z0.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_z1.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_z2.jpg",
+            "c068_D_lmen_Dernekamp_Mini_Hatch_Cooper_2018_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AD%C3%BClmen%2C_Merfeld%2C_Volvo_PV_544_B18_--_2021_--_0075-9.jpg",
+      "size": [
+        3840,
+        2400
+      ],
+      "encoder_ms_photo": 6130.9,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.67
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            1608
+          ],
+          "zoom_corner": [
+            3191,
+            0
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.9892,
+                  0.992,
+                  0.9891
+                ]
+              ],
+              "ms": 1204.4,
+              "area": 0.091,
+              "soft_share": 0.2877,
+              "iou_mvp_sky": 0.276,
+              "iou_s3od": 0.1423,
+              "iou_sam21_box": 0.1579
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  0.9892,
+                  0.992,
+                  0.9891
+                ]
+              ],
+              "ms": 1120.1,
+              "area": 0.3061,
+              "soft_share": 0.0053,
+              "iou_mvp_sky": 0.9856,
+              "iou_s3od": 0.4786,
+              "iou_sam21_box": 0.4063
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.9892,
+                  0.992,
+                  0.9891
+                ]
+              ],
+              "ms": 1280.0,
+              "area": 0.8717,
+              "soft_share": 0.3478,
+              "iou_mvp_sky": 0.3484,
+              "iou_s3od": 0.6282,
+              "iou_sam21_box": 0.5475
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                0.9627,
+                0.9395,
+                0.8726
+              ],
+              "ms": 1359.2,
+              "area": 0.1378,
+              "soft_share": 0.5099,
+              "iou_mvp_sky": 0.2314,
+              "iou_s3od": 0.2155,
+              "iou_sam21_box": 0.2405
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.3037,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.6396,
+              "soft_share": 0.0012
+            },
+            "sam21_box": {
+              "area": 0.5633,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_p0.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_p1.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_p2.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_p3.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_p4.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_p5.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_z0.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_z1.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_z2.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_z3.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "car",
+          "box": [
+            0.22,
+            0.49,
+            0.59,
+            0.92
+          ],
+          "rect": [
+            702,
+            1072,
+            2408,
+            2312
+          ],
+          "zoom_corner": [
+            1631,
+            1279
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                1.0105,
+                0.992,
+                0.9041
+              ],
+              "ms": 956.0,
+              "encoder_ms": 6173.2,
+              "area": 0.0645,
+              "soft_share": 0.2861,
+              "iou_s3od": 0.7403,
+              "iou_sam21_box": 0.729
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                1.0105,
+                0.992,
+                0.9041
+              ],
+              "ms": 1022.9,
+              "encoder_ms": 6173.2,
+              "area": 0.0865,
+              "soft_share": 0.0097,
+              "iou_s3od": 0.9932,
+              "iou_sam21_box": 0.9787
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9967,
+                0.9585,
+                0.8492
+              ],
+              "ms": 1112.7,
+              "area": 0.0676,
+              "soft_share": 0.3047,
+              "iou_s3od": 0.7639,
+              "iou_sam21_box": 0.7645
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.0865,
+              "soft_share": 0.0036
+            },
+            "sam21_box": {
+              "area": 0.0876,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_p0.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_p1.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_p2.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_p3.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_p4.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_z0.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_z1.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_z2.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b1_z3.jpg"
+          ]
+        },
+        {
+          "label": "tree",
+          "box": [
+            0.58,
+            0.0,
+            1.0,
+            0.67
+          ],
+          "rect": [
+            2065,
+            0,
+            3840,
+            1769
+          ],
+          "zoom_corner": [
+            3263,
+            1194
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9656,
+                0.9547,
+                0.908
+              ],
+              "ms": 1049.3,
+              "encoder_ms": 5985.2,
+              "area": 0.0921,
+              "soft_share": 0.5232,
+              "iou_s3od": 0.0,
+              "iou_sam21_box": 0.3672
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9656,
+                0.9547,
+                0.908
+              ],
+              "ms": 985.6,
+              "encoder_ms": 5985.2,
+              "area": 0.2449,
+              "soft_share": 0.0197,
+              "iou_s3od": 0.0,
+              "iou_sam21_box": 0.9743
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.999,
+                0.9738,
+                0.8617
+              ],
+              "ms": 1192.8,
+              "area": 0.0532,
+              "soft_share": 0.5599,
+              "iou_s3od": 0.0,
+              "iou_sam21_box": 0.2127
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.0064,
+              "soft_share": 0.0003
+            },
+            "sam21_box": {
+              "area": 0.2439,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_p0.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_p1.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_p2.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_p3.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_p4.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_z0.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_z1.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_z2.jpg",
+            "c072_D_lmen_Merfeld_Volvo_PV_544_B18_2021_007_b2_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c084_13_08_08_hongkong_by_RalfR_Panorama2.jpg",
+      "license": "CC BY 3.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3A13-08-08-hongkong-by-RalfR-Panorama2.jpg",
+      "size": [
+        3840,
+        2013
+      ],
+      "encoder_ms_photo": 5942.9,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            1007
+          ],
+          "zoom_corner": [
+            877,
+            623
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.965,
+                  0.9657,
+                  0.9771
+                ]
+              ],
+              "ms": 1142.1,
+              "area": 0.0,
+              "soft_share": 0.0155,
+              "iou_mvp_sky": 0.0,
+              "iou_s3od": 0.0,
+              "iou_sam21_box": 0.0
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  0.965,
+                  0.9657,
+                  0.9771
+                ]
+              ],
+              "ms": 1067.9,
+              "area": 0.029,
+              "soft_share": 0.0006,
+              "iou_mvp_sky": 0.8185,
+              "iou_s3od": 0.0618,
+              "iou_sam21_box": 0.0681
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.965,
+                  0.9657,
+                  0.9771
+                ]
+              ],
+              "ms": 1234.1,
+              "area": 0.9179,
+              "soft_share": 0.1012,
+              "iou_mvp_sky": 0.0386,
+              "iou_s3od": 0.5109,
+              "iou_sam21_box": 0.4629
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                1.0151,
+                0.9979,
+                0.9567
+              ],
+              "ms": 1161.0,
+              "area": 0.0007,
+              "soft_share": 0.1389,
+              "iou_mvp_sky": 0.0001,
+              "iou_s3od": 0.001,
+              "iou_sam21_box": 0.0011
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.0354,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.4702,
+              "soft_share": 0.0022
+            },
+            "sam21_box": {
+              "area": 0.4257,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_p0.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_p1.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_p2.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_p3.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_p4.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_p5.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_z0.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_z1.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_z2.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_z3.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "building",
+          "box": [
+            0.23,
+            0.07,
+            0.33,
+            0.75
+          ],
+          "rect": [
+            844,
+            4,
+            1306,
+            1647
+          ],
+          "zoom_corner": [
+            871,
+            289
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.97,
+                0.9644,
+                0.8582
+              ],
+              "ms": 1007.7,
+              "encoder_ms": 6202.6,
+              "area": 0.0018,
+              "soft_share": 0.1209,
+              "iou_s3od": 0.0351,
+              "iou_sam21_box": 0.0347
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.97,
+                0.9644,
+                0.8582
+              ],
+              "ms": 992.9,
+              "encoder_ms": 6202.6,
+              "area": 0.0487,
+              "soft_share": 0.0033,
+              "iou_s3od": 0.9751,
+              "iou_sam21_box": 0.9697
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9728,
+                0.9826,
+                0.9495
+              ],
+              "ms": 1211.4,
+              "area": 0.0024,
+              "soft_share": 0.3659,
+              "iou_s3od": 0.0476,
+              "iou_sam21_box": 0.0475
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.0487,
+              "soft_share": 0.0082
+            },
+            "sam21_box": {
+              "area": 0.0495,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_p0.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_p1.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_p2.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_p3.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_p4.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_z0.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_z1.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_z2.jpg",
+            "c084_13_08_08_hongkong_by_RalfR_Panorama2_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c099_2014_Bystrzyca_K_odzka_stare_miasto_11.jpg",
+      "license": "CC BY-SA 3.0 pl",
+      "page": "https://commons.wikimedia.org/wiki/File%3A2014_Bystrzyca_K%C5%82odzka%2C_stare_miasto_11.jpg",
+      "size": [
+        3840,
+        1948
+      ],
+      "encoder_ms_photo": 6169.2,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.6
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            1169
+          ],
+          "zoom_corner": [
+            1046,
+            785
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0138,
+                  1.0147,
+                  0.9764
+                ]
+              ],
+              "ms": 1144.1,
+              "area": 0.0001,
+              "soft_share": 0.0188,
+              "iou_mvp_sky": 0.0003,
+              "iou_s3od": 0.0002,
+              "iou_sam21_box": 0.0003
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  1.0138,
+                  1.0147,
+                  0.9764
+                ]
+              ],
+              "ms": 1107.9,
+              "area": 0.4802,
+              "soft_share": 0.0031,
+              "iou_mvp_sky": 0.9854,
+              "iou_s3od": 0.8228,
+              "iou_sam21_box": 0.993
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  1.0138,
+                  1.0147,
+                  0.9764
+                ]
+              ],
+              "ms": 1143.2,
+              "area": 0.9157,
+              "soft_share": 0.0151,
+              "iou_mvp_sky": 0.5182,
+              "iou_s3od": 0.632,
+              "iou_sam21_box": 0.5242
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                0.9978,
+                1.0042,
+                1.0092
+              ],
+              "ms": 1155.6,
+              "area": 0.0001,
+              "soft_share": 0.0184,
+              "iou_mvp_sky": 0.0003,
+              "iou_s3od": 0.0002,
+              "iou_sam21_box": 0.0003
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.4745,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.5836,
+              "soft_share": 0.0024
+            },
+            "sam21_box": {
+              "area": 0.4801,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_p0.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_p1.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_p2.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_p3.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_p4.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_p5.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_z0.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_z1.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_z2.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_z3.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b0_z4.jpg"
+          ]
+        },
+        {
+          "label": "church tower",
+          "box": [
+            0.25,
+            0.05,
+            0.33,
+            0.55
+          ],
+          "rect": [
+            929,
+            0,
+            1298,
+            1169
+          ],
+          "zoom_corner": [
+            921,
+            637
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                0.9962,
+                0.9883,
+                0.933
+              ],
+              "ms": 1011.2,
+              "encoder_ms": 6309.2,
+              "area": 0.0005,
+              "soft_share": 0.265,
+              "iou_s3od": 0.0213,
+              "iou_sam21_box": 0.0207
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                0.9962,
+                0.9883,
+                0.933
+              ],
+              "ms": 999.9,
+              "encoder_ms": 6309.2,
+              "area": 0.0165,
+              "soft_share": 0.0092,
+              "iou_s3od": 0.967,
+              "iou_sam21_box": 0.974
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9678,
+                0.9814,
+                0.9638
+              ],
+              "ms": 1217.8,
+              "area": 0.0,
+              "soft_share": 0.0115,
+              "iou_s3od": 0.0005,
+              "iou_sam21_box": 0.0004
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.0164,
+              "soft_share": 0.0092
+            },
+            "sam21_box": {
+              "area": 0.0167,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_p0.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_p1.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_p2.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_p3.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_p4.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_z0.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_z1.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_z2.jpg",
+            "c099_2014_Bystrzyca_K_odzka_stare_miasto_11_b1_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c059_Colorful_sky_with_orange_clouds_reflecti.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AColorful_sky_with_orange_clouds_reflecting_in_the_water_of_a_paddy_field%2C_at_sunset%2C_Vang_Vieng%2C_Laos.jpg",
+      "size": [
+        3840,
+        2560
+      ],
+      "encoder_ms_photo": 6250.4,
+      "boxes": [
+        {
+          "label": "sky",
+          "box": [
+            0,
+            0,
+            1,
+            0.45
+          ],
+          "rect": [
+            0,
+            0,
+            3840,
+            1152
+          ],
+          "zoom_corner": [
+            2260,
+            768
+          ],
+          "variants": {
+            "mam_sky_points_selection_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.9961,
+                  0.9983,
+                  0.6411
+                ]
+              ],
+              "ms": 1255.2,
+              "area": 0.2005,
+              "soft_share": 0.7645,
+              "iou_mvp_sky": 0.5508,
+              "iou_s3od": 0.4455,
+              "iou_sam21_box": 0.5426
+            },
+            "mam_sky_points_selection_mask_one_side": {
+              "sam_iou_scores": [
+                [
+                  0.9961,
+                  0.9983,
+                  0.6411
+                ]
+              ],
+              "ms": 1205.8,
+              "area": 0.3599,
+              "soft_share": 0.0163,
+              "iou_mvp_sky": 0.977,
+              "iou_s3od": 0.7999,
+              "iou_sam21_box": 0.9763
+            },
+            "mam_sky_points_complement_alpha": {
+              "sam_iou_scores": [
+                [
+                  0.9961,
+                  0.9983,
+                  0.6411
+                ]
+              ],
+              "ms": 1238.3,
+              "area": 0.7664,
+              "soft_share": 0.1545,
+              "iou_mvp_sky": 0.4659,
+              "iou_s3od": 0.5829,
+              "iou_sam21_box": 0.4723
+            },
+            "mam_sky_box": {
+              "sam_iou_scores": [
+                1.0104,
+                0.9929,
+                0.9213
+              ],
+              "ms": 1272.7,
+              "area": 0.201,
+              "soft_share": 0.7701,
+              "iou_mvp_sky": 0.5519,
+              "iou_s3od": 0.4466,
+              "iou_sam21_box": 0.5438
+            }
+          },
+          "references": {
+            "mvp_sky": {
+              "area": 0.3598,
+              "soft_share": 0.0
+            },
+            "s3od": {
+              "area": 0.45,
+              "soft_share": 0.0
+            },
+            "sam21_box": {
+              "area": 0.3648,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_p0.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_p1.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_p2.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_p3.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_p4.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_p5.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_p6.jpg"
+          ],
+          "zoom_panels": [
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_z0.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_z1.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_z2.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_z3.jpg",
+            "c059_Colorful_sky_with_orange_clouds_reflecti_b0_z4.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c123_Fawn_and_white_Welsh_Corgi_puppy_standin.jpg",
+      "license": "CC0",
+      "page": "https://commons.wikimedia.org/wiki/File%3AFawn_and_white_Welsh_Corgi_puppy_standing_on_rear_legs_and_sticking_out_the_tongue.jpg",
+      "size": [
+        2735,
+        4096
+      ],
+      "encoder_ms_photo": 6165.6,
+      "boxes": [
+        {
+          "label": "dog",
+          "box": [
+            0.3,
+            0.24,
+            0.72,
+            0.92
+          ],
+          "rect": [
+            705,
+            704,
+            2085,
+            4047
+          ],
+          "zoom_corner": [
+            1253,
+            3322
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                1.0034,
+                0.9982,
+                0.8375
+              ],
+              "ms": 1000.7,
+              "encoder_ms": 6491.6,
+              "area": 0.18,
+              "soft_share": 0.0403,
+              "iou_s3od": 0.9944,
+              "iou_sam21_box": 0.9894
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                1.0034,
+                0.9982,
+                0.8375
+              ],
+              "ms": 1055.7,
+              "encoder_ms": 6491.6,
+              "area": 0.18,
+              "soft_share": 0.0141,
+              "iou_s3od": 0.9943,
+              "iou_sam21_box": 0.9898
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9972,
+                0.9958,
+                0.8358
+              ],
+              "ms": 1222.9,
+              "area": 0.1799,
+              "soft_share": 0.0468,
+              "iou_s3od": 0.9941,
+              "iou_sam21_box": 0.9902
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.1804,
+              "soft_share": 0.006
+            },
+            "sam21_box": {
+              "area": 0.1783,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_p0.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_p1.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_p2.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_p3.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_p4.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_z0.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_z1.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_z2.jpg",
+            "c123_Fawn_and_white_Welsh_Corgi_puppy_standin_b0_z3.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "photo": "c131_Sara_Perro_Pastor_01.jpg",
+      "license": "CC BY-SA 4.0",
+      "page": "https://commons.wikimedia.org/wiki/File%3ASara_-_Perro_Pastor_01.jpg",
+      "size": [
+        3840,
+        2650
+      ],
+      "encoder_ms_photo": 6230.7,
+      "boxes": [
+        {
+          "label": "dog",
+          "box": [
+            0.1,
+            0.47,
+            0.55,
+            0.88
+          ],
+          "rect": [
+            211,
+            1136,
+            2285,
+            2441
+          ],
+          "zoom_corner": [
+            1692,
+            1924
+          ],
+          "variants": {
+            "mam_crop": {
+              "sam_iou_scores": [
+                1.0094,
+                1.0066,
+                0.9736
+              ],
+              "ms": 1108.9,
+              "encoder_ms": 6185.3,
+              "area": 0.1013,
+              "soft_share": 0.052,
+              "iou_s3od": 0.9789,
+              "iou_sam21_box": 0.971
+            },
+            "mam_crop_mask": {
+              "sam_iou_scores": [
+                1.0094,
+                1.0066,
+                0.9736
+              ],
+              "ms": 1042.5,
+              "encoder_ms": 6185.3,
+              "area": 0.1009,
+              "soft_share": 0.0155,
+              "iou_s3od": 0.9833,
+              "iou_sam21_box": 0.9755
+            },
+            "mam_photo": {
+              "sam_iou_scores": [
+                0.9964,
+                1.0023,
+                0.9532
+              ],
+              "ms": 1241.4,
+              "area": 0.1012,
+              "soft_share": 0.055,
+              "iou_s3od": 0.9791,
+              "iou_sam21_box": 0.9725
+            }
+          },
+          "references": {
+            "s3od": {
+              "area": 0.0993,
+              "soft_share": 0.0044
+            },
+            "sam21_box": {
+              "area": 0.0985,
+              "soft_share": 0.0
+            }
+          },
+          "panels": [
+            "c131_Sara_Perro_Pastor_01_b0_p0.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_p1.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_p2.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_p3.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_p4.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_p5.jpg"
+          ],
+          "zoom_panels": [
+            "c131_Sara_Perro_Pastor_01_b0_z0.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_z1.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_z2.jpg",
+            "c131_Sara_Perro_Pastor_01_b0_z3.jpg"
+          ]
+        }
+      ]
+    }
+  ],
+  "seconds": 498.5
+}

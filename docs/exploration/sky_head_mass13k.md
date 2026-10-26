@@ -158,9 +158,8 @@ GPU memory and macOS Core ML are not measured.
   not a matting alpha. Sky through glass is labeled as sky.
 - **License:** README U18 (notice to the user in the Sky function).
 - **The COCO matting labels** (U17, [report](sky_matte_labels.md)) are not used in run 1.
-- **Product:** Sky in Alcedo Studio would use `sky_head.onnx` after the encoder; the presence
-  decision (when the photo has no sky) is not part of this head. A threshold on the sky share
-  of the alpha is one option; not measured.
+- **Product:** Sky in Alcedo Studio uses `sky_head.onnx` after the encoder. The head has no
+  presence output; the "sky found" rule is a threshold on the sky share of the alpha (section 10).
 - macOS Core ML conversion of the head is not done.
 
 ## 9. Commands
@@ -183,4 +182,39 @@ $PY $S/make_sky_head_sheets.py --data-dir build/tmp/mass13k_prepared --split tes
   --mvp-measurements results/sky_head/mvp_sky_test.json \
   --sky-head-onnx build/tmp/explore/sky_head/run1/export/sky_head.onnx \
   --out-dir build/tmp/explore/sky_head/sheets_test
+$PY $S/measure_sky_found_rule.py --data-dir build/tmp/mass13k_prepared --split test \
+  --sky-head-onnx build/tmp/explore/sky_head/run1/export/sky_head.onnx \
+  --mvp-measurements results/sky_head/mvp_sky_test.json \
+  --out results/sky_head/sky_found_rule_test.json
 ```
+
+## 10. "Sky found" rule for Alcedo Studio
+
+**Date:** 2026-10-26. **Issue:** AlcedoStudio
+[#536](https://github.com/zidage/AlcedoStudio/issues/536). **Code:**
+[`measure_sky_found_rule.py`](../../scripts/poc/sky_head/measure_sky_found_rule.py). **Result:**
+[`results/sky_head/sky_found_rule_test.json`](../../results/sky_head/sky_found_rule_test.json).
+
+The head has no presence output, so Alcedo Studio needs a rule for "No sky found". The rule is:
+sky is found when the share of the 1,024 x 1,024 head alpha values >= 0.5 is at least a threshold.
+The script ran the MVP encoder and the head on DirectML (onnxruntime-directml 1.24.4) on the 1,500
+test photos (409 s). A photo has sky when its target is >= 0.5 at one or more pixels (938 photos).
+
+| Sky share threshold | Sky photos found (of 938) | Sky photos missed, target share >= 1 % | Photos without sky found (of 562) | Correct decisions (of 1,500) |
+| --- | --- | --- | --- | --- |
+| > 0 | 927 | 4 | 46 | 1,443 |
+| 1e-5 | 924 | 5 | 38 | 1,448 |
+| 1e-4 | 917 | 5 | 28 | 1,451 |
+| 3e-4 | 907 | 5 | 18 | 1,451 |
+| **5e-4** | **906** | **5** | **15** | **1,453** |
+| 1e-3 | 897 | 6 | 10 | 1,449 |
+| 2e-3 | 884 | 7 | 7 | 1,439 |
+| 1e-2 | 793 | 23 | 2 | 1,353 |
+| MVP (presence and a region) | 789 | - | 11 | 1,340 |
+
+**Result:** 5e-4 (0.05 % of the image) gives the most correct decisions. Alcedo Studio uses it
+(`task_masks::SKY_FOUND_SHARE`). Of the 32 missed sky photos, 27 have a target sky share below
+1 %. The 5 misses with more sky are the failure cases of section 5: sky through glass from inside
+a building (`25795`, `57765`, `25733`, `38447`) and the dark night sky (`11038`). The 15 photos
+without sky that the rule finds are not checked by eye; the largest share is 1.3 % (`06934`, the
+photo of section 2 with a small sky area that the label does not have).

@@ -15,6 +15,10 @@ local; run the commands of the script README to make them again.
 | [`ai_mask_mvp/`](ai_mask_mvp/) | AI Mask MVP, issue [#5](https://github.com/zidage/alcedo-ai-mask-lab/issues/5) | [MVP report](../docs/exploration/mvp_ai_mask.md) |
 | [`subject_alternatives/`](subject_alternatives/) | Subject models in place of BiRefNet lite, issue [#6](https://github.com/zidage/alcedo-ai-mask-lab/issues/6) | [Subject alternatives report](../docs/exploration/subject_alternatives.md) |
 | [`macos_coreml/`](macos_coreml/) | macOS Core ML verification of the accepted set, issue [#8](https://github.com/zidage/alcedo-ai-mask-lab/issues/8) | [macOS Core ML report](../docs/exploration/macos_coreml_verification.md) |
+| [`box_s3od_poc/`](box_s3od_poc/) | S3OD on the crop of a box (Sky and objects) | [Box S3OD report](../docs/exploration/box_s3od_poc.md) |
+| [`mam_poc/`](mam_poc/) | Matting Anything (MAM) for Sky and object boxes | [MAM report](../docs/exploration/mam_poc.md) |
+| [`sky_matte_labels/`](sky_matte_labels/) | Fine sky training labels from COCO and closed-form matting (README U17) | [Sky matte labels report](../docs/exploration/sky_matte_labels.md) |
+| [`sky_head/`](sky_head/) | Fine sky head on SAM 2.1 tiny features, trained on MaSS13K (README U17, U18), issue [#10](https://github.com/zidage/alcedo-ai-mask-lab/issues/10) | [Sky head report](../docs/exploration/sky_head_mass13k.md) |
 
 ## `p0_sam_feature_localization/`
 
@@ -113,3 +117,26 @@ macOS 27.0.1. `<model>` is `point_encoder`, `point_decoder`, `people_sky_head`, 
 | `native_<model>_ALL_first_runs.json`, `native_point_decoder_CPU_ONLY_first_runs.json`, `s3od_native_float16_embeddings_attention_float32_ALL_first_runs.json` | Nine first runs in new processes: load, first run, exit code, crash reports | `measure_graph_cost.py first-runs`, `measure_first_runs.py` |
 | `native_point_decoder*_point_counts.json` | Decoder call time with the same, alternating, and changing point counts (range and enumerated shapes) | `probe_decoder_point_counts.py` |
 | `mvp_pipeline_native_ALL_decoder_CPU_ONLY_cost*.json` (U15 defaults), `mvp_pipeline_native_ALL_cost*.json` (all ALL) | The MVP pipeline with all native models: load times, stage times, warm runs, memory | `measure_pipeline_cost.py`, `run_with_memory_sampling.py` |
+
+## `sky_matte_labels/`
+
+Scripts: [`scripts/poc/sky_matte_labels/`](../scripts/poc/sky_matte_labels/README.md). The
+photos, trimaps, labels (`alpha_label.png`, `label_weight.png`), and check sheets stay local in
+`build/tmp/explore/sky_labels/`.
+
+| File | Content | Script |
+| --- | --- | --- |
+| `selection_manifest.json` | Selection rules, candidate count per group, the 200 selected photos (COCO id, license, Flickr URL, group, coarse sky share), and the rejected downloads with the reason | `select_sky_photos.py` |
+| `label_stats.json` | Run 6 (final rules): trimap and matting parameters, and per photo the trimap, label, and stability statistics and the matting time | `make_sky_matte_labels.py` |
+
+## `sky_head/`
+
+| File | Content | Script |
+| --- | --- | --- |
+| `mvp_sky_test.json` | The MVP Sky baseline on the MaSS13K test split: summary and values per photo | `evaluate_mvp_sky.py` |
+| `run1/run.json`, `run1/metrics.jsonl` | Training arguments, versions, hashes; loss terms and val measurements per epoch (epochs 0 to 2 with the old IoU and boundary F1, `run1/metrics_note.txt`) | `train_sky_head.py` |
+| `run1/pilot.json` | Time per step, photos per second, CUDA memory peak, estimated run time | `train_sky_head.py --pilot-steps` |
+| `run1/best_val_measurements.json`, `run1/best_test_measurements.json` | best.pt (epoch 15) on the val and test splits: summary and values per photo | `evaluate_sky_head.py` |
+| `run1/sky_head.json` | ONNX hash and size, ONNX Runtime against PyTorch per photo | `export_sky_head_onnx.py` |
+| `overfit_checks/*.json` | Overfit checks on 16 training photos: 300 steps, 300 steps with a full-resolution BCE term, 1,200 steps | `train_sky_head.py --overfit-images` |
+| `sheets_test_directml.json` | The photos of the local sheets with the measurements, the head time on DirectML, DirectML against the CPU | `make_sky_head_sheets.py` |

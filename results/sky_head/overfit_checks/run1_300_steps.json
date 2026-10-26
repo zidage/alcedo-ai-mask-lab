@@ -1,0 +1,206 @@
+{
+ "step": "issue #10: fine sky head",
+ "args": {
+  "data_dir": "/workspace/sky_head/prepared",
+  "train_split": "['train']",
+  "val_split": "val",
+  "sam2_repo": "/workspace/sky_head/sam2",
+  "sam2_checkpoint": "/workspace/sky_head/sam2.1_hiera_tiny.pt",
+  "out_dir": "/workspace/sky_head/runs/run1/overfit",
+  "epochs": "20",
+  "batch_size": "8",
+  "lr": "0.001",
+  "weight_decay": "0.01",
+  "warmup_steps": "500",
+  "widths": "[128, 96, 64, 32, 16]",
+  "workers": "16",
+  "val_limit": "0",
+  "resume": "False",
+  "pilot_steps": "0",
+  "overfit_images": "16",
+  "overfit_steps": "300",
+  "device": "cuda",
+  "seed": "0"
+ },
+ "sources": {
+  "sam2_commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+  "sam2_checkpoint": "sam2.1_hiera_tiny.pt",
+  "sam2_checkpoint_sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69"
+ },
+ "torch": "2.8.0+cu128",
+ "device": "NVIDIA RTX 4000 Ada Generation",
+ "head_parameters": 1435523,
+ "train_photos": 16,
+ "val_photos": 16,
+ "steps_per_epoch": 2,
+ "total_steps": 300,
+ "train_terms": {
+  "alpha_l1": 0.09548001736402512,
+  "gradient_l1": 0.008361445972695947,
+  "laplacian_l1": 1.3181782364845276,
+  "coarse_bce": 0.11829070746898651,
+  "total": 1.4515923857688904
+ },
+ "summary": {
+  "photos": 16,
+  "iou": 0.8398486078683176,
+  "iou_photos": 16,
+  "mae": 0.09495713002979755,
+  "mae_photos": 16,
+  "edge_sad": 21.625014114379884,
+  "edge_sad_photos": 15,
+  "edge_mse": 0.04891468808054924,
+  "edge_mse_photos": 15,
+  "edge_gradient": 0.1673514202237129,
+  "edge_gradient_photos": 15,
+  "boundary_f1": 0.6116686317185196,
+  "boundary_f1_photos": 16
+ },
+ "seconds": 7.4,
+ "photos": [
+  {
+   "iou": 0.741228186554161,
+   "mae": 0.0970562994480133,
+   "edge_sad": 26.739778518676758,
+   "edge_mse": 0.0539906807243824,
+   "edge_gradient": 0.22340057790279388,
+   "boundary_f1": 0.6852711006845358,
+   "stem": "00102_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.9676337414053329,
+   "mae": 0.08736401796340942,
+   "edge_sad": 7.489991188049316,
+   "edge_mse": 0.05362320691347122,
+   "edge_gradient": 0.15043917298316956,
+   "boundary_f1": 0.541818335619599,
+   "stem": "00103_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.0,
+   "mae": 0.11919334530830383,
+   "edge_sad": null,
+   "edge_mse": null,
+   "edge_gradient": null,
+   "boundary_f1": 0.0,
+   "stem": "00104_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.7601316310165996,
+   "mae": 0.09882861375808716,
+   "edge_sad": 62.03215789794922,
+   "edge_mse": 0.05527929216623306,
+   "edge_gradient": 0.21309110522270203,
+   "boundary_f1": 0.689469040328022,
+   "stem": "00106_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.9769639377519153,
+   "mae": 0.10225686430931091,
+   "edge_sad": 1.5207490921020508,
+   "edge_mse": 0.03714263066649437,
+   "edge_gradient": 0.10758551210165024,
+   "boundary_f1": 0.551219512195122,
+   "stem": "00108_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.8697032450672245,
+   "mae": 0.09345871210098267,
+   "edge_sad": 15.408064842224121,
+   "edge_mse": 0.04213029518723488,
+   "edge_gradient": 0.16490696370601654,
+   "boundary_f1": 0.6335133320794345,
+   "stem": "00109_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.9195852683178535,
+   "mae": 0.09180627763271332,
+   "edge_sad": 23.56088638305664,
+   "edge_mse": 0.05496565252542496,
+   "edge_gradient": 0.1873542070388794,
+   "boundary_f1": 0.6901769493043975,
+   "stem": "00110_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.9170674298552973,
+   "mae": 0.08885751664638519,
+   "edge_sad": 20.453054428100586,
+   "edge_mse": 0.04824758321046829,
+   "edge_gradient": 0.16653333604335785,
+   "boundary_f1": 0.6851511016595596,
+   "stem": "00111_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.9207092719024219,
+   "mae": 0.09668928384780884,
+   "edge_sad": 27.419408798217773,
+   "edge_mse": 0.05383753404021263,
+   "edge_gradient": 0.1843426674604416,
+   "boundary_f1": 0.6853628066703734,
+   "stem": "00112_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.8223206779346307,
+   "mae": 0.09286919981241226,
+   "edge_sad": 38.741085052490234,
+   "edge_mse": 0.05112941190600395,
+   "edge_gradient": 0.1924293488264084,
+   "boundary_f1": 0.6487731538087346,
+   "stem": "00116_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.9895228789715941,
+   "mae": 0.0917491465806961,
+   "edge_sad": 2.5245847702026367,
+   "edge_mse": 0.040699172765016556,
+   "edge_gradient": 0.08249449729919434,
+   "boundary_f1": 0.9403312406365056,
+   "stem": "00122_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.8350651929313654,
+   "mae": 0.09823249280452728,
+   "edge_sad": 46.10004806518555,
+   "edge_mse": 0.056563738733530045,
+   "edge_gradient": 0.22108303010463715,
+   "boundary_f1": 0.7147057767451226,
+   "stem": "00125_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.8764496548245061,
+   "mae": 0.0895920842885971,
+   "edge_sad": 27.338911056518555,
+   "edge_mse": 0.04637560248374939,
+   "edge_gradient": 0.1742551177740097,
+   "boundary_f1": 0.6230965928724459,
+   "stem": "00129_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.9684453375009303,
+   "mae": 0.08827940374612808,
+   "edge_sad": 9.069231986999512,
+   "edge_mse": 0.044611964374780655,
+   "edge_gradient": 0.11920981109142303,
+   "boundary_f1": 0.5629146275149537,
+   "stem": "00130_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.9308428069214263,
+   "mae": 0.09379062056541443,
+   "edge_sad": 8.329466819763184,
+   "edge_mse": 0.04246276989579201,
+   "edge_gradient": 0.14776526391506195,
+   "boundary_f1": 0.5229365273364296,
+   "stem": "00134_b01_20230106_yinchuan_id000"
+  },
+  {
+   "iou": 0.9419084649378233,
+   "mae": 0.08929020166397095,
+   "edge_sad": 7.647792816162109,
+   "edge_mse": 0.05266078561544418,
+   "edge_gradient": 0.17538069188594818,
+   "boundary_f1": 0.6119580100410772,
+   "stem": "00136_b01_20230106_yinchuan_id000"
+  }
+ ]
+}

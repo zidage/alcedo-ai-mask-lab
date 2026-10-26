@@ -1,0 +1,1 @@
+metrics.jsonl epochs 0-2: IoU and boundary F1 include photos without sky (before 819ffda)

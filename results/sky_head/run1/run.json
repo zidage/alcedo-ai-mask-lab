@@ -1,0 +1,37 @@
+{
+ "step": "issue #10: fine sky head",
+ "args": {
+  "data_dir": "/workspace/sky_head/prepared",
+  "train_split": "['train']",
+  "val_split": "val",
+  "sam2_repo": "/workspace/sky_head/sam2",
+  "sam2_checkpoint": "/workspace/sky_head/sam2.1_hiera_tiny.pt",
+  "out_dir": "/workspace/sky_head/runs/run1/train",
+  "epochs": "20",
+  "batch_size": "8",
+  "lr": "0.001",
+  "weight_decay": "0.01",
+  "warmup_steps": "500",
+  "widths": "[128, 96, 64, 32, 16]",
+  "workers": "16",
+  "val_limit": "0",
+  "resume": "True",
+  "pilot_steps": "0",
+  "overfit_images": "0",
+  "overfit_steps": "1200",
+  "device": "cuda",
+  "seed": "0"
+ },
+ "sources": {
+  "sam2_commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+  "sam2_checkpoint": "sam2.1_hiera_tiny.pt",
+  "sam2_checkpoint_sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69"
+ },
+ "torch": "2.8.0+cu128",
+ "device": "NVIDIA RTX 4000 Ada Generation",
+ "head_parameters": 1435523,
+ "train_photos": 11348,
+ "val_photos": 500,
+ "steps_per_epoch": 1418,
+ "total_steps": 28360
+}

@@ -1,0 +1,14 @@
+# MAM proof of concept (check_mam.py), PyTorch CPU. Install torch and torchvision from
+# https://download.pytorch.org/whl/cpu. export_mvp_references.py uses the MVP environment
+# (scripts/poc/ai_mask_mvp/requirements.txt).
+torch==2.14.1
+torchvision==0.29.1
+numpy==2.5.2
+opencv-python==5.0.0.93
+pillow==12.3.0
+scipy==1.18.1
+# Imported by the MAM source tree (utils package of networks/generator_m2m.py)
+scikit-image==0.26.0
+easydict==1.13
+toml==0.10.2
+tensorboardX==2.6.5

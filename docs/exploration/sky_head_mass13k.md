@@ -4,7 +4,8 @@
 **Code:** [`scripts/poc/sky_head/`](../../scripts/poc/sky_head/README.md).
 **Results:** [`results/sky_head/`](../../results/sky_head/).
 **Status:** run 1 trained, measured, and exported; export tolerance 1e-3 accepted by the user
-2026-10-26 (section 6); user check of the sheets open.
+2026-10-26 (section 6); user check of the sheets open; Core ML model for macOS converted and
+measured (section 11, AlcedoStudio #538).
 
 > **Photos.** MaSS13K photos (README U18). The comparison sheets show MaSS13K photos and stay
 > local in `build/tmp/explore/sky_head/sheets_test/` (`*.jpg` is in `.gitignore`). Only text
@@ -146,7 +147,7 @@ the sky head is 1e-3 (about a quarter of one 8-bit alpha level). The head is not
 | Graph size | 5.8 MB (float32) |
 | Training | 0.77 s per step on an RTX 4000 Ada; 20 epochs 7.0 hours with validation |
 
-GPU memory and macOS Core ML are not measured.
+GPU memory is not measured. macOS Core ML: section 11 (68 ms per run on an Apple M4).
 
 ## 8. Limits and open points
 
@@ -160,7 +161,7 @@ GPU memory and macOS Core ML are not measured.
 - **The COCO matting labels** (U17, [report](sky_matte_labels.md)) are not used in run 1.
 - **Product:** Sky in Alcedo Studio uses `sky_head.onnx` after the encoder. The head has no
   presence output; the "sky found" rule is a threshold on the sky share of the alpha (section 10).
-- macOS Core ML conversion of the head is not done.
+- macOS Core ML: converted and measured (section 11); float32 is the macOS model.
 
 ## 9. Commands
 
@@ -218,3 +219,53 @@ test photos (409 s). A photo has sky when its target is >= 0.5 at one or more pi
 a building (`25795`, `57765`, `25733`, `38447`) and the dark night sky (`11038`). The 15 photos
 without sky that the rule finds are not checked by eye; the largest share is 1.3 % (`06934`, the
 photo of section 2 with a small sky area that the label does not have).
+
+## 11. Core ML conversion for macOS
+
+**Date:** 2026-10-26. **Issue:** AlcedoStudio
+[#538](https://github.com/zidage/AlcedoStudio/issues/538). **Code:**
+[`convert_models.py`](../../scripts/ai_models/coreml/convert_models.py) (`--model sky_head`) and
+[`probe_sky_head.py`](../../scripts/ai_models/coreml/probe_sky_head.py). **Results:**
+[`results/macos_coreml/native_sky_head_convert.json`](../../results/macos_coreml/native_sky_head_convert.json),
+[`native_sky_head_float16_convert.json`](../../results/macos_coreml/native_sky_head_float16_convert.json),
+[`native_sky_head_probe.json`](../../results/macos_coreml/native_sky_head_probe.json).
+
+The run 1 checkpoint (`best.pt`, epoch 15, SHA-256 `c3181640...1cf8`) was converted with coremltools
+9.0 (PyTorch 2.7.0, MLProgram, macOS 15 target) to `sky_head.mlmodelc` in float32 (5,860,515
+bytes) and in float16 (2,999,527 bytes). The graph is `ExportedSkyHead`, the graph of
+`sky_head.onnx`. On the random input of the conversion, float32 differs from PyTorch float32 by
+3.3e-5 (`CPU_ONLY`) and 2.7e-5 (`ALL`); float16 by 0.079 and 0.034.
+
+**Probe.** ONNX Runtime 1.31 on the CPU (`point_encoder.onnx`, `sky_head.onnx`) is the reference
+on 54 photos: the 14 quality photos and 40 MaSS13K test photos (32 with at least 2 % sky, 8 without
+sky; seed 538). "Head" is the Core ML head on the ONNX Runtime encoder outputs; "pipeline" is the
+Core ML encoder (`point_encoder.mlmodelc`, same compute units) and the Core ML head. Apple M4,
+one process, the runs one after the other.
+
+| Conversion, compute units | Head run, median (max) | Largest difference, head / pipeline | Smallest IoU (alpha >= 0.5) | Values > 1/255 apart, worst photo | "Found" differs |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| float32, `ALL` | 68 ms (71) | 1.05e-3 / 1.11e-3 | 0.99969 | 0 | 0 |
+| float32, `CPU_AND_GPU` | 68 ms (71) | 1.05e-3 / 1.11e-3 | 0.99969 | 0 | 0 |
+| float32, `CPU_AND_NE` | 173 ms (230) | 9.5e-4 / 1.11e-3 | 0.99969 | 0 | 0 |
+| float32, `CPU_ONLY` | 171 ms (295) | 9.5e-4 / 1.11e-3 | 0.99969 | 0 | 0 |
+| float16, `ALL` | 29 ms (34) | 0.129 / 0.129 | 0.96867 | 27,042 | 0 |
+| float16, `CPU_AND_GPU` | 51 ms (53) | 0.029 / 0.027 | 0.98986 | 1,937 | 0 |
+| float16, `CPU_AND_NE` | 29 ms (31) | 0.129 / 0.130 | 0.96867 | 27,042 | 0 |
+| float16, `CPU_ONLY` | 83 ms (112) | 0.241 / 0.238 | 0.96401 | 9,671 | 0 |
+
+- **float32 is the macOS model.** Its largest difference is on one MaSS13K photo (`05568`, 2.9 %
+  sky): 1.05e-3, about a quarter of one 8-bit alpha level, the size of the ONNX export tolerance
+  (section 6). The quality photos differ by at most 4.4e-4. The mean difference is 2.5e-7.
+- **float16 is rejected:** up to 0.24 difference and IoU 0.964; the GroupNorm statistics over up to
+  2 M values per group (section 6) do not fit float16.
+- **Compute units:** float32 does not run on the Neural Engine: `CPU_AND_NE` runs as fast as
+  `CPU_ONLY`. `ALL` and `CPU_AND_GPU` run on the GPU in 68 ms. Alcedo Studio uses `ALL`, as for
+  the other heads and S3OD (README U15).
+- In Alcedo Studio (AlcedoStudio SM3.E plan, section 11), the port check on Core ML `ALL` passes
+  with grid IoU 1.0 and a largest difference of 4.1e-4 on the 12 quality photos with sky; the first
+  Sky request of a photo takes 82 ms.
+
+**Compiled model hash.** `coremldata.bin` and `analytics/coremldata.bin` of a compiled model
+change at every compile; `model.mil` and `weights/weight.bin` stay equal (two conversions of the
+same checkpoint). The directory SHA-256 of `convert_models.directory_sha256` therefore identifies
+one compiled copy only.

@@ -20,6 +20,7 @@ Models, weights, source checkouts, photos, and alphas are not committed. Keep th
 | `profile_compute_plan.py` | The Core ML compute plan (`MLComputePlan`) of a compiled model: ops and estimated cost per preferred device (CPU, GPU, Neural Engine). |
 | `probe_s3od_compute_units.py` | S3OD output per compute units on photos against the ONNX Runtime CPU float32 alpha (IoU of alpha > 0.5, largest difference, repeat calls). |
 | `probe_encoder_outputs.py`, `probe_decoder_point_counts.py` | See below. |
+| `probe_sky_head.py` | Sky head (AlcedoStudio issue 538): the sky alpha of each Core ML conversion and compute units against ONNX Runtime CPU on photos, alone and after the Core ML encoder, and its run time. |
 | `requirements.txt` | Packages of the conversion environment. |
 
 The runtime of the native models is `scripts/poc/ai_mask_mvp/coreml_native.py` (provider
@@ -34,6 +35,7 @@ The runtime of the native models is `scripts/poc/ai_mask_mvp/coreml_native.py` (
 | `point_encoder.mlmodelc` | `sam2_graphs.PointEncoder` (SAM 2.1 tiny); the Hiera position embedding (bicubic resize of a weight to the 256 x 256 token grid) is a constant | `pixel_values` [1, 3, 1024, 1024] | `image_embed`, `high_res_feats_0`, `high_res_feats_1` | float32 |
 | `point_decoder.mlmodelc` | `sam2_graphs.PointDecoder` | the encoder outputs, `point_coords` [1, N, 2], `point_labels` [1, N] (N = 1 to 64, flexible shape), `mask_input` [1, 1, 256, 256], `has_mask_input` [1] | `masks`, `iou_predictions`, `object_score_logits` | float32 |
 | `people_sky_head.mlmodelc` | `head_model.PeopleSkyHead`, P1 run 2 `best.pt` (epoch 15) | `image_embed` | `head_model.OUTPUT_NAMES` | float32 |
+| `sky_head.mlmodelc` | `sky_head_model.ExportedSkyHead`, sky head run 1 `best.pt` (epoch 15; the graph of `sky_head.onnx`) | `image_embed`, `high_res_feats_0`, `high_res_feats_1`, `pixel_values` [1, 3, 1024, 1024] | `sky_alpha` [1, 1, 1024, 1024] | float32 (`float16` measured and rejected, [report](../../../docs/exploration/sky_head_mass13k.md) section 11) |
 | `s3od.mlmodelc` | `s3od_graphs.subject_masks_module` with the attention of the source (no query chunks) | `pixel_values` [1, 3, 1024, 1024] | `masks` [1, 3, 1024, 1024], `iou_scores` [1, 3] | `float16_embeddings_attention_float32` (the macOS model, README U15: patch embedding and encoder attention float32, other ops float16), `float16_encoder_float32` (DINOv3 encoder float32, DPT decoder float16), or `float16_layer0_float32` (float16, layer 0 attention float32, the precision of the accepted ONNX graph) |
 
 The preprocessing and postprocessing are the rules of the ONNX graphs (`sam2_graphs.py`,
@@ -73,6 +75,10 @@ $CPY scripts/ai_models/coreml/convert_models.py --model s3od --precision float16
   --out-dir $E/coreml/float16_encoder_float32
 $CPY scripts/ai_models/coreml/convert_models.py --model s3od --precision float16_layer0_float32 \
   --out-dir $E/coreml/float16_layer0_float32
+# Sky head (AlcedoStudio issue 538; sky head run 1 best.pt): float32 is the macOS model.
+for PR in float32 float16; do
+  $CPY scripts/ai_models/coreml/convert_models.py --model sky_head --precision $PR --out-dir $E/coreml/$PR
+done
 
 # Placement (compute plan) and the S3OD output per compute units.
 $PY scripts/ai_models/coreml/profile_compute_plan.py --model $E/coreml/float32/point_encoder.mlmodelc \
@@ -81,6 +87,13 @@ $PY scripts/ai_models/coreml/probe_s3od_compute_units.py \
   --model $E/coreml/float16_layer0_float32/s3od.mlmodelc --compute-units ALL CPU_AND_GPU CPU_AND_NE CPU_ONLY \
   --photos $P --photo DSC_1535 --photo P1024439 --reference-alpha $E/s3od/compare_cpu/float32/alpha \
   --out $R/native_s3od_variants/float16_layer0_float32_outputs.json
+# Sky head against ONNX Runtime CPU: the conversion environment with onnxruntime==1.31.0 added;
+# --onnx-dir holds point_encoder.onnx and sky_head.onnx; MaSS13K photos of the test split.
+$CPY scripts/ai_models/coreml/probe_sky_head.py --onnx-dir <onnx dir> \
+  --encoder $E/coreml/float32/point_encoder.mlmodelc \
+  --sky-head float32=$E/coreml/float32/sky_head.mlmodelc --sky-head float16=$E/coreml/float16/sky_head.mlmodelc \
+  --compute-units ALL CPU_AND_GPU CPU_AND_NE CPU_ONLY --photos $P --photos <MaSS13K photos> \
+  --runs 3 --out $R/native_sky_head_probe.json
 ```
 
 The S3OD Neural Engine investigation (`--float32-op-types`, `--float32-scopes`, section 6 of the

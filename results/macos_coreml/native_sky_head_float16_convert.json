@@ -1,0 +1,71 @@
+{
+  "step": "issue #8: native Core ML model",
+  "model": "sky_head",
+  "precision": "float16",
+  "float32_ops": [],
+  "float32_op_types": [],
+  "float32_scopes": [],
+  "precision_scopes": [],
+  "point_shapes": null,
+  "coremltools": "9.0",
+  "torch": "2.7.0",
+  "format": "mlprogram",
+  "minimum_deployment_target": "macOS15",
+  "inputs": {
+    "image_embed": [
+      "1",
+      "256",
+      "64",
+      "64"
+    ],
+    "high_res_feats_0": [
+      "1",
+      "32",
+      "256",
+      "256"
+    ],
+    "high_res_feats_1": [
+      "1",
+      "64",
+      "128",
+      "128"
+    ],
+    "pixel_values": [
+      "1",
+      "3",
+      "1024",
+      "1024"
+    ]
+  },
+  "outputs": [
+    "sky_alpha"
+  ],
+  "checkpoint": {
+    "path": "build/tmp/explore/sky_head/run1/train/best.pt",
+    "bytes": 17298977,
+    "sha256": "c3181640a28aaeb38945e24058310ee94976b355464652f35a5410db6f781cf8"
+  },
+  "mlpackage": {
+    "path": "build/tmp/explore/coreml/float16/sky_head.mlpackage",
+    "bytes": 2996191,
+    "sha256": "b17c16d61981bd43fd26b829dc32099aac7e9158c4886fc2da23e3a18da88b3c"
+  },
+  "mlmodelc": {
+    "path": "build/tmp/explore/coreml/float16/sky_head.mlmodelc",
+    "bytes": 2999527,
+    "sha256": "53594e2a9a68e33ec8e30331a9196f6181ecc8707eb4aff39a94f80651bb01e5"
+  },
+  "convert_seconds": 1.9,
+  "max_abs_difference_against_pytorch_float32": {
+    "CPU_ONLY": {
+      "sky_alpha": 0.07910680770874023
+    },
+    "ALL": {
+      "sky_alpha": 0.03353223204612732
+    }
+  },
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.7"
+  }
+}

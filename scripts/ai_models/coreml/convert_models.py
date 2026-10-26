@@ -23,8 +23,12 @@ exports, so the Core ML models have the inputs and outputs of the ONNX graphs:
                    11385423) with the attention of the source (scaled_dot_product_attention, no
                    query chunks: the chunks of the ONNX graph are a DirectML memory measure):
                    pixel_values [1, 3, 1024, 1024] -> masks [1, 3, 1024, 1024], iou_scores [1, 3]
+  sky_head         sky_head_model.ExportedSkyHead of the sky head run 1 checkpoint (epoch 15,
+                   issue #10; the graph of sky_head.onnx): image_embed, high_res_feats_0,
+                   high_res_feats_1, pixel_values -> sky_alpha [1, 1, 1024, 1024]
 
 Precision (--precision): `float32` (the precision of the accepted SAM 2.1 tiny and head graphs),
+`float16` (all ops in float16; the sky head measurement of AlcedoStudio issue 538),
 `float16_embeddings_attention_float32` (S3OD: the DINOv3 patch embedding and the attention of all
 encoder layers in float32, the other ops in float16: the patch embedding gives a wrong output on
 the Neural Engine in float16, and the attention runs faster on the GPU; issue #8 report),
@@ -68,12 +72,12 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 SCRIPTS = HERE.parents[1]
 for directory in (SCRIPTS / "ai_models" / "sam2", SCRIPTS / "poc" / "people_sky_head",
-                  SCRIPTS / "ai_models" / "s3od"):
+                  SCRIPTS / "ai_models" / "s3od", SCRIPTS / "poc" / "sky_head"):
     if str(directory) not in sys.path:
         sys.path.insert(0, str(directory))
 
-MODELS = ("point_encoder", "point_decoder", "people_sky_head", "s3od")
-PRECISIONS = ("float32", "float16_layer0_float32", "float16_encoder_float32",
+MODELS = ("point_encoder", "point_decoder", "people_sky_head", "s3od", "sky_head")
+PRECISIONS = ("float32", "float16", "float16_layer0_float32", "float16_encoder_float32",
               "float16_embeddings_attention_float32")
 # Module paths of the S3OD encoder (DPTSegmentation.encoder, DINOv3ViTModel) that stay float32 in
 # the precisions float16_encoder_float32 and float16_embeddings_attention_float32.
@@ -172,6 +176,23 @@ def build_module(args):
         return (OrderedOutputs(model.eval()).eval(),
                 {"image_embed": torch.randn(1, hd.EMBED_CHANNELS, hd.GRID, hd.GRID)},
                 list(hm.OUTPUT_NAMES), args.head_checkpoint)
+    if args.model == "sky_head":
+        import sky_head_model as sm
+
+        state = torch.load(args.sky_head_checkpoint, map_location="cpu", weights_only=False)
+        if state.get("epoch") not in (None, args.sky_head_epoch):
+            raise ValueError(f"{args.sky_head_checkpoint}: epoch {state.get('epoch')}, expected "
+                             f"{args.sky_head_epoch}")
+        head = sm.SkyAlphaHead(tuple(state["widths"]))
+        head.load_state_dict(state["head"])
+        # Random features and pixels of the input shapes of sky_head.onnx; the comparison with
+        # ONNX Runtime on photos is probe_sky_head.py.
+        inputs = {"image_embed": torch.randn(1, sm.EMBED_CHANNELS, 64, 64),
+                  "high_res_feats_0": torch.randn(1, sm.HIGH_RES_0_CHANNELS, 256, 256),
+                  "high_res_feats_1": torch.randn(1, sm.HIGH_RES_1_CHANNELS, 128, 128),
+                  "pixel_values": torch.randn(1, 3, 1024, 1024)}
+        return (sm.ExportedSkyHead(head).eval(), inputs, ["sky_alpha"],
+                args.sky_head_checkpoint)
     import s3od_graphs
 
     model = s3od_graphs.load_model(args.s3od_source, Path(args.s3od_checkpoint))
@@ -235,6 +256,8 @@ def convert(args) -> dict:
     scope_samples: list[str] = []
     if args.precision == "float32":
         precision = ct.precision.FLOAT32
+    elif args.precision == "float16":
+        precision = ct.precision.FLOAT16
     else:
         precision = ct.transform.FP16ComputePrecision(
             op_selector=layer0_attention_selector(
@@ -246,7 +269,7 @@ def convert(args) -> dict:
                          compute_precision=precision,
                          minimum_deployment_target=ct.target.macOS15)
     convert_seconds = time.perf_counter() - started
-    if args.precision != "float32" and not float32_ops:
+    if args.precision not in ("float32", "float16") and not float32_ops:
         raise RuntimeError("no layer 0 attention op was found for float32; module scopes of "
                            f"the first attention ops: {scope_samples}")
     out_dir = Path(args.out_dir)
@@ -305,6 +328,9 @@ def main() -> int:
     parser.add_argument("--head-checkpoint",
                         default="build/tmp/explore/p1/colab_run2_coco_openimages/run/best.pt")
     parser.add_argument("--head-epoch", type=int, default=15)
+    parser.add_argument("--sky-head-checkpoint",
+                        default="build/tmp/explore/sky_head/run1/train/best.pt")
+    parser.add_argument("--sky-head-epoch", type=int, default=15)
     parser.add_argument("--s3od-source", default="build/tmp/explore/src/s3od/s3od")
     parser.add_argument("--s3od-checkpoint",
                         default="build/tmp/explore/weights/s3od_synth/s3od.pt")

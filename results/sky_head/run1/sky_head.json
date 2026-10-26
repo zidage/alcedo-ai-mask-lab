@@ -1,0 +1,53 @@
+{
+ "step": "issue #10: sky_head.onnx",
+ "checkpoint": "/workspace/sky_head/runs/run1/train/best.pt",
+ "epoch": 15,
+ "sources": {
+  "sam2_commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+  "sam2_checkpoint": "sam2.1_hiera_tiny.pt",
+  "sam2_checkpoint_sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69"
+ },
+ "onnx": {
+  "path": "sky_head.onnx",
+  "bytes": 5821904,
+  "sha256": "a6c555e7dfdbb236d6fa11569b546eab0da9f3945f6462872de0866f675a4788",
+  "opset": 17
+ },
+ "onnxruntime": "1.31.0",
+ "tolerance": 0.0001,
+ "max_abs_difference": 0.0004037320613861084,
+ "photos": [
+  {
+   "stem": "00135_b01_20230106_yinchuan_id000",
+   "max_abs": 0.00019940733909606934
+  },
+  {
+   "stem": "00167_b01_20230106_yinchuan_id000",
+   "max_abs": 0.00040209293365478516
+  },
+  {
+   "stem": "00196_b01_20230106_yinchuan_id000",
+   "max_abs": 7.63237476348877e-05
+  },
+  {
+   "stem": "00210_b01_20230106_yinchuan_id000",
+   "max_abs": 0.0003198087215423584
+  },
+  {
+   "stem": "00249_b01_20230106_yinchuan_id000",
+   "max_abs": 0.00018918514251708984
+  },
+  {
+   "stem": "00261_b01_20230106_yinchuan_id000",
+   "max_abs": 0.00015753507614135742
+  },
+  {
+   "stem": "00284_b01_20230106_yinchuan_id000",
+   "max_abs": 0.0004037320613861084
+  },
+  {
+   "stem": "00325_b01_20230106_yinchuan_id000",
+   "max_abs": 0.00019647181034088135
+  }
+ ]
+}

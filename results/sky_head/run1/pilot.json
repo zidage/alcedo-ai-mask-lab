@@ -1,0 +1,51 @@
+{
+ "step": "issue #10: fine sky head",
+ "args": {
+  "data_dir": "/workspace/sky_head/prepared",
+  "train_split": "['train']",
+  "val_split": "val",
+  "sam2_repo": "/workspace/sky_head/sam2",
+  "sam2_checkpoint": "/workspace/sky_head/sam2.1_hiera_tiny.pt",
+  "out_dir": "/workspace/sky_head/runs/run1/pilot",
+  "epochs": "20",
+  "batch_size": "8",
+  "lr": "0.001",
+  "weight_decay": "0.01",
+  "warmup_steps": "500",
+  "widths": "[128, 96, 64, 32, 16]",
+  "workers": "16",
+  "val_limit": "0",
+  "resume": "False",
+  "pilot_steps": "60",
+  "overfit_images": "0",
+  "overfit_steps": "300",
+  "device": "cuda",
+  "seed": "0"
+ },
+ "sources": {
+  "sam2_commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+  "sam2_checkpoint": "sam2.1_hiera_tiny.pt",
+  "sam2_checkpoint_sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69"
+ },
+ "torch": "2.8.0+cu128",
+ "device": "NVIDIA RTX 4000 Ada Generation",
+ "head_parameters": 1435523,
+ "train_photos": 11348,
+ "val_photos": 500,
+ "steps_per_epoch": 1418,
+ "total_steps": 60,
+ "timed_steps": 50,
+ "seconds_per_step": 0.7662,
+ "photos_per_second": 10.44,
+ "data_wait_share": 0.0,
+ "peak_cuda_memory_bytes": 16787219456,
+ "estimated_epoch_hours": 0.3,
+ "estimated_run_hours": 6.04,
+ "train_terms": {
+  "alpha_l1": 0.3639103055000305,
+  "gradient_l1": 0.005016654991777614,
+  "laplacian_l1": 5.861803110440572,
+  "coarse_bce": 0.3273604224125544,
+  "total": 6.312570174535115
+ }
+}

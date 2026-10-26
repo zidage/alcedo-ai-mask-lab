@@ -18,6 +18,7 @@ local; run the commands of the script README to make them again.
 | [`box_s3od_poc/`](box_s3od_poc/) | S3OD on the crop of a box (Sky and objects) | [Box S3OD report](../docs/exploration/box_s3od_poc.md) |
 | [`mam_poc/`](mam_poc/) | Matting Anything (MAM) for Sky and object boxes | [MAM report](../docs/exploration/mam_poc.md) |
 | [`sky_matte_labels/`](sky_matte_labels/) | Fine sky training labels from COCO and closed-form matting (README U17) | [Sky matte labels report](../docs/exploration/sky_matte_labels.md) |
+| [`sky_head/`](sky_head/) | Fine sky head on SAM 2.1 tiny features, trained on MaSS13K (README U17, U18), issue [#10](https://github.com/zidage/alcedo-ai-mask-lab/issues/10) | [Sky head report](../docs/exploration/sky_head_mass13k.md) |
 
 ## `p0_sam_feature_localization/`
 
@@ -127,3 +128,15 @@ photos, trimaps, labels (`alpha_label.png`, `label_weight.png`), and check sheet
 | --- | --- | --- |
 | `selection_manifest.json` | Selection rules, candidate count per group, the 200 selected photos (COCO id, license, Flickr URL, group, coarse sky share), and the rejected downloads with the reason | `select_sky_photos.py` |
 | `label_stats.json` | Run 6 (final rules): trimap and matting parameters, and per photo the trimap, label, and stability statistics and the matting time | `make_sky_matte_labels.py` |
+
+## `sky_head/`
+
+| File | Content | Script |
+| --- | --- | --- |
+| `mvp_sky_test.json` | The MVP Sky baseline on the MaSS13K test split: summary and values per photo | `evaluate_mvp_sky.py` |
+| `run1/run.json`, `run1/metrics.jsonl` | Training arguments, versions, hashes; loss terms and val measurements per epoch (epochs 0 to 2 with the old IoU and boundary F1, `run1/metrics_note.txt`) | `train_sky_head.py` |
+| `run1/pilot.json` | Time per step, photos per second, CUDA memory peak, estimated run time | `train_sky_head.py --pilot-steps` |
+| `run1/best_val_measurements.json`, `run1/best_test_measurements.json` | best.pt (epoch 15) on the val and test splits: summary and values per photo | `evaluate_sky_head.py` |
+| `run1/sky_head.json` | ONNX hash and size, ONNX Runtime against PyTorch per photo | `export_sky_head_onnx.py` |
+| `overfit_checks/*.json` | Overfit checks on 16 training photos: 300 steps, 300 steps with a full-resolution BCE term, 1,200 steps | `train_sky_head.py --overfit-images` |
+| `sheets_test_directml.json` | The photos of the local sheets with the measurements, the head time on DirectML, DirectML against the CPU | `make_sky_head_sheets.py` |

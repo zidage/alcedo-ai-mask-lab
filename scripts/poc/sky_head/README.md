@@ -18,6 +18,8 @@ output (U3).
 | `sky_head_metrics.py` | IoU, MAE, edge-band SAD, MSE, and gradient error, boundary F1. |
 | `train_sky_head.py` | Training; `--pilot-steps` (time and memory) and `--overfit-images` (the head learns a few photos). |
 | `evaluate_sky_head.py` | The measurements of a checkpoint on a split (encoder in float32). |
+| `evaluate_mvp_sky.py` | The baseline: the MVP Sky selection (P1 head and SAM 2.1 points, `ai_mask_mvp/mask_pipeline.py`) on a prepared split, with the same target and measurements. |
+| `make_sky_head_sheets.py` | Local sheets (photo, target, MVP Sky, sky head) of selected photos, the head time on DirectML, and DirectML against the CPU. |
 | `export_sky_head_onnx.py` | `sky_head.onnx` and the ONNX Runtime against PyTorch comparison (tolerance 1e-4). |
 | `runpod_sky_head.sh` | All stages on a RunPod GPU pod. |
 | `requirements_runpod.txt` | The packages that the RunPod PyTorch image does not have. |
@@ -44,6 +46,18 @@ bash run.sh train evaluate export                          # the training run
 ```
 
 Settings are environment variables (`RUN_NAME`, `EPOCHS`, `BATCH_SIZE`, `LR`, `WORKERS`; see the
-script). The output is in `/workspace/sky_head/runs/<RUN_NAME>/`: `pilot/pilot.json`,
+script). The download uses an rclone remote with read access to the Drive folder (see the header
+of the script). The output is in `/workspace/sky_head/runs/<RUN_NAME>/`: `pilot/pilot.json`,
 `overfit/overfit.json`, `train/` (`run.json`, `metrics.jsonl`, `last.pt`, `best.pt`, the
 measurements), and `export/` (`sky_head.onnx`, `sky_head.json`).
+
+## MVP Sky baseline
+
+On Windows with the MVP environment and graphs (`scripts/poc/ai_mask_mvp/README.md`), on a copy of
+the prepared test split (for example from the pod: `ssh ... 'tar -C /workspace/sky_head/prepared
+-cf - test' | tar -xf - -C build/tmp/mass13k_prepared`):
+
+```bash
+build/tmp/explore/venv_ai_mask_mvp/Scripts/python -I scripts/poc/sky_head/evaluate_mvp_sky.py \
+  --data-dir build/tmp/mass13k_prepared --split test --out results/sky_head/mvp_sky_test.json
+```

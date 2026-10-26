@@ -52,6 +52,7 @@ the PySide6 UI [`ai_mask_app.py`](scripts/poc/ai_mask_mvp/ai_mask_app.py) only c
 | SAM 2.1 Hiera tiny image encoder (F3 to F6) | `point_encoder.onnx`, float32, 109.4 MB | `point_encoder.mlmodelc`, float32, compute units ALL, 134.3 MB | Apache-2.0 |
 | SAM 2.1 tiny prompt encoder and mask decoder (F3 to F6) | `point_decoder.onnx`, float32, 21.2 MB | `point_decoder.mlmodelc`, float32, **CPU_ONLY**, 21.1 MB; point count N = 1 to 64 | Apache-2.0 |
 | People and sky head, P1 run 2, epoch 15 (F3, F4a) | `people_sky_head.onnx` and `people_sky_head.json` (thresholds), float32, 1.1 MB | `people_sky_head.mlmodelc`, float32, ALL, 1.1 MB | Own model (COCO 2017, Open Images V7) |
+| Fine sky head, run 1, epoch 15 (Sky; U17, [report](docs/exploration/sky_head_mass13k.md)) | `sky_head.onnx`, float32, 5.8 MB | `sky_head.mlmodelc`, float32, ALL, 5.9 MB (report section 11) | Own model; training data MaSS13K (U18) |
 | S3OD `s3od-synth` (F1, F2) | `subject_masks.onnx`: attention in 8 chained query chunks (`com.microsoft.MultiHeadAttention`), float16, layer 0 attention float32, 219.3 MB | `s3od.mlmodelc`: `float16_embeddings_attention_float32` (patch embedding and encoder attention float32, other ops float16), ALL, 271.2 MB | MIT; DINOv3 License for the encoder (ship the license text with the weights) |
 
 - The native Core ML models have the same input names, output names, and shapes as the ONNX

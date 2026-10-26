@@ -17,6 +17,7 @@ local; run the commands of the script README to make them again.
 | [`macos_coreml/`](macos_coreml/) | macOS Core ML verification of the accepted set, issue [#8](https://github.com/zidage/alcedo-ai-mask-lab/issues/8) | [macOS Core ML report](../docs/exploration/macos_coreml_verification.md) |
 | [`box_s3od_poc/`](box_s3od_poc/) | S3OD on the crop of a box (Sky and objects) | [Box S3OD report](../docs/exploration/box_s3od_poc.md) |
 | [`mam_poc/`](mam_poc/) | Matting Anything (MAM) for Sky and object boxes | [MAM report](../docs/exploration/mam_poc.md) |
+| [`sky_matte_labels/`](sky_matte_labels/) | Fine sky training labels from COCO and closed-form matting (README U17) | [Sky matte labels report](../docs/exploration/sky_matte_labels.md) |
 
 ## `p0_sam_feature_localization/`
 
@@ -115,3 +116,14 @@ macOS 27.0.1. `<model>` is `point_encoder`, `point_decoder`, `people_sky_head`, 
 | `native_<model>_ALL_first_runs.json`, `native_point_decoder_CPU_ONLY_first_runs.json`, `s3od_native_float16_embeddings_attention_float32_ALL_first_runs.json` | Nine first runs in new processes: load, first run, exit code, crash reports | `measure_graph_cost.py first-runs`, `measure_first_runs.py` |
 | `native_point_decoder*_point_counts.json` | Decoder call time with the same, alternating, and changing point counts (range and enumerated shapes) | `probe_decoder_point_counts.py` |
 | `mvp_pipeline_native_ALL_decoder_CPU_ONLY_cost*.json` (U15 defaults), `mvp_pipeline_native_ALL_cost*.json` (all ALL) | The MVP pipeline with all native models: load times, stage times, warm runs, memory | `measure_pipeline_cost.py`, `run_with_memory_sampling.py` |
+
+## `sky_matte_labels/`
+
+Scripts: [`scripts/poc/sky_matte_labels/`](../scripts/poc/sky_matte_labels/README.md). The
+photos, trimaps, labels (`alpha_label.png`, `label_weight.png`), and check sheets stay local in
+`build/tmp/explore/sky_labels/`.
+
+| File | Content | Script |
+| --- | --- | --- |
+| `selection_manifest.json` | Selection rules, candidate count per group, the 200 selected photos (COCO id, license, Flickr URL, group, coarse sky share), and the rejected downloads with the reason | `select_sky_photos.py` |
+| `label_stats.json` | Run 6 (final rules): trimap and matting parameters, and per photo the trimap, label, and stability statistics and the matting time | `make_sky_matte_labels.py` |

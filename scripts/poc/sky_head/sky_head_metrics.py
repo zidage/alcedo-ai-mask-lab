@@ -1,19 +1,23 @@
 """Measurements of a sky alpha against the target at 1024 x 1024 (issue #10).
 
-Per photo, only on the pixels with weight 1:
+Per photo, only on the pixels with weight 1. A sky photo has target >= 0.5 at one or more
+pixels; a photo without sky has none.
 
-  iou            IoU of (alpha >= 0.5) and (target >= 0.5); photos with an empty union are
-                 not counted
-  mae            mean |alpha - target|
-  edge_sad       sum |alpha - target| / 1000 in the edge band (the matting SAD)
-  edge_mse       mean (alpha - target)^2 in the edge band
-  edge_gradient  mean |grad(alpha) - grad(target)| in the edge band
-  boundary_f1    F1 of the boundary pixels of (alpha >= 0.5) and (target >= 0.5) with a match
-                 distance of BOUNDARY_TOLERANCE px (only photos with a target or an output
-                 boundary)
+  iou              IoU of (alpha >= 0.5) and (target >= 0.5) (sky photos only)
+  mae              mean |alpha - target|
+  edge_sad         sum |alpha - target| / 1000 in the edge band (the matting SAD)
+  edge_mse         mean (alpha - target)^2 in the edge band
+  edge_gradient    mean |grad(alpha) - grad(target)| in the edge band
+  boundary_f1      F1 of the boundary pixels of (alpha >= 0.5) and (target >= 0.5) with a match
+                   distance of BOUNDARY_TOLERANCE px (sky photos only)
+  false_sky_share  share of the pixels with alpha >= 0.5 (photos without sky only)
 
 The edge band is the target pixels with 0 < target < 1 and the pixels within EDGE_BAND px of
 a boundary pixel of (target >= 0.5): the area where the fine edge is.
+
+IoU and boundary F1 are not used on photos without sky: one false sky pixel would set them to 0
+and the mean would show the count of such photos, not the sky edge. false_sky_share measures
+these photos.
 
 The summary has the mean of each value over the counted photos.
 """
@@ -37,9 +41,12 @@ def photo_measurements(alpha: np.ndarray, target: np.ndarray, weight: np.ndarray
 
     use = weight >= 0.5
     pred, true = (alpha >= 0.5) & use, (target >= 0.5) & use
-    union = np.count_nonzero(pred | true)
-    result = {"iou": (np.count_nonzero(pred & true) / union) if union else None,
-              "mae": float(np.abs(alpha - target)[use].mean()) if use.any() else None}
+    has_sky = bool(true.any())
+    result = {"iou": (np.count_nonzero(pred & true) / np.count_nonzero(pred | true)
+                      if has_sky else None),
+              "mae": float(np.abs(alpha - target)[use].mean()) if use.any() else None,
+              "false_sky_share": (None if has_sky or not use.any()
+                                  else np.count_nonzero(pred) / np.count_nonzero(use))}
 
     true_edge = boundary(target >= 0.5)
     distance_to_true = ndimage.distance_transform_edt(~true_edge) if true_edge.any() else None
@@ -59,7 +66,7 @@ def photo_measurements(alpha: np.ndarray, target: np.ndarray, weight: np.ndarray
 
     pred_edge = boundary(alpha >= 0.5) & use
     true_edge &= use
-    if pred_edge.any() or true_edge.any():
+    if has_sky and (pred_edge.any() or true_edge.any()):
         if pred_edge.any() and true_edge.any():
             distance_to_pred = ndimage.distance_transform_edt(~pred_edge)
             precision = np.count_nonzero(
@@ -76,7 +83,8 @@ def photo_measurements(alpha: np.ndarray, target: np.ndarray, weight: np.ndarray
 
 
 def summary(measurements: list[dict]) -> dict:
-    keys = ("iou", "mae", "edge_sad", "edge_mse", "edge_gradient", "boundary_f1")
+    keys = ("iou", "mae", "edge_sad", "edge_mse", "edge_gradient", "boundary_f1",
+            "false_sky_share")
     out = {"photos": len(measurements)}
     for key in keys:
         values = [m[key] for m in measurements if m[key] is not None]

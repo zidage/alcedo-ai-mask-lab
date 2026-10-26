@@ -4,7 +4,8 @@
 Input:  --data-dir (prepared data), --train-split and --val-split, --sam2-repo (checkout at
         SAM2_COMMIT), --sam2-checkpoint (sam2.1_hiera_tiny.pt, CHECKPOINT_SHA256).
 Output: --out-dir/run.json (arguments, versions, hashes), metrics.jsonl (one line per epoch),
-        last.pt (each epoch), best.pt (highest val boundary_f1).
+        last.pt (each epoch), best.pt (highest val boundary_f1, on the sky photos;
+        sky_head_metrics.py).
 
 Three modes:
 
@@ -175,7 +176,7 @@ def main() -> int:
         terms["total"].backward()
         optimizer.step()
         step += 1
-        return {k: float(v) for k, v in terms.items()}
+        return {k: float(v.detach()) for k, v in terms.items()}
 
     if len(dataset) < args.batch_size:
         raise ValueError(f"{len(dataset)} training photos is less than --batch-size "
@@ -258,7 +259,7 @@ def main() -> int:
         save(last_path, epoch)
         print(f"[epoch {epoch}] loss {train_terms['total']:.4f} val iou {summary['iou']:.4f} "
               f"boundary_f1 {summary['boundary_f1']:.4f} edge_sad {summary['edge_sad']:.3f} "
-              f"(best {best:.4f})", flush=True)
+              f"false_sky {summary['false_sky_share'] or 0.0:.5f} (best {best:.4f})", flush=True)
         epoch += 1
     return 0
 

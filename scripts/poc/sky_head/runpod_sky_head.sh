@@ -9,9 +9,12 @@
 # are kept, and `train` continues from last.pt. Settings come from environment variables (the
 # defaults are below), for example:  RUN_NAME=run2 EPOCHS=30 bash runpod_sky_head.sh train
 #
-# Data: MaSS13K (README U18) from a Google Drive copy of the user (DRIVE_FILE_IDS). A Drive file
-# that many clients downloaded recently returns "Too many users have viewed or downloaded this
-# file recently" for up to 24 hours; the stage then stops with that error and can run again later.
+# Data: MaSS13K (README U18) from a Google Drive copy of the user (DRIVE_FOLDER_ID).
+#   DOWNLOAD_METHOD=rclone (default): authorized Drive API access with the rclone remote
+#     RCLONE_REMOTE (create it once: `rclone config create gdrive drive scope drive.readonly`
+#     with a token from `rclone authorize "drive"` on a computer with a browser).
+#   DOWNLOAD_METHOD=gdown: anonymous download. Google Drive refuses it from most data center
+#     addresses ("Too many users have viewed or downloaded this file recently").
 set -euo pipefail
 
 WORK=${WORK:-/workspace/sky_head}
@@ -30,7 +33,10 @@ PILOT_STEPS=${PILOT_STEPS:-60}
 OVERFIT_IMAGES=${OVERFIT_IMAGES:-16}
 OVERFIT_STEPS=${OVERFIT_STEPS:-300}
 
-# Google Drive copy of MaSS13K (folder 1mQ0RsmfumfqR8V83eRYQLzaZ53x_YkdX).
+DOWNLOAD_METHOD=${DOWNLOAD_METHOD:-rclone}
+RCLONE_REMOTE=${RCLONE_REMOTE:-gdrive}
+DRIVE_FOLDER_ID=${DRIVE_FOLDER_ID:-1mQ0RsmfumfqR8V83eRYQLzaZ53x_YkdX}
+# File ids in DRIVE_FOLDER_ID (for DOWNLOAD_METHOD=gdown).
 declare -A DRIVE_FILE_IDS=(
   [masks.zip]=1sfBh23Ntq0paRyut6x0GG2ia1WMOUVba
   [val.zip]=1zyUZ_-MJm9RLtbGGhQ8VePosHPby_0vV
@@ -80,16 +86,29 @@ stage_setup() {
   echo "$SAM2_CHECKPOINT_SHA256  $CHECKPOINT" | sha256sum -c -
 }
 
-stage_download() {
-  # Tries every file; a file that fails (for example the Drive quota) does not stop the others.
-  # The stage fails at the end when a file is missing.
-  mkdir -p "$DOWNLOAD"
+download_rclone() {
+  command -v rclone > /dev/null || { curl -s https://rclone.org/install.sh | bash > /dev/null; }
+  rclone listremotes | grep -qx "$RCLONE_REMOTE:" || {
+    echo "rclone remote $RCLONE_REMOTE does not exist: create it (see the header of this script)" >&2
+    return 1; }
+  rclone lsl "$RCLONE_REMOTE:" --drive-root-folder-id "$DRIVE_FOLDER_ID"
+  local names=()
+  for name in "${DOWNLOAD_ORDER[@]}"; do
+    [ -f "$DOWNLOAD/$name.done" ] || names+=("$name")
+  done
+  [ ${#names[@]} -gt 0 ] || return 0
+  printf '%s
+' "${names[@]}" > "$DOWNLOAD/files.txt"
+  rclone copy "$RCLONE_REMOTE:" "$DOWNLOAD" --drive-root-folder-id "$DRIVE_FOLDER_ID"     --files-from "$DOWNLOAD/files.txt" --transfers 4 --drive-chunk-size 64M --progress     --stats 60s --stats-one-line
+  for name in "${names[@]}"; do
+    sha256sum "$DOWNLOAD/$name" | tee "$DOWNLOAD/$name.done"
+  done
+}
+
+download_gdown() {
   local failed=()
   for name in "${DOWNLOAD_ORDER[@]}"; do
-    if [ -f "$DOWNLOAD/$name.done" ]; then
-      log "download: $name already done"
-      continue
-    fi
+    [ -f "$DOWNLOAD/$name.done" ] && continue
     log "download: $name"
     if "$WORK/venv/bin/gdown" -c "${DRIVE_FILE_IDS[$name]}" -O "$DOWNLOAD/$name"; then
       sha256sum "$DOWNLOAD/$name" | tee "$DOWNLOAD/$name.done"
@@ -97,11 +116,20 @@ stage_download() {
       failed+=("$name")
     fi
   done
-  ls -la "$DOWNLOAD"
   if [ ${#failed[@]} -gt 0 ]; then
-    echo "download failed: ${failed[*]} (run the download stage again later)" >&2
+    echo "download failed: ${failed[*]}" >&2
     return 1
   fi
+}
+
+stage_download() {
+  # Files with a <name>.done record (SHA-256) are complete and are not downloaded again.
+  mkdir -p "$DOWNLOAD"
+  "download_$DOWNLOAD_METHOD"
+  ls -la "$DOWNLOAD"
+  for name in "${DOWNLOAD_ORDER[@]}"; do
+    [ -f "$DOWNLOAD/$name.done" ] || { echo "missing: $name" >&2; return 1; }
+  done
   cat "$DOWNLOAD"/*.done > "$DOWNLOAD/sha256.txt"
 }
 

@@ -82,7 +82,7 @@ def main() -> int:
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--pilot-steps", type=int, default=0)
     parser.add_argument("--overfit-images", type=int, default=0)
-    parser.add_argument("--overfit-steps", type=int, default=300)
+    parser.add_argument("--overfit-steps", type=int, default=1200)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--seed", type=int, default=0)
     args = parser.parse_args()

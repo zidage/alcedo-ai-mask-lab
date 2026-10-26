@@ -58,7 +58,7 @@ def load_sample(item: dict) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     split_dir = Path(item["split_dir"])
     stem = item["stem"]
     with Image.open(split_dir / "images" / f"{stem}.jpg") as image:
-        photo = np.asarray(image.convert("RGB"))
+        photo = np.array(image.convert("RGB"))
     with Image.open(split_dir / "alpha" / f"{stem}.png") as image:
         alpha = np.asarray(image, dtype=np.float32) / 255.0
     if item.get("has_weight"):

@@ -3,8 +3,8 @@
 **Date:** 2026-10-26. **Issue:** [#10](https://github.com/zidage/alcedo-ai-mask-lab/issues/10).
 **Code:** [`scripts/poc/sky_head/`](../../scripts/poc/sky_head/README.md).
 **Results:** [`results/sky_head/`](../../results/sky_head/).
-**Status:** run 1 trained, measured, and exported; the ONNX Runtime comparison is above the export
-tolerance (section 6, user decision open); user check of the sheets open.
+**Status:** run 1 trained, measured, and exported; export tolerance 1e-3 accepted by the user
+2026-10-26 (section 6); user check of the sheets open.
 
 > **Photos.** MaSS13K photos (README U18). The comparison sheets show MaSS13K photos and stay
 > local in `build/tmp/explore/sky_head/sheets_test/` (`*.jpg` is in `.gitignore`). Only text
@@ -40,9 +40,9 @@ Sky than the MVP, and at which cost in the product?
   section 7); `sky_head.onnx` is 5.8 MB (1.44 M parameters). The head uses the outputs
   of the encoder that the photo open already runs, so Sky needs no second image encoder.
 - **Export:** ONNX Runtime 1.31 on the CPU differs from PyTorch by up to 4.0e-4 (alpha) on 8 val
-  photos, more than the 1e-4 tolerance of the export script. The cause is the float32 reductions
-  of ONNX Runtime in GroupNorm over up to 2 M values (section 6). The difference is about 1/10 of
-  one 8-bit alpha level. The tolerance is a user decision.
+  photos. The cause is the float32 reductions of ONNX Runtime in GroupNorm over up to 2 M values
+  (section 6). The difference is about 1/10 of one 8-bit alpha level. The user accepted it
+  (2026-10-26): the export tolerance is now 1e-3, and the export passes.
 
 ## 3. Inputs
 
@@ -115,8 +115,10 @@ misses sky regions between trees. The worst photos are sky through glass from in
 ## 6. ONNX export
 
 `export_sky_head_onnx.py` (opset 17) wrote `sky_head.onnx` (5,821,904 bytes, SHA-256
-`a6c555e7...4788`) and stopped with an error: ONNX Runtime 1.31 (CPU) against PyTorch (CPU,
-float32) maximum 4.0e-4 on 8 val photos (tolerance 1e-4).
+`a6c555e7...4788`): ONNX Runtime 1.31 (CPU) against PyTorch (CPU, float32) maximum 4.0e-4 on 8 val
+photos. The first export used a tolerance of 1e-4 and stopped with an error; after the user
+decision below, the export ran again with 1e-3 and passed (the same file, the same SHA-256;
+`results/sky_head/run1/sky_head.json`).
 
 Checks (local scripts on the pod, results here):
 
@@ -130,9 +132,10 @@ Checks (local scripts on the pod, results here):
 | DirectML (onnxruntime-directml 1.24.4) against CPU | at most 7.6e-4 on 38 test photos |
 
 The difference comes from float32 sums over many values in ONNX Runtime; the graph is correct.
-4e-4 is about 1/10 of one 8-bit alpha level (1/255 = 3.9e-3). Options for the user: accept a
-tolerance of 1e-3 for this head (with this measurement as the reason), or keep 1e-4 and change the
-head (for example fewer normalized pixels at 1,024), which needs a new training run.
+4e-4 is about 1/10 of one 8-bit alpha level (1/255 = 3.9e-3).
+
+**User decision (2026-10-26):** the difference is in the permitted range. The export tolerance of
+the sky head is 1e-3 (about a quarter of one 8-bit alpha level). The head is not changed.
 
 ## 7. Cost
 
@@ -147,7 +150,6 @@ GPU memory and macOS Core ML are not measured.
 
 ## 8. Limits and open points
 
-- **Export tolerance** (section 6): user decision.
 - **Data domain:** MaSS13K photos are smartphone photos of Chinese cities (Chengdu, Tianjin,
   Wuhan, Yinchuan), mostly street level. Landscapes, mountains, sunsets, night sky, and RAW
   photos with a high dynamic range are rare. The quality photos of Alcedo Studio users are not

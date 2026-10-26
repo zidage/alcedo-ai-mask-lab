@@ -14,7 +14,7 @@
   "opset": 17
  },
  "onnxruntime": "1.31.0",
- "tolerance": 0.0001,
+ "tolerance": 0.001,
  "max_abs_difference": 0.0004037320613861084,
  "photos": [
   {

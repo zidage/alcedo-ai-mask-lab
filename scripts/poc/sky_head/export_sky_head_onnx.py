@@ -10,6 +10,11 @@ Output: --out-dir/sky_head.onnx (inputs image_embed [1,256,64,64], high_res_feat
 Comparison: the encoder outputs of --compare-photos photos (float32 PyTorch) go into the
 PyTorch head and into ONNX Runtime 1.31 on the CPU. Acceptance: maximum absolute alpha
 difference <= TOLERANCE on every photo; the script stops with an error otherwise.
+
+TOLERANCE is 1e-3 (accepted by the user 2026-10-26; docs/exploration/sky_head_mass13k.md,
+section 6): ONNX Runtime sums the GroupNorm statistics over up to 2 M float32 values per group,
+and run 1 differs from PyTorch by up to 4.0e-4 (PyTorch float32 against float64: at most 8.6e-6).
+1e-3 is about a quarter of one 8-bit alpha level.
 """
 
 from __future__ import annotations
@@ -26,7 +31,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import sky_head_data as sd  # noqa: E402
 
 OPSET = 17
-TOLERANCE = 1e-4
+TOLERANCE = 1e-3
 INPUT_NAMES = ["image_embed", "high_res_feats_0", "high_res_feats_1", "pixel_values"]
 
 
